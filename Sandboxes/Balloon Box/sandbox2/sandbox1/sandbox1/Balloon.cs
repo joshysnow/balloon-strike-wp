@@ -107,6 +107,22 @@ namespace sandbox2
             }
         }
 
+        public bool Intersects(Vector2 position)
+        {
+            if (position.X >= _positionUL.X && position.X <= _positionLR.X &&
+                position.Y >= _positionUL.Y && position.Y <= _positionLR.Y)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Pop()
+        {
+            _state = BalloonState.Dead;
+        }
+
         private void UpdateAlive()
         {
             if (_positionLR.Y <= 0)

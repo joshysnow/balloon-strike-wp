@@ -31,10 +31,13 @@ namespace sandbox2
 
         private LinkedList<Balloon> _balloonMemory;
         private List<Balloon> _balloons;
+        private float _balloonScale;
 
         private SpriteFont _debugFont;
 
         private SpawnTimer _spawnTimer;
+
+        private List<GestureSample> _gestures;
 
         private int _screenWidth;
         private int _screenHeight;
@@ -79,6 +82,10 @@ namespace sandbox2
 
             _balloonMemory = new LinkedList<Balloon>();
             _balloons = new List<Balloon>();
+            _balloonScale = 0.5f;
+
+            TouchPanel.EnabledGestures = GestureType.Tap;
+            _gestures = new List<GestureSample>();
 
             base.Initialize();
         }
@@ -129,24 +136,59 @@ namespace sandbox2
                 this.Exit();
             }
 
+            UpdatePlayerInput();
+            UpdateBalloons(gameTime);
+            UpdateTimer(gameTime);
+
+            base.Update(gameTime);
+        }
+
+        private void UpdatePlayerInput()
+        {
+            while (TouchPanel.IsGestureAvailable)
+            {
+                _gestures.Add(TouchPanel.ReadGesture());
+            }
+
+            if (_gestures.Count > 0)
+            {
+                foreach (GestureSample gesture in _gestures)
+                {
+                    if (gesture.GestureType == GestureType.Tap)
+                    {
+                        List<Balloon> intersections = (from b in _balloons where b.Intersects(gesture.Position) select b).ToList();
+                        if (intersections.Count() > 0)
+                        {
+                            Balloon toPop = intersections.Last();
+                            toPop.Pop();
+                        }
+                    }
+                }
+            }
+
+            _gestures.Clear();
+        }
+
+        private void UpdateBalloons(GameTime gameTime)
+        {
             int index = 0;
-            Balloon b;
+            Balloon balloon;
             while (index < _balloons.Count)
             {
-                b = _balloons[index];
+                balloon = _balloons[index];
 
-                switch (b.State)
+                switch (balloon.State)
                 {
                     case BalloonState.Alive:
                         {
-                            b.Update(gameTime);
+                            balloon.Update(gameTime);
                             index++;
                         }
                         break;
                     case BalloonState.Dead:
                         {
-                            b.Uninitialize();
-                            _balloonMemory.AddFirst(b);
+                            balloon.Uninitialize();
+                            _balloonMemory.AddFirst(balloon);
                             _balloons.RemoveAt(index);
                         }
                         break;
@@ -154,13 +196,14 @@ namespace sandbox2
                         break;
                 }
             }
+        }
 
+        private void UpdateTimer(GameTime gameTime)
+        {
             if (_spawnTimer.Update(gameTime))
             {
                 TimerElapsed();
             }
-
-            base.Update(gameTime);
         }
 
         /// <summary>
@@ -181,10 +224,15 @@ namespace sandbox2
             }
 
             _spriteBatch.DrawString(_debugFont, "Memory Pool: " + _balloonMemory.Count, Vector2.Zero, Color.White);
-
+            _spriteBatch.DrawString(_debugFont, "Spawn Count: " + _spawnCount, new Vector2(0, _debugFont.LineSpacing), Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void TimerElapsed()
+        {
+            SpawnRedBalloon();
         }
 
         private void SpawnRedBalloon()
@@ -202,15 +250,10 @@ namespace sandbox2
             }
 
             _spawnCount++;
-            int x = _randomPosition.Next(_screenWidth - _redTexture.Width);
+            int x = _randomPosition.Next(_screenWidth - (int)(_redTexture.Width * _balloonScale));
             spawn.Colour = BalloonColour.Red;
-            spawn.Initialize(ref _redTexture, new Vector2(x, _screenHeight), _spawnVelocity, 0.5f);
+            spawn.Initialize(ref _redTexture, new Vector2(x, _screenHeight), _spawnVelocity, _balloonScale);
             _balloons.Add(spawn);
-        }
-
-        private void TimerElapsed()
-        {
-            SpawnRedBalloon();
         }
     }
 }
