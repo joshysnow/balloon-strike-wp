@@ -34,12 +34,7 @@ namespace sandbox2
 
         private SpriteFont _debugFont;
 
-        private struct Timer
-        {
-            public float TimePassed;
-            public float TimeToSpawn;
-        }
-        private Timer _myTimer;
+        private SpawnTimer _spawnTimer;
 
         private int _screenWidth;
         private int _screenHeight;
@@ -75,7 +70,8 @@ namespace sandbox2
         /// </summary>
         protected override void Initialize()
         {
-            _myTimer = new Timer() { TimePassed = 0f, TimeToSpawn = 25000f };
+            _spawnTimer = new SpawnTimer();
+            _spawnTimer.Initialize(5000);
 
             _spawnCount = 0;
             _spawnVelocity = new Vector2(0, -5.1f);
@@ -103,11 +99,11 @@ namespace sandbox2
 
             // Populate pool.
             Balloon b;
-            while (_spawnCount < 7)
+            while (_spawnCount < 5)
             {
-                b = new Balloon("Balloon" + _spawnCount++, ref _redTexture);
-                b.Velocity = _spawnVelocity;
+                b = new Balloon();
                 _balloonMemory.AddFirst(b);
+                _spawnCount++;
             }
         }
 
@@ -117,7 +113,7 @@ namespace sandbox2
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            this.Content.Unload();
         }
 
         /// <summary>
@@ -138,23 +134,29 @@ namespace sandbox2
             while (index < _balloons.Count)
             {
                 b = _balloons[index];
-                if (b.Position.Y < 0)
+
+                switch (b.State)
                 {
-                    _balloonMemory.AddFirst(b);
-                    _balloons.RemoveAt(index);
-                }
-                else
-                {
-                    b.Update(gameTime);
-                    index++;
+                    case BalloonState.Alive:
+                        {
+                            b.Update(gameTime);
+                            index++;
+                        }
+                        break;
+                    case BalloonState.Dead:
+                        {
+                            b.Uninitialize();
+                            _balloonMemory.AddFirst(b);
+                            _balloons.RemoveAt(index);
+                        }
+                        break;
+                    default:
+                        break;
                 }
             }
 
-            _myTimer.TimePassed += gameTime.TotalGameTime.Milliseconds;
-
-            if (_myTimer.TimePassed >= _myTimer.TimeToSpawn)
+            if (_spawnTimer.Update(gameTime))
             {
-                _myTimer.TimePassed %= _myTimer.TimeToSpawn;
                 TimerElapsed();
             }
 
@@ -185,7 +187,7 @@ namespace sandbox2
             base.Draw(gameTime);
         }
 
-        private void TimerElapsed()
+        private void SpawnRedBalloon()
         {
             Balloon spawn;
 
@@ -196,17 +198,19 @@ namespace sandbox2
             }
             else
             {
-                spawn = new Balloon("Balloon" + _spawnCount, ref _redTexture);
-                spawn.Colour = BalloonColour.Red;
-                spawn.Velocity = _spawnVelocity;
-                _spawnCount++;
+                spawn = new Balloon();
             }
 
-            // Next position from 0 to the visible edge of the texture.
+            _spawnCount++;
             int x = _randomPosition.Next(_screenWidth - _redTexture.Width);
-            spawn.SetPosition(x,_screenHeight);
-
+            spawn.Colour = BalloonColour.Red;
+            spawn.Initialize(ref _redTexture, new Vector2(x, _screenHeight), _spawnVelocity, 0.5f);
             _balloons.Add(spawn);
+        }
+
+        private void TimerElapsed()
+        {
+            SpawnRedBalloon();
         }
     }
 }
