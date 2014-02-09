@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sandbox3", "sandbox1\sandbox1\sandbox3.csproj", "{C989F3D5-9FCE-4571-988F-6CE856476BC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sandbox3Content", "sandbox1\sandbox1Content\sandbox3Content.contentproj", "{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Windows Phone = Debug|Windows Phone
+		Release|Windows Phone = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C989F3D5-9FCE-4571-988F-6CE856476BC0}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{C989F3D5-9FCE-4571-988F-6CE856476BC0}.Debug|Windows Phone.Build.0 = Debug|Windows Phone
+		{C989F3D5-9FCE-4571-988F-6CE856476BC0}.Debug|Windows Phone.Deploy.0 = Debug|Windows Phone
+		{C989F3D5-9FCE-4571-988F-6CE856476BC0}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+		{C989F3D5-9FCE-4571-988F-6CE856476BC0}.Release|Windows Phone.Build.0 = Release|Windows Phone
+		{C989F3D5-9FCE-4571-988F-6CE856476BC0}.Release|Windows Phone.Deploy.0 = Release|Windows Phone
+		{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
