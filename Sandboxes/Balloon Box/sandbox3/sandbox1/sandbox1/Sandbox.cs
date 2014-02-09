@@ -34,6 +34,7 @@ namespace sandbox3
         private float _balloonScale;
 
         private SpriteFont _debugFont;
+        private SoundEffect _popEffect;
 
         private SpawnTimer _spawnTimer;
 
@@ -74,7 +75,7 @@ namespace sandbox3
         protected override void Initialize()
         {
             _spawnTimer = new SpawnTimer();
-            _spawnTimer.Initialize(5000);
+            _spawnTimer.Initialize(2500);
 
             _spawnCount = 0;
             _spawnVelocity = new Vector2(0, -5.1f);
@@ -103,10 +104,11 @@ namespace sandbox3
             _blueTexture = this.Content.Load<Texture2D>("Balloons/blue200");
             _greenTexture = this.Content.Load<Texture2D>("Balloons/green200");
             _debugFont = this.Content.Load<SpriteFont>("Text");
+            _popEffect = this.Content.Load<SoundEffect>("Sounds/snowball_impact");
 
             // Populate pool.
             Balloon b;
-            while (_spawnCount < 5)
+            while (_spawnCount < 7)
             {
                 b = new Balloon();
                 _balloonMemory.AddFirst(b);
@@ -136,9 +138,9 @@ namespace sandbox3
                 this.Exit();
             }
 
-            UpdatePlayerInput();
-            UpdateBalloons(gameTime);
-            UpdateTimer(gameTime);
+            this.UpdatePlayerInput();
+            this.UpdateBalloons(gameTime);
+            this.UpdateTimer(gameTime);
 
             base.Update(gameTime);
         }
@@ -159,8 +161,7 @@ namespace sandbox3
                         List<Balloon> intersections = (from b in _balloons where b.Intersects(gesture.Position) select b).ToList();
                         if (intersections.Count() > 0)
                         {
-                            Balloon toPop = intersections.Last();
-                            toPop.Pop();
+                            intersections.Last().Pop();
                         }
                     }
                 }
@@ -252,7 +253,7 @@ namespace sandbox3
             _spawnCount++;
             int x = _randomPosition.Next(_screenWidth - (int)(_redTexture.Width * _balloonScale));
             spawn.Colour = BalloonColour.Red;
-            spawn.Initialize(ref _redTexture, new Vector2(x, _screenHeight), _spawnVelocity, _balloonScale);
+            spawn.Initialize(ref _redTexture, ref _popEffect, new Vector2(x, _screenHeight), _spawnVelocity, _balloonScale);
             _balloons.Add(spawn);
         }
     }

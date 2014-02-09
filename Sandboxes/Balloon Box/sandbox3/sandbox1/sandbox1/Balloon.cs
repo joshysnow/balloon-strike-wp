@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace sandbox3
 {
@@ -20,6 +21,7 @@ namespace sandbox3
     public class Balloon
     {
         private Texture2D _texture;
+        private SoundEffect _popSound;
         private Vector2 _positionUL;
         private Vector2 _positionLR;
         private Vector2 _velocity;
@@ -59,9 +61,10 @@ namespace sandbox3
             _initialized = false;
         }
 
-        public void Initialize(ref Texture2D texture, Vector2 position, Vector2 velocity, float scale)
+        public void Initialize(ref Texture2D texture, ref SoundEffect pop, Vector2 position, Vector2 velocity, float scale)
         {
             _texture = texture;
+            _popSound = pop;
             _positionUL = position;
             _velocity = velocity;
             _scale = scale;
@@ -120,7 +123,13 @@ namespace sandbox3
 
         public void Pop()
         {
+            if (!_initialized)
+            {
+                return;
+            }
+
             _state = BalloonState.Dead;
+            _popSound.Play();
         }
 
         private void UpdateAlive()
