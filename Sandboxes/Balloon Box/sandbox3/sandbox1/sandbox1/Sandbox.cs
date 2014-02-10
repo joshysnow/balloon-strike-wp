@@ -33,12 +33,14 @@ namespace sandbox3
         private List<Balloon> _balloons;
         private float _balloonScale;
 
-        private SpriteFont _debugFont;
+        private Texture2D _popTexture;
         private SoundEffect _popEffect;
 
         private SpawnTimer _spawnTimer;
 
         private List<GestureSample> _gestures;
+
+        private SpriteFont _debugFont;
 
         private int _screenWidth;
         private int _screenHeight;
@@ -104,7 +106,8 @@ namespace sandbox3
             _blueTexture = this.Content.Load<Texture2D>("Balloons/blue200");
             _greenTexture = this.Content.Load<Texture2D>("Balloons/green200");
             _debugFont = this.Content.Load<SpriteFont>("Text");
-            _popEffect = this.Content.Load<SoundEffect>("Sounds/snowball_impact");
+            _popEffect = this.Content.Load<SoundEffect>("Sounds/snowball_car_impact1");
+            _popTexture = this.Content.Load<Texture2D>("Effects/explosion");
 
             // Populate pool.
             Balloon b;
@@ -181,6 +184,7 @@ namespace sandbox3
                 switch (balloon.State)
                 {
                     case BalloonState.Alive:
+                    case BalloonState.Popped:
                         {
                             balloon.Update(gameTime);
                             index++;
@@ -253,7 +257,7 @@ namespace sandbox3
             _spawnCount++;
             int x = _randomPosition.Next(_screenWidth - (int)(_redTexture.Width * _balloonScale));
             spawn.Colour = BalloonColour.Red;
-            spawn.Initialize(ref _redTexture, ref _popEffect, new Vector2(x, _screenHeight), _spawnVelocity, _balloonScale);
+            spawn.Initialize(ref _redTexture, ref _popTexture, ref _popEffect, new Vector2(x, _screenHeight), _spawnVelocity, _balloonScale);
             _balloons.Add(spawn);
         }
     }

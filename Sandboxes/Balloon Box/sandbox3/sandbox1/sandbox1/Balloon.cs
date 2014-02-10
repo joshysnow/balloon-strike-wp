@@ -15,23 +15,28 @@ namespace sandbox3
     public enum BalloonState : byte
     {
         Alive   = 0x01,
-        Dead    = 0x02
+        Dead    = 0x02,
+        Popped  = 0x04
     }
 
     public class Balloon
     {
-        private Texture2D _texture;
+        private Texture2D _balloonTexture;
+        private Texture2D _popTexture;
         private SoundEffect _popSound;
         private Vector2 _positionUL;
         private Vector2 _positionLR;
+        private Vector2 _explosionCoordinate;
         private Vector2 _velocity;
         private Vector2 _origin;
         private BalloonState _state;
         private bool _initialized;
         private bool _isAvailable;
         private float _scale;
-        private float height;
-        private float width;
+        private float _animationDuration;
+        private float _animationElapsed;
+        private int height;
+        private int width;
 
         public BalloonColour Colour
         {
@@ -59,18 +64,22 @@ namespace sandbox3
         public Balloon()
         {
             _initialized = false;
+            _isAvailable = true;
+            _animationDuration = 125f;
+            _animationElapsed = 0f;
         }
 
-        public void Initialize(ref Texture2D texture, ref SoundEffect pop, Vector2 position, Vector2 velocity, float scale)
+        public void Initialize(ref Texture2D ballTexture, ref Texture2D popTexture, ref SoundEffect pop, Vector2 position, Vector2 velocity, float scale)
         {
-            _texture = texture;
+            _balloonTexture = ballTexture;
+            _popTexture = popTexture;
             _popSound = pop;
             _positionUL = position;
             _velocity = velocity;
             _scale = scale;
 
-            width = _texture.Width * scale;
-            height = _texture.Height * scale;
+            width = (int)(_balloonTexture.Width * scale);
+            height = (int)(_balloonTexture.Height * scale);
 
             _positionLR = new Vector2(position.X + width, position.Y + height);
             _origin = new Vector2(width, height);
@@ -105,6 +114,11 @@ namespace sandbox3
                         this.UpdateDead();
                     }
                     break;
+                case BalloonState.Popped:
+                    {
+                        this.UpdatePopped(gameTime);
+                    }
+                    break;
                 default:
                     break;
             }
@@ -128,8 +142,16 @@ namespace sandbox3
                 return;
             }
 
-            _state = BalloonState.Dead;
+            _state = BalloonState.Popped;
             _popSound.Play();
+
+            float centerX = (_positionUL.X + _positionLR.X) / 2;
+            float centerY = (_positionUL.Y + _positionLR.Y) / 2;
+
+            float width = (_popTexture.Width * 0.25f / 2);
+            float height = (_popTexture.Height * 0.25f) / 2;
+
+            _explosionCoordinate = new Vector2((centerX - width), (centerY - height));
         }
 
         private void UpdateAlive()
@@ -148,6 +170,19 @@ namespace sandbox3
 
         }
 
+        private void UpdatePopped(GameTime gameTime)
+        {
+            if (_animationElapsed >= _animationDuration)
+            {
+                _state = BalloonState.Dead;
+                _animationElapsed = 0f;
+            }
+            else
+            {
+                _animationElapsed += gameTime.ElapsedGameTime.Milliseconds;
+            }
+        }
+
         public void Draw(ref SpriteBatch spriteBatch)
         {
             if (!_initialized)
@@ -155,7 +190,33 @@ namespace sandbox3
                 return;
             }
 
-            spriteBatch.Draw(_texture, _positionUL, null, Color.White, 0f, Vector2.Zero, _scale, SpriteEffects.None, 0f);
+            switch (_state)
+            {
+                case BalloonState.Alive:
+                    {
+                        this.DrawBalloon(ref spriteBatch);
+                    }
+                    break;
+
+                case BalloonState.Popped:
+                    {
+                        this.DrawExplosion(ref spriteBatch);
+                    }
+                    break;
+                case BalloonState.Dead:
+                default:
+                    break;
+            }
+        }
+
+        private void DrawBalloon(ref SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw( _balloonTexture, _positionUL, null, Color.White, 0f, Vector2.Zero, _scale, SpriteEffects.None, 0f);
+        }
+
+        private void DrawExplosion(ref SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_popTexture, _explosionCoordinate, null, Color.White, 0f, Vector2.Zero, 0.25f, SpriteEffects.None, 0f);
         }
     }
 }

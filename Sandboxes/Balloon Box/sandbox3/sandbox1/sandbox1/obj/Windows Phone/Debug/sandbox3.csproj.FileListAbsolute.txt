@@ -20,3 +20,11 @@ bin\Windows Phone\Debug\
 D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox3\sandbox1\sandbox1\bin\Windows Phone\Debug\sandbox2.xap
 D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox3\sandbox1\sandbox1\obj\Windows Phone\Debug\XapCacheFile.xml
 D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox3\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Sounds\snowball_impact.xnb
+D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox3\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Effects\explosion.xnb
+D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox3\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Sounds\snowball_car_impact1.xnb
+D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox3\sandbox1\sandbox1\bin\Windows Phone\Debug\sandbox2.xap
+D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox3\sandbox1\sandbox1\obj\Windows Phone\Debug\XapCacheFile.xml
+D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox3\sandbox1\sandbox1\bin\Windows Phone\Debug\AppManifest.xaml
+D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox3\sandbox1\sandbox1\obj\Windows Phone\Debug\WMAppManifest.xml.g
+D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox3\sandbox1\sandbox1\obj\Windows Phone\Debug\WMAppManifest.xml
+bin\Windows Phone\Debug\
