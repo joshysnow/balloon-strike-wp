@@ -21,10 +21,6 @@ namespace sandbox3
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private Texture2D _greenTexture;
-        private Texture2D _redTexture;
-        private Texture2D _blueTexture;
-
         private int _spawnCount;
         private Vector2 _spawnVelocity;
         private Random _randomPosition;
@@ -33,8 +29,10 @@ namespace sandbox3
         private List<Balloon> _balloons;
         private float _balloonScale;
 
-        private Texture2D _popTexture;
         private SoundEffect _popEffect;
+        private SoundEffectInstance _pop;
+        private Animation _popAnimation;
+        private Animation _redMoveAnimation;
 
         private SpawnTimer _spawnTimer;
 
@@ -90,9 +88,12 @@ namespace sandbox3
             TouchPanel.EnabledGestures = GestureType.Tap;
             _gestures = new List<GestureSample>();
 
+            // When the game is not active, close.
+            this.Deactivated += SandboxDeactivated;
+
             base.Initialize();
         }
-
+        
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -102,12 +103,15 @@ namespace sandbox3
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _redTexture = this.Content.Load<Texture2D>("Balloons/red200");
-            _blueTexture = this.Content.Load<Texture2D>("Balloons/blue200");
-            _greenTexture = this.Content.Load<Texture2D>("Balloons/green200");
+            Texture2D redTexture = this.Content.Load<Texture2D>("Balloons/red200");
+            Texture2D blueTexture = this.Content.Load<Texture2D>("Balloons/blue200");
+            Texture2D greenTexture = this.Content.Load<Texture2D>("Balloons/green200");
+            Texture2D popTexture = this.Content.Load<Texture2D>("Effects/explosion");
             _debugFont = this.Content.Load<SpriteFont>("Text");
             _popEffect = this.Content.Load<SoundEffect>("Sounds/snowball_car_impact1");
-            _popTexture = this.Content.Load<Texture2D>("Effects/explosion");
+
+            _popAnimation = new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125f, 0.25f);
+            _redMoveAnimation = new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0f, 0.5f);
 
             // Populate pool.
             Balloon b;
@@ -224,12 +228,13 @@ namespace sandbox3
             int index = 0;
             while (index < _balloons.Count)
             {
-                _balloons[index].Draw(ref _spriteBatch);
+                _balloons[index].Draw(_spriteBatch);
                 index++;
             }
 
             _spriteBatch.DrawString(_debugFont, "Memory Pool: " + _balloonMemory.Count, Vector2.Zero, Color.White);
             _spriteBatch.DrawString(_debugFont, "Spawn Count: " + _spawnCount, new Vector2(0, _debugFont.LineSpacing), Color.White);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
@@ -255,10 +260,15 @@ namespace sandbox3
             }
 
             _spawnCount++;
-            int x = _randomPosition.Next(_screenWidth - (int)(_redTexture.Width * _balloonScale));
+            int x = _randomPosition.Next(_screenWidth - (int)(_redMoveAnimation.AnimationTexture.Width * _balloonScale));
             spawn.Colour = BalloonColour.Red;
-            spawn.Initialize(ref _redTexture, ref _popTexture, ref _popEffect, new Vector2(x, _screenHeight), _spawnVelocity, _balloonScale);
+            spawn.Initialize(_redMoveAnimation, _popAnimation, _popEffect, new Vector2(x, _screenHeight), _spawnVelocity, _balloonScale);
             _balloons.Add(spawn);
+        }
+
+        private void SandboxDeactivated(object sender, EventArgs e)
+        {
+            this.Exit();
         }
     }
 }
