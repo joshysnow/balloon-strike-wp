@@ -21,24 +21,36 @@ namespace sandbox4
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private int _score;
+        private int _sunsMood;
         private int _spawnCount;
-        private Vector2 _spawnVelocity;
         private Random _randomPosition;
 
         private LinkedList<Balloon> _balloonMemory;
         private List<Balloon> _balloons;
         private float _balloonScale;
 
+        private Vector2 _redVelocity;
+        private Vector2 _greenVelocity;
+        private Vector2 _blueVelocity;
+
         private SoundEffect _popEffect;
-        private SoundEffectInstance _pop;
         private Animation _popAnimation;
         private Animation _redMoveAnimation;
+        private Animation _greenMoveAnimation;
+        private Animation _blueMoveAnimation;
 
-        private SpawnTimer _spawnTimer;
+        private MonoSpawnTimer _greenTimer;
+        private VariableSpawnTimer _blueTimer;
+        private VariableSpawnTimer _redTimer;
 
         private List<GestureSample> _gestures;
 
         private SpriteFont _debugFont;
+        private SpriteFont _displayFont;
+        private Vector2 _debugPosition;
+        private Vector2 _sunPosition;
+        private const byte _spacing = 10;
 
         private int _screenWidth;
         private int _screenHeight;
@@ -74,12 +86,21 @@ namespace sandbox4
         /// </summary>
         protected override void Initialize()
         {
-            _spawnTimer = new SpawnTimer();
-            _spawnTimer.Initialize(2500);
+            _greenTimer = new MonoSpawnTimer();
+            _greenTimer.Initialize(1500);
+
+            _blueTimer = new VariableSpawnTimer();
+            _blueTimer.Initialize(5000, 0.98f, 1500);
+
+            _redTimer = new VariableSpawnTimer();
+            _redTimer.Initialize(15000, 0.98f, 2500);
 
             _spawnCount = 0;
-            _spawnVelocity = new Vector2(0, -5.1f);
             _randomPosition = new Random(DateTime.Now.Millisecond);
+
+            _redVelocity = new Vector2(0, -9.2f);
+            _greenVelocity = new Vector2(0, -5.1f);
+            _blueVelocity = new Vector2(0, -7.15f);
 
             _balloonMemory = new LinkedList<Balloon>();
             _balloons = new List<Balloon>();
@@ -87,6 +108,9 @@ namespace sandbox4
 
             TouchPanel.EnabledGestures = GestureType.Tap;
             _gestures = new List<GestureSample>();
+
+            _score = 0;
+            _sunsMood = 3;
 
             // When the game is not active, close.
             this.Deactivated += SandboxDeactivated;
@@ -107,15 +131,21 @@ namespace sandbox4
             Texture2D blueTexture = this.Content.Load<Texture2D>("Balloons/blue200");
             Texture2D greenTexture = this.Content.Load<Texture2D>("Balloons/green200");
             Texture2D popTexture = this.Content.Load<Texture2D>("Effects/explosion");
-            _debugFont = this.Content.Load<SpriteFont>("Text");
+            _debugFont = this.Content.Load<SpriteFont>("DebugText");
+            _displayFont = this.Content.Load<SpriteFont>("Text");
             _popEffect = this.Content.Load<SoundEffect>("Sounds/snowball_car_impact1");
 
             _popAnimation = new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125f, 0.25f);
             _redMoveAnimation = new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0f, 0.5f);
+            _greenMoveAnimation = new Animation(greenTexture, true, greenTexture.Width, greenTexture.Height, 0f, 0.5f);
+            _blueMoveAnimation = new Animation(blueTexture, true, blueTexture.Width, blueTexture.Height, 0f, 0.5f);
+
+            _sunPosition = new Vector2(_spacing, 0);
+            _debugPosition = new Vector2(_spacing, _screenHeight - _debugFont.LineSpacing);
 
             // Populate pool.
             Balloon b;
-            while (_spawnCount < 7)
+            while (_spawnCount < 10)
             {
                 b = new Balloon();
                 _balloonMemory.AddFirst(b);
@@ -147,7 +177,7 @@ namespace sandbox4
 
             this.UpdatePlayerInput();
             this.UpdateBalloons(gameTime);
-            this.UpdateTimer(gameTime);
+            this.UpdateSpawnTimers(gameTime);
 
             base.Update(gameTime);
         }
@@ -169,6 +199,7 @@ namespace sandbox4
                         if (intersections.Count() > 0)
                         {
                             intersections.Last().Pop();
+                            _score += 10;
                         }
                     }
                 }
@@ -207,11 +238,21 @@ namespace sandbox4
             }
         }
 
-        private void UpdateTimer(GameTime gameTime)
+        private void UpdateSpawnTimers(GameTime gameTime)
         {
-            if (_spawnTimer.Update(gameTime))
+            if (_greenTimer.Update(gameTime))
             {
-                TimerElapsed();
+                SpawnBalloon(BalloonColour.Green);
+            }
+
+            if (_blueTimer.Update(gameTime))
+            {
+                SpawnBalloon(BalloonColour.Blue);
+            }
+
+            if (_redTimer.Update(gameTime))
+            {
+                SpawnBalloon(BalloonColour.Red);
             }
         }
 
@@ -232,20 +273,20 @@ namespace sandbox4
                 index++;
             }
 
-            _spriteBatch.DrawString(_debugFont, "Memory Pool: " + _balloonMemory.Count, Vector2.Zero, Color.White);
-            _spriteBatch.DrawString(_debugFont, "Spawn Count: " + _spawnCount, new Vector2(0, _debugFont.LineSpacing), Color.White);
+            string scoreText = "Score: " + _score;
+            Vector2 scoreTextLength = _displayFont.MeasureString(scoreText);
+            Vector2 scorePosition = new Vector2(_screenWidth - scoreTextLength.X - _spacing, 0);
 
+            _spriteBatch.DrawString(_displayFont, "Sun Mood: " + _sunsMood, _sunPosition, Color.Gold);
+            _spriteBatch.DrawString(_displayFont, scoreText, scorePosition, Color.Yellow);
+            _spriteBatch.DrawString(_debugFont, "DEBUG - Pool : " + _balloonMemory.Count + " - Spawned : " + _spawnCount, _debugPosition, Color.White);
+            
             _spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
-        private void TimerElapsed()
-        {
-            SpawnRedBalloon();
-        }
-
-        private void SpawnRedBalloon()
+        private void SpawnBalloon(BalloonColour colour)
         {
             Balloon spawn;
 
@@ -261,8 +302,27 @@ namespace sandbox4
 
             _spawnCount++;
             int x = _randomPosition.Next(_screenWidth - (int)(_redMoveAnimation.AnimationTexture.Width * _balloonScale));
-            spawn.Colour = BalloonColour.Red;
-            spawn.Initialize(_redMoveAnimation, _popAnimation, _popEffect, new Vector2(x, _screenHeight), _spawnVelocity, _balloonScale);
+            spawn.Colour = colour;
+
+            Vector2 velocity = new Vector2(0, 3.1f);
+            Animation moveAnimation = _greenMoveAnimation;
+
+            switch (colour)
+            {
+                case BalloonColour.Red:
+                    velocity = _redVelocity;
+                    moveAnimation = _redMoveAnimation;
+                    break;
+                case BalloonColour.Green:
+                    velocity = _greenVelocity;
+                    break;
+                case BalloonColour.Blue:
+                    moveAnimation = _blueMoveAnimation;
+                    velocity = _blueVelocity;
+                    break;
+            }
+
+            spawn.Initialize(moveAnimation, _popAnimation, _popEffect, new Vector2(x, _screenHeight), velocity, _balloonScale);
             _balloons.Add(spawn);
         }
 

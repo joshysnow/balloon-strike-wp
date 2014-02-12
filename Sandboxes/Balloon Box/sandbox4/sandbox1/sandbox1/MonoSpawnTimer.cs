@@ -3,21 +3,25 @@ using Microsoft.Xna.Framework;
 
 namespace sandbox4
 {
-    public class SpawnTimer
+    public class MonoSpawnTimer
     {
         private float _timePassed;
         private float _timeToSpawn;
         private bool _initialized;
 
-        public SpawnTimer()
+        public MonoSpawnTimer()
         {
             _initialized = false;
         }
 
-        public void Initialize(float ms)
+        /// <summary>
+        /// Initialize a single repeating timer.
+        /// </summary>
+        /// <param name="spawnTime"></param>
+        public void Initialize(float spawnTime)
         {
             _timePassed = 0f;
-            _timeToSpawn = ms;
+            _timeToSpawn = spawnTime;
             _initialized = true;
         }
 
