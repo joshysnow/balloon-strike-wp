@@ -11,10 +11,16 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 
-namespace sandbox4
+namespace sandbox5
 {
+    public enum GameState : byte
+    {
+        Playing     = 0x01,
+        GameOver    = 0x02
+    }
+
     /// <summary>
-    /// This is the main type for your game
+    /// This is the sandbox environment generator to test and create new things!
     /// </summary>
     public class Sandbox : Microsoft.Xna.Framework.Game
     {
@@ -24,6 +30,7 @@ namespace sandbox4
         private int _score;
         private int _sunsMood;
         private int _spawnCount;
+        private GameState _gameState;
         private Random _randomPosition;
 
         private LinkedList<Balloon> _balloonMemory;
@@ -109,9 +116,6 @@ namespace sandbox4
             TouchPanel.EnabledGestures = GestureType.Tap;
             _gestures = new List<GestureSample>();
 
-            _score = 0;
-            _sunsMood = 3;
-
             // When the game is not active, close.
             this.Deactivated += SandboxDeactivated;
 
@@ -143,14 +147,7 @@ namespace sandbox4
             _sunPosition = new Vector2(_spacing, 0);
             _debugPosition = new Vector2(_spacing, _screenHeight - _debugFont.LineSpacing);
 
-            // Populate pool.
-            Balloon b;
-            while (_spawnCount < 10)
-            {
-                b = new Balloon();
-                _balloonMemory.AddFirst(b);
-                _spawnCount++;
-            }
+            this.Setup();
         }
 
         /// <summary>
@@ -175,11 +172,40 @@ namespace sandbox4
                 this.Exit();
             }
 
+            switch (_gameState)
+            {
+                case GameState.Playing:
+                    {
+                        this.UpdatePlayingState(gameTime);
+                    }
+                    break;
+                case GameState.GameOver:
+                    {
+                        this.UpdateGameOverState(gameTime);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+
+
+            base.Update(gameTime);
+        }
+
+        private void UpdatePlayingState(GameTime gameTime)
+        {
             this.UpdatePlayerInput();
             this.UpdateBalloons(gameTime);
             this.UpdateSpawnTimers(gameTime);
+        }
 
-            base.Update(gameTime);
+        private void UpdateGameOverState(GameTime gameTime)
+        {
+            if (TouchPanel.IsGestureAvailable)
+            {
+                this.Setup();
+            }
         }
 
         private void UpdatePlayerInput()
@@ -249,6 +275,12 @@ namespace sandbox4
                         break;
                 }
             }
+
+            if (_sunsMood <= 0)
+            {
+                _gameState = GameState.GameOver;
+                _balloons.Clear();
+            }
         }
 
         private void UpdateSpawnTimers(GameTime gameTime)
@@ -279,6 +311,29 @@ namespace sandbox4
 
             _spriteBatch.Begin();
 
+            switch (_gameState)
+            {
+                case GameState.Playing:
+                    {
+                        this.DrawPlayingState();
+                    }
+                    break;
+                case GameState.GameOver:
+                    {
+                        this.DrawGameOverState();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            
+            _spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
+        private void DrawPlayingState()
+        {
             int index = 0;
             while (index < _balloons.Count)
             {
@@ -293,10 +348,11 @@ namespace sandbox4
             _spriteBatch.DrawString(_displayFont, "Sun Mood: " + _sunsMood, _sunPosition, Color.Gold);
             _spriteBatch.DrawString(_displayFont, scoreText, scorePosition, Color.Yellow);
             _spriteBatch.DrawString(_debugFont, "DEBUG - Pool : " + _balloonMemory.Count + " - Spawned : " + _spawnCount, _debugPosition, Color.White);
-            
-            _spriteBatch.End();
+        }
 
-            base.Draw(gameTime);
+        private void DrawGameOverState()
+        {
+
         }
 
         private void SpawnBalloon(BalloonColour colour)
@@ -337,6 +393,21 @@ namespace sandbox4
 
             spawn.Initialize(moveAnimation, _popAnimation, _popEffect, new Vector2(x, _screenHeight), velocity, _balloonScale);
             _balloons.Add(spawn);
+        }
+
+        private void Setup()
+        {
+            // Populate pool.
+            Balloon b;
+            while (_balloonMemory.Count < 10)
+            {
+                b = new Balloon();
+                _balloonMemory.AddFirst(b);
+            }
+
+            _score = 0;
+            _sunsMood = 3;
+            _gameState = GameState.Playing;
         }
 
         private void SandboxDeactivated(object sender, EventArgs e)

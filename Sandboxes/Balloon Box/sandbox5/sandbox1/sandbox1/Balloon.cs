@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
-namespace sandbox4
+namespace sandbox5
 {
     public enum BalloonColour : byte
     {
@@ -111,9 +111,13 @@ namespace sandbox4
                     }
                     break;
                 case BalloonState.Popped:
-                case BalloonState.Escaped:
                     {
                         _state = BalloonState.Dying;
+                    }
+                    break;
+                case BalloonState.Escaped:
+                    {
+                        _state = BalloonState.Dead;
                     }
                     break;
                 case BalloonState.Dying:

@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace sandbox4
+namespace sandbox5
 {
     public class VariableSpawnTimer
     {

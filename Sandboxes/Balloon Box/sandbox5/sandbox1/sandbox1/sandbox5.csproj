@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">Windows Phone</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>sandbox4</RootNamespace>
-    <AssemblyName>sandbox4</AssemblyName>
+    <RootNamespace>sandbox5</RootNamespace>
+    <AssemblyName>sandbox5</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
@@ -22,7 +22,7 @@
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <XnaWindowsPhoneManifestTemplate>Properties\WMAppManifest.xml</XnaWindowsPhoneManifestTemplate>
     <TileImage>IconTile.png</TileImage>
-    <TileTitle>sandbox4</TileTitle>
+    <TileTitle>sandbox5</TileTitle>
     <SupportedCultures>
     </SupportedCultures>
     <ApplicationIcon>Game.ico</ApplicationIcon>
@@ -86,8 +86,8 @@
     <Content Include="Game.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\sandbox1Content\sandbox4Content.contentproj">
-      <Name>sandbox4Content %28Content%29</Name>
+    <ProjectReference Include="..\sandbox1Content\sandbox5Content.contentproj">
+      <Name>sandbox5Content %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
       <Project>{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}</Project>
     </ProjectReference>
