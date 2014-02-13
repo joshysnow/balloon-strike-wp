@@ -100,8 +100,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Text.spritefont">
-      <Name>Text</Name>
+    <Compile Include="DisplayText.spritefont">
+      <Name>DisplayText</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameOverText.spritefont">
+      <Name>GameOverText</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ScoreText.spritefont">
+      <Name>ScoreText</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>

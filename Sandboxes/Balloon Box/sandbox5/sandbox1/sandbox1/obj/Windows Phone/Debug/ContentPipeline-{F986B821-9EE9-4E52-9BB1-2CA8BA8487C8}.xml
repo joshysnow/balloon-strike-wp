@@ -92,15 +92,6 @@
       <Time>2014-02-12T20:03:04.2988107+00:00</Time>
     </Item>
     <Item>
-      <Source>Text.spritefont</Source>
-      <Name>Text</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox5\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Text.xnb</Output>
-      <Time>2014-02-12T20:03:45.7237773+00:00</Time>
-    </Item>
-    <Item>
       <Source>Sounds\snowball_impact.wav</Source>
       <Name>Sounds\snowball_impact</Name>
       <Importer>WavImporter</Importer>
@@ -117,6 +108,33 @@
       <Options>None</Options>
       <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox5\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Sounds\snowball_car_impact1.xnb</Output>
       <Time>2014-02-12T19:49:17.1508394+00:00</Time>
+    </Item>
+    <Item>
+      <Source>GameOverText.spritefont</Source>
+      <Name>GameOverText</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox5\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\GameOverText.xnb</Output>
+      <Time>2014-02-13T22:52:41.6184746+00:00</Time>
+    </Item>
+    <Item>
+      <Source>ScoreText.spritefont</Source>
+      <Name>ScoreText</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox5\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\ScoreText.xnb</Output>
+      <Time>2014-02-13T23:04:06.4622782+00:00</Time>
+    </Item>
+    <Item>
+      <Source>DisplayText.spritefont</Source>
+      <Name>DisplayText</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox5\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\DisplayText.xnb</Output>
+      <Time>2014-02-12T20:03:45.7237773+00:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

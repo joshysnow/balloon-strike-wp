@@ -55,12 +55,17 @@ namespace sandbox5
 
         private SpriteFont _debugFont;
         private SpriteFont _displayFont;
+        private SpriteFont _gameOverFont;
+        private SpriteFont _gameOverScoreFont;
         private Vector2 _debugPosition;
         private Vector2 _sunPosition;
+        private Vector2 _gameOverPosition;
         private const byte _spacing = 10;
 
         private int _screenWidth;
         private int _screenHeight;
+
+        private const string _gameOverText = "GAME OVER";
 
         public Sandbox()
         {
@@ -136,7 +141,9 @@ namespace sandbox5
             Texture2D greenTexture = this.Content.Load<Texture2D>("Balloons/green200");
             Texture2D popTexture = this.Content.Load<Texture2D>("Effects/explosion");
             _debugFont = this.Content.Load<SpriteFont>("DebugText");
-            _displayFont = this.Content.Load<SpriteFont>("Text");
+            _displayFont = this.Content.Load<SpriteFont>("DisplayText");
+            _gameOverFont = this.Content.Load<SpriteFont>("GameOverText");
+            _gameOverScoreFont = this.Content.Load<SpriteFont>("ScoreText");
             _popEffect = this.Content.Load<SoundEffect>("Sounds/snowball_car_impact1");
 
             _popAnimation = new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125f, 0.25f);
@@ -146,6 +153,8 @@ namespace sandbox5
 
             _sunPosition = new Vector2(_spacing, 0);
             _debugPosition = new Vector2(_spacing, _screenHeight - _debugFont.LineSpacing);
+            Vector2 gameOverTextSize = _gameOverFont.MeasureString(_gameOverText);
+            _gameOverPosition = new Vector2((_screenWidth / 2) - (gameOverTextSize.X / 2), (_screenHeight / 2) - (gameOverTextSize.Y / 2));
 
             this.Setup();
         }
@@ -352,7 +361,11 @@ namespace sandbox5
 
         private void DrawGameOverState()
         {
-
+            _spriteBatch.DrawString(_gameOverFont, _gameOverText, _gameOverPosition, Color.Crimson);
+            string text = "YOUR SCORE: " + _score;
+            Vector2 textSize = _gameOverScoreFont.MeasureString(text);
+            Vector2 scorePosition =  new Vector2((_screenWidth / 2) - (textSize.X / 2), (_gameOverPosition.Y + _gameOverScoreFont.LineSpacing));
+            _spriteBatch.DrawString(_gameOverScoreFont, text, scorePosition, Color.Crimson);
         }
 
         private void SpawnBalloon(BalloonColour colour)
