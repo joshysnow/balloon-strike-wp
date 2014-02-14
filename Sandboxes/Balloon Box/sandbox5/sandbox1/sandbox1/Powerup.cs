@@ -5,41 +5,40 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace sandbox5
 {
-    public enum BalloonColor : byte
+    public enum PowerupType : byte
     {
-        Red     = 0x01,
-        Green   = 0x02,
-        Blue    = 0x04
+        Freeze = 0x01
     }
 
-    public enum BalloonState : byte
+    public enum PowerupState : byte
     {
-        Alive   = 0x01,
-        Dead    = 0x02,
-        Popped  = 0x04,
-        Escaped = 0x08,
-        Dying   = 0x0F
+        Descending  = 0x01,
+        Dead        = 0x02,
+        Pickedup    = 0x03,
+        Missed      = 0x04,
+        PickingUp   = 0x08
     }
 
-    public class Balloon
+    public class Powerup
     {
         private AnimationPlayer _animationPlayer;
-        private Animation _popAnimation;
         private Animation _moveAnimation;
-        private SoundEffect _popSound;
+        private Animation _pickupAnimation;
+        private SoundEffect _pickedUpSound;
         private Vector2 _positionUL;
         private Vector2 _positionLR;
         private Vector2 _velocity;
-        private BalloonState _state;
+        private PowerupState _state;
+        private short _yLimit;
         private bool _initialized;
         private bool _isAvailable;
 
-        public BalloonColor Color
+        public PowerupType Type
         {
             get; set;
         }
 
-        public BalloonState State
+        public PowerupState State
         {
             get { return _state; }
         }
@@ -49,28 +48,29 @@ namespace sandbox5
             get { return _isAvailable; }
         }
 
-        public Balloon()
+        public Powerup()
         {
             _initialized = false;
             _isAvailable = true;
-        }
+        }   
 
-        public void Initialize(Animation moveAnimation, Animation popAnimation, SoundEffect popSound, Vector2 position, Vector2 velocity)
+        public void Initialize(Animation moveAnimation, Animation pickupAnimation, SoundEffect pickedUp, Vector2 position, Vector2 velocity, short yLimit)
         {
-            _popAnimation = popAnimation;
             _moveAnimation = moveAnimation;
-            _popSound = popSound;
+            _pickupAnimation = pickupAnimation;
+            _pickedUpSound = pickedUp;
             _positionUL = position;
             _velocity = velocity;
+            _yLimit = yLimit;
 
             float width = (moveAnimation.FrameWidth * moveAnimation.Scale);
             float height = (moveAnimation.FrameWidth * moveAnimation.Scale);
             _positionLR = new Vector2(position.X + width, position.Y + height);
 
-            _state = BalloonState.Alive;
+            _state = PowerupState.Descending;
 
             _animationPlayer = new AnimationPlayer();
-            _animationPlayer.SetAnimation(_moveAnimation, _positionUL);
+            _animationPlayer.SetAnimation(moveAnimation, _positionUL);
 
             _initialized = true;
             _isAvailable = false;
@@ -88,30 +88,26 @@ namespace sandbox5
             {
                 return;
             }
-            
+
             switch (_state)
             {
-                case BalloonState.Alive:
+                case PowerupState.Descending:
                     {
-                        this.UpdateAlive();
+                        this.UpdateDescending();
                     }
                     break;
-                case BalloonState.Popped:
+                case PowerupState.Pickedup:
+                case PowerupState.Missed:
                     {
-                        _state = BalloonState.Dying;
+                        _state = PowerupState.Dead;
                     }
                     break;
-                case BalloonState.Escaped:
+                case PowerupState.PickingUp:
                     {
-                        _state = BalloonState.Dead;
+                        this.UpdatePickingUp();
                     }
                     break;
-                case BalloonState.Dying:
-                    {
-                        this.UpdateDying();
-                    }
-                    break;
-                case BalloonState.Dead:
+                case PowerupState.Dead:
                 default:
                     break;
             }
@@ -139,32 +135,26 @@ namespace sandbox5
             return Collisions.Intersects(_positionUL, _positionLR, position);
         }
 
-        public void Pop()
+        public void Pickup()
         {
-            if (!_initialized || (_state != BalloonState.Alive))
+            if (!_initialized || (_state != PowerupState.Descending))
             {
                 return;
             }
 
-            _state = BalloonState.Popped;
-            _popSound.Play();
+            _state = PowerupState.PickingUp;
+            _pickedUpSound.Play();
 
-            float centerX = (_positionUL.X + _positionLR.X) / 2;
-            float centerY = (_positionUL.Y + _positionLR.Y) / 2;
 
-            float width = (_popAnimation.AnimationTexture.Width * _popAnimation.Scale) / 2;
-            float height = (_popAnimation.AnimationTexture.Height * _popAnimation.Scale) / 2;
 
-            Vector2 explosionCoordinate = new Vector2((centerX - width), (centerY - height));
-
-            _animationPlayer.SetAnimation(_popAnimation, explosionCoordinate);
+            _animationPlayer.SetAnimation(_pickupAnimation, _positionUL);
         }
 
-        private void UpdateAlive()
+        private void UpdateDescending()
         {
-            if (_positionLR.Y <= 0)
+            if (_positionUL.Y >= _yLimit)
             {
-                _state = BalloonState.Escaped;
+                _state = PowerupState.Missed;
             }
 
             _positionUL += _velocity;
@@ -173,12 +163,11 @@ namespace sandbox5
             _animationPlayer.UpdateAnimationPosition(_positionUL);
         }
 
-        private void UpdateDying()
+        private void UpdatePickingUp()
         {
             if (_animationPlayer.Finished)
             {
-                _state = BalloonState.Dead;
-                return;
+                _state = PowerupState.Pickedup;
             }
         }
     }

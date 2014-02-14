@@ -136,6 +136,15 @@
       <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox5\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\DisplayText.xnb</Output>
       <Time>2014-02-12T20:03:45.7237773+00:00</Time>
     </Item>
+    <Item>
+      <Source>Powerups\snowflake_med.png</Source>
+      <Name>Powerups\snowflake_med</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox5\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Powerups\snowflake_med.xnb</Output>
+      <Time>2014-02-14T13:44:43.9645889+00:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}</ContentProjectGUID>
