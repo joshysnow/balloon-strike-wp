@@ -63,8 +63,8 @@ namespace sandbox5
             _velocity = velocity;
             _yLimit = yLimit;
 
-            float width = (moveAnimation.FrameWidth * moveAnimation.Scale);
-            float height = (moveAnimation.FrameWidth * moveAnimation.Scale);
+            int width = (int)(moveAnimation.FrameWidth * moveAnimation.Scale);
+            int height = (int)(moveAnimation.FrameHeight * moveAnimation.Scale);
             _positionLR = new Vector2(position.X + width, position.Y + height);
 
             _state = PowerupState.Descending;

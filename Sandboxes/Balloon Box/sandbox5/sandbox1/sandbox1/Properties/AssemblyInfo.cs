@@ -6,10 +6,10 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("sandbox1")]
-[assembly: AssemblyProduct("sandbox1")]
+[assembly: AssemblyTitle("sandbox5")]
+[assembly: AssemblyProduct("sandbox5")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("FoxCode")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

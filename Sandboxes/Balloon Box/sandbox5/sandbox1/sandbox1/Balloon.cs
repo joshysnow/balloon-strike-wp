@@ -63,8 +63,8 @@ namespace sandbox5
             _positionUL = position;
             _velocity = velocity;
 
-            float width = (moveAnimation.FrameWidth * moveAnimation.Scale);
-            float height = (moveAnimation.FrameWidth * moveAnimation.Scale);
+            int width = (int)(moveAnimation.FrameWidth * moveAnimation.Scale);
+            int height = (int)(moveAnimation.FrameHeight * moveAnimation.Scale);
             _positionLR = new Vector2(position.X + width, position.Y + height);
 
             _state = BalloonState.Alive;
@@ -152,12 +152,12 @@ namespace sandbox5
             float centerX = (_positionUL.X + _positionLR.X) / 2;
             float centerY = (_positionUL.Y + _positionLR.Y) / 2;
 
-            float width = (_popAnimation.AnimationTexture.Width * _popAnimation.Scale) / 2;
-            float height = (_popAnimation.AnimationTexture.Height * _popAnimation.Scale) / 2;
+            float width = (_popAnimation.FrameWidth * _popAnimation.Scale) / 2;
+            float height = (_popAnimation.FrameHeight * _popAnimation.Scale) / 2;
 
             Vector2 explosionCoordinate = new Vector2((centerX - width), (centerY - height));
 
-            _animationPlayer.SetAnimation(_popAnimation, explosionCoordinate);
+            _animationPlayer.SetAnimation(_popAnimation, _positionUL);
         }
 
         private void UpdateAlive()

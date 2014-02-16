@@ -109,10 +109,10 @@ namespace sandbox5
             _freezeTimer.Initialize(15000);
 
             _blueTimer = new VariableSpawnTimer();
-            _blueTimer.Initialize(5000, 0.98f, 1500);
+            _blueTimer.Initialize(5000, 0.7f, 1500);
 
             _redTimer = new VariableSpawnTimer();
-            _redTimer.Initialize(15000, 0.98f, 2500);
+            _redTimer.Initialize(15000, 0.8f, 2500);
 
             _spawnCount = 0;
             _randomPosition = new Random(DateTime.Now.Millisecond);
@@ -154,6 +154,7 @@ namespace sandbox5
             _gameOverFont = this.Content.Load<SpriteFont>("GameOverText");
             _gameOverScoreFont = this.Content.Load<SpriteFont>("ScoreText");
             _popSoundEffect = this.Content.Load<SoundEffect>("Sounds/snowball_car_impact1");
+            _popSoundEffect.Play(0,0,0);
 
             _popAnimation = new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f);
             _redMoveAnimation = new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f);
@@ -206,9 +207,7 @@ namespace sandbox5
                 default:
                     break;
             }
-
-
-
+            
             base.Update(gameTime);
         }
 
@@ -237,21 +236,37 @@ namespace sandbox5
 
             if (_gestures.Count > 0)
             {
+                Powerup p = null;
                 foreach (GestureSample gesture in _gestures)
                 {
                     if (gesture.GestureType == GestureType.Tap)
                     {
-                        List<Powerup> powerupIntersections = (from p in _powerups where p.Intersects(gesture.Position) select p).ToList();
-                        if (powerupIntersections.Count > 0)
+                        int index = _powerups.Count - 1;
+                        while (index >= 0)
                         {
-                            powerupIntersections.Last().Pickup();
-                            continue; // if a power up has been tapped then the balloon beneath it can't be
+                            if (_powerups[index].Intersects(gesture.Position))
+                            {
+                                p = _powerups[index];
+                                break;
+                            }
+                            index--;
                         }
 
-                        List<Balloon> balloonIntersections = (from b in _balloons where b.Intersects(gesture.Position) select b).ToList();
-                        if (balloonIntersections.Count > 0)
+                        if (p != null)
                         {
-                            balloonIntersections.Last().Pop();
+                            p.Pickup();
+                            continue;
+                        }
+
+                        index = _balloons.Count - 1;
+                        while (index >= 0)
+                        {
+                            if (_balloons[index].Intersects(gesture.Position))
+                            {
+                                _balloons[index].Pop();
+                                break;
+                            }
+                            index--;
                         }
                     }
                 }
