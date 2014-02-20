@@ -50,8 +50,8 @@ namespace sandbox6
         private Animation _blueMoveAnimation;
         private Animation _freezeMoveAnimation;
 
-        private MonoSpawnTimer _greenTimer;
-        private MonoSpawnTimer _freezeTimer;
+        private SimpleTimer _greenTimer;
+        private SimpleTimer _freezeTimer;
         private VariableSpawnTimer _blueTimer;
         private VariableSpawnTimer _redTimer;
 
@@ -69,7 +69,8 @@ namespace sandbox6
         private short _screenWidth;
         private short _screenHeight;
 
-        private const string _gameOverText = "GAME OVER";
+        private const string GAME_OVER_TEXT = "GAME OVER";
+        private const int FREEZE_TIME = 1000;
 
         public Sandbox()
         {
@@ -102,10 +103,10 @@ namespace sandbox6
         /// </summary>
         protected override void Initialize()
         {
-            _greenTimer = new MonoSpawnTimer();
+            _greenTimer = new SimpleTimer();
             _greenTimer.Initialize(1500);
 
-            _freezeTimer = new MonoSpawnTimer();
+            _freezeTimer = new SimpleTimer();
             _freezeTimer.Initialize(15000);
 
             _blueTimer = new VariableSpawnTimer();
@@ -164,7 +165,7 @@ namespace sandbox6
 
             _sunPosition = new Vector2(_spacing, 0);
             _debugPosition = new Vector2(_spacing, _screenHeight - _debugFont.LineSpacing);
-            Vector2 gameOverTextSize = _gameOverFont.MeasureString(_gameOverText);
+            Vector2 gameOverTextSize = _gameOverFont.MeasureString(GAME_OVER_TEXT);
             _gameOverPosition = new Vector2((_screenWidth / 2) - (gameOverTextSize.X / 2), (_screenHeight / 2) - (gameOverTextSize.Y / 2));
 
             this.Setup();
@@ -255,6 +256,19 @@ namespace sandbox6
                         if (p != null)
                         {
                             p.Pickup();
+                            switch (p.Type)
+                            {
+                                case PowerupType.Freeze:
+                                    {
+                                        for (int i = 0; i < _balloons.Count; i++)
+                                        {
+                                            _balloons[i].Freeze(FREEZE_TIME);
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
                             continue;
                         }
 
@@ -286,6 +300,7 @@ namespace sandbox6
                 switch (balloon.State)
                 {
                     case BalloonState.Alive:
+                    case BalloonState.Frozen:
                     case BalloonState.Dying:
                         {
                             balloon.Update(gameTime);
@@ -449,7 +464,7 @@ namespace sandbox6
 
         private void DrawGameOverState()
         {
-            _spriteBatch.DrawString(_gameOverFont, _gameOverText, _gameOverPosition, Color.Crimson);
+            _spriteBatch.DrawString(_gameOverFont, GAME_OVER_TEXT, _gameOverPosition, Color.Crimson);
             string text = "YOUR SCORE: " + _score;
             Vector2 textSize = _gameOverScoreFont.MeasureString(text);
             Vector2 scorePosition =  new Vector2((_screenWidth / 2) - (textSize.X / 2), (_gameOverPosition.Y + _gameOverScoreFont.LineSpacing));

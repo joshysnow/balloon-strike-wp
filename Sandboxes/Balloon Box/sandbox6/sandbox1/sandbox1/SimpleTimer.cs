@@ -3,13 +3,13 @@ using Microsoft.Xna.Framework;
 
 namespace sandbox6
 {
-    public class MonoSpawnTimer
+    public class SimpleTimer
     {
         private float _timePassed;
-        private float _timeToSpawn;
+        private float _elapseTime;
         private bool _initialized;
 
-        public MonoSpawnTimer()
+        public SimpleTimer()
         {
             _initialized = false;
         }
@@ -17,11 +17,11 @@ namespace sandbox6
         /// <summary>
         /// Initialize a single repeating timer.
         /// </summary>
-        /// <param name="spawnTime"></param>
-        public void Initialize(float spawnTime)
+        /// <param name="elapseTime"></param>
+        public void Initialize(float elapseTime)
         {
             _timePassed = 0f;
-            _timeToSpawn = spawnTime;
+            _elapseTime = elapseTime;
             _initialized = true;
         }
 
@@ -34,9 +34,9 @@ namespace sandbox6
 
             _timePassed += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (_timePassed >= _timeToSpawn)
+            if (_timePassed >= _elapseTime)
             {
-                _timePassed %= _timeToSpawn;
+                _timePassed %= _elapseTime;
                 return true;
             }
 

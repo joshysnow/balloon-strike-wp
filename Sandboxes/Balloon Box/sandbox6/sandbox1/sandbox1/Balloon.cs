@@ -18,7 +18,8 @@ namespace sandbox6
         Dead    = 0x02,
         Popped  = 0x04,
         Escaped = 0x08,
-        Dying   = 0x0F
+        Dying   = 0x0F,
+        Frozen  = 0x10
     }
 
     public class Balloon
@@ -26,7 +27,9 @@ namespace sandbox6
         private AnimationPlayer _animationPlayer;
         private Animation _popAnimation;
         private Animation _moveAnimation;
+        private Animation _freezeAnimation;
         private SoundEffect _popSound;
+        private SimpleTimer _frozenTimer;
         private Vector2 _positionUL;
         private Vector2 _positionLR;
         private Vector2 _velocity;
@@ -111,6 +114,11 @@ namespace sandbox6
                         this.UpdateDying();
                     }
                     break;
+                case BalloonState.Frozen:
+                    {
+                        this.UpdateFrozen(gameTime);
+                    }
+                    break;
                 case BalloonState.Dead:
                 default:
                     break;
@@ -141,7 +149,7 @@ namespace sandbox6
 
         public void Pop()
         {
-            if (!_initialized || (_state != BalloonState.Alive))
+            if (!_initialized)
             {
                 return;
             }
@@ -158,6 +166,21 @@ namespace sandbox6
             Vector2 explosionCoordinate = new Vector2((centerX - width), (centerY - height));
 
             _animationPlayer.SetAnimation(_popAnimation, _positionUL);
+        }
+
+        public void Freeze(int time)
+        {
+            if (!_initialized)
+            {
+                return;
+            }
+
+            _frozenTimer = new SimpleTimer();
+            _frozenTimer.Initialize(time);
+
+            //_animationPlayer.SetAnimation(_freezeAnimation, _positionUL);
+
+            _state = BalloonState.Frozen;
         }
 
         private void UpdateAlive()
@@ -178,7 +201,21 @@ namespace sandbox6
             if (_animationPlayer.Finished)
             {
                 _state = BalloonState.Dead;
+            }
+        }
+
+        private void UpdateFrozen(GameTime gameTime)
+        {
+            if (_frozenTimer == null)
+            {
                 return;
+            }
+
+            if (_frozenTimer.Update(gameTime))
+            {
+                _frozenTimer = null;
+                _animationPlayer.SetAnimation(_moveAnimation, _positionUL);
+                _state = BalloonState.Alive;
             }
         }
     }
