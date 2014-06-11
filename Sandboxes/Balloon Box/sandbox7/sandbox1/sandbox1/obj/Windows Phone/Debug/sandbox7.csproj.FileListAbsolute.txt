@@ -1,0 +1,2 @@
+D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox7\sandbox1\sandbox1\obj\Windows Phone\Debug\sandbox7.csprojResolveAssemblyReference.cache
+D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox7\sandbox1\sandbox1\obj\Windows Phone\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt

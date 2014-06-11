@@ -86,13 +86,13 @@ namespace sandbox7
             Guide.IsScreenSaverEnabled = false;
             base.IsFixedTimeStep = false;
 
-            this.Content.RootDirectory = "Content";
+            Content.RootDirectory = "Content";
 
             // Frame rate is 30 fps by default for Windows Phone.
-            this.TargetElapsedTime = TimeSpan.FromTicks(333333);
+            TargetElapsedTime = TimeSpan.FromTicks(333333);
 
             // Extend battery life under lock.
-            this.InactiveSleepTime = TimeSpan.FromSeconds(1);
+            InactiveSleepTime = TimeSpan.FromSeconds(1);
         }
 
         /// <summary>
@@ -126,6 +126,8 @@ namespace sandbox7
             _balloonMemory = new LinkedList<Balloon>();
             _balloons = new List<Balloon>();
             _powerups = new List<Powerup>();
+
+            ResourceManager.Initialize(Content);
 
             TouchPanel.EnabledGestures = GestureType.Tap;
             _gestures = new List<GestureSample>();
