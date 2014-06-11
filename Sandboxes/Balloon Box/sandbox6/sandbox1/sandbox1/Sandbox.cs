@@ -500,6 +500,7 @@ namespace sandbox6
                     break;
                 case BalloonColor.Green:
                     velocity = _greenVelocity;
+                    moveAnimation = _greenMoveAnimation;
                     break;
                 case BalloonColor.Blue:
                     moveAnimation = _blueMoveAnimation;
