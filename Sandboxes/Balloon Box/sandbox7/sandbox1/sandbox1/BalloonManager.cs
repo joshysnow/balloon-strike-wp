@@ -1,17 +1,18 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input.Touch;
 
 namespace sandbox7
 {
-    public delegate void BalloonHandler(Balloon balloon);
+    public delegate void BalloonEventHandler(Balloon balloon);
 
     public class BalloonManager
     {
-        public event BalloonHandler Popped;
-        public event BalloonHandler Escaped;
+        public event BalloonEventHandler Popped;
+        public event BalloonEventHandler Escaped;
 
         private LinkedList<Balloon> _balloonMemory;
         private List<Balloon> _balloons;
@@ -22,7 +23,6 @@ namespace sandbox7
         private Vector2 _redVelocity;
         private Vector2 _greenVelocity;
         private Vector2 _blueVelocity;
-        private Vector2 _freezeVelocity;
         private Animation _greenMoveAnimation;
         private Animation _redMoveAnimation;
         private Animation _blueMoveAnimation;
@@ -42,11 +42,44 @@ namespace sandbox7
             Setup();
         }
 
-        public void Update(GameTime gameTime, GestureSample[] gestures)
+        public void UpdatePlayerInput(GestureSample[] gestures)
         {
-            UpdatePlayerInput(gestures);
+            int index;
+
+            foreach (GestureSample gesture in gestures)
+            {
+                if (gesture.GestureType != GestureType.Tap)
+                {
+                    continue;
+                }
+
+                index = (_balloons.Count - 1);
+
+                while (index >= 0)
+                {
+                    if (_balloons[index].Intersects(gesture.Position))
+                    {
+                        _balloons[index].Pop();
+                        break;
+                    }
+                    index--;
+                }
+            }
+        }
+
+        public void Update(GameTime gameTime)
+        {
             UpdateBalloons(gameTime);
             UpdateSpawners(gameTime);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            short index = 0;
+            while (index < _balloons.Count)
+            {
+                _balloons[index++].Draw(spriteBatch);
+            }
         }
 
         private void Setup()
@@ -66,40 +99,21 @@ namespace sandbox7
             _redVelocity = new Vector2(0, -9.2f);
             _greenVelocity = new Vector2(0, -5.1f);
             _blueVelocity = new Vector2(0, -7.15f);
-            _freezeVelocity = new Vector2(0, 4.2f);
 
             ResourceManager manager = ResourceManager.Manager;
 
-            _greenMoveAnimation = manager.GetAnimation("green");
-            _redMoveAnimation = manager.GetAnimation("red");
-            _blueMoveAnimation = manager.GetAnimation("blue");
+            _greenMoveAnimation = manager.GetAnimation("greenmove");
+            _redMoveAnimation = manager.GetAnimation("redmove");
+            _blueMoveAnimation = manager.GetAnimation("bluemove");
 
-            _popAnimation = manager.GetAnimation("pop");
+            _popAnimation = manager.GetAnimation("popmove");
             _popSoundEffect = manager.GetSoundEffect("pop");
-        }
 
-        private void UpdatePlayerInput(GestureSample[] gestures)
-        {
-            byte index;
-
-            foreach (GestureSample gesture in gestures)
+            Balloon newBalloon;
+            while (_balloonMemory.Count < 10)
             {
-                if (gesture.GestureType == GestureType.Tap)
-                {
-                    continue;
-                }
-
-                index = (byte)(_balloons.Count - 1);
-
-                while (index >= 0)
-                {
-                    if (_balloons[index].Intersects(gesture.Position))
-                    {
-                        _balloons[index].Pop();
-                        break;
-                    }
-                    index--;
-                }
+                newBalloon = new Balloon();
+                _balloonMemory.AddFirst(newBalloon);
             }
         }
 

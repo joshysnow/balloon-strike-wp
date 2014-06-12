@@ -27,7 +27,7 @@
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">IconTile.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>sandbox6</Title>
+          <Title>sandbox7</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

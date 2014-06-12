@@ -1,5 +1,5 @@
-﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="sandbox6" EntryPointType="sandbox6.Sandbox" RuntimeVersion="3.0">
+﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="sandbox7" EntryPointType="sandbox7.Sandbox" RuntimeVersion="3.0">
   <Deployment.Parts>
-    <AssemblyPart x:Name="sandbox6" Source="sandbox6.dll" />
+    <AssemblyPart x:Name="sandbox7" Source="sandbox7.dll" />
   </Deployment.Parts>
 </Deployment>

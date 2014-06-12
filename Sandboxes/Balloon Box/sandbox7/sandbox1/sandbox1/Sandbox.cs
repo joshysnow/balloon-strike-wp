@@ -29,31 +29,10 @@ namespace sandbox7
 
         private int _score;
         private int _sunsMood;
-        private int _spawnCount;
         private GameState _gameState;
-        private Random _randomPosition;
 
-        private LinkedList<Balloon> _balloonMemory;
-        private List<Balloon> _balloons;
-
-        private List<Powerup> _powerups;
-
-        private Vector2 _redVelocity;
-        private Vector2 _greenVelocity;
-        private Vector2 _blueVelocity;
-        private Vector2 _freezeVelocity;
-
-        private SoundEffect _popSoundEffect;
-        private Animation _popAnimation;
-        private Animation _redMoveAnimation;
-        private Animation _greenMoveAnimation;
-        private Animation _blueMoveAnimation;
-        private Animation _freezeMoveAnimation;
-
-        private SimpleTimer _greenTimer;
-        private SimpleTimer _freezeTimer;
-        private VariableSpawnTimer _blueTimer;
-        private VariableSpawnTimer _redTimer;
+        private BalloonManager _balloonManager;
+        private PowerupManager _powerupManager;
 
         private List<GestureSample> _gestures;
 
@@ -64,13 +43,12 @@ namespace sandbox7
         private Vector2 _debugPosition;
         private Vector2 _sunPosition;
         private Vector2 _gameOverPosition;
-        private const byte _spacing = 10;
 
         private short _screenWidth;
         private short _screenHeight;
 
         private const string GAME_OVER_TEXT = "GAME OVER";
-        private const int FREEZE_TIME = 1000;
+        private const byte _spacing = 10;
 
         public Sandbox()
         {
@@ -103,31 +81,9 @@ namespace sandbox7
         /// </summary>
         protected override void Initialize()
         {
-            _greenTimer = new SimpleTimer();
-            _greenTimer.Initialize(1500);
-
-            _freezeTimer = new SimpleTimer();
-            _freezeTimer.Initialize(15000);
-
-            _blueTimer = new VariableSpawnTimer();
-            _blueTimer.Initialize(5000, 0.7f, 1500);
-
-            _redTimer = new VariableSpawnTimer();
-            _redTimer.Initialize(15000, 0.8f, 2500);
-
-            _spawnCount = 0;
-            _randomPosition = new Random(DateTime.Now.Millisecond);
-
-            _redVelocity = new Vector2(0, -9.2f);
-            _greenVelocity = new Vector2(0, -5.1f);
-            _blueVelocity = new Vector2(0, -7.15f);
-            _freezeVelocity = new Vector2(0, 4.2f);
-
-            _balloonMemory = new LinkedList<Balloon>();
-            _balloons = new List<Balloon>();
-            _powerups = new List<Powerup>();
-
             ResourceManager.Initialize(Content);
+            _balloonManager = new BalloonManager();
+            _powerupManager = new PowerupManager();
 
             TouchPanel.EnabledGestures = GestureType.Tap;
             _gestures = new List<GestureSample>();
@@ -147,23 +103,10 @@ namespace sandbox7
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Texture2D redTexture = this.Content.Load<Texture2D>("Balloons/red200");
-            Texture2D blueTexture = this.Content.Load<Texture2D>("Balloons/blue200");
-            Texture2D greenTexture = this.Content.Load<Texture2D>("Balloons/green200");
-            Texture2D popTexture = this.Content.Load<Texture2D>("Effects/explosion");
-            Texture2D freezeTexture = this.Content.Load<Texture2D>("Powerups/snowflake_med");
             _debugFont = this.Content.Load<SpriteFont>("DebugText");
             _displayFont = this.Content.Load<SpriteFont>("DisplayText");
             _gameOverFont = this.Content.Load<SpriteFont>("GameOverText");
             _gameOverScoreFont = this.Content.Load<SpriteFont>("ScoreText");
-            _popSoundEffect = this.Content.Load<SoundEffect>("Sounds/snowball_car_impact1");
-            _popSoundEffect.Play(0,0,0);
-
-            _popAnimation = new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f);
-            _redMoveAnimation = new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f);
-            _greenMoveAnimation = new Animation(greenTexture, true, greenTexture.Width, greenTexture.Height, 0, 0.5f);
-            _blueMoveAnimation = new Animation(blueTexture, true, blueTexture.Width, blueTexture.Height, 0, 0.5f);
-            _freezeMoveAnimation = new Animation(freezeTexture, true, freezeTexture.Width, freezeTexture.Height, 0, 0.5f);
 
             _sunPosition = new Vector2(_spacing, 0);
             _debugPosition = new Vector2(_spacing, _screenHeight - _debugFont.LineSpacing);
@@ -216,10 +159,14 @@ namespace sandbox7
 
         private void UpdatePlayingState(GameTime gameTime)
         {
-            this.UpdatePlayerInput();
-            this.UpdateBalloons(gameTime);
-            this.UpdatePowerups(gameTime);
-            this.UpdateSpawnTimers(gameTime);
+            UpdatePlayerInput();
+            _balloonManager.Update(gameTime);
+            _powerupManager.Update(gameTime);
+
+            if (_sunsMood <= 0)
+            {
+                this.Reset();
+            }
         }
 
         private void UpdateGameOverState(GameTime gameTime)
@@ -239,173 +186,12 @@ namespace sandbox7
 
             if (_gestures.Count > 0)
             {
-                Powerup p = null;
-                foreach (GestureSample gesture in _gestures)
-                {
-                    if (gesture.GestureType == GestureType.Tap)
-                    {
-                        int index = _powerups.Count - 1;
-                        while (index >= 0)
-                        {
-                            if (_powerups[index].Intersects(gesture.Position))
-                            {
-                                p = _powerups[index];
-                                break;
-                            }
-                            index--;
-                        }
-
-                        if (p != null)
-                        {
-                            p.Pickup();
-                            switch (p.Type)
-                            {
-                                case PowerupType.Freeze:
-                                    {
-                                        for (int i = 0; i < _balloons.Count; i++)
-                                        {
-                                            _balloons[i].Freeze(FREEZE_TIME);
-                                        }
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                            continue;
-                        }
-
-                        index = _balloons.Count - 1;
-                        while (index >= 0)
-                        {
-                            if (_balloons[index].Intersects(gesture.Position))
-                            {
-                                _balloons[index].Pop();
-                                break;
-                            }
-                            index--;
-                        }
-                    }
-                }
+                GestureSample[] gestureArray = _gestures.ToArray();
+                _powerupManager.UpdatePlayerInput(gestureArray);
+                _balloonManager.UpdatePlayerInput(gestureArray);
             }
 
             _gestures.Clear();
-        }
-
-        private void UpdateBalloons(GameTime gameTime)
-        {
-            byte index = 0;
-            Balloon balloon;
-            while (index < _balloons.Count)
-            {
-                balloon = _balloons[index];
-
-                switch (balloon.State)
-                {
-                    case BalloonState.Alive:
-                    case BalloonState.Frozen:
-                    case BalloonState.Dying:
-                        {
-                            balloon.Update(gameTime);
-                            index++;
-                        }
-                        break;
-                    case BalloonState.Popped:
-                        {
-                            balloon.Update(gameTime);
-                            _score += 10;
-                            index++;
-                        }
-                        break;
-                    case BalloonState.Escaped:
-                        {
-                            balloon.Update(gameTime);
-                            _sunsMood--;
-                            index++;
-                        }
-                        break;
-                    case BalloonState.Dead:
-                        {
-                            balloon.Uninitialize();
-                            _balloonMemory.AddFirst(balloon);
-                            _balloons.RemoveAt(index);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            if (_sunsMood <= 0)
-            {
-                this.Reset();
-            }
-        }
-
-        private void UpdatePowerups(GameTime gameTime)
-        {
-            byte index = 0;
-            Powerup powerup;
-            while (index < _powerups.Count)
-            {
-                powerup = _powerups[index];
-
-                switch (powerup.State)
-                {
-                    case PowerupState.PickingUp:
-                    case PowerupState.Descending:
-                        {
-                            powerup.Update(gameTime);
-                            index++;
-                        }
-                        break;
-                    case PowerupState.Dead:
-                        {
-                            _powerups.RemoveAt(index);
-                        }
-                        break;
-                    case PowerupState.Pickedup:
-                        {
-                            // apply the effect
-                            powerup.Update(gameTime);
-                            index++;
-                        }
-                        break;
-                    case PowerupState.Missed:
-                        {
-                            // inform player
-                            powerup.Update(gameTime);
-                            index++;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-                index++;
-            }
-        }
-
-        private void UpdateSpawnTimers(GameTime gameTime)
-        {
-            if (_greenTimer.Update(gameTime))
-            {
-                this.SpawnBalloon(BalloonColor.Green);
-            }
-
-            if (_blueTimer.Update(gameTime))
-            {
-                this.SpawnBalloon(BalloonColor.Blue);
-            }
-
-            if (_redTimer.Update(gameTime))
-            {
-                this.SpawnBalloon(BalloonColor.Red);
-            }
-
-            if (_freezeTimer.Update(gameTime))
-            {
-                this.SpawnPowerup(PowerupType.Freeze);
-            }
         }
 
         /// <summary>
@@ -441,19 +227,8 @@ namespace sandbox7
 
         private void DrawPlayingState()
         {
-            short index = 0;
-            while (index < _balloons.Count)
-            {
-                _balloons[index].Draw(_spriteBatch);
-                index++;
-            }
-
-            index = 0;
-            while (index < _powerups.Count)
-            {
-                _powerups[index].Draw(_spriteBatch);
-                index++;
-            }
+            _balloonManager.Draw(_spriteBatch);
+            _powerupManager.Draw(_spriteBatch);
 
             string scoreText = "Score: " + _score;
             Vector2 scoreTextLength = _displayFont.MeasureString(scoreText);
@@ -461,7 +236,7 @@ namespace sandbox7
 
             _spriteBatch.DrawString(_displayFont, "Sun Mood: " + _sunsMood, _sunPosition, Color.Gold);
             _spriteBatch.DrawString(_displayFont, scoreText, scorePosition, Color.Yellow);
-            _spriteBatch.DrawString(_debugFont, "DEBUG - Pool : " + _balloonMemory.Count + " - Spawned : " + _spawnCount, _debugPosition, Color.White);
+            //_spriteBatch.DrawString(_debugFont, "DEBUG - Pool : " + _balloonMemory.Count + " - Spawned : " + _spawnCount, _debugPosition, Color.White);
         }
 
         private void DrawGameOverState()
@@ -473,70 +248,8 @@ namespace sandbox7
             _spriteBatch.DrawString(_gameOverScoreFont, text, scorePosition, Color.Crimson);
         }
 
-        private void SpawnBalloon(BalloonColor colour)
-        {
-            Balloon spawn;
-
-            if (_balloonMemory.Count > 0)
-            {
-                spawn = _balloonMemory.First.Value;
-                _balloonMemory.RemoveFirst();
-            }
-            else
-            {
-                spawn = new Balloon();
-            }
-
-            _spawnCount++;
-            int x = _randomPosition.Next(_screenWidth - (int)(_redMoveAnimation.AnimationTexture.Width * _redMoveAnimation.Scale));
-            spawn.Color = colour;
-
-            Vector2 velocity = new Vector2(0, 3.1f);
-            Animation moveAnimation = _greenMoveAnimation;
-
-            switch (colour)
-            {
-                case BalloonColor.Red:
-                    velocity = _redVelocity;
-                    moveAnimation = _redMoveAnimation;
-                    break;
-                case BalloonColor.Green:
-                    velocity = _greenVelocity;
-                    moveAnimation = _greenMoveAnimation;
-                    break;
-                case BalloonColor.Blue:
-                    moveAnimation = _blueMoveAnimation;
-                    velocity = _blueVelocity;
-                    break;
-            }
-
-            spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, new Vector2(x, _screenHeight), velocity);
-            _balloons.Add(spawn);
-        }
-
-        private void SpawnPowerup(PowerupType type)
-        {
-            Powerup spawn = new Powerup();
-            spawn.Type = type;
-
-            int x = _randomPosition.Next(_screenWidth - (int)(_freezeMoveAnimation.FrameWidth * _freezeMoveAnimation.Scale));
-            int y = (0 - (int)(_freezeMoveAnimation.FrameHeight * _freezeMoveAnimation.Scale));
-            Vector2 upperLeft = new Vector2(x, y);
-
-            spawn.Initialize(_freezeMoveAnimation, _popAnimation, _popSoundEffect, upperLeft, _freezeVelocity, _screenHeight);
-            _powerups.Add(spawn);
-        }
-
         private void Setup()
         {
-            // Populate pool.
-            Balloon newBalloon;
-            while (_balloonMemory.Count < 10)
-            {
-                newBalloon = new Balloon();
-                _balloonMemory.AddFirst(newBalloon);
-            }
-
             _score = 0;
             _sunsMood = 3;
             _gameState = GameState.Playing;
@@ -545,7 +258,6 @@ namespace sandbox7
         private void Reset()
         {
             _gameState = GameState.GameOver;
-            _balloons.Clear();
         }
 
         private void SandboxDeactivated(object sender, EventArgs e)

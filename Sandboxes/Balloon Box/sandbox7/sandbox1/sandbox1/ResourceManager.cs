@@ -150,11 +150,11 @@ namespace sandbox7
             _textures.Add("pop", popTexture);
             _textures.Add("freeze", freezeTexture);
 
-            _animations.Add("pop", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
+            _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f));
             _animations.Add("greenmove", new Animation(greenTexture, true, greenTexture.Width, greenTexture.Height, 0, 0.5f));
             _animations.Add("bluemove", new Animation(blueTexture, true, blueTexture.Width, blueTexture.Height, 0, 0.5f));
-            _animations.Add("freeze", new Animation(freezeTexture, true, freezeTexture.Width, freezeTexture.Height, 0, 0.5f));
+            _animations.Add("freezemove", new Animation(freezeTexture, true, freezeTexture.Width, freezeTexture.Height, 0, 0.5f));
         }
     }
 }
