@@ -31,6 +31,7 @@ namespace sandbox7
         private int _sunsMood;
         private GameState _gameState;
 
+        private Player _player;
         private BalloonManager _balloonManager;
         private PowerupManager _powerupManager;
 
@@ -82,8 +83,14 @@ namespace sandbox7
         protected override void Initialize()
         {
             ResourceManager.Initialize(Content);
+
+            _player = new Player();
             _balloonManager = new BalloonManager();
             _powerupManager = new PowerupManager();
+
+            _balloonManager.Popped += _balloonManager_Popped;
+            _balloonManager.Escaped += _balloonManager_Escaped;
+            _powerupManager.PickedUp += _powerupManager_PickedUp;
 
             TouchPanel.EnabledGestures = GestureType.Tap;
             _gestures = new List<GestureSample>();
@@ -258,11 +265,29 @@ namespace sandbox7
         private void Reset()
         {
             _gameState = GameState.GameOver;
+            _player = new Player();
+            _balloonManager = new BalloonManager();
+            _powerupManager = new PowerupManager();
         }
 
         private void SandboxDeactivated(object sender, EventArgs e)
         {
             this.Exit();
+        }
+
+        private void _balloonManager_Popped(Balloon balloon)
+        {
+            _score++;
+        }
+
+        private void _balloonManager_Escaped(Balloon balloon)
+        {
+            _sunsMood--;
+        }
+
+        private void _powerupManager_PickedUp(Powerup powerup)
+        {
+            // TODO: Change the weapon or affect the balloons in some way.
         }
     }
 }
