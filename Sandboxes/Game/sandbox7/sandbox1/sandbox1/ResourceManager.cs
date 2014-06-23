@@ -143,12 +143,18 @@ namespace sandbox7
             Texture2D greenTexture = _content.Load<Texture2D>("Balloons/green200");
             Texture2D popTexture = _content.Load<Texture2D>("Effects/explosion");
             Texture2D freezeTexture = _content.Load<Texture2D>("Powerups/snowflake_med");
+            Texture2D fingerTexture = _content.Load<Texture2D>("Reticles/finger");
+            Texture2D shotgunTexture = _content.Load<Texture2D>("Reticles/shotgun");
+            Texture2D rocketLauncherTexture = _content.Load<Texture2D>("Reticles/rocketlauncher");
 
             _textures.Add("red", redTexture);
             _textures.Add("blue", blueTexture);
             _textures.Add("green", greenTexture);
             _textures.Add("pop", popTexture);
             _textures.Add("freeze", freezeTexture);
+            _textures.Add("reticle_finger", fingerTexture);
+            _textures.Add("reticle_shotgun", shotgunTexture);
+            _textures.Add("reticle_rocketlauncher", rocketLauncherTexture);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f));

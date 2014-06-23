@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\black200.xnb</Output>
-      <Time>2014-02-16T11:32:56.5391558+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\black200.xnb</Output>
+      <Time>2014-06-11T14:50:06.0437142+01:00</Time>
     </Item>
     <Item>
       <Source>Balloons\black400.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\black400.xnb</Output>
-      <Time>2014-02-16T11:32:56.5596581+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\black400.xnb</Output>
+      <Time>2014-06-11T14:50:06.0457142+01:00</Time>
     </Item>
     <Item>
       <Source>Balloons\blue200.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\blue200.xnb</Output>
-      <Time>2014-02-16T11:32:56.5822714+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\blue200.xnb</Output>
+      <Time>2014-06-11T14:50:06.046713+01:00</Time>
     </Item>
     <Item>
       <Source>Balloons\blue400.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\blue400.xnb</Output>
-      <Time>2014-02-16T11:32:56.6043235+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\blue400.xnb</Output>
+      <Time>2014-06-11T14:50:06.0486793+01:00</Time>
     </Item>
     <Item>
       <Source>Balloons\green200.png</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\green200.xnb</Output>
-      <Time>2014-02-16T11:32:56.6166557+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\green200.xnb</Output>
+      <Time>2014-06-11T14:50:06.0486793+01:00</Time>
     </Item>
     <Item>
       <Source>Balloons\green400.png</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\green400.xnb</Output>
-      <Time>2014-02-16T11:32:56.6265883+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\green400.xnb</Output>
+      <Time>2014-06-11T14:50:06.0507161+01:00</Time>
     </Item>
     <Item>
       <Source>Balloons\red200.png</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\red200.xnb</Output>
-      <Time>2014-02-16T11:32:56.6375681+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\red200.xnb</Output>
+      <Time>2014-06-11T14:50:06.0527408+01:00</Time>
     </Item>
     <Item>
       <Source>Balloons\red400.png</Source>
@@ -70,8 +70,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\red400.xnb</Output>
-      <Time>2014-02-16T11:32:56.6527564+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Balloons\red400.xnb</Output>
+      <Time>2014-06-11T14:50:06.0537172+01:00</Time>
     </Item>
     <Item>
       <Source>Effects\explosion.png</Source>
@@ -79,8 +79,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Effects\explosion.xnb</Output>
-      <Time>2014-02-16T11:32:56.6668898+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Effects\explosion.xnb</Output>
+      <Time>2014-06-11T14:50:06.0577157+01:00</Time>
     </Item>
     <Item>
       <Source>Powerups\snowflake_med.png</Source>
@@ -88,8 +88,35 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Powerups\snowflake_med.xnb</Output>
-      <Time>2014-02-16T11:32:56.6760442+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Powerups\snowflake_med.xnb</Output>
+      <Time>2014-06-11T14:50:06.0607154+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Reticles\finger.jpg</Source>
+      <Name>Reticles\finger</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Reticles\finger.xnb</Output>
+      <Time>2014-06-23T10:10:41.3426472+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Reticles\rocketlauncher.jpg</Source>
+      <Name>Reticles\rocketlauncher</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Reticles\rocketlauncher.xnb</Output>
+      <Time>2014-06-23T10:10:41.373856+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Reticles\shotgun.jpg</Source>
+      <Name>Reticles\shotgun</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Reticles\shotgun.xnb</Output>
+      <Time>2014-06-23T10:10:41.373856+01:00</Time>
     </Item>
     <Item>
       <Source>DebugText.spritefont</Source>
@@ -97,8 +124,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\DebugText.xnb</Output>
-      <Time>2014-02-16T11:32:56.6538046+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\DebugText.xnb</Output>
+      <Time>2014-06-11T14:50:06.054716+01:00</Time>
     </Item>
     <Item>
       <Source>DisplayText.spritefont</Source>
@@ -106,8 +133,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\DisplayText.xnb</Output>
-      <Time>2014-02-16T11:32:56.6557654+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\DisplayText.xnb</Output>
+      <Time>2014-06-11T14:50:06.0557153+01:00</Time>
     </Item>
     <Item>
       <Source>GameOverText.spritefont</Source>
@@ -115,8 +142,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\GameOverText.xnb</Output>
-      <Time>2014-02-16T11:32:56.6688902+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\GameOverText.xnb</Output>
+      <Time>2014-06-11T14:50:06.0587173+01:00</Time>
     </Item>
     <Item>
       <Source>ScoreText.spritefont</Source>
@@ -124,8 +151,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\ScoreText.xnb</Output>
-      <Time>2014-02-16T11:32:56.6839945+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\ScoreText.xnb</Output>
+      <Time>2014-06-11T14:50:06.0607154+01:00</Time>
     </Item>
     <Item>
       <Source>Sounds\snowball_impact.wav</Source>
@@ -133,8 +160,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Sounds\snowball_impact.xnb</Output>
-      <Time>2014-02-16T11:32:56.7176772+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Sounds\snowball_impact.xnb</Output>
+      <Time>2014-06-11T14:50:06.0717185+01:00</Time>
     </Item>
     <Item>
       <Source>Sounds\snowball_car_impact1.wav</Source>
@@ -142,8 +169,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Sounds\snowball_car_impact1.xnb</Output>
-      <Time>2014-02-16T11:32:56.7026779+00:00</Time>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\Sounds\snowball_car_impact1.xnb</Output>
+      <Time>2014-06-11T14:50:06.0677158+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -152,10 +179,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Release</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1Content\</RootDirectory>
-      <LoggerRootDirectory>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\</LoggerRootDirectory>
-      <IntermediateDirectory>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\obj\Windows Phone\Release\</IntermediateDirectory>
-      <OutputDirectory>D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox6\sandbox1\sandbox1\bin\Windows Phone\Release\Content\</OutputDirectory>
+      <RootDirectory>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1Content\</RootDirectory>
+      <LoggerRootDirectory>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\</LoggerRootDirectory>
+      <IntermediateDirectory>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\obj\Windows Phone\Release\</IntermediateDirectory>
+      <OutputDirectory>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

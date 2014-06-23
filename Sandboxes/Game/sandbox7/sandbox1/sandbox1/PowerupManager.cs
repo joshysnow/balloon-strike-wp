@@ -26,9 +26,11 @@ namespace sandbox7
 
         public PowerupManager()
         {
-            _powerups = new List<Powerup>();
-            _randomPosition = new Random(DateTime.Now.Millisecond);
+            Setup();
+        }
 
+        public void Reset()
+        {
             Setup();
         }
 
@@ -74,6 +76,9 @@ namespace sandbox7
 
         private void Setup()
         {
+            _powerups = new List<Powerup>();
+            _randomPosition = new Random(DateTime.Now.Millisecond);
+
             _freezeTimer = new SimpleTimer();
             _freezeTimer.Initialize(15000);
             _freezeVelocity = new Vector2(0, 4.2f);

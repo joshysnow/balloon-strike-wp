@@ -35,10 +35,11 @@ namespace sandbox7
 
         public BalloonManager()
         {
-            _balloonMemory = new LinkedList<Balloon>();
-            _balloons = new List<Balloon>();
-            _randomPosition = new Random(DateTime.Now.Millisecond);
+            Setup();
+        }
 
+        public void Reset()
+        {
             Setup();
         }
 
@@ -84,6 +85,10 @@ namespace sandbox7
 
         private void Setup()
         {
+            _balloonMemory = new LinkedList<Balloon>();
+            _balloons = new List<Balloon>();
+            _randomPosition = new Random(DateTime.Now.Millisecond);
+
             _greenTimer = new SimpleTimer();
             _greenTimer.Initialize(1500);
 

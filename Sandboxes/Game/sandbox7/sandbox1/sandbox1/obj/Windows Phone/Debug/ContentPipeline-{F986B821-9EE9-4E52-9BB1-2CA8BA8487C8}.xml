@@ -145,6 +145,33 @@
       <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Sounds\snowball_car_impact1.xnb</Output>
       <Time>2014-06-11T14:50:06.0677158+01:00</Time>
     </Item>
+    <Item>
+      <Source>Reticles\finger.jpg</Source>
+      <Name>Reticles\finger</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Reticles\finger.xnb</Output>
+      <Time>2014-06-23T10:10:41.3426472+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Reticles\rocketlauncher.jpg</Source>
+      <Name>Reticles\rocketlauncher</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Reticles\rocketlauncher.xnb</Output>
+      <Time>2014-06-23T10:10:41.373856+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Reticles\shotgun.jpg</Source>
+      <Name>Reticles\shotgun</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Reticles\shotgun.xnb</Output>
+      <Time>2014-06-23T10:10:41.373856+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}</ContentProjectGUID>

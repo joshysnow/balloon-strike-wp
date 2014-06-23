@@ -6,8 +6,8 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("sandbox6")]
-[assembly: AssemblyProduct("sandbox6")]
+[assembly: AssemblyTitle("sandbox7")]
+[assembly: AssemblyProduct("sandbox7")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("FoxCode")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
@@ -32,5 +32,5 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.0.0.6")]
+[assembly: AssemblyVersion("0.0.0.7")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

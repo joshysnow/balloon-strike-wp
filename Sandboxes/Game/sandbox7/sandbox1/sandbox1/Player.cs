@@ -9,7 +9,7 @@ namespace sandbox7
 
         public Player()
         {
-            //ChangeWeapon(WeaponType.Finger);
+            ChangeWeapon(WeaponType.Finger);
         }
 
         public void ChangeWeapon(WeaponType type)
@@ -27,6 +27,11 @@ namespace sandbox7
                     _weapon = WeaponFactory.CreateRocketLauncher();
                     break;
             }
+        }
+
+        public void UpdateInput(Vector2 lastPosition)
+        {
+            _weapon.UpdateInput(lastPosition);
         }
 
         public void Update(GameTime gameTime)

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -18,11 +19,12 @@ namespace sandbox7
             private set;
         }
 
-#warning TODO: Change visiblie property to a calculation involving delta time i.e. when the time remaining is zero, then it is no longer visible.
         public bool Visible
         {
-            get;
-            private set;
+            get
+            {
+                return _delta < 1;
+            }
         }
 
         public bool HasAmmo
@@ -33,15 +35,19 @@ namespace sandbox7
             }
         }
 
-        private Vector2 _position;
+        private Vector2 _inputPosition;
         private Texture2D _reticle;
+        private TimeSpan _fadeTime;
+        private float _delta;
         private byte _ammo;
         private byte _maxAmmo;
+
 
         public Weapon(WeaponType type)
         {
             Type = type;
-            Visible = false;
+            _delta = 1;
+            _fadeTime = TimeSpan.FromSeconds(1.5);
 
             switch (type)
             {
@@ -71,25 +77,24 @@ namespace sandbox7
 
         public void UpdateInput(Vector2 lastPosition)
         {
-            if (!Visible)
-            {
-                Visible = true;  
-            }
-
             if (HasAmmo)
             {
                 _ammo--;
             }
 
-            // TODO: Reset reticle opacity to 100%.
-            _position = lastPosition;
+            // Reset delta so reticle is now fully visible again.
+            _delta = 0;
+
+            _inputPosition.X = lastPosition.X - (_reticle.Width / 2);
+            _inputPosition.Y = lastPosition.Y - (_reticle.Height / 2);
         }
 
         public void Update(GameTime gameTime)
         {
             if (Visible)
             {
-
+                _delta += (float)(gameTime.ElapsedGameTime.TotalMilliseconds / _fadeTime.TotalMilliseconds);
+                _delta = MathHelper.Clamp(_delta, 0, 1);
             }
         }
 
@@ -97,7 +102,8 @@ namespace sandbox7
         {
             if (Visible)
             {
-                spriteBatch.Draw(_reticle, _position, Color.White);
+                float alpha = (1 - _delta);
+                spriteBatch.Draw(_reticle, _inputPosition, Color.White * alpha);
             }
         }
     }
