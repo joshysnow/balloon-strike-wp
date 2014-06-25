@@ -29,3 +29,9 @@ D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\obj\Wi
 bin\Windows Phone\Release\
 D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\sandbox7.xap
 D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\obj\Windows Phone\Release\XapCacheFile.xml
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\sandbox7.xap
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\obj\Windows Phone\Release\XapCacheFile.xml
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\bin\Windows Phone\Release\AppManifest.xaml
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\obj\Windows Phone\Release\WMAppManifest.xml.g
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1\obj\Windows Phone\Release\WMAppManifest.xml
+bin\Windows Phone\Release\

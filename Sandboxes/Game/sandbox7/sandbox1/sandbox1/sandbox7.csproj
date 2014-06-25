@@ -71,7 +71,7 @@
     <Compile Include="BalloonManager.cs" />
     <Compile Include="Collisions.cs" />
     <Compile Include="Weapon.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="WeaponManager.cs" />
     <Compile Include="Powerup.cs" />
     <Compile Include="PowerupManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

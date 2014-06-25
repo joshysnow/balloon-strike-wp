@@ -31,7 +31,7 @@ namespace sandbox7
         private int _sunsMood;
         private GameState _gameState;
 
-        private Player _player;
+        private WeaponManager _weaponManager;
         private BalloonManager _balloonManager;
         private PowerupManager _powerupManager;
 
@@ -84,7 +84,7 @@ namespace sandbox7
         {
             ResourceManager.Initialize(Content);
 
-            _player = new Player();
+            _weaponManager = new WeaponManager();
             _balloonManager = new BalloonManager();
             _powerupManager = new PowerupManager();
 
@@ -167,7 +167,7 @@ namespace sandbox7
         private void UpdatePlayingState(GameTime gameTime)
         {
             UpdatePlayerInput();
-            _player.Update(gameTime);
+            _weaponManager.Update(gameTime);
             _balloonManager.Update(gameTime);
             _powerupManager.Update(gameTime);
 
@@ -200,7 +200,7 @@ namespace sandbox7
             if (_gestures.Count > 0)
             {
                 GestureSample[] gestureArray = _gestures.ToArray();
-                _player.UpdateInput(gestureArray.Last().Position);
+                _weaponManager.UpdateInput(gestureArray.Last().Position);
                 _powerupManager.UpdatePlayerInput(gestureArray);
                 _balloonManager.UpdatePlayerInput(gestureArray);
             }
@@ -243,7 +243,7 @@ namespace sandbox7
         {
             _balloonManager.Draw(_spriteBatch);
             _powerupManager.Draw(_spriteBatch);
-            _player.Draw(_spriteBatch);
+            _weaponManager.Draw(_spriteBatch);
 
             string scoreText = "Score: " + _score;
             Vector2 scoreTextLength = _displayFont.MeasureString(scoreText);
@@ -273,7 +273,7 @@ namespace sandbox7
         private void Reset()
         {
             _gameState = GameState.GameOver;
-            _player.ChangeWeapon(WeaponType.Finger);
+            _weaponManager.Reset();
             _balloonManager.Reset();
             _powerupManager.Reset();
         }
