@@ -88,9 +88,9 @@ namespace sandbox7
             _balloonManager = new BalloonManager();
             _powerupManager = new PowerupManager();
 
-            _balloonManager.Popped += _balloonManager_Popped;
-            _balloonManager.Escaped += _balloonManager_Escaped;
-            _powerupManager.PickedUp += _powerupManager_PickedUp;
+            _balloonManager.Popped += BalloonPoppedHandler;
+            _balloonManager.Escaped += BalloonEscapedHandler;
+            _powerupManager.PickedUp += PowerupPickedUpHandler;
 
             TouchPanel.EnabledGestures = GestureType.Tap;
             _gestures = new List<GestureSample>();
@@ -283,19 +283,32 @@ namespace sandbox7
             this.Exit();
         }
 
-        private void _balloonManager_Popped(Balloon balloon)
+        private void BalloonPoppedHandler(Balloon balloon)
         {
             _score++;
         }
 
-        private void _balloonManager_Escaped(Balloon balloon)
+        private void BalloonEscapedHandler(Balloon balloon)
         {
             _sunsMood--;
         }
 
-        private void _powerupManager_PickedUp(Powerup powerup)
+        private void PowerupPickedUpHandler(Powerup powerup)
         {
-            // TODO: Change the weapon or affect the balloons in some way.
+#warning TODO: Change the weapon or affect the balloons in some way.
+            switch (powerup.Type)
+            {
+                case PowerupType.Freeze:
+                case PowerupType.Nuke:
+                    // Pass to balloon manager.
+                    break;
+                case PowerupType.Shotgun:
+                case PowerupType.RocketLauncher:
+                    // Pass to weapon manager.
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

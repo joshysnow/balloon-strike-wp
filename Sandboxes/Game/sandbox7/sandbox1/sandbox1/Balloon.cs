@@ -24,6 +24,28 @@ namespace sandbox7
 
     public class Balloon
     {
+        public BalloonColor Color
+        {
+            get;
+            set;
+        }
+
+        public BalloonState State
+        {
+            get { return _state; }
+        }
+
+        public byte Health
+        {
+            get;
+            private set;
+        }
+
+        public bool IsAvailable
+        {
+            get { return _isAvailable; }
+        }
+
         private AnimationPlayer _animationPlayer;
         private Animation _popAnimation;
         private Animation _moveAnimation;
@@ -36,21 +58,6 @@ namespace sandbox7
         private BalloonState _state;
         private bool _initialized;
         private bool _isAvailable;
-
-        public BalloonColor Color
-        {
-            get; set;
-        }
-
-        public BalloonState State
-        {
-            get { return _state; }
-        }
-
-        public bool IsAvailable
-        {
-            get { return _isAvailable; }
-        }
 
         public Balloon()
         {

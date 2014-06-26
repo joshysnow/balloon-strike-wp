@@ -7,7 +7,10 @@ namespace sandbox7
 {
     public enum PowerupType : byte
     {
-        Freeze = 0x01
+        Freeze          = 0x01,
+        Nuke            = 0x02,
+        Shotgun         = 0x04,
+        RocketLauncher  = 0x08
     }
 
     public enum PowerupState : byte

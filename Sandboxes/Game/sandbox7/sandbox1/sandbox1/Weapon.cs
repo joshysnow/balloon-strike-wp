@@ -19,6 +19,12 @@ namespace sandbox7
             private set;
         }
 
+        public byte Damage
+        {
+            get;
+            private set;
+        }
+
         public bool Visible
         {
             get
@@ -42,7 +48,6 @@ namespace sandbox7
         private byte _ammo;
         private byte _maxAmmo;
 
-
         public Weapon(WeaponType type)
         {
             Type = type;
@@ -55,19 +60,27 @@ namespace sandbox7
                 case WeaponType.Finger:
                     _ammo = 0;
                     _maxAmmo = 0;
+                    Damage = 1;
                     _reticle = ResourceManager.Manager.GetTexture("reticle_finger");
                     break;
                 case WeaponType.Shotgun:
                     _ammo = 6;
                     _maxAmmo = 6;
+                    Damage = 2;
                     _reticle = ResourceManager.Manager.GetTexture("reticle_shotgun");
                     break;
                 case WeaponType.RocketLauncher:
                     _ammo = 2;
                     _maxAmmo = 2;
+                    Damage = 3;
                     _reticle = ResourceManager.Manager.GetTexture("reticle_rocketlauncher");
                     break;
             }
+        }
+
+        public bool BetterThan(WeaponType type)
+        {
+            return (byte)type > (byte)Type;
         }
 
         public void Resupply()

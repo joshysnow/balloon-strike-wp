@@ -37,6 +37,7 @@ namespace sandbox7
         public void UpdatePlayerInput(GestureSample[] gestures)
         {
             int index;
+            Powerup powerup;
 
             foreach (GestureSample gesture in gestures)
             {
@@ -49,9 +50,11 @@ namespace sandbox7
 
                 while (index >= 0)
                 {
-                    if (_powerups[index].Intersects(gesture.Position))
+                    powerup = _powerups[index];
+                    if (powerup.Intersects(gesture.Position))
                     {
-                        _powerups[index].Pickup();
+                        powerup.Pickup();
+                        RaisePickedUp(powerup);
                         break;
                     }
                     index--;

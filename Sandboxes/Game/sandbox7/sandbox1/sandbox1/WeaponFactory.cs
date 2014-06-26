@@ -16,5 +16,26 @@ namespace sandbox7
         {
             return new Weapon(WeaponType.RocketLauncher);
         }
+
+        public static Weapon CreateFromType(WeaponType type)
+        {
+            Weapon weapon;
+
+            switch (type)
+            {
+                case WeaponType.Shotgun:
+                    weapon = CreateShotgun();
+                    break;
+                case WeaponType.RocketLauncher:
+                    weapon = CreateRocketLauncher();
+                    break;
+            case WeaponType.Finger:
+                default:
+                    weapon = CreateDefault();
+                    break;
+            }
+
+            return weapon;
+        }
     }
 }
