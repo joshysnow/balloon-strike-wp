@@ -150,6 +150,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Reticles\shotgun.jpg">
       <Name>shotgun</Name>
       <Importer>TextureImporter</Importer>

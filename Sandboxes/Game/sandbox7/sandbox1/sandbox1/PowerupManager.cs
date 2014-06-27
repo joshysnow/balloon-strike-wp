@@ -158,15 +158,15 @@ namespace sandbox7
                 SpawnPowerup(PowerupType.Freeze);
             }
 
-            //if (_shellTimer.Update(gameTime))
-            //{
-            //    SpawnPowerup(PowerupType.Shell);
-            //}
+            if (_shellTimer.Update(gameTime))
+            {
+                SpawnPowerup(PowerupType.Shell);
+            }
 
-            //if (_missileTimer.Update(gameTime))
-            //{
+            if (_missileTimer.Update(gameTime))
+            {
                 //SpawnPowerup(PowerupType.Missile);
-            //}
+            }
         }
 
         private void SpawnPowerup(PowerupType type)

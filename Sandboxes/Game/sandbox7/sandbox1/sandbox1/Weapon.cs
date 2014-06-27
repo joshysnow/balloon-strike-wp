@@ -11,7 +11,7 @@ namespace sandbox7
         RocketLauncher  = 0x04
     }
 
-    public class Weapon
+    public class Weapon 
     {
         public WeaponType Type
         {
@@ -25,12 +25,10 @@ namespace sandbox7
             private set;
         }
 
-        public bool Visible
+        public Reticle Reticle
         {
-            get
-            {
-                return _delta < 1;
-            }
+            get;
+            private set;
         }
 
         public bool HasAmmo
@@ -41,18 +39,13 @@ namespace sandbox7
             }
         }
 
-        private Vector2 _inputPosition;
-        private Texture2D _reticle;
-        private TimeSpan _fadeTime;
-        private float _delta;
         private byte _ammo;
         private byte _maxAmmo;
 
         public Weapon(WeaponType type)
         {
             Type = type;
-            _delta = 1;
-            _fadeTime = TimeSpan.FromSeconds(1.5);
+            TimeSpan fadeTime = TimeSpan.FromSeconds(1.5);
 
             switch (type)
             {
@@ -61,26 +54,31 @@ namespace sandbox7
                     _ammo = 0;
                     _maxAmmo = 0;
                     Damage = 1;
-                    _reticle = ResourceManager.Manager.GetTexture("reticle_finger");
+                    Reticle = new Reticle(fadeTime, ResourceManager.Manager.GetTexture("reticle_finger"));
                     break;
                 case WeaponType.Shotgun:
                     _ammo = 6;
                     _maxAmmo = 6;
                     Damage = 2;
-                    _reticle = ResourceManager.Manager.GetTexture("reticle_shotgun");
+                    Reticle = new Reticle(fadeTime, ResourceManager.Manager.GetTexture("reticle_shotgun"));
                     break;
                 case WeaponType.RocketLauncher:
                     _ammo = 2;
                     _maxAmmo = 2;
                     Damage = 3;
-                    _reticle = ResourceManager.Manager.GetTexture("reticle_rocketlauncher");
+                    Reticle = new Reticle(fadeTime, ResourceManager.Manager.GetTexture("reticle_rocketlauncher"));
                     break;
             }
         }
 
-        public bool BetterThan(WeaponType type)
+        public bool IsBetterThan(WeaponType type)
         {
-            return (byte)type > (byte)Type;
+            return (byte)Type > (byte)type;
+        }
+
+        public static bool IsBetterThan(Weapon left, Weapon right)
+        {
+            return (byte)left.Type > (byte)right.Type;
         }
 
         public void Resupply()
@@ -88,36 +86,24 @@ namespace sandbox7
             _ammo = _maxAmmo;
         }
 
-        public void UpdateInput(Vector2 lastPosition)
+        public void UpdateInput(Vector2 position)
         {
             if (HasAmmo)
             {
                 _ammo--;
             }
 
-            // Reset delta so reticle is now fully visible again.
-            _delta = 0;
-
-            _inputPosition.X = lastPosition.X - (_reticle.Width / 2);
-            _inputPosition.Y = lastPosition.Y - (_reticle.Height / 2);
+            Reticle.UpdatePosition(position);
         }
 
         public void Update(GameTime gameTime)
         {
-            if (Visible)
-            {
-                _delta += (float)(gameTime.ElapsedGameTime.TotalMilliseconds / _fadeTime.TotalMilliseconds);
-                _delta = MathHelper.Clamp(_delta, 0, 1);
-            }
+            Reticle.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (Visible)
-            {
-                float alpha = (1 - _delta);
-                spriteBatch.Draw(_reticle, _inputPosition, Color.White * alpha);
-            }
+            Reticle.Draw(spriteBatch);
         }
     }
 }

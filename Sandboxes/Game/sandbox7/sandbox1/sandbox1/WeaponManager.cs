@@ -14,49 +14,25 @@ namespace sandbox7
             }
         }
 
-        public WeaponType WeaponType
-        {
-            get
-            {
-                return _currentWeapons.First.Value.Type;
-            }
-        }
-
-        //private Weapon _currentWeapon;
-        //private Weapon _previousWeapon;
-
         private LinkedList<Weapon> _currentWeapons;
-        private List<Weapon> _garbage;
+        private List<Reticle> _garbageReticles;
 
         public WeaponManager()
         {
-
-            //_currentWeapon = WeaponFactory.CreateDefault();
-
             _currentWeapons = new LinkedList<Weapon>();
             _currentWeapons.AddFirst(WeaponFactory.CreateDefault());
 
-            _garbage = new List<Weapon>();
+            _garbageReticles = new List<Reticle>();
         }
 
         public void Reset()
         {
-            //_currentWeapon = WeaponFactory.CreateDefault();
             _currentWeapons.Clear();
             _currentWeapons.AddFirst(WeaponFactory.CreateDefault());
         }
 
         public void ProcessPowerup(PowerupType powerupType)
         {
-            //if (newWeaponType == _currentWeapon.Type)
-            //{
-            //    _currentWeapon.Resupply();
-            //}
-            //else
-            //{
-            //    ChangeWeapon(newWeaponType);
-            //}
-
             switch (powerupType)
             {
                 case PowerupType.Shell:
@@ -72,79 +48,42 @@ namespace sandbox7
 
         public void UpdateInput(Vector2 lastPosition)
         {
-            //_currentWeapon.UpdateInput(lastPosition);
             CurrentWeapon.UpdateInput(lastPosition);
         }
 
         public void Update(GameTime gameTime)
         {
-            //_currentWeapon.Update(gameTime);
-
-            //if (_currentWeapon.Type != WeaponType.Finger && !_currentWeapon.HasAmmo)
-            //{
-            //    WeaponType newWeaponType = (WeaponType)(((int)_currentWeapon.Type) >> 0x01); // Half the value is the one before.
-            //    ChangeWeapon(newWeaponType);
-            //}
-
-            //if (_previousWeapon != null)
-            //{
-            //    if (_previousWeapon.Visible)
-            //    {
-            //        _previousWeapon.Update(gameTime);
-            //    }
-            //    else
-            //    {
-            //        _previousWeapon = null;
-            //    }
-            //}
-
             UpdateWeapons(gameTime);
             UpdateGarbage(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //_currentWeapon.Draw(spriteBatch);
             CurrentWeapon.Draw(spriteBatch);
 
-            foreach (Weapon weapon in _garbage)
+            foreach (Reticle reticle in _garbageReticles)
             {
-                weapon.Draw(spriteBatch);
+                reticle.Draw(spriteBatch);
             }
 
 #warning TODO: Show the player the amount of weapons per type they have.
         }
 
-        //private void ChangeWeapon(WeaponType type)
-        //{
-        //    _previousWeapon = _currentWeapon;
-
-        //    switch (type)
-        //    {              
-        //        case WeaponType.Shotgun:
-        //            _currentWeapon = WeaponFactory.CreateShotgun();
-        //            break;
-        //        case WeaponType.RocketLauncher:
-        //            _currentWeapon = WeaponFactory.CreateRocketLauncher();
-        //            break;
-        //        case WeaponType.Finger:
-        //        default:
-        //            _currentWeapon = WeaponFactory.CreateDefault();
-        //            break;
-        //    }
-        //}
-
-        private void AddWeapon(WeaponType type)
+        private void AddWeapon(WeaponType newWeaponType)
         {
             bool inserted = false;
             LinkedListNode<Weapon> currentNode = _currentWeapons.First;
-            Weapon newWeapon = WeaponFactory.CreateFromType(type);
+            Weapon newWeapon = WeaponFactory.CreateFromType(newWeaponType);
 
             do
             {
-                if (currentNode.Value.BetterThan(type))
+                if (currentNode.Value.IsBetterThan(newWeaponType) == false)
                 {
                     _currentWeapons.AddBefore(currentNode, newWeapon);
+
+                    // Put copy of current weapon into garbage? Need to still show the current reticle fading out.
+                    _garbageReticles.Add(currentNode.Value.Reticle);
+
                     inserted = true;
                 }
 
@@ -162,10 +101,10 @@ namespace sandbox7
             {
                 currentWeapon = currentNode.Value;
 
-                if (currentWeapon.HasAmmo == false && currentWeapon.Type != WeaponType.Finger)
+                if ((currentWeapon.HasAmmo == false) && (currentWeapon.Type != WeaponType.Finger))
                 {
                     _currentWeapons.Remove(currentNode);
-                    _garbage.Add(currentWeapon);
+                    _garbageReticles.Add(currentWeapon.Reticle);
                 }
                 else
                 {
@@ -179,20 +118,20 @@ namespace sandbox7
 
         private void UpdateGarbage(GameTime gameTime)
         {
-            Weapon currentWeapon;
+            Reticle currentReticle;
             int i = 0;
 
-            while(i < _garbage.Count)
+            while(i < _garbageReticles.Count)
             {
-                currentWeapon = _garbage[i];
+                currentReticle = _garbageReticles[i];
 
-                if (currentWeapon.Visible == false)
+                if (currentReticle.Visible == false)
                 {
-                    _garbage.RemoveAt(i);
+                    _garbageReticles.RemoveAt(i);
                 }
                 else
                 {
-                    currentWeapon.Update(gameTime);
+                    currentReticle.Update(gameTime);
                     i++;
                 }
             }
