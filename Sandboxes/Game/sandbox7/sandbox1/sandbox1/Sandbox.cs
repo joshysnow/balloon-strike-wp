@@ -302,9 +302,10 @@ namespace sandbox7
                 case PowerupType.Nuke:
                     // Pass to balloon manager.
                     break;
-                case PowerupType.Shotgun:
-                case PowerupType.RocketLauncher:
+                case PowerupType.Shell:
+                case PowerupType.Missile:
                     // Pass to weapon manager.
+                    _weaponManager.ProcessPowerup(powerup.Type);
                     break;
                 default:
                     break;

@@ -9,8 +9,8 @@ namespace sandbox7
     {
         Freeze          = 0x01,
         Nuke            = 0x02,
-        Shotgun         = 0x04,
-        RocketLauncher  = 0x08
+        Shell           = 0x04,
+        Missile         = 0x08
     }
 
     public enum PowerupState : byte
@@ -38,7 +38,8 @@ namespace sandbox7
 
         public PowerupType Type
         {
-            get; set;
+            get; 
+            private set;
         }
 
         public PowerupState State
@@ -51,8 +52,9 @@ namespace sandbox7
             get { return _isAvailable; }
         }
 
-        public Powerup()
+        public Powerup(PowerupType type)
         {
+            Type = type;
             _initialized = false;
             _isAvailable = true;
         }   
@@ -147,8 +149,6 @@ namespace sandbox7
 
             _state = PowerupState.PickingUp;
             _pickedUpSound.Play();
-
-
 
             _animationPlayer.SetAnimation(_pickupAnimation, _positionUL);
         }

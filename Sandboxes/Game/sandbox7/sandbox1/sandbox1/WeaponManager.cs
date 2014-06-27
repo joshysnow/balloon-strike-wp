@@ -18,12 +18,12 @@ namespace sandbox7
         {
             get
             {
-                return _currentWeapon.Type;
+                return _currentWeapons.First.Value.Type;
             }
         }
 
-        private Weapon _currentWeapon;
-        private Weapon _previousWeapon;
+        //private Weapon _currentWeapon;
+        //private Weapon _previousWeapon;
 
         private LinkedList<Weapon> _currentWeapons;
         private List<Weapon> _garbage;
@@ -31,62 +31,72 @@ namespace sandbox7
         public WeaponManager()
         {
 
-            _currentWeapon = WeaponFactory.CreateDefault();
+            //_currentWeapon = WeaponFactory.CreateDefault();
 
             _currentWeapons = new LinkedList<Weapon>();
-            _currentWeapons.AddFirst(_currentWeapon);
+            _currentWeapons.AddFirst(WeaponFactory.CreateDefault());
 
             _garbage = new List<Weapon>();
         }
 
         public void Reset()
         {
-            _currentWeapon = WeaponFactory.CreateDefault();
+            //_currentWeapon = WeaponFactory.CreateDefault();
             _currentWeapons.Clear();
-            _currentWeapons.AddFirst(_currentWeapon);
+            _currentWeapons.AddFirst(WeaponFactory.CreateDefault());
         }
 
-        public void ProcessNewWeapon(WeaponType newWeaponType)
+        public void ProcessPowerup(PowerupType powerupType)
         {
-            if (newWeaponType == _currentWeapon.Type)
-            {
-                _currentWeapon.Resupply();
-            }
-            else
-            {
-                ChangeWeapon(newWeaponType);
-            }
+            //if (newWeaponType == _currentWeapon.Type)
+            //{
+            //    _currentWeapon.Resupply();
+            //}
+            //else
+            //{
+            //    ChangeWeapon(newWeaponType);
+            //}
 
-            AddWeapon(newWeaponType);
+            switch (powerupType)
+            {
+                case PowerupType.Shell:
+                    AddWeapon(WeaponType.Shotgun);
+                    break;
+                case PowerupType.Missile:
+                    AddWeapon(WeaponType.RocketLauncher);
+                    break;
+                default:
+                    return;
+            }            
         }
 
         public void UpdateInput(Vector2 lastPosition)
         {
-            _currentWeapon.UpdateInput(lastPosition);
+            //_currentWeapon.UpdateInput(lastPosition);
             CurrentWeapon.UpdateInput(lastPosition);
         }
 
         public void Update(GameTime gameTime)
         {
-            _currentWeapon.Update(gameTime);
+            //_currentWeapon.Update(gameTime);
 
-            if (_currentWeapon.Type != WeaponType.Finger && !_currentWeapon.HasAmmo)
-            {
-                WeaponType newWeaponType = (WeaponType)(((int)_currentWeapon.Type) >> 0x01); // Half the value is the one before.
-                ChangeWeapon(newWeaponType);
-            }
+            //if (_currentWeapon.Type != WeaponType.Finger && !_currentWeapon.HasAmmo)
+            //{
+            //    WeaponType newWeaponType = (WeaponType)(((int)_currentWeapon.Type) >> 0x01); // Half the value is the one before.
+            //    ChangeWeapon(newWeaponType);
+            //}
 
-            if (_previousWeapon != null)
-            {
-                if (_previousWeapon.Visible)
-                {
-                    _previousWeapon.Update(gameTime);
-                }
-                else
-                {
-                    _previousWeapon = null;
-                }
-            }
+            //if (_previousWeapon != null)
+            //{
+            //    if (_previousWeapon.Visible)
+            //    {
+            //        _previousWeapon.Update(gameTime);
+            //    }
+            //    else
+            //    {
+            //        _previousWeapon = null;
+            //    }
+            //}
 
             UpdateWeapons(gameTime);
             UpdateGarbage(gameTime);
@@ -94,30 +104,35 @@ namespace sandbox7
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _currentWeapon.Draw(spriteBatch);
+            //_currentWeapon.Draw(spriteBatch);
             CurrentWeapon.Draw(spriteBatch);
+
+            foreach (Weapon weapon in _garbage)
+            {
+                weapon.Draw(spriteBatch);
+            }
 
 #warning TODO: Show the player the amount of weapons per type they have.
         }
 
-        private void ChangeWeapon(WeaponType type)
-        {
-            _previousWeapon = _currentWeapon;
+        //private void ChangeWeapon(WeaponType type)
+        //{
+        //    _previousWeapon = _currentWeapon;
 
-            switch (type)
-            {              
-                case WeaponType.Shotgun:
-                    _currentWeapon = WeaponFactory.CreateShotgun();
-                    break;
-                case WeaponType.RocketLauncher:
-                    _currentWeapon = WeaponFactory.CreateRocketLauncher();
-                    break;
-                case WeaponType.Finger:
-                default:
-                    _currentWeapon = WeaponFactory.CreateDefault();
-                    break;
-            }
-        }
+        //    switch (type)
+        //    {              
+        //        case WeaponType.Shotgun:
+        //            _currentWeapon = WeaponFactory.CreateShotgun();
+        //            break;
+        //        case WeaponType.RocketLauncher:
+        //            _currentWeapon = WeaponFactory.CreateRocketLauncher();
+        //            break;
+        //        case WeaponType.Finger:
+        //        default:
+        //            _currentWeapon = WeaponFactory.CreateDefault();
+        //            break;
+        //    }
+        //}
 
         private void AddWeapon(WeaponType type)
         {
@@ -127,45 +142,58 @@ namespace sandbox7
 
             do
             {
-                if (currentNode.Value.BetterThan(type) == false)
+                if (currentNode.Value.BetterThan(type))
                 {
                     _currentWeapons.AddBefore(currentNode, newWeapon);
                     inserted = true;
                 }
+
+                currentNode = currentNode.Next;
             }
-            while (!inserted);
+            while (!inserted && currentNode != null);
         }
 
         private void UpdateWeapons(GameTime gameTime)
         {
             LinkedListNode<Weapon> currentNode = _currentWeapons.First;
+            Weapon currentWeapon;
 
             do
             {
-                if (currentNode.Value.HasAmmo == false)
+                currentWeapon = currentNode.Value;
+
+                if (currentWeapon.HasAmmo == false && currentWeapon.Type != WeaponType.Finger)
                 {
                     _currentWeapons.Remove(currentNode);
-                    _garbage.Add(currentNode.Value);
+                    _garbage.Add(currentWeapon);
                 }
                 else
                 {
-                    currentNode.Value.Update(gameTime);
+                    currentWeapon.Update(gameTime);
                 }
+
+                currentNode = currentNode.Next;
             }
             while (currentNode != null);
         }
 
         private void UpdateGarbage(GameTime gameTime)
         {
-            foreach (Weapon weapon in _garbage)
+            Weapon currentWeapon;
+            int i = 0;
+
+            while(i < _garbage.Count)
             {
-                if (weapon.Visible == false)
+                currentWeapon = _garbage[i];
+
+                if (currentWeapon.Visible == false)
                 {
-                    _garbage.Remove(weapon);
+                    _garbage.RemoveAt(i);
                 }
                 else
                 {
-                    weapon.Update(gameTime);
+                    currentWeapon.Update(gameTime);
+                    i++;
                 }
             }
         }

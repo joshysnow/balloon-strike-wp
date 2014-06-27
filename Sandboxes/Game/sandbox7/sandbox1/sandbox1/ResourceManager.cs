@@ -143,24 +143,30 @@ namespace sandbox7
             Texture2D greenTexture = _content.Load<Texture2D>("Balloons/green200");
             Texture2D popTexture = _content.Load<Texture2D>("Effects/explosion");
             Texture2D freezeTexture = _content.Load<Texture2D>("Powerups/snowflake_med");
-            Texture2D fingerTexture = _content.Load<Texture2D>("Reticles/finger");
-            Texture2D shotgunTexture = _content.Load<Texture2D>("Reticles/shotgun");
-            Texture2D rocketLauncherTexture = _content.Load<Texture2D>("Reticles/rocketlauncher");
+            Texture2D shellTexture = _content.Load<Texture2D>("Powerups/shell_200");
+            Texture2D missileTexture = _content.Load<Texture2D>("Powerups/missile_200");
+            Texture2D reticleFingerTexture = _content.Load<Texture2D>("Reticles/finger");
+            Texture2D reticleShotgunTexture = _content.Load<Texture2D>("Reticles/shotgun");
+            Texture2D reticleRocketLauncherTexture = _content.Load<Texture2D>("Reticles/rocketlauncher");
 
             _textures.Add("red", redTexture);
             _textures.Add("blue", blueTexture);
             _textures.Add("green", greenTexture);
             _textures.Add("pop", popTexture);
             _textures.Add("freeze", freezeTexture);
-            _textures.Add("reticle_finger", fingerTexture);
-            _textures.Add("reticle_shotgun", shotgunTexture);
-            _textures.Add("reticle_rocketlauncher", rocketLauncherTexture);
+            _textures.Add("shell", shellTexture);
+            _textures.Add("missile", missileTexture);
+            _textures.Add("reticle_finger", reticleFingerTexture);
+            _textures.Add("reticle_shotgun", reticleShotgunTexture);
+            _textures.Add("reticle_rocketlauncher", reticleRocketLauncherTexture);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f));
             _animations.Add("greenmove", new Animation(greenTexture, true, greenTexture.Width, greenTexture.Height, 0, 0.5f));
             _animations.Add("bluemove", new Animation(blueTexture, true, blueTexture.Width, blueTexture.Height, 0, 0.5f));
-            _animations.Add("freezemove", new Animation(freezeTexture, true, freezeTexture.Width, freezeTexture.Height, 0, 0.5f));
+            _animations.Add("freezemove", new Animation(freezeTexture, true, freezeTexture.Width, freezeTexture.Height, 0, 0.25f));
+            _animations.Add("shellmove", new Animation(shellTexture, true, shellTexture.Width, shellTexture.Height, 0, 0.5f));
+            _animations.Add("missilemove", new Animation(missileTexture, true, missileTexture.Width, missileTexture.Height, 0, 0.5f));
         }
     }
 }

@@ -15,8 +15,14 @@ namespace sandbox7
 
         private List<Powerup> _powerups;
         private SimpleTimer _freezeTimer;
+        private SimpleTimer _shellTimer;
+        private SimpleTimer _missileTimer;
         private Vector2 _freezeVelocity;
+        private Vector2 _shellVelocity;
+        private Vector2 _missileVelocity;
         private Animation _freezeMoveAnimation;
+        private Animation _shellMoveAnimation;
+        private Animation _missileMoveAnimation;
         private Animation _popAnimation;
         private SoundEffect _popSoundEffect;
 
@@ -54,7 +60,6 @@ namespace sandbox7
                     if (powerup.Intersects(gesture.Position))
                     {
                         powerup.Pickup();
-                        RaisePickedUp(powerup);
                         break;
                     }
                     index--;
@@ -83,12 +88,22 @@ namespace sandbox7
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
             _freezeTimer = new SimpleTimer();
-            _freezeTimer.Initialize(15000);
+            _freezeTimer.Initialize(5000);
             _freezeVelocity = new Vector2(0, 4.2f);
+
+            _shellTimer = new SimpleTimer();
+            _shellTimer.Initialize(5000);
+            _shellVelocity = new Vector2(0, 6f);
+
+            _missileTimer = new SimpleTimer();
+            _missileTimer.Initialize(7500);
+            _missileVelocity = new Vector2(0, 7f);
 
             ResourceManager manager = ResourceManager.Manager;
 
             _freezeMoveAnimation = manager.GetAnimation("freezemove");
+            _shellMoveAnimation = manager.GetAnimation("shellmove");
+            _missileMoveAnimation = manager.GetAnimation("missilemove");
             _popAnimation = manager.GetAnimation("popmove");
             _popSoundEffect = manager.GetSoundEffect("pop");
         }
@@ -133,8 +148,6 @@ namespace sandbox7
                     default:
                         break;
                 }
-
-                index++;
             }
         }
 
@@ -144,19 +157,44 @@ namespace sandbox7
             {
                 SpawnPowerup(PowerupType.Freeze);
             }
+
+            //if (_shellTimer.Update(gameTime))
+            //{
+            //    SpawnPowerup(PowerupType.Shell);
+            //}
+
+            //if (_missileTimer.Update(gameTime))
+            //{
+                //SpawnPowerup(PowerupType.Missile);
+            //}
         }
 
         private void SpawnPowerup(PowerupType type)
         {
-            Powerup spawn = new Powerup();
-            spawn.Type = type;
+            Powerup spawn = new Powerup(type);
+            Animation moveAnimation = GetAnimation(type);
 
-            int x = _randomPosition.Next(_screenWidth - (int)(_freezeMoveAnimation.FrameWidth * _freezeMoveAnimation.Scale));
-            int y = (0 - (int)(_freezeMoveAnimation.FrameHeight * _freezeMoveAnimation.Scale));
+            int x = _randomPosition.Next(_screenWidth - (int)(moveAnimation.FrameWidth * moveAnimation.Scale));
+            int y = (0 - (int)(moveAnimation.FrameHeight * moveAnimation.Scale));
             Vector2 upperLeft = new Vector2(x, y);
 
-            spawn.Initialize(_freezeMoveAnimation, _popAnimation, _popSoundEffect, upperLeft, _freezeVelocity, _screenHeight);
+            spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, upperLeft, _freezeVelocity, _screenHeight);
             _powerups.Add(spawn);
+        }
+
+        private Animation GetAnimation(PowerupType type)
+        {
+            switch (type)
+            {
+                case PowerupType.Shell:
+                    return _shellMoveAnimation;
+                case PowerupType.Missile:
+                    return _missileMoveAnimation;
+                case PowerupType.Freeze:
+                case PowerupType.Nuke:
+                default:
+                    return _freezeMoveAnimation;
+            }
         }
 
         private void RaisePickedUp(Powerup powerup)

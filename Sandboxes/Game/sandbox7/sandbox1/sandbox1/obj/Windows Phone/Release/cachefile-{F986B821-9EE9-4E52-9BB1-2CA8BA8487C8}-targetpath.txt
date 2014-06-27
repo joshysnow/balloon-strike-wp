@@ -17,3 +17,5 @@ Content\GameOverText.xnb
 Content\ScoreText.xnb
 Content\Sounds\snowball_impact.xnb
 Content\Sounds\snowball_car_impact1.xnb
+Content\Powerups\missile_200.xnb
+Content\Powerups\shell_200.xnb
