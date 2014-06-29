@@ -248,13 +248,7 @@ namespace sandbox8
             _weaponManager.Draw(_spriteBatch);
             _scoreManager.Draw(_spriteBatch);
 
-            //string scoreText = "Score: " + _score;
-            //Vector2 scoreTextLength = _displayFont.MeasureString(scoreText);
-            //Vector2 scorePosition = new Vector2(_screenWidth - scoreTextLength.X - _spacing, 0);
-
             _spriteBatch.DrawString(_displayFont, "Sun Mood: " + _sunsMood, _sunPosition, Color.Gold);
-            //_spriteBatch.DrawString(_displayFont, scoreText, scorePosition, Color.Yellow);
-            //_spriteBatch.DrawString(_debugFont, "DEBUG - Pool : " + _balloonMemory.Count + " - Spawned : " + _spawnCount, _debugPosition, Color.White);
         }
 
         private void DrawGameOverState()

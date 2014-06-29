@@ -165,7 +165,7 @@ namespace sandbox8
 
             if (_missileTimer.Update(gameTime))
             {
-                //SpawnPowerup(PowerupType.Missile);
+                SpawnPowerup(PowerupType.Missile);
             }
         }
 

@@ -151,9 +151,9 @@ namespace sandbox8
             Texture2D freezeTexture = _content.Load<Texture2D>("Powerups/snowflake_med");
             Texture2D shellTexture = _content.Load<Texture2D>("Powerups/shell_200");
             Texture2D missileTexture = _content.Load<Texture2D>("Powerups/missile_200");
-            Texture2D reticleFingerTexture = _content.Load<Texture2D>("Reticles/finger");
-            Texture2D reticleShotgunTexture = _content.Load<Texture2D>("Reticles/shotgun");
-            Texture2D reticleRocketLauncherTexture = _content.Load<Texture2D>("Reticles/rocketlauncher");
+            Texture2D reticleFingerTexture = _content.Load<Texture2D>("Reticles/Nfinger");
+            Texture2D reticleShotgunTexture = _content.Load<Texture2D>("Reticles/Nshotgun");
+            Texture2D reticleRocketLauncherTexture = _content.Load<Texture2D>("Reticles/Nrocketlauncher");
 
             _textures.Add("red", redTexture);
             _textures.Add("blue", blueTexture);

@@ -25,7 +25,7 @@ namespace sandbox8
         {
             LoadFonts();
 
-            _transitionTime = TimeSpan.FromSeconds(1.5f);
+            _transitionTime = TimeSpan.FromSeconds(1f);
             _position = 0;
             _direction = 1;
             _score = 0;
@@ -78,10 +78,9 @@ namespace sandbox8
         {
             SpriteFont font = _fonts[(int)(_position * 9)];
             Vector2 scoreLength = font.MeasureString(_score.ToString());
-            Vector2 position = new Vector2(480 - scoreLength.X - 10, 5); // Screen width - horizontal length of text - spacing from the side, top margin.
+            Vector2 position = new Vector2(480 - scoreLength.X - 10, 0); // Screen width - horizontal length of text - spacing from the side, top margin.
 
             spriteBatch.DrawString(font, _score.ToString(), position, Color.Goldenrod);
-            spriteBatch.DrawString(_fonts[0], _position.ToString(), new Vector2(480 - _fonts[0].MeasureString(_position.ToString()).X - 10, position.Y + scoreLength.Y), Color.White);
         }
 
         private void LoadFonts()
