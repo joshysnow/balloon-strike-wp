@@ -1,2 +1,1 @@
 D:\Game Projects\Balloon Strike\Sandboxes\Balloon Box\sandbox7\sandbox1\sandbox1Content\obj\Windows Phone\Debug\sandbox7Content.contentprojResolveAssemblyReference.cache
-D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox7\sandbox1\sandbox1Content\obj\Windows Phone\Debug\sandbox7Content.contentprojResolveAssemblyReference.cache

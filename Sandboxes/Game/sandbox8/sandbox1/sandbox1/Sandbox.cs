@@ -27,13 +27,13 @@ namespace sandbox8
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private int _score;
         private int _sunsMood;
         private GameState _gameState;
 
         private WeaponManager _weaponManager;
         private BalloonManager _balloonManager;
         private PowerupManager _powerupManager;
+        private ScoreManager _scoreManager;
 
         private List<GestureSample> _gestures;
 
@@ -87,6 +87,7 @@ namespace sandbox8
             _weaponManager = new WeaponManager();
             _balloonManager = new BalloonManager();
             _powerupManager = new PowerupManager();
+            _scoreManager = new ScoreManager();
 
             _balloonManager.Popped += BalloonPoppedHandler;
             _balloonManager.Escaped += BalloonEscapedHandler;
@@ -170,6 +171,7 @@ namespace sandbox8
             _weaponManager.Update(gameTime);
             _balloonManager.Update(gameTime);
             _powerupManager.Update(gameTime);
+            _scoreManager.Update(gameTime);
 
             if (_sunsMood <= 0)
             {
@@ -244,20 +246,21 @@ namespace sandbox8
             _balloonManager.Draw(_spriteBatch);
             _powerupManager.Draw(_spriteBatch);
             _weaponManager.Draw(_spriteBatch);
+            _scoreManager.Draw(_spriteBatch);
 
-            string scoreText = "Score: " + _score;
-            Vector2 scoreTextLength = _displayFont.MeasureString(scoreText);
-            Vector2 scorePosition = new Vector2(_screenWidth - scoreTextLength.X - _spacing, 0);
+            //string scoreText = "Score: " + _score;
+            //Vector2 scoreTextLength = _displayFont.MeasureString(scoreText);
+            //Vector2 scorePosition = new Vector2(_screenWidth - scoreTextLength.X - _spacing, 0);
 
             _spriteBatch.DrawString(_displayFont, "Sun Mood: " + _sunsMood, _sunPosition, Color.Gold);
-            _spriteBatch.DrawString(_displayFont, scoreText, scorePosition, Color.Yellow);
+            //_spriteBatch.DrawString(_displayFont, scoreText, scorePosition, Color.Yellow);
             //_spriteBatch.DrawString(_debugFont, "DEBUG - Pool : " + _balloonMemory.Count + " - Spawned : " + _spawnCount, _debugPosition, Color.White);
         }
 
         private void DrawGameOverState()
         {
             _spriteBatch.DrawString(_gameOverFont, GAME_OVER_TEXT, _gameOverPosition, Color.Crimson);
-            string text = "YOUR SCORE: " + _score;
+            string text = "YOUR SCORE: " + _scoreManager.Score;
             Vector2 textSize = _gameOverScoreFont.MeasureString(text);
             Vector2 scorePosition =  new Vector2((_screenWidth / 2) - (textSize.X / 2), (_gameOverPosition.Y + _gameOverScoreFont.LineSpacing));
             _spriteBatch.DrawString(_gameOverScoreFont, text, scorePosition, Color.Crimson);
@@ -265,7 +268,6 @@ namespace sandbox8
 
         private void Setup()
         {
-            _score = 0;
             _sunsMood = 3;
             _gameState = GameState.Playing;
         }
@@ -276,6 +278,7 @@ namespace sandbox8
             _weaponManager.Reset();
             _balloonManager.Reset();
             _powerupManager.Reset();
+            _scoreManager.Reset();
         }
 
         private void SandboxDeactivated(object sender, EventArgs e)
@@ -285,7 +288,7 @@ namespace sandbox8
 
         private void BalloonPoppedHandler(Balloon balloon)
         {
-            _score++;
+            _scoreManager.IncreaseScore(1);
         }
 
         private void BalloonEscapedHandler(Balloon balloon)

@@ -8,12 +8,14 @@ Content\Balloons\red200.xnb
 Content\Balloons\red400.xnb
 Content\Effects\explosion.xnb
 Content\Powerups\snowflake_med.xnb
+Content\Powerups\missile_200.xnb
+Content\Powerups\shell_200.xnb
+Content\Reticles\finger.xnb
+Content\Reticles\rocketlauncher.xnb
+Content\Reticles\shotgun.xnb
 Content\DebugText.xnb
 Content\DisplayText.xnb
 Content\GameOverText.xnb
 Content\ScoreText.xnb
 Content\Sounds\snowball_impact.xnb
 Content\Sounds\snowball_car_impact1.xnb
-Content\Reticles\finger.xnb
-Content\Reticles\rocketlauncher.xnb
-Content\Reticles\shotgun.xnb

@@ -134,6 +134,12 @@ namespace sandbox8
             _fonts.Add("gameover", _content.Load<SpriteFont>("GameOverText"));
             _fonts.Add("score", _content.Load<SpriteFont>("ScoreText"));
 
+            // Load score fonts.
+            for (int i = 0; i < 10; i++)
+            {
+                _fonts.Add("font_score" + i, _content.Load<SpriteFont>("Fonts/score" + i));
+            }
+
             SoundEffect pop = _content.Load<SoundEffect>("Sounds/snowball_car_impact1");
             pop.Play(0, 0, 0);
             _sounds.Add("pop", pop);
