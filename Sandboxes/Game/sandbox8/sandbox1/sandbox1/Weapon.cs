@@ -25,7 +25,7 @@ namespace sandbox8
             private set;
         }
 
-        public Reticle Reticle
+        public Crosshair Crosshair
         {
             get;
             private set;
@@ -54,19 +54,19 @@ namespace sandbox8
                     _ammo = 0;
                     _maxAmmo = 0;
                     Damage = 1;
-                    Reticle = new Reticle(fadeTime, ResourceManager.Manager.GetTexture("reticle_finger"));
+                    Crosshair = new Crosshair(fadeTime, ResourceManager.Manager.GetTexture("reticle_finger"));
                     break;
                 case WeaponType.Shotgun:
                     _ammo = 6;
                     _maxAmmo = 6;
                     Damage = 2;
-                    Reticle = new Reticle(fadeTime, ResourceManager.Manager.GetTexture("reticle_shotgun"));
+                    Crosshair = new Crosshair(fadeTime, ResourceManager.Manager.GetTexture("reticle_shotgun"));
                     break;
                 case WeaponType.RocketLauncher:
                     _ammo = 2;
                     _maxAmmo = 2;
                     Damage = 3;
-                    Reticle = new Reticle(fadeTime, ResourceManager.Manager.GetTexture("reticle_rocketlauncher"));
+                    Crosshair = new Crosshair(fadeTime, ResourceManager.Manager.GetTexture("reticle_rocketlauncher"));
                     break;
             }
         }
@@ -93,17 +93,17 @@ namespace sandbox8
                 _ammo--;
             }
 
-            Reticle.UpdatePosition(position);
+            Crosshair.UpdatePosition(position);
         }
 
         public void Update(GameTime gameTime)
         {
-            Reticle.Update(gameTime);
+            Crosshair.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Reticle.Draw(spriteBatch);
+            Crosshair.Draw(spriteBatch);
         }
     }
 }

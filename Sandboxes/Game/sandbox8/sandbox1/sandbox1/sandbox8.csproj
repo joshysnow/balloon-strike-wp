@@ -70,7 +70,7 @@
     <Compile Include="Balloon.cs" />
     <Compile Include="BalloonManager.cs" />
     <Compile Include="Collisions.cs" />
-    <Compile Include="Reticle.cs" />
+    <Compile Include="Crosshair.cs" />
     <Compile Include="ScoreManager.cs" />
     <Compile Include="Sun.cs" />
     <Compile Include="Weapon.cs" />

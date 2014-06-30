@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace sandbox8
 {
@@ -15,14 +16,14 @@ namespace sandbox8
         }
 
         private LinkedList<Weapon> _currentWeapons;
-        private List<Reticle> _garbageReticles;
+        private List<Crosshair> _garbageReticles;
 
         public WeaponManager()
         {
             _currentWeapons = new LinkedList<Weapon>();
             _currentWeapons.AddFirst(WeaponFactory.CreateDefault());
 
-            _garbageReticles = new List<Reticle>();
+            _garbageReticles = new List<Crosshair>();
         }
 
         public void Reset()
@@ -46,9 +47,21 @@ namespace sandbox8
             }            
         }
 
-        public void UpdateInput(Vector2 lastPosition)
+        public void UpdateInput(GestureSample[] gestures)
         {
-            CurrentWeapon.UpdateInput(lastPosition);
+            Weapon currentWeapon;
+
+            foreach (GestureSample gesture in gestures)
+            {
+                currentWeapon = CurrentWeapon;
+                currentWeapon.UpdateInput(gesture.Position);
+
+                if ((currentWeapon.Type != WeaponType.Finger) && (currentWeapon.HasAmmo == false))
+                {
+                    _currentWeapons.Remove(_currentWeapons.First);
+                    _garbageReticles.Add(currentWeapon.Crosshair);
+                }
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -61,7 +74,7 @@ namespace sandbox8
         {
             CurrentWeapon.Draw(spriteBatch);
 
-            foreach (Reticle reticle in _garbageReticles)
+            foreach (Crosshair reticle in _garbageReticles)
             {
                 reticle.Draw(spriteBatch);
             }
@@ -81,8 +94,8 @@ namespace sandbox8
                 {
                     _currentWeapons.AddBefore(currentNode, newWeapon);
 
-                    // Put copy of current weapon into garbage? Need to still show the current reticle fading out.
-                    _garbageReticles.Add(currentNode.Value.Reticle);
+                    // Put copy of current weapon into garbage? Need to still show the current crosshair fading out.
+                    _garbageReticles.Add(currentNode.Value.Crosshair);
 
                     inserted = true;
                 }
@@ -101,10 +114,10 @@ namespace sandbox8
             {
                 currentWeapon = currentNode.Value;
 
-                if ((currentWeapon.HasAmmo == false) && (currentWeapon.Type != WeaponType.Finger))
+                if ((currentWeapon.Type != WeaponType.Finger) && (currentWeapon.HasAmmo == false))
                 {
                     _currentWeapons.Remove(currentNode);
-                    _garbageReticles.Add(currentWeapon.Reticle);
+                    _garbageReticles.Add(currentWeapon.Crosshair);
                 }
                 else
                 {
@@ -118,7 +131,7 @@ namespace sandbox8
 
         private void UpdateGarbage(GameTime gameTime)
         {
-            Reticle currentReticle;
+            Crosshair currentReticle;
             int i = 0;
 
             while(i < _garbageReticles.Count)

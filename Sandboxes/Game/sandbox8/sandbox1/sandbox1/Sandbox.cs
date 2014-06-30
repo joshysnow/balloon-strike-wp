@@ -165,6 +165,37 @@ namespace sandbox8
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            _spriteBatch.Begin();
+
+            switch (_gameState)
+            {
+                case GameState.Playing:
+                    {
+                        this.DrawPlayingState();
+                    }
+                    break;
+                case GameState.GameOver:
+                    {
+                        this.DrawGameOverState();
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            _spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
         private void UpdatePlayingState(GameTime gameTime)
         {
             UpdatePlayerInput();
@@ -202,43 +233,16 @@ namespace sandbox8
             if (_gestures.Count > 0)
             {
                 GestureSample[] gestureArray = _gestures.ToArray();
-                _weaponManager.UpdateInput(gestureArray.Last().Position);
+                Weapon currentWeapon = _weaponManager.CurrentWeapon;
+
+
+
+                _weaponManager.UpdateInput(gestureArray);
                 _powerupManager.UpdatePlayerInput(gestureArray);
                 _balloonManager.UpdatePlayerInput(gestureArray);
             }
 
             _gestures.Clear();
-        }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            _spriteBatch.Begin();
-
-            switch (_gameState)
-            {
-                case GameState.Playing:
-                    {
-                        this.DrawPlayingState();
-                    }
-                    break;
-                case GameState.GameOver:
-                    {
-                        this.DrawGameOverState();
-                    }
-                    break;
-                default:
-                    break;
-            }
-            
-            _spriteBatch.End();
-
-            base.Draw(gameTime);
         }
 
         private void DrawPlayingState()

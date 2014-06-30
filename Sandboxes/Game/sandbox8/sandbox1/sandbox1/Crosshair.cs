@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace sandbox8
 {
-    public class Reticle
+    public class Crosshair
     {
         public bool Visible
         {
@@ -14,23 +14,31 @@ namespace sandbox8
             }
         }
 
-        private Texture2D _reticleTexture;
+        public int Radius
+        {
+            get
+            {
+                return _crosshairTexture.Width;
+            }
+        }
+
+        private Texture2D _crosshairTexture;
         private Vector2 _position;
         private TimeSpan _fadeTime;
         private float _delta;
 
-        public Reticle(TimeSpan fadeTime, Texture2D reticleTexture)
+        public Crosshair(TimeSpan fadeTime, Texture2D crosshair)
         {
             _fadeTime = fadeTime;
-            _reticleTexture = reticleTexture;
+            _crosshairTexture = crosshair;
             _delta = 1;
 
         }
 
         public void UpdatePosition(Vector2 newposition)
         {
-            _position.X = newposition.X - (_reticleTexture.Width / 2);
-            _position.Y = newposition.Y - (_reticleTexture.Height / 2);
+            _position.X = newposition.X - (_crosshairTexture.Width / 2);
+            _position.Y = newposition.Y - (_crosshairTexture.Height / 2);
 
             _delta = 0;
         }
@@ -49,7 +57,7 @@ namespace sandbox8
             if (Visible)
             {
                 float alpha = (1 - _delta);
-                spriteBatch.Draw(_reticleTexture, _position, Color.White * alpha);
+                spriteBatch.Draw(_crosshairTexture, _position, Color.White * alpha);
             }
         }
     }
