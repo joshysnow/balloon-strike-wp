@@ -40,10 +40,11 @@ namespace sandbox8
             Setup();
         }
 
-        public void UpdatePlayerInput(GestureSample[] gestures)
+        public void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon)
         {
             int index;
             Powerup powerup;
+            float radius = currentWeapon.Crosshair.Radius;
 
             foreach (GestureSample gesture in gestures)
             {
@@ -57,7 +58,7 @@ namespace sandbox8
                 while (index >= 0)
                 {
                     powerup = _powerups[index];
-                    if (powerup.Intersects(gesture.Position))
+                    if (powerup.Intersects(gesture.Position, radius))
                     {
                         powerup.Pickup();
                         break;

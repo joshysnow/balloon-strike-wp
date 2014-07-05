@@ -43,9 +43,11 @@ namespace sandbox8
             Setup();
         }
 
-        public void UpdatePlayerInput(GestureSample[] gestures)
+        public void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon)
         {
             int index;
+            Balloon balloon;
+            float radius = currentWeapon.Crosshair.Radius;
 
             foreach (GestureSample gesture in gestures)
             {
@@ -58,9 +60,10 @@ namespace sandbox8
 
                 while (index >= 0)
                 {
-                    if (_balloons[index].Intersects(gesture.Position))
+                    balloon = _balloons[index];
+                    if (balloon.Intersects(gesture.Position, radius))
                     {
-                        _balloons[index].Pop();
+                        balloon.Pop();
                         break;
                     }
                     index--;

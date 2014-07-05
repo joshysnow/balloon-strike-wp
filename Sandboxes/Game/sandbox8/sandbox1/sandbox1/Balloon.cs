@@ -144,14 +144,14 @@ namespace sandbox8
             _animationPlayer.Draw(spriteBatch);
         }
 
-        public bool Intersects(Vector2 position)
+        public bool Intersects(Vector2 position, float radius)
         {
             if (!_initialized)
             {
                 return false;
             }
 
-            return Collisions.Intersects(_positionUL, _positionLR, position);
+            return Collisions.Intersects(_positionUL, _positionLR, position) || Collisions.Intersects(_positionUL, _positionLR, position, radius);
         }
 
         public void Pop()

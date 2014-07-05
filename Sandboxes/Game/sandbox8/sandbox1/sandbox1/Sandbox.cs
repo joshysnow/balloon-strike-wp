@@ -234,12 +234,10 @@ namespace sandbox8
             {
                 GestureSample[] gestureArray = _gestures.ToArray();
                 Weapon currentWeapon = _weaponManager.CurrentWeapon;
-
-
-
+                
                 _weaponManager.UpdateInput(gestureArray);
-                _powerupManager.UpdatePlayerInput(gestureArray);
-                _balloonManager.UpdatePlayerInput(gestureArray);
+                _powerupManager.UpdatePlayerInput(gestureArray, currentWeapon);
+                _balloonManager.UpdatePlayerInput(gestureArray, currentWeapon);
             }
 
             _gestures.Clear();
