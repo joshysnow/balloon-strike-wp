@@ -40,11 +40,14 @@ namespace sandbox8
             Setup();
         }
 
-        public void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon)
+        public void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
         {
             int index;
             Powerup powerup;
             float radius = currentWeapon.Crosshair.Radius;
+            WeaponType weaponType = currentWeapon.Type;
+
+            List<GestureSample> temp = new List<GestureSample>(gestures);
 
             foreach (GestureSample gesture in gestures)
             {
@@ -61,11 +64,18 @@ namespace sandbox8
                     if (powerup.Intersects(gesture.Position, radius))
                     {
                         powerup.Pickup();
-                        break;
+
+                        if (weaponType == WeaponType.Finger)
+                        {
+                            temp.Remove(gesture);
+                            break;
+                        }
                     }
                     index--;
                 }
             }
+
+            remainingGestures = temp.ToArray();
         }
 
         public void Update(GameTime gameTime)

@@ -32,7 +32,7 @@ namespace sandbox8
             _currentWeapons.AddFirst(WeaponFactory.CreateDefault());
         }
 
-        public void ProcessPowerup(PowerupType powerupType)
+        public void ApplyPowerup(PowerupType powerupType)
         {
             switch (powerupType)
             {

@@ -221,7 +221,7 @@ namespace sandbox8
             if (_frozenTimer.Update(gameTime))
             {
                 _frozenTimer = null;
-                _animationPlayer.SetAnimation(_moveAnimation, _positionUL);
+                //_animationPlayer.SetAnimation(_moveAnimation, _positionUL);
                 _state = BalloonState.Alive;
             }
         }

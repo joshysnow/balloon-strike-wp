@@ -234,10 +234,11 @@ namespace sandbox8
             {
                 GestureSample[] gestureArray = _gestures.ToArray();
                 Weapon currentWeapon = _weaponManager.CurrentWeapon;
+                GestureSample[] remainingGestures;
                 
                 _weaponManager.UpdateInput(gestureArray);
-                _powerupManager.UpdatePlayerInput(gestureArray, currentWeapon);
-                _balloonManager.UpdatePlayerInput(gestureArray, currentWeapon);
+                _powerupManager.UpdatePlayerInput(gestureArray, currentWeapon, out remainingGestures);
+                _balloonManager.UpdatePlayerInput(remainingGestures, currentWeapon, out remainingGestures);
             }
 
             _gestures.Clear();
@@ -300,11 +301,12 @@ namespace sandbox8
                 case PowerupType.Freeze:
                 case PowerupType.Nuke:
                     // Pass to balloon manager.
+                    _balloonManager.ApplyPowerup(powerup.Type);
                     break;
                 case PowerupType.Shell:
                 case PowerupType.Missile:
                     // Pass to weapon manager.
-                    _weaponManager.ProcessPowerup(powerup.Type);
+                    _weaponManager.ApplyPowerup(powerup.Type);
                     break;
                 default:
                     break;

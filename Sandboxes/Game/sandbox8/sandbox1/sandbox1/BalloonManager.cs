@@ -43,11 +43,35 @@ namespace sandbox8
             Setup();
         }
 
-        public void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon)
+        public void ApplyPowerup(PowerupType type)
+        {
+            switch (type)
+            {
+                case PowerupType.Freeze:
+                    {
+                        byte index = 0;
+                        while (index < _balloons.Count)
+                        {
+                            _balloons[index++].Freeze(2000);
+                        }
+                    }
+                    break;
+                case PowerupType.Nuke:
+                case PowerupType.Shell:
+                case PowerupType.Missile:
+                default:
+                    break;
+            }
+        }
+
+        public void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
         {
             int index;
             Balloon balloon;
             float radius = currentWeapon.Crosshair.Radius;
+            WeaponType weaponType = currentWeapon.Type;
+
+            List<GestureSample> temp = new List<GestureSample>(gestures);
 
             foreach (GestureSample gesture in gestures)
             {
@@ -64,11 +88,18 @@ namespace sandbox8
                     if (balloon.Intersects(gesture.Position, radius))
                     {
                         balloon.Pop();
-                        break;
+
+                        if (weaponType == WeaponType.Finger)
+                        {
+                            temp.Remove(gesture);
+                            break;
+                        }
                     }
                     index--;
                 }
             }
+
+            remainingGestures = temp.ToArray();
         }
 
         public void Update(GameTime gameTime)
