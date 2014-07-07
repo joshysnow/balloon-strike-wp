@@ -69,6 +69,7 @@
     <Compile Include="AnimationPlayer.cs" />
     <Compile Include="Balloon.cs" />
     <Compile Include="BalloonManager.cs" />
+    <Compile Include="ICharacter.cs" />
     <Compile Include="Collisions.cs" />
     <Compile Include="Crosshair.cs" />
     <Compile Include="ScoreManager.cs" />

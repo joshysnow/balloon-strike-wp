@@ -22,7 +22,7 @@ namespace sandbox8
         Frozen  = 0x10
     }
 
-    public class Balloon
+    public class Balloon : Character
     {
         public BalloonColor Color
         {
@@ -35,7 +35,7 @@ namespace sandbox8
             get { return _state; }
         }
 
-        public byte Health
+        public float Health
         {
             get;
             private set;
@@ -46,20 +46,14 @@ namespace sandbox8
             get { return _isAvailable; }
         }
 
-        private AnimationPlayer _animationPlayer;
-        private Animation _popAnimation;
-        private Animation _moveAnimation;
         private Animation _freezeAnimation;
         private SoundEffect _popSound;
         private SimpleTimer _frozenTimer;
-        private Vector2 _positionUL;
-        private Vector2 _positionLR;
-        private Vector2 _velocity;
         private BalloonState _state;
         private bool _initialized;
         private bool _isAvailable;
 
-        public Balloon()
+        public Balloon() : base()
         {
             _initialized = false;
             _isAvailable = true;
@@ -92,66 +86,52 @@ namespace sandbox8
             _isAvailable = true;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            if (!_initialized)
+            if (_initialized)
             {
-                return;
-            }
-            
-            switch (_state)
-            {
-                case BalloonState.Alive:
-                    {
-                        this.UpdateAlive();
-                    }
-                    break;
-                case BalloonState.Popped:
-                    {
-                        _state = BalloonState.Dying;
-                    }
-                    break;
-                case BalloonState.Escaped:
-                    {
-                        _state = BalloonState.Dead;
-                    }
-                    break;
-                case BalloonState.Dying:
-                    {
-                        this.UpdateDying();
-                    }
-                    break;
-                case BalloonState.Frozen:
-                    {
-                        this.UpdateFrozen(gameTime);
-                    }
-                    break;
-                case BalloonState.Dead:
-                default:
-                    break;
-            }
+                switch (_state)
+                {
+                    case BalloonState.Alive:
+                        {
+                            this.UpdateAlive();
+                        }
+                        break;
+                    case BalloonState.Popped:
+                        {
+                            _state = BalloonState.Dying;
+                        }
+                        break;
+                    case BalloonState.Escaped:
+                        {
+                            _state = BalloonState.Dead;
+                        }
+                        break;
+                    case BalloonState.Dying:
+                        {
+                            this.UpdateDying();
+                        }
+                        break;
+                    case BalloonState.Frozen:
+                        {
+                            this.UpdateFrozen(gameTime);
+                        }
+                        break;
+                    case BalloonState.Dead:
+                    default:
+                        break;
+                }
 
-            _animationPlayer.Update(gameTime);
+                base.Update(gameTime);   
+            }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            if (!_initialized)
+            if (_initialized)
             {
-                return;
+                base.Draw(spriteBatch);                
             }
-
-            _animationPlayer.Draw(spriteBatch);
-        }
-
-        public bool Intersects(Vector2 position, float radius)
-        {
-            if (!_initialized)
-            {
-                return false;
-            }
-
-            return Collisions.Intersects(_positionUL, _positionLR, position) || Collisions.Intersects(_positionUL, _positionLR, position, radius);
         }
 
         public void Pop()
@@ -188,6 +168,18 @@ namespace sandbox8
             //_animationPlayer.SetAnimation(_freezeAnimation, _positionUL);
 
             _state = BalloonState.Frozen;
+        }
+
+        public override void Attack(float damage)
+        {
+            if (Health >= (1f / 8196f))
+            {
+                Health = MathHelper.Clamp((Health - damage), 0f, float.MaxValue);
+            }
+            else
+            {
+                Health = 0f;
+            }
         }
 
         private void UpdateAlive()
