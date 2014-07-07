@@ -79,7 +79,11 @@ namespace sandbox8
                 reticle.Draw(spriteBatch);
             }
 
-#warning TODO: Show the player the amount of weapons per type they have.
+            SpriteFont debugFont = ResourceManager.Manager.GetFont("debug");
+            Vector2 position = new Vector2(0, (800 - debugFont.LineSpacing));
+            Weapon current = CurrentWeapon;
+            string text = "Total: " + _currentWeapons.Count + " Current: " + current.Type + " Ammo: " + current.Ammo;
+            spriteBatch.DrawString(debugFont, text, position, Color.Purple);
         }
 
         private void AddWeapon(WeaponType newWeaponType)

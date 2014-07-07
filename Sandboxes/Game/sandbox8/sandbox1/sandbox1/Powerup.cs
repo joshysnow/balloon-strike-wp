@@ -22,15 +22,10 @@ namespace sandbox8
         PickingUp   = 0x08
     }
 
-    public class Powerup
+    public class Powerup : Character
     {
-        private AnimationPlayer _animationPlayer;
-        private Animation _moveAnimation;
         private Animation _pickupAnimation;
         private SoundEffect _pickedUpSound;
-        private Vector2 _positionUL;
-        private Vector2 _positionLR;
-        private Vector2 _velocity;
         private PowerupState _state;
         private short _yLimit;
         private bool _initialized;
@@ -52,7 +47,7 @@ namespace sandbox8
             get { return _isAvailable; }
         }
 
-        public Powerup(PowerupType type)
+        public Powerup(PowerupType type) : base()
         {
             Type = type;
             _initialized = false;
@@ -74,7 +69,6 @@ namespace sandbox8
 
             _state = PowerupState.Descending;
 
-            _animationPlayer = new AnimationPlayer();
             _animationPlayer.SetAnimation(moveAnimation, _positionUL);
 
             _initialized = true;
@@ -87,57 +81,43 @@ namespace sandbox8
             _isAvailable = true;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            if (!_initialized)
+            if (_initialized)
             {
-                return;
-            }
+                switch (_state)
+                {
+                    case PowerupState.Descending:
+                        {
+                            this.UpdateDescending();
+                        }
+                        break;
+                    case PowerupState.Pickedup:
+                    case PowerupState.Missed:
+                        {
+                            _state = PowerupState.Dead;
+                        }
+                        break;
+                    case PowerupState.PickingUp:
+                        {
+                            this.UpdatePickingUp();
+                        }
+                        break;
+                    case PowerupState.Dead:
+                    default:
+                        break;
+                }
 
-            switch (_state)
-            {
-                case PowerupState.Descending:
-                    {
-                        this.UpdateDescending();
-                    }
-                    break;
-                case PowerupState.Pickedup:
-                case PowerupState.Missed:
-                    {
-                        _state = PowerupState.Dead;
-                    }
-                    break;
-                case PowerupState.PickingUp:
-                    {
-                        this.UpdatePickingUp();
-                    }
-                    break;
-                case PowerupState.Dead:
-                default:
-                    break;
+                base.Update(gameTime);
             }
-
-            _animationPlayer.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            if (!_initialized)
+            if (_initialized)
             {
-                return;
+                base.Draw(spriteBatch);
             }
-
-            _animationPlayer.Draw(spriteBatch);
-        }
-
-        public bool Intersects(Vector2 position, float radius)
-        {
-            if (!_initialized)
-            {
-                return false;
-            }
-
-            return Collisions.Intersects(_positionUL, _positionLR, position) || Collisions.Intersects(_positionUL, _positionLR, position, radius);
         }
 
         public void Pickup()

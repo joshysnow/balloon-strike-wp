@@ -31,6 +31,14 @@ namespace sandbox8
             private set;
         }
 
+        public byte Ammo
+        {
+            get 
+            { 
+                return _ammo;
+            }
+        }
+
         public bool HasAmmo
         {
             get

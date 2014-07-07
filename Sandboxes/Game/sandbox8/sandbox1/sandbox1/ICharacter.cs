@@ -35,8 +35,6 @@ namespace sandbox8
             _animationPlayer.Draw(spriteBatch);
         }
 
-        public abstract void Attack(float damage);
-
         public bool Intersects(Vector2 position, float radius)
         {
             return Collisions.Intersects(_positionUL, _positionLR, position) || 

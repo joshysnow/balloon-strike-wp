@@ -46,7 +46,7 @@ namespace sandbox8
             get { return _isAvailable; }
         }
 
-        private Animation _freezeAnimation;
+        //private Animation _freezeAnimation;
         private SoundEffect _popSound;
         private SimpleTimer _frozenTimer;
         private BalloonState _state;
@@ -73,7 +73,6 @@ namespace sandbox8
 
             _state = BalloonState.Alive;
 
-            _animationPlayer = new AnimationPlayer();
             _animationPlayer.SetAnimation(_moveAnimation, _positionUL);
 
             _initialized = true;
@@ -170,7 +169,7 @@ namespace sandbox8
             _state = BalloonState.Frozen;
         }
 
-        public override void Attack(float damage)
+        public void Attack(float damage)
         {
             if (Health >= (1f / 8196f))
             {
