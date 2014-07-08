@@ -40,7 +40,7 @@ namespace sandbox9
                     AddWeapon(WeaponType.Shotgun);
                     break;
                 case PowerupType.Missile:
-                    AddWeapon(WeaponType.RocketLauncher);
+                    AddWeapon(WeaponType.Bazooka);
                     break;
                 default:
                     return;

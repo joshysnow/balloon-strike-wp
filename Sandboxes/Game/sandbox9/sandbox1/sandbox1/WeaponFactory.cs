@@ -14,7 +14,7 @@ namespace sandbox9
 
         public static Weapon CreateRocketLauncher()
         {
-            return new Weapon(WeaponType.RocketLauncher);
+            return new Weapon(WeaponType.Bazooka);
         }
 
         public static Weapon CreateFromType(WeaponType type)
@@ -26,7 +26,7 @@ namespace sandbox9
                 case WeaponType.Shotgun:
                     weapon = CreateShotgun();
                     break;
-                case WeaponType.RocketLauncher:
+                case WeaponType.Bazooka:
                     weapon = CreateRocketLauncher();
                     break;
             case WeaponType.Finger:

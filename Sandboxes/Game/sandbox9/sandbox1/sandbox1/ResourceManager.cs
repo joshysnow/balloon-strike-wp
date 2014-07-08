@@ -151,9 +151,9 @@ namespace sandbox9
             Texture2D freezeTexture = _content.Load<Texture2D>("Powerups/snowflake_med");
             Texture2D shellTexture = _content.Load<Texture2D>("Powerups/shell_200");
             Texture2D missileTexture = _content.Load<Texture2D>("Powerups/missile_200");
-            Texture2D reticleFingerTexture = _content.Load<Texture2D>("Reticles/Nfinger");
-            Texture2D reticleShotgunTexture = _content.Load<Texture2D>("Reticles/Nshotgun");
-            Texture2D reticleRocketLauncherTexture = _content.Load<Texture2D>("Reticles/Nrocketlauncher");
+            Texture2D xHairFingerTexture = _content.Load<Texture2D>("Crosshairs/finger");
+            Texture2D xHairShotgunTexture = _content.Load<Texture2D>("Crosshairs/shotgun");
+            Texture2D xHairBazookaTexture = _content.Load<Texture2D>("Crosshairs/bazooka");
 
             _textures.Add("red", redTexture);
             _textures.Add("blue", blueTexture);
@@ -162,9 +162,9 @@ namespace sandbox9
             _textures.Add("freeze", freezeTexture);
             _textures.Add("shell", shellTexture);
             _textures.Add("missile", missileTexture);
-            _textures.Add("reticle_finger", reticleFingerTexture);
-            _textures.Add("reticle_shotgun", reticleShotgunTexture);
-            _textures.Add("reticle_rocketlauncher", reticleRocketLauncherTexture);
+            _textures.Add("xhair_finger", xHairFingerTexture);
+            _textures.Add("xhair_shotgun", xHairShotgunTexture);
+            _textures.Add("xhair_bazooka", xHairBazookaTexture);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f));

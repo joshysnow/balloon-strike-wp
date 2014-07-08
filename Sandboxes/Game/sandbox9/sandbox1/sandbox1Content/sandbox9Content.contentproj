@@ -140,25 +140,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Reticles\finger.jpg">
-      <Name>finger</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Reticles\rocketlauncher.jpg">
-      <Name>rocketlauncher</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Reticles\shotgun.jpg">
-      <Name>shotgun</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Fonts\score0.spritefont">
       <Name>score0</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -229,18 +210,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Reticles\Nfinger.png">
-      <Name>Nfinger</Name>
+    <Compile Include="Crosshairs\finger.png">
+      <Name>finger</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Reticles\Nrocketlauncher.png">
-      <Name>Nrocketlauncher</Name>
+    <Compile Include="Crosshairs\bazooka.png">
+      <Name>bazooka</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Reticles\Nshotgun.png">
-      <Name>Nshotgun</Name>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Crosshairs\shotgun.png">
+      <Name>shotgun</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

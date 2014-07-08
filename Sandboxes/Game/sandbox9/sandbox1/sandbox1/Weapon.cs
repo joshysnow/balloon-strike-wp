@@ -8,7 +8,7 @@ namespace sandbox9
     {
         Finger          = 0x01,
         Shotgun         = 0x02,
-        RocketLauncher  = 0x04
+        Bazooka         = 0x04
     }
 
     public class Weapon 
@@ -63,7 +63,7 @@ namespace sandbox9
                         _ammo = 0;
                         _maxAmmo = 0;
                         Damage = 1;
-                        Crosshair = new Crosshair(fadeTime, ResourceManager.Manager.GetTexture("reticle_finger"));
+                        Crosshair = new Crosshair(fadeTime, ResourceManager.Manager.GetTexture("xhair_finger"));
                     }
                     break;
                 case WeaponType.Shotgun:
@@ -71,15 +71,15 @@ namespace sandbox9
                         _ammo = 6;
                         _maxAmmo = 6;
                         Damage = 2;
-                        Crosshair = new Crosshair(fadeTime, ResourceManager.Manager.GetTexture("reticle_shotgun"));
+                        Crosshair = new Crosshair(fadeTime, ResourceManager.Manager.GetTexture("xhair_shotgun"));
                     }
                     break;
-                case WeaponType.RocketLauncher:
+                case WeaponType.Bazooka:
                     {
                         _ammo = 2;
                         _maxAmmo = 2;
                         Damage = 3;
-                        Crosshair = new Crosshair(fadeTime, ResourceManager.Manager.GetTexture("reticle_rocketlauncher"));
+                        Crosshair = new Crosshair(fadeTime, ResourceManager.Manager.GetTexture("xhair_bazooka"));
                     }
                     break;
             }

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sandbox8", "sandbox1\sandbox1\sandbox8.csproj", "{C989F3D5-9FCE-4571-988F-6CE856476BC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sandbox9", "sandbox1\sandbox1\sandbox9.csproj", "{C989F3D5-9FCE-4571-988F-6CE856476BC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sandbox8Content", "sandbox1\sandbox1Content\sandbox8Content.contentproj", "{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sandbox9Content", "sandbox1\sandbox1Content\sandbox9Content.contentproj", "{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
