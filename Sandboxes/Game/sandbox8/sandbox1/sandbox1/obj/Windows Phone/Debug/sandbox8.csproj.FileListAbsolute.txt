@@ -44,3 +44,9 @@ D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox8\sandbox1\sandbox1\obj\Wi
 D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox8\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Reticles\Nfinger.xnb
 D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox8\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Reticles\Nrocketlauncher.xnb
 D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox8\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Reticles\Nshotgun.xnb
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox8\sandbox1\sandbox1\bin\Windows Phone\Debug\sandbox8.xap
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox8\sandbox1\sandbox1\obj\Windows Phone\Debug\XapCacheFile.xml
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox8\sandbox1\sandbox1\bin\Windows Phone\Debug\AppManifest.xaml
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox8\sandbox1\sandbox1\obj\Windows Phone\Debug\WMAppManifest.xml.g
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox8\sandbox1\sandbox1\obj\Windows Phone\Debug\WMAppManifest.xml
+bin\Windows Phone\Debug\

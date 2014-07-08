@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace sandbox8
 {
@@ -44,6 +46,35 @@ namespace sandbox8
 
     public abstract class CharacterManager
     {
+        protected List<Character> _characters;
 
+        public CharacterManager()
+        {
+            _characters = new List<Character>();
+        }
+
+        public void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingSamples)
+        {
+            remainingSamples = null;
+        }
+
+        public virtual void Update(GameTime gameTime)
+        {
+            UpdateCharacters(gameTime);
+            UpdateSpawners(gameTime);
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            short index = 0;
+            while (index < _characters.Count)
+            {
+                _characters[index++].Draw(spriteBatch);
+            }
+        }
+
+        protected abstract void UpdateCharacters(GameTime gameTime);
+
+        protected abstract void UpdateSpawners(GameTime gameTime);
     }
 }

@@ -18,7 +18,7 @@ namespace sandbox8
         {
             get
             {
-                return _crosshairTexture.Width;
+                return _crosshairTexture.Width / 2;
             }
         }
 
