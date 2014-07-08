@@ -236,8 +236,8 @@ namespace sandbox8
                 Weapon currentWeapon = _weaponManager.CurrentWeapon;
                 GestureSample[] remainingGestures;
                 
-                _weaponManager.UpdateInput(gestureArray);
                 _powerupManager.UpdatePlayerInput(gestureArray, currentWeapon, out remainingGestures);
+                _weaponManager.UpdateInput(remainingGestures);
                 _balloonManager.UpdatePlayerInput(remainingGestures, currentWeapon, out remainingGestures);
             }
 
