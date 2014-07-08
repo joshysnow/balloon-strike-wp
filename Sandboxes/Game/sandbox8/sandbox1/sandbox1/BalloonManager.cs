@@ -80,6 +80,7 @@ namespace sandbox8
             int index;
             Balloon balloon;
             float radius = currentWeapon.Crosshair.Radius;
+            float damage = currentWeapon.Damage;
             WeaponType weaponType = currentWeapon.Type;
 
             List<GestureSample> temp = new List<GestureSample>(gestures);
@@ -98,7 +99,7 @@ namespace sandbox8
                     balloon = (Balloon)_characters[index];
                     if (balloon.Intersects(gesture.Position, radius))
                     {
-                        balloon.Pop();
+                        balloon.Attack(damage);
 
                         if (weaponType == WeaponType.Finger)
                         {
@@ -245,26 +246,30 @@ namespace sandbox8
 
             Vector2 velocity = new Vector2(0, 3.1f);
             Animation moveAnimation;
+            float health;
 
             switch (colour)
             {
                 case BalloonColor.Red:
+                    health = 3;
                     velocity = _redVelocity;
                     moveAnimation = _redMoveAnimation;
                     break;
                 case BalloonColor.Blue:
+                    health = 2;
                     moveAnimation = _blueMoveAnimation;
                     velocity = _blueVelocity;
                     break;
                 case BalloonColor.Green:
                 default:
+                    health = 1;
                     velocity = _greenVelocity;
                     moveAnimation = _greenMoveAnimation;
                     break;
             }
 
             int x = _randomPosition.Next(_screenWidth - (int)(moveAnimation.AnimationTexture.Width * moveAnimation.Scale));
-            spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, new Vector2(x, _screenHeight), velocity);
+            spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, new Vector2(x, _screenHeight), velocity, health);
             _characters.Add(spawn);
         }
 

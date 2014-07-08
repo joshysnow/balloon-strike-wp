@@ -10,6 +10,7 @@ namespace sandbox8
     {
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
+        bool Intersects(Vector2 position);
         bool Intersects(Vector2 position, float radius);
     }
 
@@ -37,10 +38,14 @@ namespace sandbox8
             _animationPlayer.Draw(spriteBatch);
         }
 
+        public bool Intersects(Vector2 position)
+        {
+            return Collisions.Intersects(_positionUL, _positionLR, position);
+        }
+
         public bool Intersects(Vector2 position, float radius)
         {
-            return Collisions.Intersects(_positionUL, _positionLR, position) || 
-                Collisions.Intersects(_positionUL, _positionLR, position, radius);
+            return Intersects(position) || Collisions.Intersects(_positionUL, _positionLR, position, radius);
         }
     }
 

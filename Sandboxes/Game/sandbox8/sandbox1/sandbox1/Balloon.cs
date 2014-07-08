@@ -59,13 +59,14 @@ namespace sandbox8
             _isAvailable = true;
         }
 
-        public void Initialize(Animation moveAnimation, Animation popAnimation, SoundEffect popSound, Vector2 position, Vector2 velocity)
+        public void Initialize(Animation moveAnimation, Animation popAnimation, SoundEffect popSound, Vector2 position, Vector2 velocity, float health)
         {
             _popAnimation = popAnimation;
             _moveAnimation = moveAnimation;
             _popSound = popSound;
             _positionUL = position;
             _velocity = velocity;
+            Health = health;
 
             int width = (int)(moveAnimation.FrameWidth * moveAnimation.Scale);
             int height = (int)(moveAnimation.FrameHeight * moveAnimation.Scale);
@@ -93,7 +94,7 @@ namespace sandbox8
                 {
                     case BalloonState.Alive:
                         {
-                            this.UpdateAlive();
+                            UpdateAlive();
                         }
                         break;
                     case BalloonState.Popped:
@@ -108,12 +109,12 @@ namespace sandbox8
                         break;
                     case BalloonState.Dying:
                         {
-                            this.UpdateDying();
+                            UpdateDying();
                         }
                         break;
                     case BalloonState.Frozen:
                         {
-                            this.UpdateFrozen(gameTime);
+                            UpdateFrozen(gameTime);
                         }
                         break;
                     case BalloonState.Dead:
@@ -178,6 +179,11 @@ namespace sandbox8
             else
             {
                 Health = 0f;
+            }
+
+            if (Health == 0)
+            {
+                Pop();
             }
         }
 

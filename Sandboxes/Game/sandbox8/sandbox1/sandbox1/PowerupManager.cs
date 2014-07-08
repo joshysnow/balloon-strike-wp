@@ -43,7 +43,6 @@ namespace sandbox8
         {
             int index;
             Powerup powerup;
-            float radius = currentWeapon.Crosshair.Radius;
             WeaponType weaponType = currentWeapon.Type;
 
             List<GestureSample> temp = new List<GestureSample>(gestures);
@@ -60,7 +59,7 @@ namespace sandbox8
                 while (index >= 0)
                 {
                     powerup = (Powerup)_characters[index];
-                    if (powerup.Intersects(gesture.Position, radius))
+                    if (powerup.Intersects(gesture.Position))
                     {
                         powerup.Pickup();
                         temp.Remove(gesture);
