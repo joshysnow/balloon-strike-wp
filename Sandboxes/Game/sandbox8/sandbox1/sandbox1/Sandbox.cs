@@ -121,7 +121,7 @@ namespace sandbox8
             Vector2 gameOverTextSize = _gameOverFont.MeasureString(GAME_OVER_TEXT);
             _gameOverPosition = new Vector2((_screenWidth / 2) - (gameOverTextSize.X / 2), (_screenHeight / 2) - (gameOverTextSize.Y / 2));
 
-            this.Setup();
+            this.ChangeToPlayingState();
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace sandbox8
 
             if (_sunsMood <= 0)
             {
-                this.Reset();
+                ChangeToGameOverState();
             }
         }
 
@@ -219,7 +219,7 @@ namespace sandbox8
                     TouchPanel.ReadGesture();
                 }
 
-                this.Setup();
+                this.ChangeToPlayingState();
             }
         }
 
@@ -263,19 +263,20 @@ namespace sandbox8
             _spriteBatch.DrawString(_gameOverScoreFont, text, scorePosition, Color.Crimson);
         }
 
-        private void Setup()
+        private void ChangeToPlayingState()
         {
             _sunsMood = 3;
             _gameState = GameState.Playing;
-        }
 
-        private void Reset()
-        {
-            _gameState = GameState.GameOver;
             _weaponManager.Reset();
             _balloonManager.Reset();
             _powerupManager.Reset();
             _scoreManager.Reset();
+        }
+
+        private void ChangeToGameOverState()
+        {
+            _gameState = GameState.GameOver;
         }
 
         private void SandboxDeactivated(object sender, EventArgs e)
