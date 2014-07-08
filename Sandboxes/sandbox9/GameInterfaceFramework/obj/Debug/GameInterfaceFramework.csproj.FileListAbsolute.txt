@@ -1,0 +1,4 @@
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox9\GameInterfaceFramework\bin\Debug\GameInterfaceFramework.dll
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox9\GameInterfaceFramework\bin\Debug\GameInterfaceFramework.pdb
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox9\GameInterfaceFramework\obj\Debug\GameInterfaceFramework.dll
+D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox9\GameInterfaceFramework\obj\Debug\GameInterfaceFramework.pdb

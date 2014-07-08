@@ -1,0 +1,7 @@
+﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="sandbox9" EntryPointType="sandbox9.Sandbox" RuntimeVersion="3.0">
+  <Deployment.Parts>
+    <AssemblyPart x:Name="sandbox9" Source="sandbox9.dll" />
+    <AssemblyPart x:Name="GameFramework" Source="GameFramework.dll" />
+    <AssemblyPart x:Name="GameInterfaceFramework" Source="GameInterfaceFramework.dll" />
+  </Deployment.Parts>
+</Deployment>
