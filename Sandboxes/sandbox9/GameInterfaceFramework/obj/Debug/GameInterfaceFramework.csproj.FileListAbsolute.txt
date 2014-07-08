@@ -2,3 +2,14 @@ D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox9\GameInterfaceFramework\b
 D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox9\GameInterfaceFramework\bin\Debug\GameInterfaceFramework.pdb
 D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox9\GameInterfaceFramework\obj\Debug\GameInterfaceFramework.dll
 D:\Game Projects\Balloon Strike\Sandboxes\Game\sandbox9\GameInterfaceFramework\obj\Debug\GameInterfaceFramework.pdb
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\bin\Debug\GameInterfaceFramework.dll
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\bin\Debug\GameInterfaceFramework.pdb
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\bin\Debug\Microsoft.Xna.Framework.dll
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\bin\Debug\Microsoft.Xna.Framework.Game.dll
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\bin\Debug\Microsoft.Xna.Framework.Graphics.dll
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\bin\Debug\Microsoft.Xna.Framework.xml
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\bin\Debug\Microsoft.Xna.Framework.Game.xml
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\bin\Debug\Microsoft.Xna.Framework.Graphics.xml
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\obj\Debug\GameInterfaceFramework.csprojResolveAssemblyReference.cache
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\obj\Debug\GameInterfaceFramework.dll
+D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\GameInterfaceFramework\obj\Debug\GameInterfaceFramework.pdb

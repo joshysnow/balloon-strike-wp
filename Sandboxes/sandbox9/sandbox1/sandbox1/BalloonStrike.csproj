@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">Windows Phone</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GameFramework</RootNamespace>
-    <AssemblyName>sandbox9</AssemblyName>
+    <RootNamespace>Balloonstrike</RootNamespace>
+    <AssemblyName>balloonstrike</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
@@ -22,7 +22,7 @@
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <XnaWindowsPhoneManifestTemplate>Properties\WMAppManifest.xml</XnaWindowsPhoneManifestTemplate>
     <TileImage>IconTile.png</TileImage>
-    <TileTitle>sandbox9</TileTitle>
+    <TileTitle>Balloon Strike</TileTitle>
     <SupportedCultures>
     </SupportedCultures>
     <ApplicationIcon>Game.ico</ApplicationIcon>
@@ -52,6 +52,7 @@
     <XnaCompressContent>false</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Phone, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Game" />
     <Reference Include="Microsoft.Xna.Framework.Graphics" />
@@ -59,6 +60,7 @@
     <Reference Include="Microsoft.Xna.Framework.Input.Touch" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
+    <Reference Include="System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -66,6 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\GameView.cs" />
+    <Compile Include="Views\MenuView.cs" />
+    <Compile Include="Views\SplashView.cs" />
     <None Include="Properties\AppManifest.xml">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
@@ -73,7 +78,7 @@
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
     <Compile Include="Program.cs" />
-    <Compile Include="Sandbox.cs" />
+    <Compile Include="Game.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="IconTile.png" />
@@ -89,8 +94,8 @@
       <Project>{85F5AF50-C549-4412-9678-D9203386B20D}</Project>
       <Name>GameInterfaceFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\sandbox1Content\sandbox9Content.contentproj">
-      <Name>sandbox9Content %28Content%29</Name>
+    <ProjectReference Include="..\sandbox1Content\Content.contentproj">
+      <Name>Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
       <Project>{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}</Project>
     </ProjectReference>

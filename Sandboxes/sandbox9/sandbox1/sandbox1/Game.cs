@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using System.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -11,8 +12,11 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using GameFramework;
+using GameInterfaceFramework;
+using Microsoft.Phone.Shell;
+using Balloonstrike.Views;
 
-namespace sandbox9
+namespace Balloonstrike
 {
     public enum GameState : byte
     {
@@ -23,7 +27,7 @@ namespace sandbox9
     /// <summary>
     /// This is the sandbox environment generator to test and create new things!
     /// </summary>
-    public class Sandbox : Microsoft.Xna.Framework.Game
+    public class Game : Microsoft.Xna.Framework.Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -52,27 +56,68 @@ namespace sandbox9
         private const string GAME_OVER_TEXT = "GAME OVER";
         private const byte _spacing = 10;
 
-        public Sandbox()
+        private ViewManager _viewManager;
+
+        public Game()
         {
+            Content.RootDirectory = "Content";
             _screenHeight = 800;
             _screenWidth = 480;
 
+            InitializeGraphics();
+            InitializePhoneServices();
+            InitializeGameServices();
+        }
+
+        private void InitializeGraphics()
+        {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferHeight = _screenHeight;
-            _graphics.PreferredBackBufferWidth = _screenWidth;
-            _graphics.ToggleFullScreen();
+            _graphics.PreferredBackBufferHeight = 800;
+            _graphics.PreferredBackBufferWidth = 480;
+            _graphics.IsFullScreen = true;
             _graphics.SupportedOrientations = DisplayOrientation.Portrait;
+        }
 
-            Guide.IsScreenSaverEnabled = false;
-            base.IsFixedTimeStep = false;
+        private void InitializePhoneServices()
+        {
+            PhoneApplicationService.Current.Activated += GameActivated;
+            PhoneApplicationService.Current.Deactivated += GameDeactivated;
+            PhoneApplicationService.Current.Launching += GameLaunching;
+        }
 
-            Content.RootDirectory = "Content";
-
+        private void InitializeGameServices()
+        {
             // Frame rate is 30 fps by default for Windows Phone.
             TargetElapsedTime = TimeSpan.FromTicks(333333);
 
             // Extend battery life under lock.
             InactiveSleepTime = TimeSpan.FromSeconds(1);
+
+            Guide.IsScreenSaverEnabled = true;
+            IsFixedTimeStep = false;
+
+            _viewManager = new ViewManager(this);
+            Components.Add(_viewManager);
+        }
+
+        private void InitializeGame()
+        {
+            _viewManager.AddView(new SplashView());
+        }
+
+        private void GameActivated(object sender, ActivatedEventArgs e)
+        {
+#warning TODO: Attempt to recover the game, if that fails start again.
+        }
+
+        private void GameDeactivated(object sender, DeactivatedEventArgs e)
+        {
+#warning TODO: Save the state of the game.
+        }
+
+        private void GameLaunching(object sender, LaunchingEventArgs e)
+        {
+            InitializeGame();
         }
 
         /// <summary>
@@ -84,7 +129,6 @@ namespace sandbox9
         protected override void Initialize()
         {
             ResourceManager.Initialize(Content);
-
             _weaponManager = new WeaponManager();
             _balloonManager = new BalloonManager();
             _powerupManager = new PowerupManager();
@@ -172,7 +216,7 @@ namespace sandbox9
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
 
