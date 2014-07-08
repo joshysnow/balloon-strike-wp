@@ -11,12 +11,19 @@ namespace sandbox8
 
     public class BalloonManager : CharacterManager
     {
+        private enum BalloonManagerState : byte
+        {
+            Normal = 0x01,
+            Frozen = 0x02
+        }
+
         public event BalloonEventHandler Popped;
         public event BalloonEventHandler Escaped;
 
         private LinkedList<Balloon> _balloonMemory;
         private SimpleTimer _greenTimer;
         private SimpleTimer _freezeTimer;
+        private SimpleTimer _managerFreezeTimer;
         private VariableSpawnTimer _blueTimer;
         private VariableSpawnTimer _redTimer;
         private Vector2 _redVelocity;
@@ -27,6 +34,7 @@ namespace sandbox8
         private Animation _blueMoveAnimation;
         private Animation _popAnimation;
         private SoundEffect _popSoundEffect;
+        private BalloonManagerState _managerState;
 
         private const short _screenHeight = 800;
         private const short _screenWidth = 480;
@@ -53,6 +61,10 @@ namespace sandbox8
                         {
                             ((Balloon)_characters[index++]).Freeze(2000);
                         }
+
+                        _managerState = BalloonManagerState.Frozen;
+                        _managerFreezeTimer = new SimpleTimer();
+                        _managerFreezeTimer.Initialize(2000);
                     }
                     break;
                 case PowerupType.Nuke:
@@ -148,24 +160,37 @@ namespace sandbox8
 
         protected override void UpdateSpawners(GameTime gameTime)
         {
-            if (_greenTimer.Update(gameTime))
+            if (_managerState == BalloonManagerState.Normal)
             {
-                SpawnBalloon(BalloonColor.Green);
+                if (_greenTimer.Update(gameTime))
+                {
+                    SpawnBalloon(BalloonColor.Green);
+                }
+
+                if (_blueTimer.Update(gameTime))
+                {
+                    SpawnBalloon(BalloonColor.Blue);
+                }
+
+                if (_redTimer.Update(gameTime))
+                {
+                    SpawnBalloon(BalloonColor.Red);
+                }
+            }
+            else
+            {
+                if(_managerFreezeTimer.Update(gameTime))
+                {
+                    _managerFreezeTimer = null;
+                    _managerState = BalloonManagerState.Normal;
+                }
             }
 
-            if (_blueTimer.Update(gameTime))
-            {
-                SpawnBalloon(BalloonColor.Blue);
-            }
-
-            if (_redTimer.Update(gameTime))
-            {
-                SpawnBalloon(BalloonColor.Red);
-            }
         }
 
         private void Setup()
         {
+            _managerState = BalloonManagerState.Normal;
             _balloonMemory = new LinkedList<Balloon>();
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
