@@ -51,27 +51,24 @@ namespace sandbox8
         public CharacterManager()
         {
             _characters = new List<Character>();
-        }
+        }        
 
-        public void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingSamples)
-        {
-            remainingSamples = null;
-        }
-
-        public virtual void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             UpdateCharacters(gameTime);
             UpdateSpawners(gameTime);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            short index = 0;
+            byte index = 0;
             while (index < _characters.Count)
             {
                 _characters[index++].Draw(spriteBatch);
             }
         }
+
+        public abstract void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures);
 
         protected abstract void UpdateCharacters(GameTime gameTime);
 

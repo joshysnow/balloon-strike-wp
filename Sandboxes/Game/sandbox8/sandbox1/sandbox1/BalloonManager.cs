@@ -9,13 +9,12 @@ namespace sandbox8
 {
     public delegate void BalloonEventHandler(Balloon balloon);
 
-    public class BalloonManager
+    public class BalloonManager : CharacterManager
     {
         public event BalloonEventHandler Popped;
         public event BalloonEventHandler Escaped;
 
         private LinkedList<Balloon> _balloonMemory;
-        private List<Balloon> _balloons;
         private SimpleTimer _greenTimer;
         private SimpleTimer _freezeTimer;
         private VariableSpawnTimer _blueTimer;
@@ -33,7 +32,7 @@ namespace sandbox8
         private const short _screenWidth = 480;
         private Random _randomPosition;
 
-        public BalloonManager()
+        public BalloonManager() : base()
         {
             Setup();
         }
@@ -50,9 +49,9 @@ namespace sandbox8
                 case PowerupType.Freeze:
                     {
                         byte index = 0;
-                        while (index < _balloons.Count)
+                        while (index < _characters.Count)
                         {
-                            _balloons[index++].Freeze(2000);
+                            ((Balloon)_characters[index++]).Freeze(2000);
                         }
                     }
                     break;
@@ -64,7 +63,7 @@ namespace sandbox8
             }
         }
 
-        public void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
+        public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
         {
             int index;
             Balloon balloon;
@@ -80,11 +79,11 @@ namespace sandbox8
                     continue;
                 }
 
-                index = (_balloons.Count - 1);
+                index = (_characters.Count - 1);
 
                 while (index >= 0)
                 {
-                    balloon = _balloons[index];
+                    balloon = (Balloon)_characters[index];
                     if (balloon.Intersects(gesture.Position, radius))
                     {
                         balloon.Pop();
@@ -102,25 +101,72 @@ namespace sandbox8
             remainingGestures = temp.ToArray();
         }
 
-        public void Update(GameTime gameTime)
+        protected override void UpdateCharacters(GameTime gameTime)
         {
-            UpdateBalloons(gameTime);
-            UpdateSpawners(gameTime);
+            byte index = 0;
+            Balloon balloon;
+            while (index < _characters.Count)
+            {
+                balloon = (Balloon)_characters[index];
+
+                switch (balloon.State)
+                {
+                    case BalloonState.Alive:
+                    case BalloonState.Frozen:
+                    case BalloonState.Dying:
+                        {
+                            balloon.Update(gameTime);
+                            index++;
+                        }
+                        break;
+                    case BalloonState.Popped:
+                        {
+                            balloon.Update(gameTime);
+                            RaisePopped(balloon);
+                            index++;
+                        }
+                        break;
+                    case BalloonState.Escaped:
+                        {
+                            balloon.Update(gameTime);
+                            RaiseEscaped(balloon);
+                            index++;
+                        }
+                        break;
+                    case BalloonState.Dead:
+                        {
+                            balloon.Uninitialize();
+                            _balloonMemory.AddFirst(balloon);
+                            _characters.RemoveAt(index);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        protected override void UpdateSpawners(GameTime gameTime)
         {
-            short index = 0;
-            while (index < _balloons.Count)
+            if (_greenTimer.Update(gameTime))
             {
-                _balloons[index++].Draw(spriteBatch);
+                SpawnBalloon(BalloonColor.Green);
+            }
+
+            if (_blueTimer.Update(gameTime))
+            {
+                SpawnBalloon(BalloonColor.Blue);
+            }
+
+            if (_redTimer.Update(gameTime))
+            {
+                SpawnBalloon(BalloonColor.Red);
             }
         }
 
         private void Setup()
         {
             _balloonMemory = new LinkedList<Balloon>();
-            _balloons = new List<Balloon>();
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
             _greenTimer = new SimpleTimer();
@@ -153,69 +199,6 @@ namespace sandbox8
             {
                 newBalloon = new Balloon();
                 _balloonMemory.AddFirst(newBalloon);
-            }
-        }
-
-        private void UpdateBalloons(GameTime gameTime)
-        {
-            byte index = 0;
-            Balloon balloon;
-            while (index < _balloons.Count)
-            {
-                balloon = _balloons[index];
-
-                switch (balloon.State)
-                {
-                    case BalloonState.Alive:
-                    case BalloonState.Frozen:
-                    case BalloonState.Dying:
-                        {
-                            balloon.Update(gameTime);
-                            index++;
-                        }
-                        break;
-                    case BalloonState.Popped:
-                        {
-                            balloon.Update(gameTime);
-                            RaisePopped(balloon);
-                            index++;
-                        }
-                        break;
-                    case BalloonState.Escaped:
-                        {
-                            balloon.Update(gameTime);
-                            RaiseEscaped(balloon);
-                            index++;
-                        }
-                        break;
-                    case BalloonState.Dead:
-                        {
-                            balloon.Uninitialize();
-                            _balloonMemory.AddFirst(balloon);
-                            _balloons.RemoveAt(index);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        private void UpdateSpawners(GameTime gameTime)
-        {
-            if (_greenTimer.Update(gameTime))
-            {
-                SpawnBalloon(BalloonColor.Green);
-            }
-
-            if (_blueTimer.Update(gameTime))
-            {
-                SpawnBalloon(BalloonColor.Blue);
-            }
-
-            if (_redTimer.Update(gameTime))
-            {
-                SpawnBalloon(BalloonColor.Red);
             }
         }
 
@@ -257,7 +240,7 @@ namespace sandbox8
 
             int x = _randomPosition.Next(_screenWidth - (int)(moveAnimation.AnimationTexture.Width * moveAnimation.Scale));
             spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, new Vector2(x, _screenHeight), velocity);
-            _balloons.Add(spawn);
+            _characters.Add(spawn);
         }
 
         private void RaisePopped(Balloon balloon)

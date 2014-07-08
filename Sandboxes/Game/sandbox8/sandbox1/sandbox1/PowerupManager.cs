@@ -9,11 +9,10 @@ namespace sandbox8
 {
     public delegate void PowerupEventHandler(Powerup powerup);
 
-    public class PowerupManager
+    public class PowerupManager : CharacterManager
     {
         public event PowerupEventHandler PickedUp;
 
-        private List<Powerup> _powerups;
         private SimpleTimer _freezeTimer;
         private SimpleTimer _shellTimer;
         private SimpleTimer _missileTimer;
@@ -40,7 +39,7 @@ namespace sandbox8
             Setup();
         }
 
-        public void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
+        public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
         {
             int index;
             Powerup powerup;
@@ -56,20 +55,16 @@ namespace sandbox8
                     continue;
                 }
 
-                index = (_powerups.Count - 1);
+                index = (_characters.Count - 1);
 
                 while (index >= 0)
                 {
-                    powerup = _powerups[index];
+                    powerup = (Powerup)_characters[index];
                     if (powerup.Intersects(gesture.Position, radius))
                     {
                         powerup.Pickup();
-
-                        if (weaponType == WeaponType.Finger)
-                        {
-                            temp.Remove(gesture);
-                            break;
-                        }
+                        temp.Remove(gesture);
+                        break;
                     }
                     index--;
                 }
@@ -78,54 +73,13 @@ namespace sandbox8
             remainingGestures = temp.ToArray();
         }
 
-        public void Update(GameTime gameTime)
-        {
-            UpdatePowerups(gameTime);
-            UpdateSpawners(gameTime);
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            byte index = 0;
-            while (index < _powerups.Count)
-            {
-                _powerups[index++].Draw(spriteBatch);
-            }
-        }
-
-        private void Setup()
-        {
-            _powerups = new List<Powerup>();
-            _randomPosition = new Random(DateTime.Now.Millisecond);
-
-            _freezeTimer = new SimpleTimer();
-            _freezeTimer.Initialize(5000);
-            _freezeVelocity = new Vector2(0, 4.2f);
-
-            _shellTimer = new SimpleTimer();
-            _shellTimer.Initialize(5000);
-            _shellVelocity = new Vector2(0, 6f);
-
-            _missileTimer = new SimpleTimer();
-            _missileTimer.Initialize(7500);
-            _missileVelocity = new Vector2(0, 7f);
-
-            ResourceManager manager = ResourceManager.Manager;
-
-            _freezeMoveAnimation = manager.GetAnimation("freezemove");
-            _shellMoveAnimation = manager.GetAnimation("shellmove");
-            _missileMoveAnimation = manager.GetAnimation("missilemove");
-            _popAnimation = manager.GetAnimation("popmove");
-            _popSoundEffect = manager.GetSoundEffect("pop");
-        }
-
-        private void UpdatePowerups(GameTime gameTime)
+        protected override void UpdateCharacters(GameTime gameTime)
         {
             byte index = 0;
             Powerup powerup;
-            while (index < _powerups.Count)
+            while (index < _characters.Count)
             {
-                powerup = _powerups[index];
+                powerup = (Powerup)_characters[index];
 
                 switch (powerup.State)
                 {
@@ -138,7 +92,7 @@ namespace sandbox8
                         break;
                     case PowerupState.Dead:
                         {
-                            _powerups.RemoveAt(index);
+                            _characters.RemoveAt(index);
                         }
                         break;
                     case PowerupState.Pickedup:
@@ -162,7 +116,7 @@ namespace sandbox8
             }
         }
 
-        private void UpdateSpawners(GameTime gameTime)
+        protected override void UpdateSpawners(GameTime gameTime)
         {
             if (_freezeTimer.Update(gameTime))
             {
@@ -180,6 +134,32 @@ namespace sandbox8
             }
         }
 
+
+        private void Setup()
+        {
+            _randomPosition = new Random(DateTime.Now.Millisecond);
+
+            _freezeTimer = new SimpleTimer();
+            _freezeTimer.Initialize(5000);
+            _freezeVelocity = new Vector2(0, 4.2f);
+
+            _shellTimer = new SimpleTimer();
+            _shellTimer.Initialize(5000);
+            _shellVelocity = new Vector2(0, 6f);
+
+            _missileTimer = new SimpleTimer();
+            _missileTimer.Initialize(7500);
+            _missileVelocity = new Vector2(0, 7f);
+
+            ResourceManager manager = ResourceManager.Manager;
+
+            _freezeMoveAnimation = manager.GetAnimation("freezemove");
+            _shellMoveAnimation = manager.GetAnimation("shellmove");
+            _missileMoveAnimation = manager.GetAnimation("missilemove");
+            _popAnimation = manager.GetAnimation("popmove");
+            _popSoundEffect = manager.GetSoundEffect("pop");
+        }
+
         private void SpawnPowerup(PowerupType type)
         {
             Powerup spawn = new Powerup(type);
@@ -190,7 +170,7 @@ namespace sandbox8
             Vector2 upperLeft = new Vector2(x, y);
 
             spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, upperLeft, _freezeVelocity, _screenHeight);
-            _powerups.Add(spawn);
+            _characters.Add(spawn);
         }
 
         private Animation GetAnimation(PowerupType type)
