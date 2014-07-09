@@ -13,12 +13,15 @@ namespace GameInterfaceFramework
             get { return _spriteBatch; }
         }
 
-        private Stack<View> _views;
         private SpriteBatch _spriteBatch;
+        private List<View> _views;
+        private List<View> _tempViews;
 
         public ViewManager(Game game) : base(game)
         {
-            _views = new Stack<View>();
+            _views = new List<View>();
+            _tempViews = new List<View>();
+
             TouchPanel.EnabledGestures = GestureType.None;
         }
 
@@ -26,10 +29,14 @@ namespace GameInterfaceFramework
         {
             newView.ViewManager = this;
             newView.Activate(false);
-
-            _views.Push(newView);
+            _views.Add(newView);
 
             TouchPanel.EnabledGestures = newView.EnabledGestures;
+        }
+
+        public void RemoveView(View view)
+        {
+            _views.Remove(view);
         }
 
         public View[] Views()
@@ -55,7 +62,6 @@ namespace GameInterfaceFramework
 
         public override void Update(GameTime gameTime)
         {
-            TrimDeadViews();
             UpdateViews(gameTime);            
         }
 
@@ -77,34 +83,18 @@ namespace GameInterfaceFramework
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
-        private void TrimDeadViews()
-        {
-            byte index = 0;
-            View view;
-            List<View> views = new List<View>(Views());
-
-            while (index < views.Count)
-            {
-                view = views[index];
-
-                if (view.IsExiting && (view.State == ViewState.Hidden))
-                    views.RemoveAt(index);
-                else
-                    index++;
-            }
-
-            _views = new Stack<View>(views);
-        }
-
         private void UpdateViews(GameTime gameTime)
         {
+            _tempViews.AddRange(_views);
+            View view;
+            byte index = 0;
             bool isActiveApp = !Game.IsActive;
             bool covered = false;
 
-            View[] viewsCopy = Views();
-
-            foreach (View view in viewsCopy)
+            while (index < _tempViews.Count)
             {
+                view = _tempViews[index];
+
                 view.Update(gameTime, covered);
 
                 if ((view.State == ViewState.Active) || (view.State == ViewState.TransitionOn))
@@ -119,7 +109,11 @@ namespace GameInterfaceFramework
                         covered = true;
                     }
                 }
+
+                index++;
             }
+
+            _tempViews.Clear();
         }
     }
 }

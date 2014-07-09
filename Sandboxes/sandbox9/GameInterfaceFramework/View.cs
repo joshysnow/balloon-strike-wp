@@ -92,7 +92,7 @@ namespace GameInterfaceFramework
 
                 if (!UpdateTransition(gameTime, _transitionOffTime, 1))
                 {
-                    _state = ViewState.Hidden;
+                    ViewManager.RemoveView(this);
                 }
             }
             else if (covered)
