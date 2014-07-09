@@ -134,6 +134,7 @@ namespace GameFramework
             Texture2D xHairFingerTexture = _content.Load<Texture2D>("Crosshairs/finger");
             Texture2D xHairShotgunTexture = _content.Load<Texture2D>("Crosshairs/shotgun");
             Texture2D xHairBazookaTexture = _content.Load<Texture2D>("Crosshairs/bazooka");
+            Texture2D splashTexture = _content.Load<Texture2D>("Backgrounds/splash480");
 
             _textures.Add("red", redTexture);
             _textures.Add("blue", blueTexture);
@@ -145,6 +146,7 @@ namespace GameFramework
             _textures.Add("xhair_finger", xHairFingerTexture);
             _textures.Add("xhair_shotgun", xHairShotgunTexture);
             _textures.Add("xhair_bazooka", xHairBazookaTexture);
+            _textures.Add("splash", splashTexture);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f));

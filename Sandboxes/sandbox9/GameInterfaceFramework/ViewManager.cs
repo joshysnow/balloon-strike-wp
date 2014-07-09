@@ -24,12 +24,23 @@ namespace GameInterfaceFramework
 
         public void AddView(View newView)
         {
+            newView.ViewManager = this;
+            newView.Activate(false);
+
             _views.Push(newView);
+
+            TouchPanel.EnabledGestures = newView.EnabledGestures;
         }
 
         public bool Activate(bool instancePreserved)
         {
+#warning TODO: Deserialize the game from disk.
             return false;
+        }
+
+        public void Deactivate()
+        {
+#warning TODO: Serialize the game to disk.
         }
 
         public override void Initialize()

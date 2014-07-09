@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace GameInterfaceFramework
 {
@@ -46,6 +44,14 @@ namespace GameInterfaceFramework
             internal set;
         }
 
+        public GestureType EnabledGestures
+        {
+            get
+            {
+                return _viewGestures;
+            }
+        }
+
         protected float TransitionAlpha
         {
             get
@@ -54,6 +60,7 @@ namespace GameInterfaceFramework
             }
         }
 
+        protected GestureType _viewGestures = GestureType.None;
         protected TimeSpan _transitionOnTime = TimeSpan.Zero;
         protected TimeSpan _transitionOffTime = TimeSpan.Zero;
         protected bool _isPopup = false;

@@ -107,12 +107,15 @@ namespace Balloonstrike
 
         private void GameActivated(object sender, ActivatedEventArgs e)
         {
-#warning TODO: Attempt to recover the game, if that fails start again.
+            if(_viewManager.Activate(e.IsApplicationInstancePreserved))
+            {
+                InitializeGame();
+            }
         }
 
         private void GameDeactivated(object sender, DeactivatedEventArgs e)
         {
-#warning TODO: Save the state of the game.
+            _viewManager.Deactivate();
         }
 
         private void GameLaunching(object sender, LaunchingEventArgs e)
@@ -129,20 +132,17 @@ namespace Balloonstrike
         protected override void Initialize()
         {
             ResourceManager.Initialize(Content);
-            _weaponManager = new WeaponManager();
-            _balloonManager = new BalloonManager();
-            _powerupManager = new PowerupManager();
-            _scoreManager = new ScoreManager();
+            //_weaponManager = new WeaponManager();
+            //_balloonManager = new BalloonManager();
+            //_powerupManager = new PowerupManager();
+            //_scoreManager = new ScoreManager();
 
-            _balloonManager.Popped += BalloonPoppedHandler;
-            _balloonManager.Escaped += BalloonEscapedHandler;
-            _powerupManager.PickedUp += PowerupPickedUpHandler;
+            //_balloonManager.Popped += BalloonPoppedHandler;
+            //_balloonManager.Escaped += BalloonEscapedHandler;
+            //_powerupManager.PickedUp += PowerupPickedUpHandler;
 
-            TouchPanel.EnabledGestures = GestureType.Tap;
-            _gestures = new List<GestureSample>();
-
-            // When the game is not active, close.
-            this.Deactivated += SandboxDeactivated;
+            //TouchPanel.EnabledGestures = GestureType.Tap;
+            //_gestures = new List<GestureSample>();
 
             base.Initialize();
         }
@@ -153,20 +153,20 @@ namespace Balloonstrike
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            //// Create a new SpriteBatch, which can be used to draw textures.
+            //_spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _debugFont = this.Content.Load<SpriteFont>("DebugText");
-            _displayFont = this.Content.Load<SpriteFont>("DisplayText");
-            _gameOverFont = this.Content.Load<SpriteFont>("GameOverText");
-            _gameOverScoreFont = this.Content.Load<SpriteFont>("ScoreText");
+            //_debugFont = this.Content.Load<SpriteFont>("DebugText");
+            //_displayFont = this.Content.Load<SpriteFont>("DisplayText");
+            //_gameOverFont = this.Content.Load<SpriteFont>("GameOverText");
+            //_gameOverScoreFont = this.Content.Load<SpriteFont>("ScoreText");
 
-            _sunPosition = new Vector2(_spacing, 0);
-            _debugPosition = new Vector2(_spacing, _screenHeight - _debugFont.LineSpacing);
-            Vector2 gameOverTextSize = _gameOverFont.MeasureString(GAME_OVER_TEXT);
-            _gameOverPosition = new Vector2((_screenWidth / 2) - (gameOverTextSize.X / 2), (_screenHeight / 2) - (gameOverTextSize.Y / 2));
+            //_sunPosition = new Vector2(_spacing, 0);
+            //_debugPosition = new Vector2(_spacing, _screenHeight - _debugFont.LineSpacing);
+            //Vector2 gameOverTextSize = _gameOverFont.MeasureString(GAME_OVER_TEXT);
+            //_gameOverPosition = new Vector2((_screenWidth / 2) - (gameOverTextSize.X / 2), (_screenHeight / 2) - (gameOverTextSize.Y / 2));
 
-            this.ChangeToPlayingState();
+            //ChangeToPlayingState();
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace Balloonstrike
         /// </summary>
         protected override void UnloadContent()
         {
-            this.Content.Unload();
+            Content.Unload();
         }
 
         /// <summary>
@@ -191,21 +191,21 @@ namespace Balloonstrike
                 this.Exit();
             }
 
-            switch (_gameState)
-            {
-                case GameState.Playing:
-                    {
-                        this.UpdatePlayingState(gameTime);
-                    }
-                    break;
-                case GameState.GameOver:
-                    {
-                        this.UpdateGameOverState(gameTime);
-                    }
-                    break;
-                default:
-                    break;
-            }
+            //switch (_gameState)
+            //{
+            //    case GameState.Playing:
+            //        {
+            //            this.UpdatePlayingState(gameTime);
+            //        }
+            //        break;
+            //    case GameState.GameOver:
+            //        {
+            //            this.UpdateGameOverState(gameTime);
+            //        }
+            //        break;
+            //    default:
+            //        break;
+            //}
             
             base.Update(gameTime);
         }
@@ -218,25 +218,25 @@ namespace Balloonstrike
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin();
+            //_spriteBatch.Begin();
 
-            switch (_gameState)
-            {
-                case GameState.Playing:
-                    {
-                        this.DrawPlayingState();
-                    }
-                    break;
-                case GameState.GameOver:
-                    {
-                        this.DrawGameOverState();
-                    }
-                    break;
-                default:
-                    break;
-            }
+            //switch (_gameState)
+            //{
+            //    case GameState.Playing:
+            //        {
+            //            this.DrawPlayingState();
+            //        }
+            //        break;
+            //    case GameState.GameOver:
+            //        {
+            //            this.DrawGameOverState();
+            //        }
+            //        break;
+            //    default:
+            //        break;
+            //}
 
-            _spriteBatch.End();
+            //_spriteBatch.End();
 
             base.Draw(gameTime);
         }
@@ -322,11 +322,6 @@ namespace Balloonstrike
         private void ChangeToGameOverState()
         {
             _gameState = GameState.GameOver;
-        }
-
-        private void SandboxDeactivated(object sender, EventArgs e)
-        {
-            this.Exit();
         }
 
         private void BalloonPoppedHandler(Balloon balloon)
