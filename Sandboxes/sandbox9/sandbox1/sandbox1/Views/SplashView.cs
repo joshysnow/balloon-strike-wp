@@ -35,6 +35,7 @@ namespace Balloonstrike.Views
                 if (_activeTimer.Update(gameTime))
                 {
                     Exit();
+                    LoadView.Load(ViewManager, 1, new SplashView());
                 }
             }
 
