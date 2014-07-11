@@ -289,6 +289,24 @@
       <Output>D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Backgrounds\splash480.xnb</Output>
       <Time>2014-07-09T12:48:52.0713494+01:00</Time>
     </Item>
+    <Item>
+      <Source>Buttons\test_about.png</Source>
+      <Name>Buttons\test_about</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Buttons\test_about.xnb</Output>
+      <Time>2014-07-11T18:21:33.3809768+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Buttons\test_play.png</Source>
+      <Name>Buttons\test_play</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Sandboxes\sandbox9\sandbox1\sandbox1\bin\Windows Phone\Debug\Content\Buttons\test_play.xnb</Output>
+      <Time>2014-07-11T18:21:33.4122616+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}</ContentProjectGUID>
