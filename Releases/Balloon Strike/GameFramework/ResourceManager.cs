@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace GameFramework
 {
@@ -12,7 +13,7 @@ namespace GameFramework
         {
             get 
             {
-                return _manager; 
+                return _manager;
             }
         }
 
@@ -24,6 +25,7 @@ namespace GameFramework
         private Dictionary<string, SoundEffect> _sounds;
         private Dictionary<string, SpriteFont> _fonts;
         private Dictionary<string, Animation> _animations;
+        private Dictionary<string, Song> _music;
 
         private ResourceManager()
         {
@@ -31,6 +33,7 @@ namespace GameFramework
             _sounds = new Dictionary<string, SoundEffect>();
             _fonts = new Dictionary<string, SpriteFont>();
             _animations = new Dictionary<string, Animation>();
+            _music = new Dictionary<string, Song>();
         }
 
         public static void Initialize(ContentManager content)
@@ -107,6 +110,21 @@ namespace GameFramework
             return _animations[key];
         }
 
+        public Song GetSong(string key)
+        {
+            if (!_loaded)
+            {
+                throw new Exception("Resource Managed has not been initialized");
+            }
+
+            if (!_music.ContainsKey(key))
+            {
+                throw new KeyNotFoundException();
+            }
+
+            return _music[key];
+        }
+
         private void LoadResources()
         {
             _fonts.Add("debug", _content.Load<SpriteFont>("DebugText"));
@@ -124,6 +142,9 @@ namespace GameFramework
             pop.Play(0, 0, 0);
             _sounds.Add("pop", pop);
 
+            Song test = _content.Load<Song>("Audio/Music/test_everythingisawesome");
+            _music.Add("test", test);
+
             Texture2D redTexture = _content.Load<Texture2D>("Balloons/red200");
             Texture2D blueTexture = _content.Load<Texture2D>("Balloons/blue200");
             Texture2D greenTexture = _content.Load<Texture2D>("Balloons/green200");
@@ -134,7 +155,8 @@ namespace GameFramework
             Texture2D xHairFingerTexture = _content.Load<Texture2D>("Crosshairs/finger");
             Texture2D xHairShotgunTexture = _content.Load<Texture2D>("Crosshairs/shotgun");
             Texture2D xHairBazookaTexture = _content.Load<Texture2D>("Crosshairs/bazooka");
-            Texture2D splashTexture = _content.Load<Texture2D>("Backgrounds/splash480");
+            //Texture2D splashTexture = _content.Load<Texture2D>("Backgrounds/splash480");
+            Texture2D splashTexture = _content.Load<Texture2D>("Backgrounds/fox_480_800");
             Texture2D buttonPlayTexture = _content.Load<Texture2D>("Buttons/test_play");
             Texture2D buttonAboutTexture = _content.Load<Texture2D>("Buttons/test_about");
 

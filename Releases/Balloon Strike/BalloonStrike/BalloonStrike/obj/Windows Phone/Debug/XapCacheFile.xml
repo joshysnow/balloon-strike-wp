@@ -1,10 +1,10 @@
-﻿<xapCache source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="11/07/2014 21:10:10">
+﻿<xapCache source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="11/07/2014 22:09:47">
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\Background.png" archivePath="Background.png" lastWriteTime="11/07/2014 20:09:31" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\PhoneGameThumb.png" archivePath="PhoneGameThumb.png" lastWriteTime="11/07/2014 20:09:31" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="11/07/2014 20:46:05" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="11/07/2014 20:10:43" />
-  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.dll" archivePath="BalloonStrike.dll" lastWriteTime="11/07/2014 21:10:09" />
-  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameFramework\bin\x86\Debug\GameFramework.dll" archivePath="GameFramework.dll" lastWriteTime="11/07/2014 20:00:08" />
+  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.dll" archivePath="BalloonStrike.dll" lastWriteTime="11/07/2014 22:09:45" />
+  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameFramework\bin\x86\Debug\GameFramework.dll" archivePath="GameFramework.dll" lastWriteTime="11/07/2014 21:58:48" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameInterfaceFramework\bin\x86\Debug\GameInterfaceFramework.dll" archivePath="GameInterfaceFramework.dll" lastWriteTime="11/07/2014 20:45:48" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\black200.xnb" archivePath="Content\Balloons\black200.xnb" lastWriteTime="11/07/2014 20:46:54" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\black400.xnb" archivePath="Content\Balloons\black400.xnb" lastWriteTime="11/07/2014 20:46:54" />
@@ -40,4 +40,7 @@
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score8.xnb" archivePath="Content\Fonts\score8.xnb" lastWriteTime="11/07/2014 20:46:55" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Sounds\snowball_impact.xnb" archivePath="Content\Sounds\snowball_impact.xnb" lastWriteTime="11/07/2014 20:46:55" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Sounds\snowball_car_impact1.xnb" archivePath="Content\Sounds\snowball_car_impact1.xnb" lastWriteTime="11/07/2014 20:46:55" />
+  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Backgrounds\fox_480_800.xnb" archivePath="Content\Backgrounds\fox_480_800.xnb" lastWriteTime="11/07/2014 21:25:53" />
+  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Music\test_everythingisawesome.xnb" archivePath="Content\Audio\Music\test_everythingisawesome.xnb" lastWriteTime="11/07/2014 21:58:57" />
+  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Music\test_everythingisawesome.wma" archivePath="Content\Audio\Music\test_everythingisawesome.wma" lastWriteTime="11/07/2014 21:58:57" />
 </xapCache>
