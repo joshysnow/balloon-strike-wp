@@ -11,7 +11,7 @@ namespace BalloonStrike.Views
     public class BackgroundView : View
     {
         //private Texture2D _backgroundTexture;
-        private Song _music;
+        //private Song _music;
 
         public BackgroundView()
         {
@@ -24,16 +24,16 @@ namespace BalloonStrike.Views
             //_backgroundTexture = ResourceManager.Manager.GetTexture("splash");
             if (!instancePreserved)
             {
-                _music = ResourceManager.Manager.GetSong("test");
+                //_music = ResourceManager.Manager.GetSong("test");
             }
         }
 
         public override void Update(GameTime gameTime, bool covered)
         {
-            if (MediaPlayer.State == MediaState.Stopped || MediaPlayer.State == MediaState.Paused)
-            {
-                MediaPlayer.Play(_music);
-            }
+            //if (MediaPlayer.State == MediaState.Stopped || MediaPlayer.State == MediaState.Paused)
+            //{
+            //    MediaPlayer.Play(_music);
+            //}
 
             // Background will always be covered but we would like it to update still.
             base.Update(gameTime, false);

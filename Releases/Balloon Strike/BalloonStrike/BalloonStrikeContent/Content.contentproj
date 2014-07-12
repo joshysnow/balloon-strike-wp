@@ -79,7 +79,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\snowball_impact.wav">
+    <Compile Include="Audio\Sounds\snowball_impact.wav">
       <Name>snowball_impact</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
@@ -93,7 +93,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\snowball_car_impact1.wav">
+    <Compile Include="Audio\Sounds\snowball_car_impact1.wav">
       <Name>snowball_car_impact1</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
@@ -255,11 +255,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\Music\test_everythingisawesome.mp3">
-      <Name>test_everythingisawesome</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
+    <Folder Include="Audio\Music\" />
+    <Folder Include="Textures\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

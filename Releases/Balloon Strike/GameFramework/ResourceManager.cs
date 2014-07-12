@@ -138,12 +138,12 @@ namespace GameFramework
                 _fonts.Add("font_score" + i, _content.Load<SpriteFont>("Fonts/score" + i));
             }
 
-            SoundEffect pop = _content.Load<SoundEffect>("Sounds/snowball_car_impact1");
+            SoundEffect pop = _content.Load<SoundEffect>("Audio/Sounds/snowball_car_impact1");
             pop.Play(0, 0, 0);
             _sounds.Add("pop", pop);
 
-            Song test = _content.Load<Song>("Audio/Music/test_everythingisawesome");
-            _music.Add("test", test);
+            //Song test = _content.Load<Song>("Audio/Music/test_everythingisawesome");
+            //_music.Add("test", test);
 
             Texture2D redTexture = _content.Load<Texture2D>("Balloons/red200");
             Texture2D blueTexture = _content.Load<Texture2D>("Balloons/blue200");
