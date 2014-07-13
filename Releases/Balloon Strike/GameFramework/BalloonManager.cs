@@ -22,10 +22,8 @@ namespace GameFramework
 
         private LinkedList<Balloon> _balloonMemory;
         private SimpleTimer _greenTimer;
-        private SimpleTimer _freezeTimer;
-        private SimpleTimer _managerFreezeTimer;
-        private VariableSpawnTimer _blueTimer;
-        private VariableSpawnTimer _redTimer;
+        private VariableTimer _blueTimer;
+        private VariableTimer _redTimer;
         private Vector2 _redVelocity;
         private Vector2 _greenVelocity;
         private Vector2 _blueVelocity;
@@ -35,43 +33,24 @@ namespace GameFramework
         private Animation _popAnimation;
         private SoundEffect _popSoundEffect;
         private BalloonManagerState _managerState;
-
-        private const short _screenHeight = 800;
-        private const short _screenWidth = 480;
+        private SimpleTimer _managerFreezeTimer;
         private Random _randomPosition;
 
-        public BalloonManager() : base()
-        {
-            Setup();
-        }
+        public BalloonManager(GraphicsDevice graphics) : base(graphics) { }
 
-        public void Reset()
+        public override void Reset()
         {
-            Setup();
-        }
+            _managerState = BalloonManagerState.Normal;
 
-        public void ApplyPowerup(PowerupType type)
-        {
-            switch (type)
+            _greenTimer = new SimpleTimer(1500);
+            _blueTimer = new VariableTimer(5000, 0.7f, 1500);
+            _redTimer = new VariableTimer(15000, 0.8f, 2500);
+
+            Balloon newBalloon;
+            while (_balloonMemory.Count < 10)
             {
-                case PowerupType.Freeze:
-                    {
-                        byte index = 0;
-                        while (index < _characters.Count)
-                        {
-                            ((Balloon)_characters[index++]).Freeze(2000);
-                        }
-
-                        _managerState = BalloonManagerState.Frozen;
-                        _managerFreezeTimer = new SimpleTimer();
-                        _managerFreezeTimer.Initialize(2000);
-                    }
-                    break;
-                case PowerupType.Nuke:
-                case PowerupType.Shell:
-                case PowerupType.Missile:
-                default:
-                    break;
+                newBalloon = new Balloon();
+                _balloonMemory.AddFirst(newBalloon);
             }
         }
 
@@ -92,11 +71,11 @@ namespace GameFramework
                     continue;
                 }
 
-                index = (_characters.Count - 1);
+                index = (Characters.Count - 1);
 
                 while (index >= 0)
                 {
-                    balloon = (Balloon)_characters[index];
+                    balloon = (Balloon)Characters[index];
                     if (balloon.Intersects(gesture.Position, radius))
                     {
                         balloon.Attack(damage);
@@ -114,13 +93,35 @@ namespace GameFramework
             remainingGestures = temp.ToArray();
         }
 
+        public void ApplyPowerup(PowerupType type)
+        {
+            switch (type)
+            {
+                case PowerupType.Freeze:
+                    {
+                        byte index = 0;
+                        while (index < Characters.Count)
+                        {
+                            ((Balloon)Characters[index++]).Freeze(2000);
+                        }
+
+                        _managerState = BalloonManagerState.Frozen;
+                        _managerFreezeTimer = new SimpleTimer(2000);
+                    }
+                    break;
+                case PowerupType.Nuke:
+                default:
+                    break;
+            }
+        }
+
         protected override void UpdateCharacters(GameTime gameTime)
         {
             byte index = 0;
             Balloon balloon;
-            while (index < _characters.Count)
+            while (index < Characters.Count)
             {
-                balloon = (Balloon)_characters[index];
+                balloon = (Balloon)Characters[index];
 
                 switch (balloon.State)
                 {
@@ -150,7 +151,7 @@ namespace GameFramework
                         {
                             balloon.Uninitialize();
                             _balloonMemory.AddFirst(balloon);
-                            _characters.RemoveAt(index);
+                            Characters.RemoveAt(index);
                         }
                         break;
                     default:
@@ -163,20 +164,7 @@ namespace GameFramework
         {
             if (_managerState == BalloonManagerState.Normal)
             {
-                if (_greenTimer.Update(gameTime))
-                {
-                    SpawnBalloon(BalloonColor.Green);
-                }
-
-                if (_blueTimer.Update(gameTime))
-                {
-                    SpawnBalloon(BalloonColor.Blue);
-                }
-
-                if (_redTimer.Update(gameTime))
-                {
-                    SpawnBalloon(BalloonColor.Red);
-                }
+                base.UpdateSpawners(gameTime);
             }
             else
             {
@@ -189,23 +177,23 @@ namespace GameFramework
 
         }
 
-        private void Setup()
+        protected override void Initialize()
         {
             _managerState = BalloonManagerState.Normal;
             _balloonMemory = new LinkedList<Balloon>();
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
-            _greenTimer = new SimpleTimer();
-            _greenTimer.Initialize(1500);
+            _greenTimer = new SimpleTimer(1500);
+            _greenTimer.Elapsed += GreenTimerElapsed;
+            Timers.Add(_greenTimer);
 
-            _freezeTimer = new SimpleTimer();
-            _freezeTimer.Initialize(15000);
+            _blueTimer = new VariableTimer(5000, 0.7f, 1500);
+            _blueTimer.Elapsed += BlueTimerElapsed;
+            Timers.Add(_blueTimer);
 
-            _blueTimer = new VariableSpawnTimer();
-            _blueTimer.Initialize(5000, 0.7f, 1500);
-
-            _redTimer = new VariableSpawnTimer();
-            _redTimer.Initialize(15000, 0.8f, 2500);
+            _redTimer = new VariableTimer(15000, 0.8f, 2500);
+            _redTimer.Elapsed += RedTimerElapsed;
+            Timers.Add(_redTimer);
 
             _redVelocity = new Vector2(0, -9.2f);
             _greenVelocity = new Vector2(0, -5.1f);
@@ -226,6 +214,21 @@ namespace GameFramework
                 newBalloon = new Balloon();
                 _balloonMemory.AddFirst(newBalloon);
             }
+        }
+
+        private void GreenTimerElapsed(SimpleTimer timer)
+        {
+            SpawnBalloon(BalloonColor.Green);
+        }
+
+        private void BlueTimerElapsed(SimpleTimer timer)
+        {
+            SpawnBalloon(BalloonColor.Blue);
+        }
+
+        private void RedTimerElapsed(SimpleTimer timer)
+        {
+            SpawnBalloon(BalloonColor.Red);
         }
 
         private void SpawnBalloon(BalloonColor colour)
@@ -268,9 +271,9 @@ namespace GameFramework
                     break;
             }
 
-            int x = _randomPosition.Next(_screenWidth - (int)(moveAnimation.AnimationTexture.Width * moveAnimation.Scale));
-            spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, new Vector2(x, _screenHeight), velocity, health);
-            _characters.Add(spawn);
+            int x = _randomPosition.Next(ScreenWidth - (int)(moveAnimation.AnimationTexture.Width * moveAnimation.Scale));
+            spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, new Vector2(x, ScreenHeight), velocity, health);
+            Characters.Add(spawn);
         }
 
         private void RaisePopped(Balloon balloon)

@@ -10,7 +10,7 @@ namespace GameFramework
         Freeze          = 0x01,
         Nuke            = 0x02,
         Shell           = 0x04,
-        Missile         = 0x08
+        Rocket         = 0x08
     }
 
     public enum PowerupState : byte

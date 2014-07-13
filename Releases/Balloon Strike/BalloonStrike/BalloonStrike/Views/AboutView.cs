@@ -31,7 +31,7 @@ namespace BalloonStrike.Views
                 const byte VERSION = 1;
                 string[] info = Assembly.GetExecutingAssembly().FullName.Split(',');
                 _message = info[NAME].Trim() + "\n" + info[VERSION].Trim();
-                _message += "\nProject Lead   Joshua Hirst\nProducer  Govinda Singh\nProgrammer   Joshua Hirst\nArtist    Abigail Royle\nArtist   Mark Hallinan\nMusic    Abigail Royle\nSound Engineer   William Voce";
+                _message += "\nFoxCode Studios\nProject Lead   Joshua Hirst\nProducer  Govinda Singh\nProgrammer   Joshua Hirst\nArtist    Abigail Royle\nArtist   Mark Hallinan\nMusic    Abigail Royle\nSound Engineer   William Voce";
             }
         }
 

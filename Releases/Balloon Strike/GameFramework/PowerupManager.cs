@@ -24,19 +24,15 @@ namespace GameFramework
         private Animation _missileMoveAnimation;
         private Animation _popAnimation;
         private SoundEffect _popSoundEffect;
-
-        private const short _screenHeight = 800;
-        private const short _screenWidth = 480;
         private Random _randomPosition;
 
-        public PowerupManager()
-        {
-            Setup();
-        }
+        public PowerupManager(GraphicsDevice graphics) : base(graphics) { }
 
-        public void Reset()
+        public override void Reset()
         {
-            Setup();
+            _freezeTimer = new SimpleTimer(5000);
+            _shellTimer = new SimpleTimer(5000);
+            _missileTimer = new SimpleTimer(7500);
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
@@ -54,11 +50,11 @@ namespace GameFramework
                     continue;
                 }
 
-                index = (_characters.Count - 1);
+                index = (Characters.Count - 1);
 
                 while (index >= 0)
                 {
-                    powerup = (Powerup)_characters[index];
+                    powerup = (Powerup)Characters[index];
                     if (powerup.Intersects(gesture.Position))
                     {
                         powerup.Pickup();
@@ -76,9 +72,9 @@ namespace GameFramework
         {
             byte index = 0;
             Powerup powerup;
-            while (index < _characters.Count)
+            while (index < Characters.Count)
             {
-                powerup = (Powerup)_characters[index];
+                powerup = (Powerup)Characters[index];
 
                 switch (powerup.State)
                 {
@@ -91,7 +87,7 @@ namespace GameFramework
                         break;
                     case PowerupState.Dead:
                         {
-                            _characters.RemoveAt(index);
+                            Characters.RemoveAt(index);
                         }
                         break;
                     case PowerupState.Pickedup:
@@ -115,40 +111,24 @@ namespace GameFramework
             }
         }
 
-        protected override void UpdateSpawners(GameTime gameTime)
-        {
-            if (_freezeTimer.Update(gameTime))
-            {
-                SpawnPowerup(PowerupType.Freeze);
-            }
-
-            if (_shellTimer.Update(gameTime))
-            {
-                SpawnPowerup(PowerupType.Shell);
-            }
-
-            if (_missileTimer.Update(gameTime))
-            {
-                SpawnPowerup(PowerupType.Missile);
-            }
-        }
-
-
-        private void Setup()
+        protected override void Initialize()
         {
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
-            _freezeTimer = new SimpleTimer();
-            _freezeTimer.Initialize(5000);
+            _freezeTimer = new SimpleTimer(5000);
             _freezeVelocity = new Vector2(0, 4.2f);
+            _freezeTimer.Elapsed += FreezeTimerElapsed;
+            Timers.Add(_freezeTimer);
 
-            _shellTimer = new SimpleTimer();
-            _shellTimer.Initialize(5000);
+            _shellTimer = new SimpleTimer(5000);
             _shellVelocity = new Vector2(0, 6f);
+            _shellTimer.Elapsed += ShellTimerElapsed;
+            Timers.Add(_shellTimer);
 
-            _missileTimer = new SimpleTimer();
-            _missileTimer.Initialize(7500);
+            _missileTimer = new SimpleTimer(7500);
             _missileVelocity = new Vector2(0, 7f);
+            _missileTimer.Elapsed += MissileTimerElapsed;
+            Timers.Add(_missileTimer);
 
             ResourceManager manager = ResourceManager.Manager;
 
@@ -159,17 +139,32 @@ namespace GameFramework
             _popSoundEffect = manager.GetSoundEffect("pop");
         }
 
+        private void FreezeTimerElapsed(SimpleTimer timer)
+        {
+            SpawnPowerup(PowerupType.Freeze);
+        }
+
+        private void ShellTimerElapsed(SimpleTimer timer)
+        {
+            SpawnPowerup(PowerupType.Shell);
+        }
+
+        private void MissileTimerElapsed(SimpleTimer timer)
+        {
+            SpawnPowerup(PowerupType.Rocket);
+        }
+
         private void SpawnPowerup(PowerupType type)
         {
             Powerup spawn = new Powerup(type);
             Animation moveAnimation = GetAnimation(type);
 
-            int x = _randomPosition.Next(_screenWidth - (int)(moveAnimation.FrameWidth * moveAnimation.Scale));
+            int x = _randomPosition.Next(ScreenWidth - (int)(moveAnimation.FrameWidth * moveAnimation.Scale));
             int y = (0 - (int)(moveAnimation.FrameHeight * moveAnimation.Scale));
             Vector2 upperLeft = new Vector2(x, y);
 
-            spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, upperLeft, _freezeVelocity, _screenHeight);
-            _characters.Add(spawn);
+            spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, upperLeft, _freezeVelocity, (short)ScreenHeight);
+            Characters.Add(spawn);
         }
 
         private Animation GetAnimation(PowerupType type)
@@ -178,7 +173,7 @@ namespace GameFramework
             {
                 case PowerupType.Shell:
                     return _shellMoveAnimation;
-                case PowerupType.Missile:
+                case PowerupType.Rocket:
                     return _missileMoveAnimation;
                 case PowerupType.Freeze:
                 case PowerupType.Nuke:

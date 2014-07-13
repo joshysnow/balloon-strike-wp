@@ -162,8 +162,7 @@ namespace GameFramework
                 return;
             }
 
-            _frozenTimer = new SimpleTimer();
-            _frozenTimer.Initialize(time);
+            _frozenTimer = new SimpleTimer(time);
 
             //_animationPlayer.SetAnimation(_freezeAnimation, _positionUL);
 

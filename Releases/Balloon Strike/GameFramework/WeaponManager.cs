@@ -39,7 +39,7 @@ namespace GameFramework
                 case PowerupType.Shell:
                     AddWeapon(WeaponType.Shotgun);
                     break;
-                case PowerupType.Missile:
+                case PowerupType.Rocket:
                     AddWeapon(WeaponType.Bazooka);
                     break;
                 default:

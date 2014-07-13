@@ -38,9 +38,11 @@ namespace BalloonStrike.Views
 
             if (!instancePreserved)
             {
+                GraphicsDevice graphics = ViewManager.GraphicsDevice;
+
                 _weaponManager = new WeaponManager();
-                _balloonManager = new BalloonManager();
-                _powerupManager = new PowerupManager();
+                _balloonManager = new BalloonManager(graphics);
+                _powerupManager = new PowerupManager(graphics);
                 _scoreManager = new ScoreManager();
 
                 _balloonManager.Escaped += BalloonEscapedHandler;
@@ -142,7 +144,7 @@ namespace BalloonStrike.Views
                     _balloonManager.ApplyPowerup(powerup.Type);
                     break;
                 case PowerupType.Shell:
-                case PowerupType.Missile:
+                case PowerupType.Rocket:
                     // Pass to weapon manager.
                     _weaponManager.ApplyPowerup(powerup.Type);
                     break;

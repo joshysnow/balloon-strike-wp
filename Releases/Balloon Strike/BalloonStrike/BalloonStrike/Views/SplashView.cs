@@ -21,9 +21,7 @@ namespace BalloonStrike.Views
         {
             if (!instancePreserved)
             {
-                _activeTimer = new SimpleTimer();
-                _activeTimer.Initialize(2000);
-
+                _activeTimer = new SimpleTimer(2000);
                 _splashTexture = ResourceManager.Manager.GetTexture("splash");
             }
         }

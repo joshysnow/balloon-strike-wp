@@ -51,12 +51,40 @@ namespace GameFramework
 
     public abstract class CharacterManager
     {
-        protected List<Character> _characters;
-
-        public CharacterManager()
+        protected List<SimpleTimer> Timers
         {
-            _characters = new List<Character>();
-        }        
+            get;
+            set;
+        }
+
+        protected List<Character> Characters
+        {
+            get;
+            set;
+        }
+
+        protected int ScreenWidth
+        {
+            get;
+            private set;
+        }
+
+        protected int ScreenHeight
+        {
+            get;
+            private set;
+        }
+
+        public CharacterManager(GraphicsDevice graphics)
+        {
+            Characters = new List<Character>();
+            Timers = new List<SimpleTimer>(5);
+
+            ScreenWidth = graphics.Viewport.Width;
+            ScreenHeight = graphics.Viewport.Height;
+
+            Initialize();
+        }
 
         public void Update(GameTime gameTime)
         {
@@ -67,16 +95,26 @@ namespace GameFramework
         public void Draw(SpriteBatch spriteBatch)
         {
             byte index = 0;
-            while (index < _characters.Count)
+            while (index < Characters.Count)
             {
-                _characters[index++].Draw(spriteBatch);
+                Characters[index++].Draw(spriteBatch);
             }
         }
 
         public abstract void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures);
 
+        public abstract void Reset();
+
+        protected abstract void Initialize();
+
         protected abstract void UpdateCharacters(GameTime gameTime);
 
-        protected abstract void UpdateSpawners(GameTime gameTime);
+        protected virtual void UpdateSpawners(GameTime gameTime)
+        {
+            foreach (SimpleTimer timer in Timers)
+            {
+                timer.Update(gameTime);
+            }
+        }
     }
 }
