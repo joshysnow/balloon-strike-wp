@@ -42,12 +42,12 @@ namespace GameFramework
         {
             _managerState = BalloonManagerState.Normal;
 
-            _greenTimer = new SimpleTimer(1500);
-            _blueTimer = new VariableTimer(5000, 0.7f, 1500);
-            _redTimer = new VariableTimer(15000, 0.8f, 2500);
+            _greenTimer = new VariableTimer(1500, 0.99f, 500);
+            _blueTimer = new VariableTimer(20000, 0.99f, 750);
+            _redTimer = new VariableTimer(40000, 0.99f, 1500);
 
             Balloon newBalloon;
-            while (_balloonMemory.Count < 10)
+            while (_balloonMemory.Count < 30)
             {
                 newBalloon = new Balloon();
                 _balloonMemory.AddFirst(newBalloon);
@@ -183,15 +183,15 @@ namespace GameFramework
             _balloonMemory = new LinkedList<Balloon>();
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
-            _greenTimer = new SimpleTimer(1500);
+            _greenTimer = new VariableTimer(1500, 0.99f, 500);
             _greenTimer.Elapsed += GreenTimerElapsed;
             Timers.Add(_greenTimer);
 
-            _blueTimer = new VariableTimer(5000, 0.7f, 1500);
+            _blueTimer = new VariableTimer(20000, 0.99f, 750);
             _blueTimer.Elapsed += BlueTimerElapsed;
             Timers.Add(_blueTimer);
 
-            _redTimer = new VariableTimer(15000, 0.8f, 2500);
+            _redTimer = new VariableTimer(40000, 0.99f, 1500);
             _redTimer.Elapsed += RedTimerElapsed;
             Timers.Add(_redTimer);
 

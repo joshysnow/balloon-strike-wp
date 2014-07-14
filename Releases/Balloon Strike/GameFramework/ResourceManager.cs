@@ -129,6 +129,7 @@ namespace GameFramework
         {
             _fonts.Add("debug", _content.Load<SpriteFont>("DebugText"));
             _fonts.Add("score", _content.Load<SpriteFont>("Fonts/score"));
+            _fonts.Add("your_score", _content.Load<SpriteFont>("Fonts/yourScore"));
 
             // Load score fonts.
             for (int i = 0; i < 10; i++)

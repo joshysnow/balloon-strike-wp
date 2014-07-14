@@ -63,9 +63,10 @@ namespace GameInterfaceFramework
         protected GestureType _viewGestures = GestureType.None;
         protected TimeSpan _transitionOnTime = TimeSpan.Zero;
         protected TimeSpan _transitionOffTime = TimeSpan.Zero;
+        protected float _transitionPosition = 1f;
         protected bool _isPopup = false;
+
         private ViewState _state = ViewState.TransitionOn;
-        private float _transitionPosition = 1f;
         private bool _isExiting = false;
 
         public void Exit()

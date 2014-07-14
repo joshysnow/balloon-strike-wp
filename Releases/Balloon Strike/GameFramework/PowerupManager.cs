@@ -30,9 +30,9 @@ namespace GameFramework
 
         public override void Reset()
         {
-            _freezeTimer = new SimpleTimer(5000);
-            _shellTimer = new SimpleTimer(5000);
-            _missileTimer = new SimpleTimer(7500);
+            _freezeTimer = new SimpleTimer(60000);
+            _shellTimer = new SimpleTimer(20000);
+            _missileTimer = new SimpleTimer(40000);
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
@@ -115,17 +115,17 @@ namespace GameFramework
         {
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
-            _freezeTimer = new SimpleTimer(5000);
+            _freezeTimer = new SimpleTimer(60000);
             _freezeVelocity = new Vector2(0, 4.2f);
             _freezeTimer.Elapsed += FreezeTimerElapsed;
             Timers.Add(_freezeTimer);
 
-            _shellTimer = new SimpleTimer(5000);
+            _shellTimer = new SimpleTimer(20000);
             _shellVelocity = new Vector2(0, 6f);
             _shellTimer.Elapsed += ShellTimerElapsed;
             Timers.Add(_shellTimer);
 
-            _missileTimer = new SimpleTimer(7500);
+            _missileTimer = new SimpleTimer(40000);
             _missileVelocity = new Vector2(0, 7f);
             _missileTimer.Elapsed += MissileTimerElapsed;
             Timers.Add(_missileTimer);

@@ -47,3 +47,4 @@ D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStr
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_impact.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_car_impact1.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score.xnb
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\yourScore.xnb

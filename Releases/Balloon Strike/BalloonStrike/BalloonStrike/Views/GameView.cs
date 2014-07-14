@@ -48,6 +48,9 @@ namespace BalloonStrike.Views
                 _balloonManager.Escaped += BalloonEscapedHandler;
                 _balloonManager.Popped += BalloonPoppedHandler;
                 _powerupManager.PickedUp += PowerupPickedUpHandler;
+
+                Player player = Player.Instance;
+                player.CurrentScore = 0;
             }
         }
 
@@ -114,8 +117,11 @@ namespace BalloonStrike.Views
         {
             if (IsExiting == false)
             {
+                Player player = Player.Instance;
+                player.CurrentScore = _scoreManager.Score;
+
                 Exit();
-                LoadView.Load(ViewManager, 1, new GameOverView(_scoreManager));
+                LoadView.Load(ViewManager, 1, new GameOverView());
             }
         }
 

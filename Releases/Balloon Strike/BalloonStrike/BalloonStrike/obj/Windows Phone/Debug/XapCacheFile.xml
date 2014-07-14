@@ -1,11 +1,11 @@
-﻿<xapCache source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="14/07/2014 16:31:36">
+﻿<xapCache source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="14/07/2014 22:32:35">
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\Background.png" archivePath="Background.png" lastWriteTime="11/07/2014 20:09:31" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\PhoneGameThumb.png" archivePath="PhoneGameThumb.png" lastWriteTime="11/07/2014 20:09:31" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="11/07/2014 20:46:05" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="11/07/2014 20:10:43" />
-  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.dll" archivePath="BalloonStrike.dll" lastWriteTime="14/07/2014 16:31:34" />
-  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameFramework\bin\x86\Debug\GameFramework.dll" archivePath="GameFramework.dll" lastWriteTime="14/07/2014 16:31:23" />
-  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameInterfaceFramework\bin\x86\Debug\GameInterfaceFramework.dll" archivePath="GameInterfaceFramework.dll" lastWriteTime="11/07/2014 20:45:48" />
+  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.dll" archivePath="BalloonStrike.dll" lastWriteTime="14/07/2014 22:32:33" />
+  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameFramework\bin\x86\Debug\GameFramework.dll" archivePath="GameFramework.dll" lastWriteTime="14/07/2014 22:32:32" />
+  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameInterfaceFramework\bin\x86\Debug\GameInterfaceFramework.dll" archivePath="GameInterfaceFramework.dll" lastWriteTime="14/07/2014 21:39:49" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\black200.xnb" archivePath="Content\Balloons\black200.xnb" lastWriteTime="11/07/2014 20:46:54" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\black400.xnb" archivePath="Content\Balloons\black400.xnb" lastWriteTime="11/07/2014 20:46:54" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\blue200.xnb" archivePath="Content\Balloons\blue200.xnb" lastWriteTime="11/07/2014 20:46:54" />
@@ -39,4 +39,5 @@
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_impact.xnb" archivePath="Content\Audio\Sounds\snowball_impact.xnb" lastWriteTime="12/07/2014 09:37:46" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_car_impact1.xnb" archivePath="Content\Audio\Sounds\snowball_car_impact1.xnb" lastWriteTime="12/07/2014 09:37:46" />
   <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score.xnb" archivePath="Content\Fonts\score.xnb" lastWriteTime="14/07/2014 16:31:24" />
+  <file source="D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\yourScore.xnb" archivePath="Content\Fonts\yourScore.xnb" lastWriteTime="14/07/2014 21:39:06" />
 </xapCache>
