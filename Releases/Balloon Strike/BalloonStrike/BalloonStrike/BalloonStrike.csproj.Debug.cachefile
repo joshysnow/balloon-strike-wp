@@ -17,9 +17,6 @@ Content\Backgrounds\splash480.xnb
 Content\Buttons\test_about.xnb
 Content\Buttons\test_play.xnb
 Content\DebugText.xnb
-Content\DisplayText.xnb
-Content\GameOverText.xnb
-Content\ScoreText.xnb
 Content\Fonts\score0.xnb
 Content\Fonts\score1.xnb
 Content\Fonts\score6.xnb
@@ -33,3 +30,4 @@ Content\Fonts\score8.xnb
 Content\Backgrounds\fox_480_800.xnb
 Content\Audio\Sounds\snowball_impact.xnb
 Content\Audio\Sounds\snowball_car_impact1.xnb
+Content\Fonts\score.xnb

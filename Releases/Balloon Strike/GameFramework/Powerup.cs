@@ -140,8 +140,7 @@ namespace GameFramework
                 _state = PowerupState.Missed;
             }
 
-            _positionUL += _velocity;
-            _positionLR += _velocity;
+            UpdatePosition();
 
             _animationPlayer.UpdateAnimationPosition(_positionUL);
         }

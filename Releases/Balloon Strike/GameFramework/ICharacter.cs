@@ -18,7 +18,6 @@ namespace GameFramework
     {
         protected AnimationPlayer _animationPlayer;
         protected Animation _moveAnimation;
-        protected Animation _popAnimation;
         protected Vector2 _positionUL;
         protected Vector2 _positionLR;
         protected Vector2 _velocity;
@@ -46,6 +45,12 @@ namespace GameFramework
         public bool Intersects(Vector2 position, float radius)
         {
             return Intersects(position) || Collisions.Intersects(_positionUL, _positionLR, position, radius);
+        }
+
+        protected void UpdatePosition()
+        {
+            _positionUL += _velocity;
+            _positionLR += _velocity;
         }
     }
 

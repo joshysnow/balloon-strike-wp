@@ -46,6 +46,7 @@ namespace GameFramework
             get { return _isAvailable; }
         }
 
+        private Animation _popAnimation;
         //private Animation _freezeAnimation;
         private SoundEffect _popSound;
         private SimpleTimer _frozenTimer;
@@ -193,8 +194,7 @@ namespace GameFramework
                 _state = BalloonState.Escaped;
             }
 
-            _positionUL += _velocity;
-            _positionLR += _velocity;
+            UpdatePosition();
 
             _animationPlayer.UpdateAnimationPosition(_positionUL);
         }

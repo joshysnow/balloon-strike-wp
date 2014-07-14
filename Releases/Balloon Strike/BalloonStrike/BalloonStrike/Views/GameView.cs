@@ -115,7 +115,7 @@ namespace BalloonStrike.Views
             if (IsExiting == false)
             {
                 Exit();
-                LoadView.Load(ViewManager, 1, new GameOverView());
+                LoadView.Load(ViewManager, 1, new GameOverView(_scoreManager));
             }
         }
 

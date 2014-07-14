@@ -33,9 +33,6 @@ D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStr
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Buttons\test_about.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Buttons\test_play.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\DebugText.xnb
-D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\DisplayText.xnb
-D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\GameOverText.xnb
-D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\ScoreText.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score0.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score1.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score6.xnb
@@ -49,3 +46,4 @@ D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStr
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Backgrounds\fox_480_800.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_impact.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_car_impact1.xnb
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score.xnb

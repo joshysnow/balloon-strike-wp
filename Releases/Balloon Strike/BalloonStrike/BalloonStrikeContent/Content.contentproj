@@ -100,27 +100,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayText.spritefont">
-      <Name>DisplayText</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameOverText.spritefont">
-      <Name>GameOverText</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ScoreText.spritefont">
-      <Name>ScoreText</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Powerups\snowflake_med.png">
       <Name>snowflake_med</Name>
       <Importer>TextureImporter</Importer>
@@ -257,6 +236,13 @@
   <ItemGroup>
     <Folder Include="Audio\Music\" />
     <Folder Include="Textures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fonts\score.spritefont">
+      <Name>score</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

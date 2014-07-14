@@ -25,7 +25,7 @@ namespace GameFramework
         {
             LoadFonts();
 
-            _transitionTime = TimeSpan.FromSeconds(1f);
+            _transitionTime = TimeSpan.FromSeconds(0.5f);
             _position = 0;
             _direction = 1;
             _score = 0;
