@@ -80,13 +80,17 @@ namespace GameFramework
             private set;
         }
 
-        public CharacterManager(GraphicsDevice graphics)
+        private TriggerManager _triggers;
+
+        public CharacterManager(GraphicsDevice graphics, TriggerManager triggers)
         {
             Characters = new List<Character>();
             Timers = new List<SimpleTimer>(5);
 
             ScreenWidth = graphics.Viewport.Width;
             ScreenHeight = graphics.Viewport.Height;
+
+            _triggers = triggers;
 
             Initialize();
         }
@@ -104,6 +108,11 @@ namespace GameFramework
             {
                 Characters[index++].Draw(spriteBatch);
             }
+        }
+
+        protected void AddTrigger(Trigger newTrigger)
+        {
+            _triggers.AddTrigger(newTrigger);
         }
 
         public abstract void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures);

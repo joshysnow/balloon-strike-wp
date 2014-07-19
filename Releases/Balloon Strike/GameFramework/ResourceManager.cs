@@ -144,20 +144,20 @@ namespace GameFramework
             //Song test = _content.Load<Song>("Audio/Music/test_everythingisawesome");
             //_music.Add("test", test);
 
-            Texture2D redTexture = _content.Load<Texture2D>("Balloons/red200");
-            Texture2D blueTexture = _content.Load<Texture2D>("Balloons/blue200");
-            Texture2D greenTexture = _content.Load<Texture2D>("Balloons/green200");
-            Texture2D popTexture = _content.Load<Texture2D>("Effects/explosion");
-            Texture2D freezeTexture = _content.Load<Texture2D>("Powerups/snowflake_med");
-            Texture2D shellTexture = _content.Load<Texture2D>("Powerups/shell_200");
-            Texture2D missileTexture = _content.Load<Texture2D>("Powerups/missile_200");
-            Texture2D xHairFingerTexture = _content.Load<Texture2D>("Crosshairs/finger");
-            Texture2D xHairShotgunTexture = _content.Load<Texture2D>("Crosshairs/shotgun");
-            Texture2D xHairBazookaTexture = _content.Load<Texture2D>("Crosshairs/bazooka");
-            //Texture2D splashTexture = _content.Load<Texture2D>("Backgrounds/splash480");
-            Texture2D splashTexture = _content.Load<Texture2D>("Backgrounds/fox_480_800");
-            Texture2D buttonPlayTexture = _content.Load<Texture2D>("Buttons/test_play");
-            Texture2D buttonAboutTexture = _content.Load<Texture2D>("Buttons/test_about");
+            Texture2D redTexture = _content.Load<Texture2D>("Textures/Balloons/red200");
+            Texture2D blueTexture = _content.Load<Texture2D>("Textures/Balloons/blue200");
+            Texture2D greenTexture = _content.Load<Texture2D>("Textures/Balloons/green200");
+            Texture2D blackTexture = _content.Load<Texture2D>("Textures/Balloons/black200");
+            Texture2D popTexture = _content.Load<Texture2D>("Textures/Effects/explosion");
+            Texture2D freezeTexture = _content.Load<Texture2D>("Textures/Powerups/snowflake_med");
+            Texture2D shellTexture = _content.Load<Texture2D>("Textures/Powerups/shell_200");
+            Texture2D missileTexture = _content.Load<Texture2D>("Textures/Powerups/missile_200");
+            Texture2D xHairFingerTexture = _content.Load<Texture2D>("Textures/Crosshairs/finger");
+            Texture2D xHairShotgunTexture = _content.Load<Texture2D>("Textures/Crosshairs/shotgun");
+            Texture2D xHairBazookaTexture = _content.Load<Texture2D>("Textures/Crosshairs/bazooka");
+            Texture2D splashTexture = _content.Load<Texture2D>("Textures/Backgrounds/fox_480_800");
+            Texture2D buttonPlayTexture = _content.Load<Texture2D>("Textures/Buttons/test_play");
+            Texture2D buttonAboutTexture = _content.Load<Texture2D>("Textures/Buttons/test_about");
 
             _textures.Add("red", redTexture);
             _textures.Add("blue", blueTexture);

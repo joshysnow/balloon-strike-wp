@@ -21,9 +21,6 @@ namespace GameFramework
         public event BalloonEventHandler Escaped;
 
         private LinkedList<Balloon> _balloonMemory;
-        private SimpleTimer _greenTimer;
-        private VariableTimer _blueTimer;
-        private VariableTimer _redTimer;
         private Vector2 _redVelocity;
         private Vector2 _greenVelocity;
         private Vector2 _blueVelocity;
@@ -36,22 +33,23 @@ namespace GameFramework
         private SimpleTimer _managerFreezeTimer;
         private Random _randomPosition;
 
-        public BalloonManager(GraphicsDevice graphics) : base(graphics) { }
+        public BalloonManager(GraphicsDevice graphics, TriggerManager triggers) : base(graphics, triggers) { }
 
         public override void Reset()
         {
-            _managerState = BalloonManagerState.Normal;
+            //_managerState = BalloonManagerState.Normal;
 
-            _greenTimer = new VariableTimer(1500, 0.99f, 500);
-            _blueTimer = new VariableTimer(20000, 0.99f, 750);
-            _redTimer = new VariableTimer(40000, 0.99f, 1500);
+            //_greenTimer = new VariableTimer(1500, 0.95f, 500);
+            //Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(25));
+            //_blueTimer = new VariableTimer(5000, 0.95f, 750);
+            //_redTimer = new VariableTimer(5000, 0.95f, 750);
 
-            Balloon newBalloon;
-            while (_balloonMemory.Count < 30)
-            {
-                newBalloon = new Balloon();
-                _balloonMemory.AddFirst(newBalloon);
-            }
+            //Balloon newBalloon;
+            //while (_balloonMemory.Count < 30)
+            //{
+            //    newBalloon = new Balloon();
+            //    _balloonMemory.AddFirst(newBalloon);
+            //}
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
@@ -183,17 +181,22 @@ namespace GameFramework
             _balloonMemory = new LinkedList<Balloon>();
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
-            _greenTimer = new VariableTimer(1500, 0.99f, 500);
+            // Add two triggers for when to begin spawning the other balloons.
+            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(25));
+            blueSpawnStart.Triggered += BlueSpawnStartTriggerHandler;
+            AddTrigger(blueSpawnStart);
+
+            Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(45));
+            redSpawnStart.Triggered += RedSpawnStartTriggerHandler;
+            AddTrigger(redSpawnStart);
+
+            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(60));
+            velocityChange.Triggered += VelocityChangeTriggerHandler;
+
+            // Start green balloon immediately.
+            VariableTimer _greenTimer = new VariableTimer(1500, 0.95f, 250);
             _greenTimer.Elapsed += GreenTimerElapsed;
             Timers.Add(_greenTimer);
-
-            _blueTimer = new VariableTimer(20000, 0.99f, 750);
-            _blueTimer.Elapsed += BlueTimerElapsed;
-            Timers.Add(_blueTimer);
-
-            _redTimer = new VariableTimer(40000, 0.99f, 1500);
-            _redTimer.Elapsed += RedTimerElapsed;
-            Timers.Add(_redTimer);
 
             _redVelocity = new Vector2(0, -9.2f);
             _greenVelocity = new Vector2(0, -5.1f);
@@ -214,6 +217,28 @@ namespace GameFramework
                 newBalloon = new Balloon();
                 _balloonMemory.AddFirst(newBalloon);
             }
+        }
+
+        private void BlueSpawnStartTriggerHandler(Trigger trigger)
+        {
+            VariableTimer blueTimer = new VariableTimer(5000, 0.95f, 330);
+            blueTimer.Elapsed += BlueTimerElapsed;
+            Timers.Add(blueTimer);
+        }
+
+        private void RedSpawnStartTriggerHandler(Trigger trigger)
+        {
+            VariableTimer redTimer = new VariableTimer(5000, 0.95f, 330);
+            redTimer.Elapsed += RedTimerElapsed;
+            Timers.Add(redTimer);
+        }
+
+        private void VelocityChangeTriggerHandler(Trigger trigger)
+        {
+            _greenVelocity.Y = -9f;
+            _blueVelocity.Y = -11f;
+            _redVelocity.Y = -13f;
+#warning TODO: Could call a function to reuse a trigger to perhaps add more timers? Prevents it from being deleted after this function ends.
         }
 
         private void GreenTimerElapsed(SimpleTimer timer)

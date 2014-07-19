@@ -15,6 +15,7 @@ namespace BalloonStrike.Views
             GameOver    = 0x02
         }
 
+        private TriggerManager _triggerManager;
         private WeaponManager _weaponManager;
         private BalloonManager _balloonManager;
         private PowerupManager _powerupManager;
@@ -40,9 +41,10 @@ namespace BalloonStrike.Views
             {
                 GraphicsDevice graphics = ViewManager.GraphicsDevice;
 
+                _triggerManager = new TriggerManager();
                 _weaponManager = new WeaponManager();
-                _balloonManager = new BalloonManager(graphics);
-                _powerupManager = new PowerupManager(graphics);
+                _balloonManager = new BalloonManager(graphics, _triggerManager);
+                _powerupManager = new PowerupManager(graphics, _triggerManager);
                 _scoreManager = new ScoreManager();
 
                 _balloonManager.Escaped += BalloonEscapedHandler;
@@ -111,6 +113,7 @@ namespace BalloonStrike.Views
             _balloonManager.Update(gameTime);
             _powerupManager.Update(gameTime);
             _scoreManager.Update(gameTime);
+            _triggerManager.Update(gameTime, _scoreManager.Score);
         }
 
         private void UpdateGameOverState(GameTime gameTime)
@@ -129,10 +132,10 @@ namespace BalloonStrike.Views
         {
             _sunLives--;
 
-            if (_sunLives <= 0)
-            {
-                _gameState = GameState.GameOver;
-            }
+            //if (_sunLives <= 0)
+            //{
+            //    _gameState = GameState.GameOver;
+            //}
         }
 
         private void BalloonPoppedHandler(Balloon balloon)

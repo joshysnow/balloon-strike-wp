@@ -13,9 +13,6 @@ namespace GameFramework
     {
         public event PowerupEventHandler PickedUp;
 
-        private SimpleTimer _freezeTimer;
-        private SimpleTimer _shellTimer;
-        private SimpleTimer _missileTimer;
         private Vector2 _freezeVelocity;
         private Vector2 _shellVelocity;
         private Vector2 _missileVelocity;
@@ -26,13 +23,13 @@ namespace GameFramework
         private SoundEffect _popSoundEffect;
         private Random _randomPosition;
 
-        public PowerupManager(GraphicsDevice graphics) : base(graphics) { }
+        public PowerupManager(GraphicsDevice graphics, TriggerManager triggers) : base(graphics, triggers) { }
 
         public override void Reset()
         {
-            _freezeTimer = new SimpleTimer(60000);
-            _shellTimer = new SimpleTimer(20000);
-            _missileTimer = new SimpleTimer(40000);
+            //_freezeTimer = new SimpleTimer(60000);
+            //_shellTimer = new SimpleTimer(20000);
+            //_missileTimer = new SimpleTimer(40000);
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
@@ -115,20 +112,21 @@ namespace GameFramework
         {
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
-            _freezeTimer = new SimpleTimer(60000);
+            Trigger freezeTrigger = new ScoreTrigger(100);
+            freezeTrigger.Triggered += FreezeTriggerHandler;
+            AddTrigger(freezeTrigger);
+
+            Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(30));
+            shellTrigger.Triggered += ShellTriggerHandler;
+            AddTrigger(shellTrigger);
+
+            Trigger missileTrigger = new ScoreTrigger(150);
+            missileTrigger.Triggered += MissileTriggerHandler;
+            AddTrigger(missileTrigger);
+
             _freezeVelocity = new Vector2(0, 4.2f);
-            _freezeTimer.Elapsed += FreezeTimerElapsed;
-            Timers.Add(_freezeTimer);
-
-            _shellTimer = new SimpleTimer(20000);
             _shellVelocity = new Vector2(0, 6f);
-            _shellTimer.Elapsed += ShellTimerElapsed;
-            Timers.Add(_shellTimer);
-
-            _missileTimer = new SimpleTimer(40000);
             _missileVelocity = new Vector2(0, 7f);
-            _missileTimer.Elapsed += MissileTimerElapsed;
-            Timers.Add(_missileTimer);
 
             ResourceManager manager = ResourceManager.Manager;
 
@@ -137,6 +135,27 @@ namespace GameFramework
             _missileMoveAnimation = manager.GetAnimation("missilemove");
             _popAnimation = manager.GetAnimation("popmove");
             _popSoundEffect = manager.GetSoundEffect("pop");
+        }
+
+        private void FreezeTriggerHandler(Trigger trigger)
+        {
+            SimpleTimer freezeTimer = new SimpleTimer(45000);
+            freezeTimer.Elapsed += FreezeTimerElapsed;
+            Timers.Add(freezeTimer);
+        }
+
+        private void ShellTriggerHandler(Trigger trigger)
+        {
+            SimpleTimer shellTimer = new SimpleTimer(15000);
+            shellTimer.Elapsed += ShellTimerElapsed;
+            Timers.Add(shellTimer);
+        }
+
+        private void MissileTriggerHandler(Trigger trigger)
+        {
+            SimpleTimer missileTimer = new SimpleTimer(20000);
+            missileTimer.Elapsed += MissileTimerElapsed;
+            Timers.Add(missileTimer);
         }
 
         private void FreezeTimerElapsed(SimpleTimer timer)

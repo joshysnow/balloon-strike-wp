@@ -7,7 +7,7 @@ namespace GameFramework
 {
     public class CloudManager : CharacterManager
     {
-        public CloudManager(GraphicsDevice graphics) : base(graphics) { }
+        public CloudManager(GraphicsDevice graphics, TriggerManager triggers) : base(graphics, triggers) { }
 
         public override void UpdatePlayerInput(Microsoft.Xna.Framework.Input.Touch.GestureSample[] gestures, Weapon currentWeapon, out Microsoft.Xna.Framework.Input.Touch.GestureSample[] remainingGestures)
         {

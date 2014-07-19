@@ -30,42 +30,42 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Balloons\black200.png">
+    <Compile Include="Textures\Balloons\black200.png">
       <Name>black200</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Balloons\black400.png">
+    <Compile Include="Textures\Balloons\black400.png">
       <Name>black400</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Balloons\blue200.png">
+    <Compile Include="Textures\Balloons\blue200.png">
       <Name>blue200</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Balloons\blue400.png">
+    <Compile Include="Textures\Balloons\blue400.png">
       <Name>blue400</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Balloons\green200.png">
+    <Compile Include="Textures\Balloons\green200.png">
       <Name>green200</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Balloons\green400.png">
+    <Compile Include="Textures\Balloons\green400.png">
       <Name>green400</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Balloons\red200.png">
+    <Compile Include="Textures\Balloons\red200.png">
       <Name>red200</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Balloons\red400.png">
+    <Compile Include="Textures\Balloons\red400.png">
       <Name>red400</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -86,7 +86,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\explosion.png">
+    <Compile Include="Textures\Effects\explosion.png">
       <Name>explosion</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -100,19 +100,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Powerups\snowflake_med.png">
+    <Compile Include="Textures\Powerups\snowflake_med.png">
       <Name>snowflake_med</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Powerups\missile_200.png">
+    <Compile Include="Textures\Powerups\missile_200.png">
       <Name>missile_200</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Powerups\shell_200.png">
+    <Compile Include="Textures\Powerups\shell_200.png">
       <Name>shell_200</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -189,45 +189,45 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Crosshairs\finger.png">
+    <Compile Include="Textures\Crosshairs\finger.png">
       <Name>finger</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Crosshairs\bazooka.png">
+    <Compile Include="Textures\Crosshairs\bazooka.png">
       <Name>bazooka</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Crosshairs\shotgun.png">
+    <Compile Include="Textures\Crosshairs\shotgun.png">
       <Name>shotgun</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backgrounds\splash480.jpg">
+    <Compile Include="Textures\Backgrounds\splash480.jpg">
       <Name>splash480</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buttons\test_about.png">
+    <Compile Include="Textures\Buttons\test_about.png">
       <Name>test_about</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Buttons\test_play.png">
+    <Compile Include="Textures\Buttons\test_play.png">
       <Name>test_play</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backgrounds\fox_480_800.jpg">
+    <Compile Include="Textures\Backgrounds\fox_480_800.jpg">
       <Name>fox_480_800</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -235,7 +235,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Audio\Music\" />
-    <Folder Include="Textures\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fonts\score.spritefont">

@@ -2,168 +2,6 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>Balloons\black200.png</Source>
-      <Name>Balloons\black200</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\black200.xnb</Output>
-      <Time>2014-06-11T14:50:06.0437142+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Balloons\black400.png</Source>
-      <Name>Balloons\black400</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\black400.xnb</Output>
-      <Time>2014-06-11T14:50:06.0457142+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Balloons\blue200.png</Source>
-      <Name>Balloons\blue200</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\blue200.xnb</Output>
-      <Time>2014-06-11T14:50:06.046713+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Balloons\blue400.png</Source>
-      <Name>Balloons\blue400</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\blue400.xnb</Output>
-      <Time>2014-06-11T14:50:06.0486793+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Balloons\green200.png</Source>
-      <Name>Balloons\green200</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\green200.xnb</Output>
-      <Time>2014-06-11T14:50:06.0486793+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Balloons\green400.png</Source>
-      <Name>Balloons\green400</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\green400.xnb</Output>
-      <Time>2014-06-11T14:50:06.0507161+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Balloons\red200.png</Source>
-      <Name>Balloons\red200</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\red200.xnb</Output>
-      <Time>2014-06-11T14:50:06.0527408+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Balloons\red400.png</Source>
-      <Name>Balloons\red400</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Balloons\red400.xnb</Output>
-      <Time>2014-06-11T14:50:06.0537172+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Effects\explosion.png</Source>
-      <Name>Effects\explosion</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Effects\explosion.xnb</Output>
-      <Time>2014-06-11T14:50:06.0577157+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Powerups\snowflake_med.png</Source>
-      <Name>Powerups\snowflake_med</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Powerups\snowflake_med.xnb</Output>
-      <Time>2014-06-11T14:50:06.0607154+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Powerups\missile_200.png</Source>
-      <Name>Powerups\missile_200</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Powerups\missile_200.xnb</Output>
-      <Time>2014-06-27T10:27:29.3921045+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Powerups\shell_200.png</Source>
-      <Name>Powerups\shell_200</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Powerups\shell_200.xnb</Output>
-      <Time>2014-06-27T10:27:29.4078041+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Crosshairs\finger.png</Source>
-      <Name>Crosshairs\finger</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Crosshairs\finger.xnb</Output>
-      <Time>2014-06-29T15:53:55.3551769+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Crosshairs\bazooka.png</Source>
-      <Name>Crosshairs\bazooka</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Crosshairs\bazooka.xnb</Output>
-      <Time>2014-06-29T15:53:55.3864803+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Crosshairs\shotgun.png</Source>
-      <Name>Crosshairs\shotgun</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Crosshairs\shotgun.xnb</Output>
-      <Time>2014-07-08T14:19:16.9228244+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Backgrounds\splash480.jpg</Source>
-      <Name>Backgrounds\splash480</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Backgrounds\splash480.xnb</Output>
-      <Time>2014-07-09T12:48:52.0713494+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Buttons\test_about.png</Source>
-      <Name>Buttons\test_about</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Buttons\test_about.xnb</Output>
-      <Time>2014-07-11T18:21:33.3809768+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Buttons\test_play.png</Source>
-      <Name>Buttons\test_play</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Buttons\test_play.xnb</Output>
-      <Time>2014-07-11T18:21:33.4122616+01:00</Time>
-    </Item>
-    <Item>
       <Source>DebugText.spritefont</Source>
       <Name>DebugText</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -263,15 +101,6 @@
       <Time>2014-07-12T09:36:27.1401394+01:00</Time>
     </Item>
     <Item>
-      <Source>Backgrounds\fox_480_800.jpg</Source>
-      <Name>Backgrounds\fox_480_800</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Backgrounds\fox_480_800.xnb</Output>
-      <Time>2014-07-11T21:24:11.5256343+01:00</Time>
-    </Item>
-    <Item>
       <Source>Audio\Sounds\snowball_impact.wav</Source>
       <Name>Audio\Sounds\snowball_impact</Name>
       <Importer>WavImporter</Importer>
@@ -306,6 +135,177 @@
       <Options>None</Options>
       <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\yourScore.xnb</Output>
       <Time>2014-07-14T21:20:37.9019676+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Balloons\black200.png</Source>
+      <Name>Textures\Balloons\black200</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Balloons\black200.xnb</Output>
+      <Time>2014-06-11T14:50:06.0437142+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Balloons\black400.png</Source>
+      <Name>Textures\Balloons\black400</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Balloons\black400.xnb</Output>
+      <Time>2014-06-11T14:50:06.0457142+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Balloons\blue200.png</Source>
+      <Name>Textures\Balloons\blue200</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Balloons\blue200.xnb</Output>
+      <Time>2014-06-11T14:50:06.046713+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Balloons\blue400.png</Source>
+      <Name>Textures\Balloons\blue400</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Balloons\blue400.xnb</Output>
+      <Time>2014-06-11T14:50:06.0486793+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Balloons\green200.png</Source>
+      <Name>Textures\Balloons\green200</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Balloons\green200.xnb</Output>
+      <Time>2014-06-11T14:50:06.0486793+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Balloons\green400.png</Source>
+      <Name>Textures\Balloons\green400</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Balloons\green400.xnb</Output>
+      <Time>2014-06-11T14:50:06.0507161+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Balloons\red200.png</Source>
+      <Name>Textures\Balloons\red200</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Balloons\red200.xnb</Output>
+      <Time>2014-06-11T14:50:06.0527408+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Balloons\red400.png</Source>
+      <Name>Textures\Balloons\red400</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Balloons\red400.xnb</Output>
+      <Time>2014-06-11T14:50:06.0537172+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Effects\explosion.png</Source>
+      <Name>Textures\Effects\explosion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Effects\explosion.xnb</Output>
+      <Time>2014-06-11T14:50:06.0577157+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Powerups\snowflake_med.png</Source>
+      <Name>Textures\Powerups\snowflake_med</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Powerups\snowflake_med.xnb</Output>
+      <Time>2014-06-11T14:50:06.0607154+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Powerups\missile_200.png</Source>
+      <Name>Textures\Powerups\missile_200</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Powerups\missile_200.xnb</Output>
+      <Time>2014-06-27T10:27:29.3921045+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Powerups\shell_200.png</Source>
+      <Name>Textures\Powerups\shell_200</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Powerups\shell_200.xnb</Output>
+      <Time>2014-06-27T10:27:29.4078041+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Crosshairs\finger.png</Source>
+      <Name>Textures\Crosshairs\finger</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Crosshairs\finger.xnb</Output>
+      <Time>2014-06-29T15:53:55.3551769+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Crosshairs\bazooka.png</Source>
+      <Name>Textures\Crosshairs\bazooka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Crosshairs\bazooka.xnb</Output>
+      <Time>2014-06-29T15:53:55.3864803+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Crosshairs\shotgun.png</Source>
+      <Name>Textures\Crosshairs\shotgun</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Crosshairs\shotgun.xnb</Output>
+      <Time>2014-07-08T14:19:16.9228244+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Backgrounds\splash480.jpg</Source>
+      <Name>Textures\Backgrounds\splash480</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Backgrounds\splash480.xnb</Output>
+      <Time>2014-07-09T12:48:52.0713494+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\test_about.png</Source>
+      <Name>Textures\Buttons\test_about</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\test_about.xnb</Output>
+      <Time>2014-07-11T18:21:33.3809768+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\test_play.png</Source>
+      <Name>Textures\Buttons\test_play</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\test_play.xnb</Output>
+      <Time>2014-07-11T18:21:33.4122616+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Backgrounds\fox_480_800.jpg</Source>
+      <Name>Textures\Backgrounds\fox_480_800</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Backgrounds\fox_480_800.xnb</Output>
+      <Time>2014-07-11T21:24:11.5256343+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
