@@ -177,6 +177,7 @@ namespace GameFramework
             _animations.Add("redmove", new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f));
             _animations.Add("greenmove", new Animation(greenTexture, true, greenTexture.Width, greenTexture.Height, 0, 0.5f));
             _animations.Add("bluemove", new Animation(blueTexture, true, blueTexture.Width, blueTexture.Height, 0, 0.5f));
+            _animations.Add("blackmove", new Animation(blackTexture, true, blackTexture.Width, blackTexture.Height, 0, 0.5f));
             _animations.Add("freezemove", new Animation(freezeTexture, true, freezeTexture.Width, freezeTexture.Height, 0, 0.25f));
             _animations.Add("shellmove", new Animation(shellTexture, true, shellTexture.Width, shellTexture.Height, 0, 0.5f));
             _animations.Add("missilemove", new Animation(missileTexture, true, missileTexture.Width, missileTexture.Height, 0, 0.5f));

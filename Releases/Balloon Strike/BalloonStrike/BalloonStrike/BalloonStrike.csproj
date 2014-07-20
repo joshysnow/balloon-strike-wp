@@ -73,6 +73,7 @@
     <Compile Include="Views\BackgroundView.cs" />
     <Compile Include="Views\GameOverView.cs" />
     <Compile Include="Views\GameView.cs" />
+    <Compile Include="Views\IntroPopup.cs" />
     <Compile Include="Views\MainMenuView.cs" />
     <Compile Include="Views\SplashView.cs" />
     <None Include="Properties\AppManifest.xml">

@@ -235,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Audio\Music\" />
+    <Folder Include="XML\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fonts\score.spritefont">

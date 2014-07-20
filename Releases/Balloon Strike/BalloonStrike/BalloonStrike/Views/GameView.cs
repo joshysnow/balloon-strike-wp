@@ -132,10 +132,10 @@ namespace BalloonStrike.Views
         {
             _sunLives--;
 
-            //if (_sunLives <= 0)
-            //{
-            //    _gameState = GameState.GameOver;
-            //}
+            if (_sunLives <= 0)
+            {
+                _gameState = GameState.GameOver;
+            }
         }
 
         private void BalloonPoppedHandler(Balloon balloon)

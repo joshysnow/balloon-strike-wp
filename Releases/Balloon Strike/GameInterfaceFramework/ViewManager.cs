@@ -94,6 +94,7 @@ namespace GameInterfaceFramework
             View view;
             byte index = 0;
             bool isActiveApp = Game.IsActive;
+            bool hasFocus = true;
             bool covered = false;
 
             while (index < _tempViews.Count)
@@ -104,9 +105,10 @@ namespace GameInterfaceFramework
 
                 if ((view.State == ViewState.Active) || (view.State == ViewState.TransitionOn))
                 {
-                    if (isActiveApp)
+                    if (isActiveApp && hasFocus)
                     {
                         view.HandlePlayerInput(_controls);
+                        hasFocus = false;
                     }
 
                     if (!view.IsPopup)

@@ -172,7 +172,6 @@ namespace GameFramework
                     _managerState = BalloonManagerState.Normal;
                 }
             }
-
         }
 
         protected override void Initialize()
