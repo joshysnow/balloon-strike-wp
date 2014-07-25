@@ -31,19 +31,28 @@ namespace GameInterfaceFramework
             set;
         }
 
+        public TimeSpan Active
+        {
+            get;
+            set;
+        }
+
         public float TransitionAlpha
         {
             get { return 1f - _transitionPosition; }
         }
 
         private float _transitionPosition;
+        private float _activePosition;
 
         public Transition()
         {
             State = TransitionState.TransitionOn;
-            _transitionPosition = 1f;
+            _transitionPosition = 1;
+            _activePosition = 0;
             TransitionOn = TimeSpan.Zero;
             TransitionOff = TimeSpan.Zero;
+            Active = TimeSpan.Zero;
         }
 
         public void Update(GameTime gameTime)
@@ -53,6 +62,14 @@ namespace GameInterfaceFramework
                 if (UpdateTransition(gameTime, TransitionOn, -1) == false)
                 {
                     State = TransitionState.Active;
+                }
+            }
+
+            if (State == TransitionState.Active)
+            {
+                if (UpdateActiveTransition(gameTime))
+                {
+                    State = TransitionState.TransitionOff;
                 }
             }
 
@@ -87,6 +104,30 @@ namespace GameInterfaceFramework
             }
 
             return true;
+        }
+
+        private bool UpdateActiveTransition(GameTime gameTime)
+        {
+            float delta;
+
+            if (Active == TimeSpan.Zero)
+            {
+                delta = 1;
+            }
+            else
+            {
+                delta = (float)(gameTime.ElapsedGameTime.TotalMilliseconds / Active.TotalMilliseconds);
+            }
+
+            _activePosition += delta;
+
+            if (_activePosition >= 1)
+            {
+                _activePosition = 0;
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -69,13 +69,13 @@ namespace BalloonStrike.Views
                     Vector2 titleSize = titleFont.MeasureString(title);
                     Vector2 nameSize = nameFont.MeasureString(name);
                     titlePosition = new Vector2((width - titleSize.X) / 2, (height / 2) - titleSize.Y);
-                    namePosition = new Vector2((width - nameSize.X) / 2, (height / 2) + nameSize.Y);
+                    namePosition = new Vector2((width - nameSize.X) / 2, (height / 2));// + nameSize.Y);
 
                     tempCredit = new Credit() 
                     { 
                         Name = name, 
                         Title = title, 
-                        TitlePosition = titlePosition, 
+                        TitlePosition = titlePosition,
                         NamePosition = namePosition, 
                         Model = creditModel 
                     };

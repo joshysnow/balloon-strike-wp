@@ -8,8 +8,6 @@ namespace GameInterfaceFramework
 {
     public class CreditsPlayer
     {
-        private SpriteFont _titleFont;
-        private SpriteFont _nameFont;
         private List<Credit> _credits;
         private Transition _transition;
         private byte _index;
@@ -17,11 +15,13 @@ namespace GameInterfaceFramework
         public CreditsPlayer()
         {
             _credits = new List<Credit>();
-            _transition = new Transition();
+            _transition = new Transition()
+            {
+                TransitionOn = TimeSpan.FromSeconds(1.5),
+                TransitionOff = TimeSpan.FromSeconds(1.5),
+                Active = TimeSpan.FromSeconds(1)
+            };
             _index = 0;
-
-            _transition.TransitionOn = TimeSpan.FromSeconds(1.5);
-            _transition.TransitionOff = TimeSpan.FromSeconds(1.5);
         }
 
         public void AddCredit(Credit credit)
@@ -45,11 +45,6 @@ namespace GameInterfaceFramework
 
         public void Update(GameTime gameTime)
         {
-            if (_transition.State == TransitionState.Active)
-            {
-                _transition.State = TransitionState.TransitionOff;
-            }
-
             if (_transition.State == TransitionState.Hidden)
             {
                 _index++;
