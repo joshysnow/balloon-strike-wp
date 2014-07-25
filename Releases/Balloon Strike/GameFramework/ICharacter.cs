@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using GameFramework.Physics;
 
 namespace GameFramework
 {
@@ -21,6 +22,7 @@ namespace GameFramework
         protected Vector2 _positionUL;
         protected Vector2 _positionLR;
         protected Vector2 _velocity;
+        protected Physics.Shapes.Rectangle _rectangle;
 
         public Character()
         {
@@ -47,10 +49,17 @@ namespace GameFramework
             return Intersects(position) || Collisions.Intersects(_positionUL, _positionLR, position, radius);
         }
 
+        public bool Intersects(Physics.Shapes.Circle circle)
+        {
+            return Collisions.Circle_Rectangle(circle, _rectangle);
+        }
+
         protected void UpdatePosition()
         {
             _positionUL += _velocity;
             _positionLR += _velocity;
+
+            _rectangle.Update(_positionUL, _positionLR);
         }
     }
 

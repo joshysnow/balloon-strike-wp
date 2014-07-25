@@ -55,6 +55,9 @@ namespace BalloonStrike.Views
                 Vector2 titlePosition;
                 Vector2 namePosition;
 
+                Vector2 titleSize;
+                Vector2 nameSize;
+
                 string title;
                 string name;
 
@@ -66,8 +69,8 @@ namespace BalloonStrike.Views
                     title = CREDITS[index++];
                     name = CREDITS[index++];
 
-                    Vector2 titleSize = titleFont.MeasureString(title);
-                    Vector2 nameSize = nameFont.MeasureString(name);
+                    titleSize = titleFont.MeasureString(title);
+                    nameSize = nameFont.MeasureString(name);
                     titlePosition = new Vector2((width - titleSize.X) / 2, (height / 2) - titleSize.Y);
                     namePosition = new Vector2((width - nameSize.X) / 2, (height / 2));// + nameSize.Y);
 

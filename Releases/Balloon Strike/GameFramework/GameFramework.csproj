@@ -57,9 +57,13 @@
     <Compile Include="BalloonManager.cs" />
     <Compile Include="Cloud.cs" />
     <Compile Include="CloudManager.cs" />
-    <Compile Include="Collisions.cs" />
+    <Compile Include="Physics\Collisions.cs" />
     <Compile Include="Crosshair.cs" />
     <Compile Include="ICharacter.cs" />
+    <Compile Include="Physics\Shapes\Circle.cs" />
+    <Compile Include="Physics\Shapes\Line.cs" />
+    <Compile Include="Physics\Shapes\LineSegment.cs" />
+    <Compile Include="Physics\Shapes\Rectangle.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Powerup.cs" />
     <Compile Include="PowerupManager.cs" />
