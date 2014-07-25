@@ -58,7 +58,7 @@ namespace GameInterfaceFramework
 
             if (State == TransitionState.TransitionOff)
             {
-                if (UpdateTransition(gameTime, TransitionOn, -1) == false)
+                if (UpdateTransition(gameTime, TransitionOff, 1) == false)
                 {
                     State = TransitionState.Hidden;
                 }

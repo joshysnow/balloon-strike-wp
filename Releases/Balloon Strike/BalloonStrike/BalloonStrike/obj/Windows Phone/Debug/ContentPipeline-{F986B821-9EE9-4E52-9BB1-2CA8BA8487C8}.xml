@@ -307,6 +307,24 @@
       <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Backgrounds\fox_480_800.xnb</Output>
       <Time>2014-07-11T21:24:11.5256343+01:00</Time>
     </Item>
+    <Item>
+      <Source>Fonts\credit_title.spritefont</Source>
+      <Name>Fonts\credit_title</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\credit_title.xnb</Output>
+      <Time>2014-07-25T12:45:59.4200622+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\credit_name.spritefont</Source>
+      <Name>Fonts\credit_name</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\credit_name.xnb</Output>
+      <Time>2014-07-25T12:46:06.9982088+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}</ContentProjectGUID>

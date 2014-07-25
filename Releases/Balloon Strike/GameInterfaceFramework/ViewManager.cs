@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,6 +40,8 @@ namespace GameInterfaceFramework
         public void RemoveView(View view)
         {
             _views.Remove(view);
+
+            TouchPanel.EnabledGestures = _views.Last().EnabledGestures;
         }
 
         public View[] Views()

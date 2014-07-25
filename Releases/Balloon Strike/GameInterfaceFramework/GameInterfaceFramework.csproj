@@ -54,6 +54,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="ControlsState.cs" />
     <Compile Include="Credit.cs" />
+    <Compile Include="CreditModel.cs" />
     <Compile Include="CreditsPlayer.cs" />
     <Compile Include="LoadView.cs" />
     <Compile Include="MenuView.cs" />
@@ -75,6 +76,12 @@
     <Reference Include="Microsoft.Xna.Framework.Input.Touch">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\Silverlight\v4.0\Profile\WindowsPhone71\Microsoft.Xna.Framework.Input.Touch.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameFramework\GameFramework.csproj">
+      <Project>{ffb1262b-2f0c-434d-a31e-efa73ea5815c}</Project>
+      <Name>GameFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

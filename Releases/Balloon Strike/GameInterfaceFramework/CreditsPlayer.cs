@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameFramework;
 
 namespace GameInterfaceFramework
 {
@@ -18,14 +19,16 @@ namespace GameInterfaceFramework
             _credits = new List<Credit>();
             _transition = new Transition();
             _index = 0;
+
+            _transition.TransitionOn = TimeSpan.FromSeconds(1.5);
+            _transition.TransitionOff = TimeSpan.FromSeconds(1.5);
         }
 
-        public void Activate(bool instancePreserved)
+        public void AddCredit(Credit credit)
         {
-            if (!instancePreserved)
+            if (credit != null)
             {
-#warning TODO: Load XML for credits?
-                _titleFont = null;
+                _credits.Add(credit);
             }
         }
 
@@ -50,7 +53,7 @@ namespace GameInterfaceFramework
             if (_transition.State == TransitionState.Hidden)
             {
                 _index++;
-                _index = (byte)(_credits.Count % _index);
+                _index = (byte)(_index % _credits.Count);
                 _transition.State = TransitionState.TransitionOn;
             }
 
@@ -62,7 +65,8 @@ namespace GameInterfaceFramework
             if (_credits.Count > 0)
             {
                 Credit credit = _credits[_index];
-
+                spriteBatch.DrawString(credit.Model.TitleFont, credit.Title, credit.TitlePosition, Color.Black * _transition.TransitionAlpha);
+                spriteBatch.DrawString(credit.Model.NameFont, credit.Name, credit.NamePosition, Color.Black * _transition.TransitionAlpha);         
             }
         }
     }

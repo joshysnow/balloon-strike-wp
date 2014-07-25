@@ -1,26 +1,13 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 
 namespace GameInterfaceFramework
 {
     public class Credit
     {
-        public string Title
-        {
-            get { return _title; }
-        }
-
-        public string Name
-        {
-            get { return _name; }
-        }
-
-        private string _title;
-        private string _name;
-
-        public Credit(string title, string name)
-        {
-            _title = title;
-            _name = name;
-        }
+        public string Title;
+        public string Name;
+        public Vector2 TitlePosition;
+        public Vector2 NamePosition;
+        public CreditModel Model;
     }
 }
