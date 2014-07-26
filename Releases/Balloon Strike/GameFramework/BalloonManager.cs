@@ -56,7 +56,6 @@ namespace GameFramework
         {
             int index;
             Balloon balloon;
-            float radius = currentWeapon.Crosshair.Radius;
             float damage = currentWeapon.Damage;
             Physics.Shapes.Circle circle = currentWeapon.Crosshair.Circle;
             WeaponType weaponType = currentWeapon.Type;
@@ -75,7 +74,7 @@ namespace GameFramework
                 while (index >= 0)
                 {
                     balloon = (Balloon)Characters[index];
-                    if (balloon.Intersects(circle)) //balloon.Intersects(gesture.Position, radius))
+                    if (balloon.Intersects(circle))
                     {
                         balloon.Attack(damage);
 

@@ -8,13 +8,6 @@ namespace BalloonStrike.Views
 {
     public class MainMenuView : MenuView
     {
-
-
-        public MainMenuView()
-        {
-            
-        }
-
         public override void Activate(bool instancePreserved)
         {
             if (!instancePreserved)

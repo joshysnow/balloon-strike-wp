@@ -11,22 +11,22 @@ namespace GameInterfaceFramework
         public event ButtonTappedHandler Tapped;
 
         private Texture2D _texture;
-        private Vector2 _upperLeft;
+        private Vector2 _origin;
         private Vector2 _lowerRight;
 
-        public Button(Texture2D texture, Vector2 topLeft)
+        public Button(Texture2D texture, Vector2 origin)
         {
             _texture = texture;
-            _upperLeft = topLeft;
-            _lowerRight = new Vector2((topLeft.X + texture.Width), (topLeft.Y + texture.Height));
+            _origin = origin;
+            _lowerRight = new Vector2((origin.X + texture.Width), (origin.Y + texture.Height));
         }
 
         public bool HandleTap(Vector2 position)
         {
             bool tapped = false;
 
-            if ((position.X >= _upperLeft.X) && (position.X <= _lowerRight.X) &&
-                 (position.Y >= _upperLeft.Y) && (position.Y <= _lowerRight.Y))
+            if ((position.X >= _origin.X) && (position.X <= _lowerRight.X) &&
+                 (position.Y >= _origin.Y) && (position.Y <= _lowerRight.Y))
             {
                 RaiseButtonTapped();
                 tapped = true;
@@ -38,7 +38,7 @@ namespace GameInterfaceFramework
         public void Draw(View parentView)
         {
             SpriteBatch spriteBatch = parentView.ViewManager.SpriteBatch;
-            spriteBatch.Draw(_texture, _upperLeft, (Color.White * parentView.TransitionAlpha));
+            spriteBatch.Draw(_texture, _origin, (Color.White * parentView.TransitionAlpha));
         }
 
         private void RaiseButtonTapped()

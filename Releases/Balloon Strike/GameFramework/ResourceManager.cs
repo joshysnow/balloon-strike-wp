@@ -160,6 +160,8 @@ namespace GameFramework
             Texture2D splashTexture = _content.Load<Texture2D>("Textures/Backgrounds/fox_480_800");
             Texture2D buttonPlayTexture = _content.Load<Texture2D>("Textures/Buttons/test_play");
             Texture2D buttonAboutTexture = _content.Load<Texture2D>("Textures/Buttons/test_about");
+            Texture2D buttonPlayAgainTexture = _content.Load<Texture2D>("Textures/Buttons/test_playagain");
+            Texture2D buttonMainMenuTexture = _content.Load<Texture2D>("Textures/Buttons/test_mainmenu");
 
             _textures.Add("red", redTexture);
             _textures.Add("blue", blueTexture);
@@ -174,6 +176,8 @@ namespace GameFramework
             _textures.Add("splash", splashTexture);
             _textures.Add("button_play", buttonPlayTexture);
             _textures.Add("button_about", buttonAboutTexture);
+            _textures.Add("button_playagain", buttonPlayAgainTexture);
+            _textures.Add("button_mainmenu", buttonMainMenuTexture);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f));
