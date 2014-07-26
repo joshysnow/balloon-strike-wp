@@ -36,3 +36,4 @@ Content\Fonts\credit_title.xnb
 Content\Fonts\credit_name.xnb
 Content\Textures\Buttons\test_mainmenu.xnb
 Content\Textures\Buttons\test_playagain.xnb
+Content\Fonts\small.xnb

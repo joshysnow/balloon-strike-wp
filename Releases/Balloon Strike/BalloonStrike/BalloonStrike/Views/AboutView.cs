@@ -21,10 +21,15 @@ namespace BalloonStrike.Views
             "Sound", "William Voce"
         };
 
+        private static string[] SMALL_PRINT = new string[3]
+        {
+            "Balloon Strike Version ",
+            "Twitter: @foxcodestudios",
+            "FoxCode Studios. All rights reserved 2014"
+        };
+
         private CreditsPlayer _creditsPlayer;
-        private SpriteFont _versionFont;
-        private Vector2 _versionPosition;
-        private string _version;
+        private SpriteFont _smallPrintFont;
 
         public AboutView()
         {
@@ -44,7 +49,7 @@ namespace BalloonStrike.Views
                 int height = graphics.Viewport.Height;
 
                 ResourceManager resources = ResourceManager.Manager;
-                _versionFont = resources.GetFont("debug");
+                _smallPrintFont = resources.GetFont("small");
 
                 SpriteFont titleFont = resources.GetFont("credit_title");
                 SpriteFont nameFont = resources.GetFont("credit_name");
@@ -72,7 +77,7 @@ namespace BalloonStrike.Views
                     titleSize = titleFont.MeasureString(title);
                     nameSize = nameFont.MeasureString(name);
                     titlePosition = new Vector2((width - titleSize.X) / 2, (height / 2) - titleSize.Y);
-                    namePosition = new Vector2((width - nameSize.X) / 2, (height / 2));// + nameSize.Y);
+                    namePosition = new Vector2((width - nameSize.X) / 2, (height / 2));
 
                     tempCredit = new Credit() 
                     { 
@@ -88,9 +93,7 @@ namespace BalloonStrike.Views
 
                 const byte VERSION = 1;
                 string[] info = Assembly.GetExecutingAssembly().FullName.Split(',');
-                _version = "v" + info[VERSION].Trim().Split('=')[VERSION];
-                Vector2 versionSize = _versionFont.MeasureString(_version);
-                _versionPosition = new Vector2(width - versionSize.X, height - versionSize.Y);
+                SMALL_PRINT[0] += info[VERSION].Trim().Split('=')[VERSION];
             }
         }
 
@@ -114,8 +117,30 @@ namespace BalloonStrike.Views
         {
             SpriteBatch spriteBatch = ViewManager.SpriteBatch;
             spriteBatch.Begin();
-            spriteBatch.DrawString(_versionFont, _version, _versionPosition, Color.Black * TransitionAlpha);
             _creditsPlayer.Draw(spriteBatch);
+
+            GraphicsDevice graphics = ViewManager.GraphicsDevice;
+            // Space from the bottom of the screen in pixels.
+            const byte SPACING = 10;
+            int step = (int)_smallPrintFont.MeasureString("l").Y;
+            int totalHeight = step * SMALL_PRINT.Length;
+            int y = graphics.Viewport.Height - SPACING - totalHeight;
+
+            string tempInfo;
+            Vector2 tempSize;
+            Vector2 tempPosition;
+
+            for (int i = 0; i < SMALL_PRINT.Length; i++)
+            {
+                tempInfo = SMALL_PRINT[i];
+                tempSize = _smallPrintFont.MeasureString(tempInfo);
+                tempPosition = new Vector2(
+                    (graphics.Viewport.Width - tempSize.X) / 2, 
+                    i == 0 ? y : y + (step * i));
+
+                spriteBatch.DrawString(_smallPrintFont, tempInfo, tempPosition, Color.Black * TransitionAlpha);
+            }
+
             spriteBatch.End();
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameFramework;
@@ -8,6 +9,15 @@ namespace BalloonStrike.Views
 {
     public class MainMenuView : MenuView
     {
+        private SpriteFont _versionFont;
+        private Vector2 _versionPosition;
+        private string _versionText;
+
+        public MainMenuView() : base()
+        {
+            _versionText = "VERSION UNDETECTED";
+        }
+
         public override void Activate(bool instancePreserved)
         {
             if (!instancePreserved)
@@ -31,7 +41,26 @@ namespace BalloonStrike.Views
                 Button about = new Button(aboutButtonTexture, new Vector2(x, y));
                 about.Tapped += AboutButtonTapped;
                 _menuButtons.Add(about);
+
+                // Show the version in the corner of the screen.
+                _versionFont = resources.GetFont("small");
+                const byte VERSION = 1;
+                const byte SPACING = 10;
+                string[] info = Assembly.GetExecutingAssembly().FullName.Split(',');
+                _versionText = "v" + info[VERSION].Trim().Split('=')[VERSION];
+                Vector2 versionSize = _versionFont.MeasureString(_versionText);
+                _versionPosition = new Vector2(graphics.Viewport.Width - versionSize.X - SPACING, graphics.Viewport.Height - versionSize.Y);
             }
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            SpriteBatch spriteBatch = ViewManager.SpriteBatch;
+            spriteBatch.Begin();
+            spriteBatch.DrawString(_versionFont, _versionText, _versionPosition, Color.Black * TransitionAlpha);
+            spriteBatch.End();
+
+            base.Draw(gameTime);
         }
 
         private void PlayButtonTapped(Button button)

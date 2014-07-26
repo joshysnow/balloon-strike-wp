@@ -132,6 +132,7 @@ namespace GameFramework
             _fonts.Add("your_score", _content.Load<SpriteFont>("Fonts/yourScore"));
             _fonts.Add("credit_title", _content.Load<SpriteFont>("Fonts/credit_title"));
             _fonts.Add("credit_name", _content.Load<SpriteFont>("Fonts/credit_name"));
+            _fonts.Add("small", _content.Load<SpriteFont>("Fonts/small"));
 
             // Load score fonts.
             for (int i = 0; i < 10; i++)
