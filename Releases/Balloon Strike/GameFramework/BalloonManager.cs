@@ -74,7 +74,9 @@ namespace GameFramework
                 while (index >= 0)
                 {
                     balloon = (Balloon)Characters[index];
-                    if (balloon.Intersects(circle))
+
+                    // Check to ensure that the same balloon isn't used if there are more than one gestures).
+                    if ((balloon.State == BalloonState.Alive) && balloon.Intersects(circle))
                     {
                         balloon.Attack(damage);
 
