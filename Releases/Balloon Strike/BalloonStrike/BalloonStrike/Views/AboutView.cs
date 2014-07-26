@@ -30,6 +30,7 @@ namespace BalloonStrike.Views
 
         private CreditsPlayer _creditsPlayer;
         private SpriteFont _smallPrintFont;
+        private Vector2[] _indices;
 
         public AboutView()
         {
@@ -50,7 +51,6 @@ namespace BalloonStrike.Views
 
                 ResourceManager resources = ResourceManager.Manager;
                 _smallPrintFont = resources.GetFont("small");
-
                 SpriteFont titleFont = resources.GetFont("credit_title");
                 SpriteFont nameFont = resources.GetFont("credit_name");
                 CreditModel creditModel = new CreditModel(titleFont, nameFont);
@@ -94,6 +94,28 @@ namespace BalloonStrike.Views
                 const byte VERSION = 1;
                 string[] info = Assembly.GetExecutingAssembly().FullName.Split(',');
                 SMALL_PRINT[0] += info[VERSION].Trim().Split('=')[VERSION];
+
+                _indices = new Vector2[SMALL_PRINT.Length];
+
+                // Space from the bottom of the screen in pixels.
+                const byte SPACING = 10;
+                int step = (int)_smallPrintFont.MeasureString("l").Y;
+                int totalHeight = step * SMALL_PRINT.Length;
+                int y = (graphics.Viewport.Height - SPACING) - totalHeight;
+
+                string tempInfo;
+                Vector2 tempSize;
+                Vector2 tempPosition;
+
+                for (int i = 0; i < _indices.Length; i++)
+                {
+                    tempInfo = SMALL_PRINT[i];
+                    tempSize = _smallPrintFont.MeasureString(tempInfo);
+                    tempPosition = new Vector2((graphics.Viewport.Width - tempSize.X) / 2, 
+                        (i == 0) ? y : y + (step * i));
+
+                    _indices[i] = tempPosition;
+                }
             }
         }
 
@@ -119,26 +141,12 @@ namespace BalloonStrike.Views
             spriteBatch.Begin();
             _creditsPlayer.Draw(spriteBatch);
 
-            GraphicsDevice graphics = ViewManager.GraphicsDevice;
-            // Space from the bottom of the screen in pixels.
-            const byte SPACING = 10;
-            int step = (int)_smallPrintFont.MeasureString("l").Y;
-            int totalHeight = step * SMALL_PRINT.Length;
-            int y = graphics.Viewport.Height - SPACING - totalHeight;
-
-            string tempInfo;
-            Vector2 tempSize;
-            Vector2 tempPosition;
-
-            for (int i = 0; i < SMALL_PRINT.Length; i++)
+            // Draw info.
+            byte index = 0;
+            while (index < SMALL_PRINT.Length)
             {
-                tempInfo = SMALL_PRINT[i];
-                tempSize = _smallPrintFont.MeasureString(tempInfo);
-                tempPosition = new Vector2(
-                    (graphics.Viewport.Width - tempSize.X) / 2, 
-                    i == 0 ? y : y + (step * i));
-
-                spriteBatch.DrawString(_smallPrintFont, tempInfo, tempPosition, Color.Black * TransitionAlpha);
+                spriteBatch.DrawString(_smallPrintFont, SMALL_PRINT[index], _indices[index], Color.Black * TransitionAlpha);
+                index++;
             }
 
             spriteBatch.End();
