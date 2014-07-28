@@ -11,6 +11,7 @@ namespace GameInterfaceFramework
         private List<Credit> _credits;
         private Transition _transition;
         private byte _index;
+        private bool _stopping;
 
         public CreditsPlayer()
         {
@@ -22,6 +23,7 @@ namespace GameInterfaceFramework
                 Active = TimeSpan.FromSeconds(1)
             };
             _index = 0;
+            _stopping = false;
         }
 
         public void AddCredit(Credit credit)
@@ -47,11 +49,12 @@ namespace GameInterfaceFramework
         {
             _transition.TransitionOff = transitionOffTime;
             _transition.State = TransitionState.TransitionOff;
+            _stopping = true;
         }
 
         public void Update(GameTime gameTime)
         {
-            if (_transition.State == TransitionState.Hidden)
+            if ((_stopping == false) && _transition.State == TransitionState.Hidden)
             {
                 _index++;
                 _index = (byte)(_index % _credits.Count);

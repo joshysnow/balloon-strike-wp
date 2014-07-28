@@ -123,7 +123,6 @@ namespace BalloonStrike.Views
         {
             if (controls.BackButtonPressed())
             {
-                Exit();
                 _creditsPlayer.End(Transition.TransitionOff);
                 LoadView.Load(ViewManager, 1, new MainMenuView());
             }

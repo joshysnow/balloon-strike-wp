@@ -106,19 +106,16 @@ namespace BalloonStrike.Views
 
         protected override void HandleBackButtonPressed()
         {
-            Exit();
             LoadView.Load(ViewManager, 1, new MainMenuView());
         }
 
         private void PlayTappedHandler(Button button)
         {
-            Exit();
             LoadView.Load(ViewManager, 1, new GameView());
         }
 
         private void MenuTappedHandler(Button button)
         {
-            Exit();
             LoadView.Load(ViewManager, 1, new MainMenuView());
         }
     }

@@ -14,13 +14,22 @@ namespace GameInterfaceFramework
             _newViews = viewsToLoad;
         }
 
-        public static void Load(ViewManager manager, byte numberOfViews, params View[] viewsToLoad)
+        public static void Load(ViewManager manager, byte numberOfViewsExiting, params View[] viewsToLoad)
         {
+            View[] views = manager.Views();
+
             // Add 1 to include this view.
-            byte viewCount = (byte)(manager.Views().Length + 1);
+            byte viewCount = (byte)(views.Length + 1);
 
             // Take off the views that are exiting.
-            viewCount -= numberOfViews;
+            viewCount -= numberOfViewsExiting;
+
+            // Tell all views to exit that require it.
+            byte index = (byte)(views.Length - numberOfViewsExiting);
+            while (index < views.Length)
+            {
+                views[index++].Exit();
+            }
 
             // Add this view to the stack.
             manager.AddView(new LoadView(viewCount, viewsToLoad));

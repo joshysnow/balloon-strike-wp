@@ -60,7 +60,6 @@ namespace BalloonStrike.Views
         {
             if (controls.BackButtonPressed())
             {
-                Exit();
                 LoadView.Load(ViewManager, 1, new MainMenuView());
             }
             else
@@ -123,7 +122,6 @@ namespace BalloonStrike.Views
                 Player player = Player.Instance;
                 player.CurrentScore = _scoreManager.Score;
 
-                Exit();
                 LoadView.Load(ViewManager, 1, new GameOverView());
             }
         }

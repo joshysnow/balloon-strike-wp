@@ -65,13 +65,11 @@ namespace BalloonStrike.Views
 
         private void PlayButtonTapped(Button button)
         {
-            Exit();
             LoadView.Load(ViewManager, 1, new GameView());
         }
 
         private void AboutButtonTapped(Button button)
         {
-            Exit();
             LoadView.Load(ViewManager, 1, new AboutView());
         }
     }
