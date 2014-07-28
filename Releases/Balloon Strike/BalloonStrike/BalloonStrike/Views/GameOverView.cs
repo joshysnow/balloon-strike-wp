@@ -19,10 +19,10 @@ namespace BalloonStrike.Views
 
         public GameOverView()
         {
-            _transitionOnTime = TimeSpan.FromSeconds(0.5);
-            _transitionOffTime = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOn = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOff = TimeSpan.FromSeconds(0.5);
 
-            _viewGestures = GestureType.Tap;
+            EnabledGestures = GestureType.Tap;
         }
 
         public override void Activate(bool instancePreserved)
@@ -72,7 +72,7 @@ namespace BalloonStrike.Views
 
         public override void Update(GameTime gameTime, bool covered)
         {
-            if (State == ViewState.Active)
+            if (State == TransitionState.Active)
             {
                 Player p = Player.Instance;
                 if (_score < p.CurrentScore)

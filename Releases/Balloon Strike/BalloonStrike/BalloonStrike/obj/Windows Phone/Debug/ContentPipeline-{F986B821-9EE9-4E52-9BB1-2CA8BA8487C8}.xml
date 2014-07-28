@@ -2,141 +2,6 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>DebugText.spritefont</Source>
-      <Name>DebugText</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\DebugText.xnb</Output>
-      <Time>2014-07-12T09:35:33.5265063+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score0.spritefont</Source>
-      <Name>Fonts\score0</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score0.xnb</Output>
-      <Time>2014-07-12T09:35:45.0377982+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score1.spritefont</Source>
-      <Name>Fonts\score1</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score1.xnb</Output>
-      <Time>2014-07-12T09:35:49.6993286+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score6.spritefont</Source>
-      <Name>Fonts\score6</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score6.xnb</Output>
-      <Time>2014-07-12T09:36:13.8241939+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score5.spritefont</Source>
-      <Name>Fonts\score5</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score5.xnb</Output>
-      <Time>2014-07-12T09:36:08.8542382+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score4.spritefont</Source>
-      <Name>Fonts\score4</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score4.xnb</Output>
-      <Time>2014-07-12T09:36:03.95274+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score3.spritefont</Source>
-      <Name>Fonts\score3</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score3.xnb</Output>
-      <Time>2014-07-12T09:35:59.0443737+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score2.spritefont</Source>
-      <Name>Fonts\score2</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score2.xnb</Output>
-      <Time>2014-07-12T09:35:54.6217023+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score7.spritefont</Source>
-      <Name>Fonts\score7</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score7.xnb</Output>
-      <Time>2014-07-12T09:36:22.4355485+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score9.spritefont</Source>
-      <Name>Fonts\score9</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score9.xnb</Output>
-      <Time>2014-07-12T09:36:32.6574246+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score8.spritefont</Source>
-      <Name>Fonts\score8</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score8.xnb</Output>
-      <Time>2014-07-12T09:36:27.1401394+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Audio\Sounds\snowball_impact.wav</Source>
-      <Name>Audio\Sounds\snowball_impact</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_impact.xnb</Output>
-      <Time>2014-06-11T14:50:06.0717185+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Audio\Sounds\snowball_car_impact1.wav</Source>
-      <Name>Audio\Sounds\snowball_car_impact1</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_car_impact1.xnb</Output>
-      <Time>2014-06-11T14:50:06.0677158+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\score.spritefont</Source>
-      <Name>Fonts\score</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score.xnb</Output>
-      <Time>2014-07-14T16:31:01.0753917+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\yourScore.spritefont</Source>
-      <Name>Fonts\yourScore</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\yourScore.xnb</Output>
-      <Time>2014-07-14T21:20:37.9019676+01:00</Time>
-    </Item>
-    <Item>
       <Source>Textures\Balloons\black200.png</Source>
       <Name>Textures\Balloons\black200</Name>
       <Importer>TextureImporter</Importer>
@@ -308,24 +173,6 @@
       <Time>2014-07-11T21:24:11.5256343+01:00</Time>
     </Item>
     <Item>
-      <Source>Fonts\credit_title.spritefont</Source>
-      <Name>Fonts\credit_title</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\credit_title.xnb</Output>
-      <Time>2014-07-25T12:45:59.4200622+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\credit_name.spritefont</Source>
-      <Name>Fonts\credit_name</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\credit_name.xnb</Output>
-      <Time>2014-07-25T12:46:06.9982088+01:00</Time>
-    </Item>
-    <Item>
       <Source>Textures\Buttons\test_mainmenu.png</Source>
       <Name>Textures\Buttons\test_mainmenu</Name>
       <Importer>TextureImporter</Importer>
@@ -344,6 +191,141 @@
       <Time>2014-07-26T10:47:30.3443733+01:00</Time>
     </Item>
     <Item>
+      <Source>DebugText.spritefont</Source>
+      <Name>DebugText</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\DebugText.xnb</Output>
+      <Time>2014-07-12T09:35:33.5265063+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score0.spritefont</Source>
+      <Name>Fonts\score0</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score0.xnb</Output>
+      <Time>2014-07-12T09:35:45.0377982+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score1.spritefont</Source>
+      <Name>Fonts\score1</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score1.xnb</Output>
+      <Time>2014-07-12T09:35:49.6993286+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score6.spritefont</Source>
+      <Name>Fonts\score6</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score6.xnb</Output>
+      <Time>2014-07-12T09:36:13.8241939+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score5.spritefont</Source>
+      <Name>Fonts\score5</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score5.xnb</Output>
+      <Time>2014-07-12T09:36:08.8542382+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score4.spritefont</Source>
+      <Name>Fonts\score4</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score4.xnb</Output>
+      <Time>2014-07-12T09:36:03.95274+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score3.spritefont</Source>
+      <Name>Fonts\score3</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score3.xnb</Output>
+      <Time>2014-07-12T09:35:59.0443737+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score2.spritefont</Source>
+      <Name>Fonts\score2</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score2.xnb</Output>
+      <Time>2014-07-12T09:35:54.6217023+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score7.spritefont</Source>
+      <Name>Fonts\score7</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score7.xnb</Output>
+      <Time>2014-07-12T09:36:22.4355485+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score9.spritefont</Source>
+      <Name>Fonts\score9</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score9.xnb</Output>
+      <Time>2014-07-12T09:36:32.6574246+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score8.spritefont</Source>
+      <Name>Fonts\score8</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score8.xnb</Output>
+      <Time>2014-07-12T09:36:27.1401394+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\score.spritefont</Source>
+      <Name>Fonts\score</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\score.xnb</Output>
+      <Time>2014-07-14T16:31:01.0753917+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\yourScore.spritefont</Source>
+      <Name>Fonts\yourScore</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\yourScore.xnb</Output>
+      <Time>2014-07-14T21:20:37.9019676+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\credit_title.spritefont</Source>
+      <Name>Fonts\credit_title</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\credit_title.xnb</Output>
+      <Time>2014-07-25T12:45:59.4200622+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\credit_name.spritefont</Source>
+      <Name>Fonts\credit_name</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\credit_name.xnb</Output>
+      <Time>2014-07-25T12:46:06.9982088+01:00</Time>
+    </Item>
+    <Item>
       <Source>Fonts\small.spritefont</Source>
       <Name>Fonts\small</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -351,6 +333,24 @@
       <Options>None</Options>
       <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\small.xnb</Output>
       <Time>2014-07-26T20:08:23.5984699+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Audio\Sounds\snowball_impact.wav</Source>
+      <Name>Audio\Sounds\snowball_impact</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_impact.xnb</Output>
+      <Time>2014-06-11T14:50:06.0717185+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Audio\Sounds\snowball_car_impact1.wav</Source>
+      <Name>Audio\Sounds\snowball_car_impact1</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_car_impact1.xnb</Output>
+      <Time>2014-06-11T14:50:06.0677158+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

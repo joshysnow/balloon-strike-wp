@@ -13,8 +13,8 @@ namespace BalloonStrike.Views
 
         public SplashView()
         {
-            _transitionOffTime = TimeSpan.FromSeconds(0.5);
-            _transitionOnTime = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOff = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOn = TimeSpan.FromSeconds(0.5);
         }
 
         public override void Activate(bool instancePreserved)
@@ -28,7 +28,7 @@ namespace BalloonStrike.Views
 
         public override void Update(GameTime gameTime, bool covered)
         {
-            if (State == ViewState.Active)
+            if (State == TransitionState.Active)
             {
                 if (_activeTimer.Update(gameTime))
                 {

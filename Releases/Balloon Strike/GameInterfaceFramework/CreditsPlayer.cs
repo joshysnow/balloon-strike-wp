@@ -43,6 +43,12 @@ namespace GameInterfaceFramework
             }
         }
 
+        public void End(TimeSpan transitionOffTime)
+        {
+            _transition.TransitionOff = transitionOffTime;
+            _transition.State = TransitionState.TransitionOff;
+        }
+
         public void Update(GameTime gameTime)
         {
             if (_transition.State == TransitionState.Hidden)

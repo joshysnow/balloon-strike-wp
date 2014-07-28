@@ -75,7 +75,7 @@ namespace GameInterfaceFramework
         {
             foreach (View view in _views)
             {
-                if (view.State == ViewState.Hidden)
+                if (view.State == TransitionState.Hidden)
                 {
                     continue;
                 }
@@ -106,7 +106,7 @@ namespace GameInterfaceFramework
 
                 view.Update(gameTime, covered);
 
-                if ((view.State == ViewState.Active) || (view.State == ViewState.TransitionOn))
+                if ((view.State == TransitionState.Active) || (view.State == TransitionState.TransitionOn))
                 {
                     if (isActiveApp && hasFocus)
                     {
