@@ -53,3 +53,9 @@ D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStr
 bin\Windows Phone\Debug\
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.xap
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\obj\Windows Phone\Debug\XapCacheFile.xml
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.xap
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\obj\Windows Phone\Debug\XapCacheFile.xml
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\AppManifest.xaml
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\obj\Windows Phone\Debug\WMAppManifest.xml.g
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\obj\Windows Phone\Debug\WMAppManifest.xml
+bin\Windows Phone\Debug\
