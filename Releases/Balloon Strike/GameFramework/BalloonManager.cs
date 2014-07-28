@@ -183,11 +183,11 @@ namespace GameFramework
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
             // Add two triggers for when to begin spawning the other balloons.
-            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(25));
+            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(15));
             blueSpawnStart.Triggered += BlueSpawnStartTriggerHandler;
             AddTrigger(blueSpawnStart);
 
-            Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(45));
+            Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(30));
             redSpawnStart.Triggered += RedSpawnStartTriggerHandler;
             AddTrigger(redSpawnStart);
 
@@ -195,7 +195,7 @@ namespace GameFramework
             velocityChange.Triggered += VelocityChangeTriggerHandler;
 
             // Start green balloon immediately.
-            VariableTimer _greenTimer = new VariableTimer(1500, 0.95f, 250);
+            VariableTimer _greenTimer = new VariableTimer(2000, 0.99f, 500);
             _greenTimer.Elapsed += GreenTimerElapsed;
             Timers.Add(_greenTimer);
 
@@ -222,14 +222,14 @@ namespace GameFramework
 
         private void BlueSpawnStartTriggerHandler(Trigger trigger)
         {
-            VariableTimer blueTimer = new VariableTimer(5000, 0.95f, 330);
+            VariableTimer blueTimer = new VariableTimer(5000, 0.95f, 750);
             blueTimer.Elapsed += BlueTimerElapsed;
             Timers.Add(blueTimer);
         }
 
         private void RedSpawnStartTriggerHandler(Trigger trigger)
         {
-            VariableTimer redTimer = new VariableTimer(5000, 0.95f, 330);
+            VariableTimer redTimer = new VariableTimer(5000, 0.95f, 750);
             redTimer.Elapsed += RedTimerElapsed;
             Timers.Add(redTimer);
         }

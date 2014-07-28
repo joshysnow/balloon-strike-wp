@@ -27,7 +27,7 @@ namespace GameFramework
 
             if (elapsed)
             {
-                if (_elapseTime < _bounds)
+                if (_elapseTime > _bounds)
                 {
                     if (_elapseTime * _modifier >= _bounds)
                     {
