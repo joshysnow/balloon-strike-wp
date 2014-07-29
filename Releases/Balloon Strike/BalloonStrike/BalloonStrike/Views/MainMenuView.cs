@@ -26,21 +26,23 @@ namespace BalloonStrike.Views
                 GraphicsDevice graphics = ViewManager.GraphicsDevice;
                 ResourceManager resources = ResourceManager.Manager;
 
-                Texture2D playButtonTexture = resources.GetTexture("button_play");
-                Texture2D aboutButtonTexture = resources.GetTexture("button_about");
+                Texture2D playUnselected = resources.GetTexture("button_unselected_play");
+                Texture2D infoUnselected = resources.GetTexture("button_unselected_info");
+                Texture2D playSelected = resources.GetTexture("button_selected_play");
+                Texture2D infoSelected = resources.GetTexture("button_selected_info");
 
-                int x = (graphics.Viewport.Width - playButtonTexture.Width) / 2;
+                int x = (graphics.Viewport.Width - playUnselected.Width) / 2;
                 int y = graphics.Viewport.Bounds.Center.Y;
 
-                Button play = new Button(playButtonTexture, new Vector2(x, y));
+                Button play = new Button(playUnselected, playSelected) { Origin = new Vector2(x, y) };
                 play.Tapped += PlayButtonTapped;
                 _menuButtons.Add(play);
 
-                y += (int)(playButtonTexture.Height * 1.5f);
+                y += (int)(playUnselected.Height * 1.5f);
 
-                Button about = new Button(aboutButtonTexture, new Vector2(x, y));
-                about.Tapped += AboutButtonTapped;
-                _menuButtons.Add(about);
+                Button infoButton = new Button(infoUnselected, infoSelected) { Origin = new Vector2(x, y) };
+                infoButton.Tapped += AboutButtonTapped;
+                _menuButtons.Add(infoButton);
 
                 // Show the version in the corner of the screen.
                 _versionFont = resources.GetFont("small");
@@ -70,7 +72,7 @@ namespace BalloonStrike.Views
 
         private void AboutButtonTapped(Button button)
         {
-            LoadView.Load(ViewManager, 1, new AboutView());
+            LoadView.Load(ViewManager, 1, new InfoView());
         }
     }
 }

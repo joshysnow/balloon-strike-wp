@@ -13,11 +13,7 @@ Content\Textures\Powerups\shell_200.xnb
 Content\Textures\Crosshairs\finger.xnb
 Content\Textures\Crosshairs\bazooka.xnb
 Content\Textures\Crosshairs\shotgun.xnb
-Content\Textures\Buttons\test_about.xnb
-Content\Textures\Buttons\test_play.xnb
 Content\Textures\Backgrounds\fox_480_800.xnb
-Content\Textures\Buttons\test_mainmenu.xnb
-Content\Textures\Buttons\test_playagain.xnb
 Content\DebugText.xnb
 Content\Fonts\score0.xnb
 Content\Fonts\score1.xnb
@@ -40,3 +36,14 @@ Content\Fonts\popup_text.xnb
 Content\Textures\white.xnb
 Content\Textures\Backgrounds\popup440.xnb
 Content\Textures\Buttons\hex_tick.xnb
+Content\Textures\Buttons\hex_achievements.xnb
+Content\Textures\Buttons\hex_achievements_pressed.xnb
+Content\Textures\Buttons\hex_cancel.xnb
+Content\Textures\Buttons\hex_cancel_pressed.xnb
+Content\Textures\Buttons\hex_info.xnb
+Content\Textures\Buttons\hex_info_pressed.xnb
+Content\Textures\Buttons\hex_play.xnb
+Content\Textures\Buttons\hex_play_pressed.xnb
+Content\Textures\Buttons\hex_tick_pressed.xnb
+Content\Textures\Buttons\hex_menu.xnb
+Content\Textures\Buttons\hex_menu_pressed.xnb

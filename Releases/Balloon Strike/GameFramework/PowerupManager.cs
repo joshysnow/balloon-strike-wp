@@ -113,7 +113,7 @@ namespace GameFramework
             shellTrigger.Triggered += ShellTriggerHandler;
             AddTrigger(shellTrigger);
 
-            Trigger missileTrigger = new ScoreTrigger(150);
+            Trigger missileTrigger = new ScoreTrigger(50);
             missileTrigger.Triggered += MissileTriggerHandler;
             AddTrigger(missileTrigger);
 

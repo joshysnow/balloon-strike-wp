@@ -54,17 +54,19 @@ namespace BalloonStrike.Views
                 // if the score would take more than 1/2 a second to increment by one, then calculate the above to ensure
                 // it takes no longer than 1/2 a second.
 
-                Texture2D playAgainTexture = resources.GetTexture("button_playagain");
-                Texture2D menuTexture = resources.GetTexture("button_mainmenu");
+                Texture2D playUnselected = resources.GetTexture("button_unselected_play");
+                Texture2D menuUnselected = resources.GetTexture("button_unselected_menu");
+                Texture2D playSelected = resources.GetTexture("button_selected_play");
+                Texture2D menuSelected = resources.GetTexture("button_selected_menu");
 
-                int y = (height - (height / 4)) - (playAgainTexture.Height / 2);
+                int y = (height - (height / 4)) - (playUnselected.Height / 2);
                 int spacing = 7;
 
-                Button playAgain = new Button(playAgainTexture, new Vector2(((width / 2) - spacing) - playAgainTexture.Width, y));
+                Button playAgain = new Button(playUnselected, playSelected) { Origin = new Vector2(((width / 2) - spacing) - playUnselected.Width, y) };
                 playAgain.Tapped += PlayTappedHandler;
                 _menuButtons.Add(playAgain);
 
-                Button mainMenu = new Button(menuTexture, new Vector2((width / 2) + spacing, y));
+                Button mainMenu = new Button(menuUnselected, menuSelected) { Origin = new Vector2((width / 2) + spacing, y) };
                 mainMenu.Tapped += MenuTappedHandler;
                 _menuButtons.Add(mainMenu);
             }

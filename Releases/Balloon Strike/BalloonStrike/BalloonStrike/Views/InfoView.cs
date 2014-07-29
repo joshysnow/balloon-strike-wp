@@ -8,7 +8,7 @@ using GameInterfaceFramework;
 
 namespace BalloonStrike.Views
 {
-    public class AboutView : View
+    public class InfoView : View
     {
         private string[] CREDITS = new string[14] 
         { 
@@ -32,7 +32,7 @@ namespace BalloonStrike.Views
         private SpriteFont _smallPrintFont;
         private Vector2[] _indices;
 
-        public AboutView()
+        public InfoView()
         {
             Transition.TransitionOn = TimeSpan.FromSeconds(0.5);
             Transition.TransitionOff = TimeSpan.FromSeconds(0.5);

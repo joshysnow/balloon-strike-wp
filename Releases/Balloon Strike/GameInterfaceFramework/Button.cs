@@ -17,8 +17,8 @@ namespace GameInterfaceFramework
             {
                 _origin = value;
 
-                _lowerRight.X = (_origin.X + _texture.Width);
-                _lowerRight.Y = (_origin.Y + _texture.Height);
+                _lowerRight.X = (_origin.X + _unselectedTexture.Width);
+                _lowerRight.Y = (_origin.Y + _unselectedTexture.Height);
             }
         }
 
@@ -30,14 +30,22 @@ namespace GameInterfaceFramework
             }
         }
 
-        private Texture2D _texture;
+        public bool Selected
+        {
+            get;
+            private set;
+        }
+
+        private Texture2D _unselectedTexture;
+        private Texture2D _selectedTexture;
         private Vector2 _origin;
         private Vector2 _lowerRight;
 
-        public Button(Texture2D texture, Vector2 origin)
+        public Button(Texture2D unselected, Texture2D selected)
         {
-            _texture = texture;
-            Origin = origin;
+            _unselectedTexture = unselected;
+            _selectedTexture = selected;
+            Selected = false;
         }
 
         public bool HandleTap(Vector2 position)
@@ -49,6 +57,7 @@ namespace GameInterfaceFramework
             {
                 RaiseButtonTapped();
                 tapped = true;
+                Selected = !Selected;
             }
 
             return tapped;
@@ -57,7 +66,7 @@ namespace GameInterfaceFramework
         public void Draw(View parentView)
         {
             SpriteBatch spriteBatch = parentView.ViewManager.SpriteBatch;
-            spriteBatch.Draw(_texture, _origin, (Color.White * parentView.TransitionAlpha));
+            spriteBatch.Draw((Selected ? _selectedTexture : _unselectedTexture), _origin, (Color.White * parentView.TransitionAlpha));
         }
 
         private void RaiseButtonTapped()
