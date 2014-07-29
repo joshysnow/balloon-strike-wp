@@ -35,46 +35,6 @@ namespace GameFramework
 
         public BalloonManager(GraphicsDevice graphics, TriggerManager triggers) : base(graphics, triggers) { }
 
-        public void TestInput(TouchCollection touches, Weapon currentWeapon)
-        {
-            Physics.Shapes.Circle circle = new Physics.Shapes.Circle() { Radius = currentWeapon.Crosshair.Radius };
-
-            int index = 0;
-            TouchLocation location;
-
-            while (index < touches.Count)
-            {
-                location = touches[index++];
-
-                if (location.State == TouchLocationState.Released)
-                {
-                    circle.Center = location.Position;
-
-                    TestCircleCollision(circle, currentWeapon);
-                }
-            }
-        }
-
-        private void TestCircleCollision(Physics.Shapes.Circle circle, Weapon currentWeapon)
-        {
-            Balloon balloon;
-
-            for (int i = Characters.Count -1; i >= 0; i--)
-            {
-                balloon = (Balloon)Characters[i];
-
-                if ((balloon.State == BalloonState.Alive) && balloon.Intersects(circle))
-                {
-                    balloon.Attack(currentWeapon.Damage);
-
-                    if (currentWeapon.Type == WeaponType.Finger)
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
         {
             int index;
@@ -218,7 +178,7 @@ namespace GameFramework
             velocityChange.Triggered += VelocityChangeTriggerHandler;
 
             // Start green balloon immediately.
-            VariableTimer _greenTimer = new VariableTimer(2000, 0.99f, 500);
+            VariableTimer _greenTimer = new VariableTimer(2000, 0.99f, 750);
             _greenTimer.Elapsed += GreenTimerElapsed;
             Timers.Add(_greenTimer);
 

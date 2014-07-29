@@ -33,7 +33,7 @@ namespace BalloonStrike.Views
                 if (_activeTimer.Update(gameTime))
                 {
 #warning TODO: Introduce parent counting here, so when a view decides to disappear it can take the whole chain or just itself from the view manager.
-                    LoadView.Load(ViewManager, 1, new BackgroundView(), new MainMenuView(), new IntroPopup());
+                    LoadView.Load(ViewManager, 1, new BackgroundView(), new MainMenuView(), new MessagePopup("Welcome to the Alpha!"));
                 }
             }
 

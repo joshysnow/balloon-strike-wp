@@ -48,6 +48,14 @@ namespace GameFramework.Physics.Shapes
             private set;
         }
 
+        public Vector2 Size
+        {
+            get
+            {
+                return new Vector2((TopRight.X - TopLeft.X), (BottomRight.Y - TopRight.Y));
+            }
+        }
+
         public Rectangle(Vector2 topLeft, Vector2 bottomRight)
         {
             TopLeft = topLeft;

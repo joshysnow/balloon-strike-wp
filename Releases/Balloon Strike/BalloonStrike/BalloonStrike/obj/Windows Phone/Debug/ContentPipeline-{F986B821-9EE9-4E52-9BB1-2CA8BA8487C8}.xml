@@ -137,15 +137,6 @@
       <Time>2014-07-08T14:19:16.9228244+01:00</Time>
     </Item>
     <Item>
-      <Source>Textures\Backgrounds\splash480.jpg</Source>
-      <Name>Textures\Backgrounds\splash480</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Backgrounds\splash480.xnb</Output>
-      <Time>2014-07-09T12:48:52.0713494+01:00</Time>
-    </Item>
-    <Item>
       <Source>Textures\Buttons\test_about.png</Source>
       <Name>Textures\Buttons\test_about</Name>
       <Importer>TextureImporter</Importer>
@@ -369,6 +360,24 @@
       <Options>None</Options>
       <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\white.xnb</Output>
       <Time>2014-07-29T11:24:17.4097867+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Backgrounds\popup440.png</Source>
+      <Name>Textures\Backgrounds\popup440</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Backgrounds\popup440.xnb</Output>
+      <Time>2014-07-29T15:57:03.4030922+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_tick.png</Source>
+      <Name>Textures\Buttons\hex_tick</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_tick.xnb</Output>
+      <Time>2014-07-29T15:26:28.5637839+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

@@ -109,7 +109,7 @@ namespace GameFramework
             freezeTrigger.Triggered += FreezeTriggerHandler;
             AddTrigger(freezeTrigger);
 
-            Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(30));
+            Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(15));
             shellTrigger.Triggered += ShellTriggerHandler;
             AddTrigger(shellTrigger);
 

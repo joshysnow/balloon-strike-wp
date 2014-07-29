@@ -13,7 +13,6 @@ Content\Textures\Powerups\shell_200.xnb
 Content\Textures\Crosshairs\finger.xnb
 Content\Textures\Crosshairs\bazooka.xnb
 Content\Textures\Crosshairs\shotgun.xnb
-Content\Textures\Backgrounds\splash480.xnb
 Content\Textures\Buttons\test_about.xnb
 Content\Textures\Buttons\test_play.xnb
 Content\Textures\Backgrounds\fox_480_800.xnb
@@ -39,3 +38,5 @@ Content\Audio\Sounds\snowball_impact.xnb
 Content\Audio\Sounds\snowball_car_impact1.xnb
 Content\Fonts\popup_text.xnb
 Content\Textures\white.xnb
+Content\Textures\Backgrounds\popup440.xnb
+Content\Textures\Buttons\hex_tick.xnb

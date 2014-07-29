@@ -149,22 +149,29 @@ namespace GameFramework
             //_music.Add("test", test);
 
             Texture2D blankTexture = _content.Load<Texture2D>("Textures/white");
+
             Texture2D redTexture = _content.Load<Texture2D>("Textures/Balloons/red200");
             Texture2D blueTexture = _content.Load<Texture2D>("Textures/Balloons/blue200");
             Texture2D greenTexture = _content.Load<Texture2D>("Textures/Balloons/green200");
             Texture2D blackTexture = _content.Load<Texture2D>("Textures/Balloons/black200");
+
             Texture2D popTexture = _content.Load<Texture2D>("Textures/Effects/explosion");
             Texture2D freezeTexture = _content.Load<Texture2D>("Textures/Powerups/snowflake_med");
             Texture2D shellTexture = _content.Load<Texture2D>("Textures/Powerups/shell_200");
             Texture2D missileTexture = _content.Load<Texture2D>("Textures/Powerups/missile_200");
+
             Texture2D xHairFingerTexture = _content.Load<Texture2D>("Textures/Crosshairs/finger");
             Texture2D xHairShotgunTexture = _content.Load<Texture2D>("Textures/Crosshairs/shotgun");
             Texture2D xHairBazookaTexture = _content.Load<Texture2D>("Textures/Crosshairs/bazooka");
+
             Texture2D splashTexture = _content.Load<Texture2D>("Textures/Backgrounds/fox_480_800");
+            Texture2D popupforeground = _content.Load<Texture2D>("Textures/Backgrounds/popup440");
+
             Texture2D buttonPlayTexture = _content.Load<Texture2D>("Textures/Buttons/test_play");
             Texture2D buttonAboutTexture = _content.Load<Texture2D>("Textures/Buttons/test_about");
             Texture2D buttonPlayAgainTexture = _content.Load<Texture2D>("Textures/Buttons/test_playagain");
             Texture2D buttonMainMenuTexture = _content.Load<Texture2D>("Textures/Buttons/test_mainmenu");
+            Texture2D buttonTick = _content.Load<Texture2D>("Textures/Buttons/hex_tick");
 
             _textures.Add("blank", blankTexture);
             _textures.Add("red", redTexture);
@@ -178,10 +185,12 @@ namespace GameFramework
             _textures.Add("xhair_shotgun", xHairShotgunTexture);
             _textures.Add("xhair_bazooka", xHairBazookaTexture);
             _textures.Add("splash", splashTexture);
+            _textures.Add("popup_foreground", popupforeground);
             _textures.Add("button_play", buttonPlayTexture);
             _textures.Add("button_about", buttonAboutTexture);
             _textures.Add("button_playagain", buttonPlayAgainTexture);
             _textures.Add("button_mainmenu", buttonMainMenuTexture);
+            _textures.Add("button_tick", buttonTick);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f));

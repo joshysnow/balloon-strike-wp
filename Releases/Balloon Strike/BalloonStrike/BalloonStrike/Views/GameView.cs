@@ -72,8 +72,7 @@ namespace BalloonStrike.Views
 
                     _powerupManager.UpdatePlayerInput(gestureArray, currentWeapon, out remainingGestures);
                     _weaponManager.UpdateInput(remainingGestures);
-                    _balloonManager.TestInput(controls.TouchState, currentWeapon);
-                    //_balloonManager.UpdatePlayerInput(remainingGestures, currentWeapon, out remainingGestures);
+                    _balloonManager.UpdatePlayerInput(remainingGestures, currentWeapon, out remainingGestures);
                 }
             }
         }

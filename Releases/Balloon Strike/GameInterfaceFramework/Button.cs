@@ -10,6 +10,26 @@ namespace GameInterfaceFramework
     {
         public event ButtonTappedHandler Tapped;
 
+        public Vector2 Origin
+        {
+            get { return _origin; }
+            set
+            {
+                _origin = value;
+
+                _lowerRight.X = (_origin.X + _texture.Width);
+                _lowerRight.Y = (_origin.Y + _texture.Height);
+            }
+        }
+
+        public Vector2 Size
+        {
+            get
+            {
+                return new Vector2(_lowerRight.X - Origin.X, _lowerRight.Y - Origin.Y);
+            }
+        }
+
         private Texture2D _texture;
         private Vector2 _origin;
         private Vector2 _lowerRight;
@@ -17,8 +37,7 @@ namespace GameInterfaceFramework
         public Button(Texture2D texture, Vector2 origin)
         {
             _texture = texture;
-            _origin = origin;
-            _lowerRight = new Vector2((origin.X + texture.Width), (origin.Y + texture.Height));
+            Origin = origin;
         }
 
         public bool HandleTap(Vector2 position)
