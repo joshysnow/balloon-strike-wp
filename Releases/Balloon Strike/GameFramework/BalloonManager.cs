@@ -35,21 +35,44 @@ namespace GameFramework
 
         public BalloonManager(GraphicsDevice graphics, TriggerManager triggers) : base(graphics, triggers) { }
 
-        public override void Reset()
+        public void TestInput(TouchCollection touches, Weapon currentWeapon)
         {
-            //_managerState = BalloonManagerState.Normal;
+            Physics.Shapes.Circle circle = new Physics.Shapes.Circle() { Radius = currentWeapon.Crosshair.Radius };
 
-            //_greenTimer = new VariableTimer(1500, 0.95f, 500);
-            //Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(25));
-            //_blueTimer = new VariableTimer(5000, 0.95f, 750);
-            //_redTimer = new VariableTimer(5000, 0.95f, 750);
+            int index = 0;
+            TouchLocation location;
 
-            //Balloon newBalloon;
-            //while (_balloonMemory.Count < 30)
-            //{
-            //    newBalloon = new Balloon();
-            //    _balloonMemory.AddFirst(newBalloon);
-            //}
+            while (index < touches.Count)
+            {
+                location = touches[index++];
+
+                if (location.State == TouchLocationState.Released)
+                {
+                    circle.Center = location.Position;
+
+                    TestCircleCollision(circle, currentWeapon);
+                }
+            }
+        }
+
+        private void TestCircleCollision(Physics.Shapes.Circle circle, Weapon currentWeapon)
+        {
+            Balloon balloon;
+
+            for (int i = Characters.Count -1; i >= 0; i--)
+            {
+                balloon = (Balloon)Characters[i];
+
+                if ((balloon.State == BalloonState.Alive) && balloon.Intersects(circle))
+                {
+                    balloon.Attack(currentWeapon.Damage);
+
+                    if (currentWeapon.Type == WeaponType.Finger)
+                    {
+                        break;
+                    }
+                }
+            }
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)

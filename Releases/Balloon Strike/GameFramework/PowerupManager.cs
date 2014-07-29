@@ -25,13 +25,6 @@ namespace GameFramework
 
         public PowerupManager(GraphicsDevice graphics, TriggerManager triggers) : base(graphics, triggers) { }
 
-        public override void Reset()
-        {
-            //_freezeTimer = new SimpleTimer(60000);
-            //_shellTimer = new SimpleTimer(20000);
-            //_missileTimer = new SimpleTimer(40000);
-        }
-
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
         {
             int index;

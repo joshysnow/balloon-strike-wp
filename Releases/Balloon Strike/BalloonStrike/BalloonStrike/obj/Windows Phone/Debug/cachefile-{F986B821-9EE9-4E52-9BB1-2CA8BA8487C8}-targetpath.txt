@@ -37,3 +37,5 @@ Content\Fonts\credit_name.xnb
 Content\Fonts\small.xnb
 Content\Audio\Sounds\snowball_impact.xnb
 Content\Audio\Sounds\snowball_car_impact1.xnb
+Content\Fonts\popup_text.xnb
+Content\Textures\white.xnb

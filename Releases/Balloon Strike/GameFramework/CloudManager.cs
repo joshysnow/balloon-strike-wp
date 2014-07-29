@@ -15,11 +15,6 @@ namespace GameFramework
             remainingGestures = gestures;
         }
 
-        public override void Reset()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override void Initialize()
         {
             throw new NotImplementedException();

@@ -37,15 +37,20 @@ namespace GameInterfaceFramework
             set;
         }
 
+        public float TransitionAlpha
+        {
+            get { return 1f - _transitionPosition; }
+        }
+
+        public float TransitionPosition
+        {
+            get { return _transitionPosition; }
+        }
+
         public bool Invoked
         {
             get;
             set;
-        }
-
-        public float TransitionAlpha
-        {
-            get { return 1f - _transitionPosition; }
         }
 
         private float _transitionPosition;

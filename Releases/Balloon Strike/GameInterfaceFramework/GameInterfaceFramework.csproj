@@ -58,6 +58,7 @@
     <Compile Include="CreditsPlayer.cs" />
     <Compile Include="LoadView.cs" />
     <Compile Include="MenuView.cs" />
+    <Compile Include="Popup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transition.cs" />
     <Compile Include="View.cs" />

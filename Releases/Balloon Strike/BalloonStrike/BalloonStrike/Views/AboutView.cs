@@ -10,7 +10,7 @@ namespace BalloonStrike.Views
 {
     public class AboutView : View
     {
-        private static string[] CREDITS = new string[14] 
+        private string[] CREDITS = new string[14] 
         { 
             "Project Lead", "Joshua Hirst", 
             "Producer", "Govinda Singh",
@@ -21,7 +21,7 @@ namespace BalloonStrike.Views
             "Sound", "William Voce"
         };
 
-        private static string[] SMALL_PRINT = new string[3]
+        private string[] SMALL_PRINT = new string[3]
         {
             "Balloon Strike Version ",
             "Twitter: @foxcodestudios",

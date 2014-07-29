@@ -133,6 +133,7 @@ namespace GameFramework
             _fonts.Add("credit_title", _content.Load<SpriteFont>("Fonts/credit_title"));
             _fonts.Add("credit_name", _content.Load<SpriteFont>("Fonts/credit_name"));
             _fonts.Add("small", _content.Load<SpriteFont>("Fonts/small"));
+            _fonts.Add("popup_text", _content.Load<SpriteFont>("Fonts/popup_text"));
 
             // Load score fonts.
             for (int i = 0; i < 10; i++)
@@ -147,6 +148,7 @@ namespace GameFramework
             //Song test = _content.Load<Song>("Audio/Music/test_everythingisawesome");
             //_music.Add("test", test);
 
+            Texture2D blankTexture = _content.Load<Texture2D>("Textures/white");
             Texture2D redTexture = _content.Load<Texture2D>("Textures/Balloons/red200");
             Texture2D blueTexture = _content.Load<Texture2D>("Textures/Balloons/blue200");
             Texture2D greenTexture = _content.Load<Texture2D>("Textures/Balloons/green200");
@@ -164,6 +166,7 @@ namespace GameFramework
             Texture2D buttonPlayAgainTexture = _content.Load<Texture2D>("Textures/Buttons/test_playagain");
             Texture2D buttonMainMenuTexture = _content.Load<Texture2D>("Textures/Buttons/test_mainmenu");
 
+            _textures.Add("blank", blankTexture);
             _textures.Add("red", redTexture);
             _textures.Add("blue", blueTexture);
             _textures.Add("green", greenTexture);

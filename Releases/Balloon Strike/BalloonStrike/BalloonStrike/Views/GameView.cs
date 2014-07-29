@@ -28,7 +28,7 @@ namespace BalloonStrike.Views
             Transition.TransitionOn = TimeSpan.FromSeconds(0.5);
             Transition.TransitionOff = TimeSpan.FromSeconds(0.5);
 
-            EnabledGestures = GestureType.Tap;
+            EnabledGestures = GestureType.Tap | GestureType.Pinch;
         }
 
         public override void Activate(bool instancePreserved)
@@ -72,23 +72,27 @@ namespace BalloonStrike.Views
 
                     _powerupManager.UpdatePlayerInput(gestureArray, currentWeapon, out remainingGestures);
                     _weaponManager.UpdateInput(remainingGestures);
-                    _balloonManager.UpdatePlayerInput(remainingGestures, currentWeapon, out remainingGestures);
+                    _balloonManager.TestInput(controls.TouchState, currentWeapon);
+                    //_balloonManager.UpdatePlayerInput(remainingGestures, currentWeapon, out remainingGestures);
                 }
             }
         }
 
         public override void Update(GameTime gameTime, bool covered)
         {
-            switch (_gameState)
+            if (!covered)
             {
-                case GameState.Playing:
-                    UpdatePlayingState(gameTime);
-                    break;
-                case GameState.GameOver:
-                    UpdateGameOverState(gameTime);
-                    break;
-                default:
-                    break;
+                switch (_gameState)
+                {
+                    case GameState.Playing:
+                        UpdatePlayingState(gameTime);
+                        break;
+                    case GameState.GameOver:
+                        UpdateGameOverState(gameTime);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             base.Update(gameTime, covered);

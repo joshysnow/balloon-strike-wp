@@ -161,7 +161,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\test_play.xnb</Output>
-      <Time>2014-07-11T18:21:33.4122616+01:00</Time>
+      <Time>2014-07-28T19:30:51.032134+01:00</Time>
     </Item>
     <Item>
       <Source>Textures\Backgrounds\fox_480_800.jpg</Source>
@@ -351,6 +351,24 @@
       <Options>None</Options>
       <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_car_impact1.xnb</Output>
       <Time>2014-06-11T14:50:06.0677158+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\popup_text.spritefont</Source>
+      <Name>Fonts\popup_text</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\popup_text.xnb</Output>
+      <Time>2014-07-29T11:27:40.6790606+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\white.png</Source>
+      <Name>Textures\white</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\white.xnb</Output>
+      <Time>2014-07-29T11:24:17.4097867+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

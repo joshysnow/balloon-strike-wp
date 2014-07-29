@@ -121,8 +121,6 @@ namespace GameFramework
 
         public abstract void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures);
 
-        public abstract void Reset();
-
         protected abstract void Initialize();
 
         protected abstract void UpdateCharacters(GameTime gameTime);
