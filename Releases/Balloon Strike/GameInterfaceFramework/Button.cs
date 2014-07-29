@@ -30,6 +30,12 @@ namespace GameInterfaceFramework
             }
         }
 
+        public float Scalar
+        {
+            get;
+            set;
+        }
+
         public bool Selected
         {
             get;
@@ -45,6 +51,7 @@ namespace GameInterfaceFramework
         {
             _unselectedTexture = unselected;
             _selectedTexture = selected;
+            Scalar = 1f;
             Selected = false;
         }
 
@@ -66,7 +73,7 @@ namespace GameInterfaceFramework
         public void Draw(View parentView)
         {
             SpriteBatch spriteBatch = parentView.ViewManager.SpriteBatch;
-            spriteBatch.Draw((Selected ? _selectedTexture : _unselectedTexture), _origin, (Color.White * parentView.TransitionAlpha));
+            spriteBatch.Draw((Selected ? _selectedTexture : _unselectedTexture), _origin, null, (Color.White * parentView.TransitionAlpha), 0f, Vector2.Zero, Scalar, SpriteEffects.None, 0f);
         }
 
         private void RaiseButtonTapped()

@@ -49,7 +49,7 @@ namespace BalloonStrike.Views
                 int width = graphics.Viewport.Width;
                 int height = graphics.Viewport.Height;
 
-                ResourceManager resources = ResourceManager.Manager;
+                ResourceManager resources = ResourceManager.Resources;
                 _smallPrintFont = resources.GetFont("small");
                 SpriteFont titleFont = resources.GetFont("credit_title");
                 SpriteFont nameFont = resources.GetFont("credit_name");

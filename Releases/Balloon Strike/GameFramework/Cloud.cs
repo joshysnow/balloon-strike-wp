@@ -6,16 +6,14 @@ namespace GameFramework
 {
     public enum CloudState : byte
     {
-        TransitionOn    = 0x01,
-        OnScreen        = 0x02,
-        TransitionOff   = 0x04
+        OnScreen    = 0x01,
+        OffScreen   = 0x02
     }
 
     public enum CloudType : byte
     {
         Small   = 0x01,
-        Medium  = 0x02,
-        Large   = 0x04
+        Medium  = 0x02
     }
 
     public class Cloud : Character
@@ -28,71 +26,60 @@ namespace GameFramework
 
         public CloudType Type
         {
-            get;
-            private set;
+            get { return _model.Type; }
         }
 
-        private short _screenWidth;
+        public Vector2 OriginalPosition
+        {
+            get;
+            set;
+        }
+
+        private CloudModel _model;
+        private int _screenWidth;
 
         public Cloud() : base()
         {
-            State = CloudState.TransitionOff;
+            State = CloudState.OffScreen;
         }
 
-        public void Initialize(CloudType type, Animation move, Vector2 positionUL, Vector2 velocity, short screenWidth)
+        public void Initialize(CloudModel model, Vector2 positionUL, int screenWidth)
         {
-            Type = type;
-            _moveAnimation = move;
+            _model = model;
             _positionUL = positionUL;
-            _velocity = velocity;
+            _velocity = model.Velocity;
             _screenWidth = screenWidth;
 
+            Animation move = model.MoveAnimation;
             int width = (int)(move.FrameWidth * move.Scale);
             int height = (int)(move.FrameHeight * move.Scale);
             _positionLR = new Vector2(positionUL.X + width, positionUL.Y + height);
+            _rectangle = new Physics.Shapes.Rectangle(_positionUL, _positionLR);
 
-            State = CloudState.TransitionOn;
+            State = CloudState.OnScreen;
 
             _animationPlayer.SetAnimation(move, positionUL);       
         }
 
         public override void Update(GameTime gameTime)
         {
-            switch (State)
+            if (State == CloudState.OnScreen)
             {
-                case CloudState.TransitionOn:
-                    UpdateTransitionOn();
-                    break;
-                case CloudState.OnScreen:
-                    UpdateOnScreen();
-                    break;
-                case CloudState.TransitionOff:
-                default:
-                    break;
+                UpdateOnScreen();
             }
 
-            _animationPlayer.UpdateAnimationPosition(_positionUL);
             base.Update(gameTime);
-        }
-
-        private void UpdateTransitionOn()
-        {
-            if (_positionLR.X <= _screenWidth)
-            {
-                State = CloudState.OnScreen;
-            }
-
-            UpdatePosition();
         }
 
         private void UpdateOnScreen()
         {
             if (_positionLR.X <= 0)
             {
-                State = CloudState.TransitionOff;
+                State = CloudState.OffScreen;
             }
 
             UpdatePosition();
+            _animationPlayer.UpdateAnimationPosition(_positionUL);
         }
     }
 }

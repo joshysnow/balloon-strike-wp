@@ -442,6 +442,24 @@
       <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_menu_pressed.xnb</Output>
       <Time>2014-07-29T17:44:12.9761992+01:00</Time>
     </Item>
+    <Item>
+      <Source>Textures\Clouds\cloud_medium.png</Source>
+      <Name>Textures\Clouds\cloud_medium</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Clouds\cloud_medium.xnb</Output>
+      <Time>2014-07-29T20:30:52.9589667+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Clouds\cloud_small.png</Source>
+      <Name>Textures\Clouds\cloud_small</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Clouds\cloud_small.xnb</Output>
+      <Time>2014-07-29T20:30:53.0214206+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}</ContentProjectGUID>

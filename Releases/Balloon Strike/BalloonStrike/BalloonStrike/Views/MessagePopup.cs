@@ -24,7 +24,7 @@ namespace BalloonStrike.Views
 
             if (!instancePreserved)
             {
-                ResourceManager resources = ResourceManager.Manager;
+                ResourceManager resources = ResourceManager.Resources;
                 Texture2D okUnselected = resources.GetTexture("button_unselected_tick");
                 Texture2D okSelected = resources.GetTexture("button_selected_tick");
                 Button okButton = new Button(okUnselected, okSelected);

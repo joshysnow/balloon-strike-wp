@@ -119,7 +119,10 @@ namespace GameFramework
             _triggers.AddTrigger(newTrigger);
         }
 
-        public abstract void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures);
+        public virtual void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
+        {
+            remainingGestures = gestures;
+        }
 
         protected abstract void Initialize();
 

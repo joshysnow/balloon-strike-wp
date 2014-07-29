@@ -42,7 +42,7 @@ namespace GameInterfaceFramework
         {
             if (!instancePreserved)
             {
-                ResourceManager resources = ResourceManager.Manager;
+                ResourceManager resources = ResourceManager.Resources;
                 Font = resources.GetFont("popup_text");
                 _foreground = resources.GetTexture("popup_foreground");
                 _background = resources.GetTexture("blank");

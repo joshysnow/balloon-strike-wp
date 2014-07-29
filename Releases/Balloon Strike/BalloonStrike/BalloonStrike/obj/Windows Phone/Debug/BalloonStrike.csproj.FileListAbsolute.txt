@@ -63,3 +63,11 @@ D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStr
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_tick_pressed.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_menu.xnb
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_menu_pressed.xnb
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Clouds\cloud_medium.xnb
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Clouds\cloud_small.xnb
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\BalloonStrike.xap
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\obj\Windows Phone\Debug\XapCacheFile.xml
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\AppManifest.xaml
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\obj\Windows Phone\Debug\WMAppManifest.xml.g
+D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\obj\Windows Phone\Debug\WMAppManifest.xml
+bin\Windows Phone\Debug\

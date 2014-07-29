@@ -121,7 +121,7 @@ namespace GameFramework
             _shellVelocity = new Vector2(0, 6f);
             _missileVelocity = new Vector2(0, 7f);
 
-            ResourceManager manager = ResourceManager.Manager;
+            ResourceManager manager = ResourceManager.Resources;
 
             _freezeMoveAnimation = manager.GetAnimation("freezemove");
             _shellMoveAnimation = manager.GetAnimation("shellmove");

@@ -47,3 +47,5 @@ Content\Textures\Buttons\hex_play_pressed.xnb
 Content\Textures\Buttons\hex_tick_pressed.xnb
 Content\Textures\Buttons\hex_menu.xnb
 Content\Textures\Buttons\hex_menu_pressed.xnb
+Content\Textures\Clouds\cloud_medium.xnb
+Content\Textures\Clouds\cloud_small.xnb

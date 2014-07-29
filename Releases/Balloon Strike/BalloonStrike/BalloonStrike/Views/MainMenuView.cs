@@ -24,24 +24,31 @@ namespace BalloonStrike.Views
             {
                 // Create all buttons.
                 GraphicsDevice graphics = ViewManager.GraphicsDevice;
-                ResourceManager resources = ResourceManager.Manager;
+                ResourceManager resources = ResourceManager.Resources;
 
                 Texture2D playUnselected = resources.GetTexture("button_unselected_play");
+                Texture2D achieveUnselected = resources.GetTexture("button_unselected_achievements");
                 Texture2D infoUnselected = resources.GetTexture("button_unselected_info");
                 Texture2D playSelected = resources.GetTexture("button_selected_play");
+                Texture2D achieveSelected = resources.GetTexture("button_selected_achievements");
                 Texture2D infoSelected = resources.GetTexture("button_selected_info");
 
+                const int BUTTON_SPACING = 10;
                 int x = (graphics.Viewport.Width - playUnselected.Width) / 2;
-                int y = graphics.Viewport.Bounds.Center.Y;
+                int y = graphics.Viewport.Height - ((playUnselected.Height * 3) + (BUTTON_SPACING * 3));
 
                 Button play = new Button(playUnselected, playSelected) { Origin = new Vector2(x, y) };
-                play.Tapped += PlayButtonTapped;
+                play.Tapped += PlayTappedHandler;
                 _menuButtons.Add(play);
+                y += BUTTON_SPACING + playUnselected.Height;
 
-                y += (int)(playUnselected.Height * 1.5f);
+                Button achievements = new Button(achieveUnselected, achieveSelected) { Origin = new Vector2(x, y) };
+                achievements.Tapped += AchievementsTappedHandler;
+                _menuButtons.Add(achievements);
+                y += BUTTON_SPACING + playUnselected.Height;
 
                 Button infoButton = new Button(infoUnselected, infoSelected) { Origin = new Vector2(x, y) };
-                infoButton.Tapped += AboutButtonTapped;
+                infoButton.Tapped += InfoTappedHandler;
                 _menuButtons.Add(infoButton);
 
                 // Show the version in the corner of the screen.
@@ -65,12 +72,17 @@ namespace BalloonStrike.Views
             base.Draw(gameTime);
         }
 
-        private void PlayButtonTapped(Button button)
+        private void PlayTappedHandler(Button button)
         {
             LoadView.Load(ViewManager, 1, new GameView());
         }
 
-        private void AboutButtonTapped(Button button)
+        private void AchievementsTappedHandler(Button button)
+        {
+            LoadView.Load(ViewManager, 1, new AchievementsView());
+        }
+
+        private void InfoTappedHandler(Button button)
         {
             LoadView.Load(ViewManager, 1, new InfoView());
         }

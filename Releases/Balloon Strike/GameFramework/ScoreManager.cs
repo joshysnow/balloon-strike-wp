@@ -25,7 +25,7 @@ namespace GameFramework
         {
             LoadFonts();
 
-            _transitionTime = TimeSpan.FromSeconds(0.5f);
+            _transitionTime = TimeSpan.FromSeconds(0.33f);
             _position = 0;
             _direction = 1;
             _score = 0;
@@ -80,14 +80,14 @@ namespace GameFramework
             Vector2 scoreLength = font.MeasureString(_score.ToString());
             Vector2 position = new Vector2(480 - scoreLength.X - 10, 0); // Screen width - horizontal length of text - spacing from the side, top margin.
 
-            spriteBatch.DrawString(font, _score.ToString(), position, Color.Goldenrod);
+            spriteBatch.DrawString(font, _score.ToString(), position, Color.Yellow);
         }
 
         private void LoadFonts()
         {
             _fonts = new SpriteFont[10];
 
-            ResourceManager manager = ResourceManager.Manager;
+            ResourceManager manager = ResourceManager.Resources;
 
             for (int i = 0; i < _fonts.Length; i++)
             {

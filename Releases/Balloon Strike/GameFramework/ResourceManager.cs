@@ -9,7 +9,7 @@ namespace GameFramework
 {
     public class ResourceManager
     {
-        public static ResourceManager Manager
+        public static ResourceManager Resources
         {
             get 
             {
@@ -150,10 +150,10 @@ namespace GameFramework
 
             Texture2D blankTexture = _content.Load<Texture2D>("Textures/white");
 
-            Texture2D redTexture = _content.Load<Texture2D>("Textures/Balloons/red200");
-            Texture2D blueTexture = _content.Load<Texture2D>("Textures/Balloons/blue200");
-            Texture2D greenTexture = _content.Load<Texture2D>("Textures/Balloons/green200");
-            Texture2D blackTexture = _content.Load<Texture2D>("Textures/Balloons/black200");
+            Texture2D redBalloon = _content.Load<Texture2D>("Textures/Balloons/red200");
+            Texture2D blueBalloon = _content.Load<Texture2D>("Textures/Balloons/blue200");
+            Texture2D greenBalloon = _content.Load<Texture2D>("Textures/Balloons/green200");
+            Texture2D blackBalloon = _content.Load<Texture2D>("Textures/Balloons/black200");
 
             Texture2D popTexture = _content.Load<Texture2D>("Textures/Effects/explosion");
             Texture2D freezeTexture = _content.Load<Texture2D>("Textures/Powerups/snowflake_med");
@@ -167,13 +167,15 @@ namespace GameFramework
             Texture2D splashTexture = _content.Load<Texture2D>("Textures/Backgrounds/fox_480_800");
             Texture2D popupforeground = _content.Load<Texture2D>("Textures/Backgrounds/popup440");
 
+            Texture2D cloudSmall = _content.Load<Texture2D>("Textures/Clouds/cloud_small");
+            Texture2D cloudMedium = _content.Load<Texture2D>("Textures/Clouds/cloud_medium");
+
             Texture2D buttonPlayUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_play");
             Texture2D buttonAchieveUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_achievements");
             Texture2D buttonInfoUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_info");
             Texture2D buttonMenuUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_menu");
             Texture2D buttonTickUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_tick");
             Texture2D buttonCancelUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_cancel");
-
             Texture2D buttonPlaySelected = _content.Load<Texture2D>("Textures/Buttons/hex_play_pressed");
             Texture2D buttonAchieveSelected = _content.Load<Texture2D>("Textures/Buttons/hex_achievements_pressed");
             Texture2D buttonInfoSelected = _content.Load<Texture2D>("Textures/Buttons/hex_info_pressed");
@@ -182,9 +184,9 @@ namespace GameFramework
             Texture2D buttonCancelSelected = _content.Load<Texture2D>("Textures/Buttons/hex_cancel_pressed");
 
             _textures.Add("blank", blankTexture);
-            _textures.Add("red", redTexture);
-            _textures.Add("blue", blueTexture);
-            _textures.Add("green", greenTexture);
+            _textures.Add("red", redBalloon);
+            _textures.Add("blue", blueBalloon);
+            _textures.Add("green", greenBalloon);
             _textures.Add("pop", popTexture);
             _textures.Add("freeze", freezeTexture);
             _textures.Add("shell", shellTexture);
@@ -208,13 +210,15 @@ namespace GameFramework
             _textures.Add("button_selected_cancel", buttonTickSelected);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
-            _animations.Add("redmove", new Animation(redTexture, true, redTexture.Width, redTexture.Height, 0, 0.5f));
-            _animations.Add("greenmove", new Animation(greenTexture, true, greenTexture.Width, greenTexture.Height, 0, 0.5f));
-            _animations.Add("bluemove", new Animation(blueTexture, true, blueTexture.Width, blueTexture.Height, 0, 0.5f));
-            _animations.Add("blackmove", new Animation(blackTexture, true, blackTexture.Width, blackTexture.Height, 0, 0.5f));
+            _animations.Add("redmove", new Animation(redBalloon, true, redBalloon.Width, redBalloon.Height, 0, 0.5f));
+            _animations.Add("greenmove", new Animation(greenBalloon, true, greenBalloon.Width, greenBalloon.Height, 0, 0.5f));
+            _animations.Add("bluemove", new Animation(blueBalloon, true, blueBalloon.Width, blueBalloon.Height, 0, 0.5f));
+            _animations.Add("blackmove", new Animation(blackBalloon, true, blackBalloon.Width, blackBalloon.Height, 0, 0.5f));
             _animations.Add("freezemove", new Animation(freezeTexture, true, freezeTexture.Width, freezeTexture.Height, 0, 0.25f));
             _animations.Add("shellmove", new Animation(shellTexture, true, shellTexture.Width, shellTexture.Height, 0, 0.5f));
             _animations.Add("missilemove", new Animation(missileTexture, true, missileTexture.Width, missileTexture.Height, 0, 0.5f));
+            _animations.Add("cloud_small_move", new Animation(cloudSmall, true, cloudSmall.Width, cloudSmall.Height, 0, 1f));
+            _animations.Add("cloud_medium_move", new Animation(cloudMedium, true, cloudMedium.Width, cloudMedium.Height, 0, 1f));
         }
     }
 }

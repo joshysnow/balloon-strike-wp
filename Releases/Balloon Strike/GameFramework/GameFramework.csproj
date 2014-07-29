@@ -57,6 +57,7 @@
     <Compile Include="BalloonManager.cs" />
     <Compile Include="Cloud.cs" />
     <Compile Include="CloudManager.cs" />
+    <Compile Include="CloudModel.cs" />
     <Compile Include="Physics\Collisions.cs" />
     <Compile Include="Crosshair.cs" />
     <Compile Include="ICharacter.cs" />

@@ -186,7 +186,7 @@ namespace GameFramework
             _greenVelocity = new Vector2(0, -5.1f);
             _blueVelocity = new Vector2(0, -7.15f);
 
-            ResourceManager manager = ResourceManager.Manager;
+            ResourceManager manager = ResourceManager.Resources;
 
             _greenMoveAnimation = manager.GetAnimation("greenmove");
             _redMoveAnimation = manager.GetAnimation("redmove");

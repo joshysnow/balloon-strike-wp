@@ -33,13 +33,13 @@ namespace BalloonStrike.Views
                 int width = graphics.Viewport.Width;
                 int height = graphics.Viewport.Height;
 
-                ResourceManager resources = ResourceManager.Manager;
+                ResourceManager resources = ResourceManager.Resources;
                 _score = 0;
                 _scoreFont = resources.GetFont("score");
 
                 // TODO: Calculate the central position for the final score using the score manager. This is so the score
                 // won't move from right to left as the digits increase from tens, to hundreds etc.
-                _titleFont = ResourceManager.Manager.GetFont("your_score");
+                _titleFont = ResourceManager.Resources.GetFont("your_score");
                 Vector2 titleSize = _titleFont.MeasureString(YOUR_SCORE);
                 _titlePosition = new Vector2((width - titleSize.X) / 2, (height / 2) - titleSize.Y);
 
@@ -98,8 +98,8 @@ namespace BalloonStrike.Views
             SpriteBatch spriteBatch = ViewManager.SpriteBatch;
             spriteBatch.Begin();
             
-            spriteBatch.DrawString(_titleFont, YOUR_SCORE, _titlePosition, Color.White * TransitionAlpha);
-            spriteBatch.DrawString(_scoreFont, ((int)_score).ToString(), _scorePosition, Color.White * TransitionAlpha);
+            spriteBatch.DrawString(_titleFont, YOUR_SCORE, _titlePosition, Color.Black * TransitionAlpha);
+            spriteBatch.DrawString(_scoreFont, ((int)_score).ToString(), _scorePosition, Color.Black * TransitionAlpha);
 
             spriteBatch.End();
 

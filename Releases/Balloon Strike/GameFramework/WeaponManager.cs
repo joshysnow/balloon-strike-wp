@@ -79,7 +79,7 @@ namespace GameFramework
                 reticle.Draw(spriteBatch);
             }
 
-            SpriteFont debugFont = ResourceManager.Manager.GetFont("debug");
+            SpriteFont debugFont = ResourceManager.Resources.GetFont("debug");
             Vector2 position = new Vector2(0, (800 - debugFont.LineSpacing));
             Weapon current = CurrentWeapon;
             string text = "Total: " + _currentWeapons.Count + " Current: " + current.Type + " Ammo: " + current.Ammo;
