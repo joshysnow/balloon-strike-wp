@@ -18,8 +18,8 @@ namespace BalloonStrike.Views
 
         public BackgroundView()
         {
-            Transition.TransitionOn = TimeSpan.FromSeconds(0.5);
-            Transition.TransitionOff = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
         }
 
         public override void Activate(bool instancePreserved)

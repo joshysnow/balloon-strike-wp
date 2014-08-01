@@ -31,8 +31,8 @@ namespace GameInterfaceFramework
 
         public Popup()
         {
-            Transition.TransitionOn = TimeSpan.FromSeconds(1);
-            Transition.TransitionOff = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
+            Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
             IsPopup = true;
 
             EnabledGestures = GestureType.Tap;

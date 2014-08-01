@@ -18,9 +18,9 @@ namespace GameInterfaceFramework
             _credits = new List<Credit>();
             _transition = new Transition()
             {
-                TransitionOn = TimeSpan.FromSeconds(1.5),
-                TransitionOff = TimeSpan.FromSeconds(1.5),
-                Active = TimeSpan.FromSeconds(1)
+                TransitionOnTime = TimeSpan.FromSeconds(1.5),
+                TransitionOffTime = TimeSpan.FromSeconds(1.5),
+                ActiveTime = TimeSpan.FromSeconds(1)
             };
             _index = 0;
             _stopping = false;
@@ -47,7 +47,7 @@ namespace GameInterfaceFramework
 
         public void End(TimeSpan transitionOffTime)
         {
-            _transition.TransitionOff = transitionOffTime;
+            _transition.TransitionOffTime = transitionOffTime;
             _transition.State = TransitionState.TransitionOff;
             _stopping = true;
         }

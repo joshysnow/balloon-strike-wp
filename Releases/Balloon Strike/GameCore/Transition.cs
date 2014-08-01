@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace GameInterfaceFramework
+namespace GameCore
 {
     public enum TransitionState : byte
     {
@@ -19,19 +19,19 @@ namespace GameInterfaceFramework
             set;
         }
 
-        public TimeSpan TransitionOn
+        public TimeSpan TransitionOnTime
         {
             get;
             set;
         }
 
-        public TimeSpan TransitionOff
+        public TimeSpan TransitionOffTime
         {
             get;
             set;
         }
 
-        public TimeSpan Active
+        public TimeSpan ActiveTime
         {
             get;
             set;
@@ -47,6 +47,9 @@ namespace GameInterfaceFramework
             get { return _transitionPosition; }
         }
 
+        /// <summary>
+        /// Will wait to perform active transition if true.
+        /// </summary>
         public bool Invoked
         {
             get;
@@ -61,9 +64,9 @@ namespace GameInterfaceFramework
             State = TransitionState.TransitionOn;
             _transitionPosition = 1;
             _activePosition = 0;
-            TransitionOn = TimeSpan.Zero;
-            TransitionOff = TimeSpan.Zero;
-            Active = TimeSpan.Zero;
+            TransitionOnTime = TimeSpan.Zero;
+            TransitionOffTime = TimeSpan.Zero;
+            ActiveTime = TimeSpan.Zero;
             Invoked = false;
         }
 
@@ -71,7 +74,7 @@ namespace GameInterfaceFramework
         {
             if (State == TransitionState.TransitionOn)
             {
-                if (UpdateTransition(gameTime, TransitionOn, -1) == false)
+                if (UpdateTransition(gameTime, TransitionOnTime, -1) == false)
                 {
                     State = TransitionState.Active;
                 }
@@ -87,7 +90,7 @@ namespace GameInterfaceFramework
 
             if (State == TransitionState.TransitionOff)
             {
-                if (UpdateTransition(gameTime, TransitionOff, 1) == false)
+                if (UpdateTransition(gameTime, TransitionOffTime, 1) == false)
                 {
                     State = TransitionState.Hidden;
                 }
@@ -111,7 +114,7 @@ namespace GameInterfaceFramework
 
         private bool UpdateActiveTransition(GameTime gameTime)
         {
-            float delta = GetDelta(Active, gameTime);
+            float delta = GetDelta(ActiveTime, gameTime);
 
             _activePosition += delta;
 

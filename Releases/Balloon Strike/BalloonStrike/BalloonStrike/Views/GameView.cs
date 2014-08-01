@@ -26,8 +26,8 @@ namespace BalloonStrike.Views
 
         public GameView()
         {
-            Transition.TransitionOn = TimeSpan.FromSeconds(0.5);
-            Transition.TransitionOff = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
             EnabledGestures = GestureType.Tap | GestureType.Pinch;
         }

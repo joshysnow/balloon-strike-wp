@@ -34,8 +34,8 @@ namespace BalloonStrike.Views
 
         public InfoView()
         {
-            Transition.TransitionOn = TimeSpan.FromSeconds(0.5);
-            Transition.TransitionOff = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
             EnabledGestures = GestureType.Tap;
         }
@@ -123,7 +123,7 @@ namespace BalloonStrike.Views
         {
             if (controls.BackButtonPressed())
             {
-                _creditsPlayer.End(Transition.TransitionOff);
+                _creditsPlayer.End(Transition.TransitionOffTime);
                 LoadView.Load(ViewManager, 1, new MainMenuView());
             }
         }

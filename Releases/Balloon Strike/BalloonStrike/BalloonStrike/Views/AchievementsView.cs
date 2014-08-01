@@ -12,8 +12,8 @@ namespace BalloonStrike.Views
 
         public AchievementsView()
         {
-            Transition.TransitionOn = TimeSpan.FromSeconds(1);
-            Transition.TransitionOff = TimeSpan.FromSeconds(1);
+            Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
+            Transition.TransitionOffTime = TimeSpan.FromSeconds(1);
         }
 
         public override void Activate(bool instancePreserved)
