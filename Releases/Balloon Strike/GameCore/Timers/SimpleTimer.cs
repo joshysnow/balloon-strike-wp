@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace GameFramework
+namespace GameCore.Timers
 {
     public delegate void ElapsedHandler(SimpleTimer timer);
 

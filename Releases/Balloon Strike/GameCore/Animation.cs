@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameFramework
+namespace GameCore
 {
     public class Animation
     {

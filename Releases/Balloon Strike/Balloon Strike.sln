@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameInterfaceFramework", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "BalloonStrike\BalloonStrikeContent\Content.contentproj", "{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameCore", "GameCore\GameCore.csproj", "{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,18 @@ Global
 		{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}.Release|Mixed Platforms.ActiveCfg = Release|Windows Phone
 		{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
 		{F986B821-9EE9-4E52-9BB1-2CA8BA8487C8}.Release|x86.ActiveCfg = Release|Windows Phone
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Release|Windows Phone.ActiveCfg = Release|Any CPU
+		{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

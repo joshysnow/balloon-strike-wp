@@ -2,6 +2,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using GameCore;
+using GameCore.Timers;
 
 namespace GameFramework
 {
@@ -72,7 +74,7 @@ namespace GameFramework
             int width = (int)(moveAnimation.FrameWidth * moveAnimation.Scale);
             int height = (int)(moveAnimation.FrameHeight * moveAnimation.Scale);
             _positionLR = new Vector2(position.X + width, position.Y + height);
-            _rectangle = new Physics.Shapes.Rectangle(_positionUL, _positionLR);
+            _rectangle = new GameCore.Physics.Shapes.Rectangle(_positionUL, _positionLR);
 
             _state = BalloonState.Alive;
 

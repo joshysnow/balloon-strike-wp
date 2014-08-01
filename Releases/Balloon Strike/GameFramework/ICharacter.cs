@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
-using GameFramework.Physics;
+using GameCore;
+using GameCore.Timers;
+using GameCore.Physics;
+using GameCore.Triggers;
 
 namespace GameFramework
 {
@@ -12,7 +15,7 @@ namespace GameFramework
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
         bool Intersects(Vector2 position);
-        bool Intersects(Physics.Shapes.Circle circle);
+        bool Intersects(GameCore.Physics.Shapes.Circle circle);
     }
 
     public abstract class Character : ICharacter
@@ -22,7 +25,7 @@ namespace GameFramework
         protected Vector2 _positionUL;
         protected Vector2 _positionLR;
         protected Vector2 _velocity;
-        protected Physics.Shapes.Rectangle _rectangle;
+        protected GameCore.Physics.Shapes.Rectangle _rectangle;
 
         public Character()
         {
@@ -44,7 +47,7 @@ namespace GameFramework
             return Collisions.Intersects(_positionUL, _positionLR, position);
         }
 
-        public bool Intersects(Physics.Shapes.Circle circle)
+        public bool Intersects(GameCore.Physics.Shapes.Circle circle)
         {
             return Collisions.Circle_Rectangle(circle, _rectangle);
         }

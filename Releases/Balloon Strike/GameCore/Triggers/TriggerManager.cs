@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace GameFramework
+namespace GameCore.Triggers
 {
     public class TriggerManager
     {

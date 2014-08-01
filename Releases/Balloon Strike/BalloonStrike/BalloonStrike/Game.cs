@@ -1,13 +1,14 @@
 using System;
 using System.Windows;
+using Microsoft.Phone.Shell;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.GamerServices;
-using GameFramework;
+using GameCore;
 using GameInterfaceFramework;
-using Microsoft.Phone.Shell;
 using BalloonStrike.Views;
+
 
 namespace BalloonStrike
 {

@@ -1,8 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameCore;
 using GameInterfaceFramework;
-using GameFramework;
 
 namespace BalloonStrike.Views
 {

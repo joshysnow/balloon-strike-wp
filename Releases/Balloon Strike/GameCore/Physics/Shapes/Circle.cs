@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace GameFramework.Physics.Shapes
+namespace GameCore.Physics.Shapes
 {
     public class Circle
     {

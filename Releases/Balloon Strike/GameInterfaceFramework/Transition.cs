@@ -96,16 +96,7 @@ namespace GameInterfaceFramework
 
         private bool UpdateTransition(GameTime gameTime, TimeSpan time, int direction)
         {
-            float delta;
-
-            if (time == TimeSpan.Zero)
-            {
-                delta = 1;
-            }
-            else
-            {
-                delta = (float)(gameTime.ElapsedGameTime.TotalMilliseconds / time.TotalMilliseconds);
-            }
+            float delta = GetDelta(time, gameTime);
 
             _transitionPosition += delta * direction;
 
@@ -120,16 +111,7 @@ namespace GameInterfaceFramework
 
         private bool UpdateActiveTransition(GameTime gameTime)
         {
-            float delta;
-
-            if (Active == TimeSpan.Zero)
-            {
-                delta = 1;
-            }
-            else
-            {
-                delta = (float)(gameTime.ElapsedGameTime.TotalMilliseconds / Active.TotalMilliseconds);
-            }
+            float delta = GetDelta(Active, gameTime);
 
             _activePosition += delta;
 
@@ -140,6 +122,22 @@ namespace GameInterfaceFramework
             }
 
             return true;
+        }
+
+        private float GetDelta(TimeSpan time, GameTime gameTime)
+        {
+            float delta;
+
+            if (time == TimeSpan.Zero)
+            {
+                delta = 1;
+            }
+            else
+            {
+                delta = (float)(gameTime.ElapsedGameTime.TotalMilliseconds / time.TotalMilliseconds);
+            }
+
+            return delta;
         }
     }
 }

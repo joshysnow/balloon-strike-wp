@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GameFramework;
+using GameCore;
 using GameInterfaceFramework;
 
 namespace BalloonStrike.Views

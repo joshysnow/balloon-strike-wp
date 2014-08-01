@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
-namespace GameFramework
+namespace GameCore
 {
     public class ResourceManager
     {
         public static ResourceManager Resources
         {
-            get 
+            get
             {
                 return _manager;
             }
@@ -102,7 +102,7 @@ namespace GameFramework
                 throw new Exception("Resource Managed has not been initialized");
             }
 
-            if(!_animations.ContainsKey(key))
+            if (!_animations.ContainsKey(key))
             {
                 throw new KeyNotFoundException();
             }

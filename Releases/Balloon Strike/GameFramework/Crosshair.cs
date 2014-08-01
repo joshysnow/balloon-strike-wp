@@ -22,7 +22,7 @@ namespace GameFramework
             }
         }
 
-        public Physics.Shapes.Circle Circle
+        public GameCore.Physics.Shapes.Circle Circle
         {
             get;
             private set;
@@ -39,7 +39,7 @@ namespace GameFramework
             _crosshairTexture = crosshair;
             _delta = 1;
 
-            Circle = new Physics.Shapes.Circle()
+            Circle = new GameCore.Physics.Shapes.Circle()
             {
                 Radius = (crosshair.Width / 2)
             };

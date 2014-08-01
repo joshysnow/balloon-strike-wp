@@ -1,8 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
-using GameFramework.Physics.Shapes;
+using GameCore.Physics.Shapes;
 
-namespace GameFramework.Physics
+namespace GameCore.Physics
 {
     public class Collisions
     {
@@ -53,13 +53,13 @@ namespace GameFramework.Physics
                 0 <= Vector2.Dot(projection, segmentDistance);
         }
 
-        public static bool Circle_Rectangle(Circle circle, GameFramework.Physics.Shapes.Rectangle rectangle)
+        public static bool Circle_Rectangle(Circle circle, GameCore.Physics.Shapes.Rectangle rectangle)
         {
             Vector2 clamped = Vector2.Clamp(circle.Center, rectangle.TopLeft, rectangle.BottomRight);
             return Circle_Point(circle, clamped);
         }
 
-        public static bool Rectangle_Point(GameFramework.Physics.Shapes.Rectangle rectangle, Vector2 point)
+        public static bool Rectangle_Point(GameCore.Physics.Shapes.Rectangle rectangle, Vector2 point)
         {
             bool insideXBounds = (point.X >= rectangle.TopLeft.X) && (point.X <= rectangle.TopRight.X);
             bool insideYBounds = (point.Y >= rectangle.TopLeft.Y) && (point.Y <= rectangle.BottomLeft.Y);

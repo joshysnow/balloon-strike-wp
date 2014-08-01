@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameCore;
 
 namespace GameFramework
 {
@@ -54,7 +55,7 @@ namespace GameFramework
             int width = (int)(move.FrameWidth * move.Scale);
             int height = (int)(move.FrameHeight * move.Scale);
             _positionLR = new Vector2(positionUL.X + width, positionUL.Y + height);
-            _rectangle = new Physics.Shapes.Rectangle(_positionUL, _positionLR);
+            _rectangle = new GameCore.Physics.Shapes.Rectangle(_positionUL, _positionLR);
 
             State = CloudState.OnScreen;
 

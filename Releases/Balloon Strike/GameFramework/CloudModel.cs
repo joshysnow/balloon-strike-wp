@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using GameCore;
 
 namespace GameFramework
 {

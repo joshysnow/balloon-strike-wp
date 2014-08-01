@@ -79,9 +79,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameFramework\GameFramework.csproj">
-      <Project>{ffb1262b-2f0c-434d-a31e-efa73ea5815c}</Project>
-      <Name>GameFramework</Name>
+    <ProjectReference Include="..\GameCore\GameCore.csproj">
+      <Project>{6a96cc58-43de-4687-9fee-17f52f4b1f39}</Project>
+      <Name>GameCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

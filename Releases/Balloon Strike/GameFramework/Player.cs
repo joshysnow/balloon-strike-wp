@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GameFramework
+﻿namespace GameFramework
 {
     public class Player
     {

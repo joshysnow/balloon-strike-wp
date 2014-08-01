@@ -95,6 +95,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\GameCore\GameCore.csproj">
+      <Project>{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}</Project>
+      <Name>GameCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\GameFramework\GameFramework.csproj">
       <Project>{FFB1262B-2F0C-434D-A31E-EFA73EA5815C}</Project>
       <Name>GameFramework</Name>

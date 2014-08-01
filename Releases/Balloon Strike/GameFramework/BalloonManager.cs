@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input.Touch;
+using GameCore;
+using GameCore.Timers;
+using GameCore.Triggers;
 
 namespace GameFramework
 {
@@ -40,7 +43,7 @@ namespace GameFramework
             int index;
             Balloon balloon;
             float damage = currentWeapon.Damage;
-            Physics.Shapes.Circle circle = currentWeapon.Crosshair.Circle;
+            GameCore.Physics.Shapes.Circle circle = currentWeapon.Crosshair.Circle;
             WeaponType weaponType = currentWeapon.Type;
 
             List<GestureSample> temp = new List<GestureSample>(gestures);

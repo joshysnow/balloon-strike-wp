@@ -1,6 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameCore;
+using GameCore.Timers;
 using GameFramework;
 using GameInterfaceFramework;
 

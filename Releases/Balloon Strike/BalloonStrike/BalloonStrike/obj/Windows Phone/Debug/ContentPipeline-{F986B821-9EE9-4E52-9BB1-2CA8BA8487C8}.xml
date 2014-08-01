@@ -146,6 +146,150 @@
       <Time>2014-07-11T21:24:11.5256343+01:00</Time>
     </Item>
     <Item>
+      <Source>Textures\white.png</Source>
+      <Name>Textures\white</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\white.xnb</Output>
+      <Time>2014-07-29T11:24:17.4097867+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Backgrounds\popup440.png</Source>
+      <Name>Textures\Backgrounds\popup440</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Backgrounds\popup440.xnb</Output>
+      <Time>2014-07-29T15:57:03.4030922+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_tick.png</Source>
+      <Name>Textures\Buttons\hex_tick</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_tick.xnb</Output>
+      <Time>2014-07-29T15:26:28.5637839+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_achievements.png</Source>
+      <Name>Textures\Buttons\hex_achievements</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_achievements.xnb</Output>
+      <Time>2014-07-29T17:29:40.8889856+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_achievements_pressed.png</Source>
+      <Name>Textures\Buttons\hex_achievements_pressed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_achievements_pressed.xnb</Output>
+      <Time>2014-07-29T17:29:40.8889856+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_cancel.png</Source>
+      <Name>Textures\Buttons\hex_cancel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_cancel.xnb</Output>
+      <Time>2014-07-29T17:29:40.8889856+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_cancel_pressed.png</Source>
+      <Name>Textures\Buttons\hex_cancel_pressed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_cancel_pressed.xnb</Output>
+      <Time>2014-07-29T17:29:40.8889856+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_info.png</Source>
+      <Name>Textures\Buttons\hex_info</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_info.xnb</Output>
+      <Time>2014-07-29T17:29:40.9046376+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_info_pressed.png</Source>
+      <Name>Textures\Buttons\hex_info_pressed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_info_pressed.xnb</Output>
+      <Time>2014-07-29T17:29:40.9046376+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_play.png</Source>
+      <Name>Textures\Buttons\hex_play</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_play.xnb</Output>
+      <Time>2014-07-29T17:29:40.9046376+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_play_pressed.png</Source>
+      <Name>Textures\Buttons\hex_play_pressed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_play_pressed.xnb</Output>
+      <Time>2014-07-29T17:29:40.9046376+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_tick_pressed.png</Source>
+      <Name>Textures\Buttons\hex_tick_pressed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_tick_pressed.xnb</Output>
+      <Time>2014-07-29T17:29:40.9202671+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_menu.png</Source>
+      <Name>Textures\Buttons\hex_menu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_menu.xnb</Output>
+      <Time>2014-07-29T17:44:12.9449503+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Buttons\hex_menu_pressed.png</Source>
+      <Name>Textures\Buttons\hex_menu_pressed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_menu_pressed.xnb</Output>
+      <Time>2014-07-29T17:44:12.9761992+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Clouds\cloud_medium.png</Source>
+      <Name>Textures\Clouds\cloud_medium</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Clouds\cloud_medium.xnb</Output>
+      <Time>2014-07-29T20:30:52.9589667+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Clouds\cloud_small.png</Source>
+      <Name>Textures\Clouds\cloud_small</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Clouds\cloud_small.xnb</Output>
+      <Time>2014-07-29T20:30:53.0214206+01:00</Time>
+    </Item>
+    <Item>
       <Source>DebugText.spritefont</Source>
       <Name>DebugText</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -290,6 +434,15 @@
       <Time>2014-07-26T20:08:23.5984699+01:00</Time>
     </Item>
     <Item>
+      <Source>Fonts\popup_text.spritefont</Source>
+      <Name>Fonts\popup_text</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\popup_text.xnb</Output>
+      <Time>2014-07-29T11:27:40.6790606+01:00</Time>
+    </Item>
+    <Item>
       <Source>Audio\Sounds\snowball_impact.wav</Source>
       <Name>Audio\Sounds\snowball_impact</Name>
       <Importer>WavImporter</Importer>
@@ -306,159 +459,6 @@
       <Options>None</Options>
       <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_car_impact1.xnb</Output>
       <Time>2014-06-11T14:50:06.0677158+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\popup_text.spritefont</Source>
-      <Name>Fonts\popup_text</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Fonts\popup_text.xnb</Output>
-      <Time>2014-07-29T11:27:40.6790606+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\white.png</Source>
-      <Name>Textures\white</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\white.xnb</Output>
-      <Time>2014-07-29T11:24:17.4097867+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Backgrounds\popup440.png</Source>
-      <Name>Textures\Backgrounds\popup440</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Backgrounds\popup440.xnb</Output>
-      <Time>2014-07-29T15:57:03.4030922+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_tick.png</Source>
-      <Name>Textures\Buttons\hex_tick</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_tick.xnb</Output>
-      <Time>2014-07-29T15:26:28.5637839+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_achievements.png</Source>
-      <Name>Textures\Buttons\hex_achievements</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_achievements.xnb</Output>
-      <Time>2014-07-29T17:29:40.8889856+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_achievements_pressed.png</Source>
-      <Name>Textures\Buttons\hex_achievements_pressed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_achievements_pressed.xnb</Output>
-      <Time>2014-07-29T17:29:40.8889856+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_cancel.png</Source>
-      <Name>Textures\Buttons\hex_cancel</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_cancel.xnb</Output>
-      <Time>2014-07-29T17:29:40.8889856+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_cancel_pressed.png</Source>
-      <Name>Textures\Buttons\hex_cancel_pressed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_cancel_pressed.xnb</Output>
-      <Time>2014-07-29T17:29:40.8889856+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_info.png</Source>
-      <Name>Textures\Buttons\hex_info</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_info.xnb</Output>
-      <Time>2014-07-29T17:29:40.9046376+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_info_pressed.png</Source>
-      <Name>Textures\Buttons\hex_info_pressed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_info_pressed.xnb</Output>
-      <Time>2014-07-29T17:29:40.9046376+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_play.png</Source>
-      <Name>Textures\Buttons\hex_play</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_play.xnb</Output>
-      <Time>2014-07-29T17:29:40.9046376+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_play_pressed.png</Source>
-      <Name>Textures\Buttons\hex_play_pressed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_play_pressed.xnb</Output>
-      <Time>2014-07-29T17:29:40.9046376+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_tick_pressed.png</Source>
-      <Name>Textures\Buttons\hex_tick_pressed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_tick_pressed.xnb</Output>
-      <Time>2014-07-29T17:29:40.9202671+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_menu.png</Source>
-      <Name>Textures\Buttons\hex_menu</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_menu.xnb</Output>
-      <Time>2014-07-29T17:44:12.9449503+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Buttons\hex_menu_pressed.png</Source>
-      <Name>Textures\Buttons\hex_menu_pressed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Buttons\hex_menu_pressed.xnb</Output>
-      <Time>2014-07-29T17:44:12.9761992+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Clouds\cloud_medium.png</Source>
-      <Name>Textures\Clouds\cloud_medium</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Clouds\cloud_medium.xnb</Output>
-      <Time>2014-07-29T20:30:52.9589667+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Clouds\cloud_small.png</Source>
-      <Name>Textures\Clouds\cloud_small</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Clouds\cloud_small.xnb</Output>
-      <Time>2014-07-29T20:30:53.0214206+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

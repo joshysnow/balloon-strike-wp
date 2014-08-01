@@ -3,8 +3,8 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using GameCore;
 using GameInterfaceFramework;
-using GameFramework;
 
 namespace BalloonStrike.Views
 {
