@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input.Touch;
 using GameCore;
+using GameCore.Memory;
 using GameCore.Timers;
 using GameCore.Triggers;
 
@@ -23,7 +24,7 @@ namespace GameFramework
         public event BalloonEventHandler Popped;
         public event BalloonEventHandler Escaped;
 
-        private LinkedList<Balloon> _balloonMemory;
+        private BalloonPool _pool;
         private Vector2 _redVelocity;
         private Vector2 _greenVelocity;
         private Vector2 _blueVelocity;
@@ -136,7 +137,7 @@ namespace GameFramework
                     case BalloonState.Dead:
                         {
                             balloon.Uninitialize();
-                            _balloonMemory.AddFirst(balloon);
+                            _pool.Push(balloon);
                             Characters.RemoveAt(index);
                         }
                         break;
@@ -164,8 +165,10 @@ namespace GameFramework
 
         protected override void Initialize()
         {
+            _pool = new BalloonPool(50);
+            _pool.Fill();
+
             _managerState = BalloonManagerState.Normal;
-            _balloonMemory = new LinkedList<Balloon>();
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
             // Add two triggers for when to begin spawning the other balloons.
@@ -197,13 +200,6 @@ namespace GameFramework
 
             _popAnimation = manager.GetAnimation("popmove");
             _popSoundEffect = manager.GetSoundEffect("pop");
-
-            Balloon newBalloon;
-            while (_balloonMemory.Count < 10)
-            {
-                newBalloon = new Balloon();
-                _balloonMemory.AddFirst(newBalloon);
-            }
         }
 
         private void BlueSpawnStartTriggerHandler(Trigger trigger)
@@ -247,10 +243,9 @@ namespace GameFramework
         {
             Balloon spawn;
 
-            if (_balloonMemory.Count > 0)
+            if (_pool.Size() > 0)
             {
-                spawn = _balloonMemory.First.Value;
-                _balloonMemory.RemoveFirst();
+                spawn = _pool.Pop();
             }
             else
             {

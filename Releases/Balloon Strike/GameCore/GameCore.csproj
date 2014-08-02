@@ -35,6 +35,8 @@
   <ItemGroup>
     <Compile Include="Animation.cs" />
     <Compile Include="AnimationPlayer.cs" />
+    <Compile Include="Memory\ObjectPool.cs" />
+    <Compile Include="Memory\PoolNode.cs" />
     <Compile Include="Physics\Collisions.cs" />
     <Compile Include="Physics\Shapes\Circle.cs" />
     <Compile Include="Physics\Shapes\Line.cs" />
