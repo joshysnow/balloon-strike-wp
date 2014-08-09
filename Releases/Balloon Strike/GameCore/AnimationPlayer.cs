@@ -23,10 +23,9 @@ namespace GameCore
         {
         }
 
-        public void SetAnimation(Animation animation, Vector2 position)
+        public void SetAnimation(Animation animation)
         {
             _animation = animation;
-            _position = position;
             _frameIndexX = 0;
             _frameIndexY = 0;
             _elapsedTime = 0;
@@ -34,7 +33,7 @@ namespace GameCore
             _animationFinished = false;
         }
 
-        public void UpdateAnimationPosition(Vector2 position)
+        public void SetPosition(Vector2 position)
         {
             _position = position;
         }

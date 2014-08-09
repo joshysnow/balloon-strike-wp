@@ -50,16 +50,16 @@ namespace BalloonStrike.Views
             TransitionPosition(ref messageSize, ref messagePosition);
 
             const byte SPACING = 20;
-            Button ok = _menuButtons.First();
-            Vector2 buttonSize = ok.Size;
+            Button okButton = _menuButtons.First();
+            Vector2 buttonSize = okButton.Size;
             Vector2 buttonPositon = new Vector2((graphics.Viewport.Width - buttonSize.X) / 2,
                     (ForegroundPosition + ForegroundSize).Y - SPACING - buttonSize.Y);
             TransitionPosition(ref buttonSize, ref buttonPositon);
-            ok.Origin = buttonPositon;
+            okButton.Origin = buttonPositon;
 
             spriteBatch.Begin();
             spriteBatch.DrawString(Font, _message, messagePosition, Color.White);
-            ok.Draw(this);
+            okButton.Draw(this);
             spriteBatch.End();
         }
     }

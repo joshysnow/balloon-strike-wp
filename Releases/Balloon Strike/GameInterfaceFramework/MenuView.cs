@@ -13,7 +13,7 @@ namespace GameInterfaceFramework
         {
             _menuButtons = new List<Button>();
 
-            Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOnTime = TimeSpan.FromSeconds(1.5);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
             EnabledGestures = GestureType.Tap;

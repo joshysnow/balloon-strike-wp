@@ -74,6 +74,7 @@
     <Compile Include="Views\BackgroundView.cs" />
     <Compile Include="Views\GameOverView.cs" />
     <Compile Include="Views\GameView.cs" />
+    <Compile Include="Views\InputPopup.cs" />
     <Compile Include="Views\MessagePopup.cs" />
     <Compile Include="Views\MainMenuView.cs" />
     <Compile Include="Views\SplashView.cs" />

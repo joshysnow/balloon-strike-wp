@@ -21,22 +21,21 @@ namespace BalloonStrike.Views
         private BalloonManager _balloonManager;
         private PowerupManager _powerupManager;
         private ScoreManager _scoreManager;
+        private Sun _sun;
         private GameState _gameState;
-        private byte _sunLives;
 
         public GameView()
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
-            EnabledGestures = GestureType.Tap | GestureType.Pinch;
+            EnabledGestures = GestureType.Tap;
         }
 
         public override void Activate(bool instancePreserved)
         {
 #warning TODO: Need to retrieve previous state from storage.
             _gameState = GameState.Playing;
-            _sunLives = 3;
 
             if (!instancePreserved)
             {
@@ -47,10 +46,13 @@ namespace BalloonStrike.Views
                 _balloonManager = new BalloonManager(graphics, _triggerManager);
                 _powerupManager = new PowerupManager(graphics, _triggerManager);
                 _scoreManager = new ScoreManager();
+                _sun = new Sun();
+                _sun.Initialize();
 
                 _balloonManager.Escaped += BalloonEscapedHandler;
                 _balloonManager.Popped += BalloonPoppedHandler;
                 _powerupManager.PickedUp += PowerupPickedUpHandler;
+                _sun.Dead += SunDeadHandler;
 
                 Player player = Player.Instance;
                 player.CurrentScore = 0;
@@ -61,7 +63,8 @@ namespace BalloonStrike.Views
         {
             if (controls.BackButtonPressed())
             {
-                LoadView.Load(ViewManager, 1, new MainMenuView());
+                // Load pause screen.
+                
             }
             else
             {
@@ -107,6 +110,7 @@ namespace BalloonStrike.Views
             _powerupManager.Draw(spriteBatch);
             _weaponManager.Draw(spriteBatch);
             _scoreManager.Draw(spriteBatch);
+            _sun.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -117,6 +121,7 @@ namespace BalloonStrike.Views
             _powerupManager.Update(gameTime);
             _scoreManager.Update(gameTime);
             _triggerManager.Update(gameTime, _scoreManager.Score);
+            _sun.Update(gameTime);
         }
 
         private void UpdateGameOverState(GameTime gameTime)
@@ -132,12 +137,7 @@ namespace BalloonStrike.Views
 
         private void BalloonEscapedHandler(Balloon balloon)
         {
-            _sunLives--;
-
-            if (_sunLives <= 0)
-            {
-                _gameState = GameState.GameOver;
-            }
+            _sun.LoseALife();
         }
 
         private void BalloonPoppedHandler(Balloon balloon)
@@ -162,6 +162,11 @@ namespace BalloonStrike.Views
                 default:
                     break;
             }
+        }
+
+        private void SunDeadHandler()
+        {
+            _gameState = GameState.GameOver;
         }
     }
 }

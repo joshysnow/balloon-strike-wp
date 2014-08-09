@@ -31,8 +31,8 @@ namespace GameInterfaceFramework
 
         public Popup()
         {
-            Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
-            Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOnTime = TimeSpan.FromSeconds(3);
+            Transition.TransitionOffTime = TimeSpan.FromSeconds(3);
             IsPopup = true;
 
             EnabledGestures = GestureType.Tap;
@@ -70,13 +70,26 @@ namespace GameInterfaceFramework
 
         protected virtual void TransitionPosition(ref Vector2 size, ref Vector2 position)
         {
-            float offset = (float)Math.Pow(Transition.TransitionPosition, 2);
+            float offset = (float)Math.Pow(TransitionAlpha, 2);
 
             if (Transition.State == TransitionState.TransitionOn)
-                position.X -= offset * (position.X + size.X);
+            {
+                // Mirror copy position on the Y axis.
+                float start = (Vector2.Zero - (position + size)).X;
+                float distance = start - position.X;
+                distance *= -1;
+
+                position.X = start + (distance * offset);
+            }
 
             if (Transition.State == TransitionState.TransitionOff)
-                position.Y -= offset * (position.Y + size.Y);
+            {
+                float end = (Vector2.Zero - (position + size)).Y;
+                float distance = end - position.Y;
+                distance *= -1;
+
+                position.Y = end + (distance * offset);
+            }
         }
     }
 }

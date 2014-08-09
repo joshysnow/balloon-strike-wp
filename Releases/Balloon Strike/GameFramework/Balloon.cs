@@ -65,7 +65,7 @@ namespace GameFramework
         public void Initialize(Animation moveAnimation, Animation popAnimation, SoundEffect popSound, Vector2 position, Vector2 velocity, float health)
         {
             _popAnimation = popAnimation;
-            _moveAnimation = moveAnimation;
+            _staticAnimation = moveAnimation;
             _popSound = popSound;
             _positionUL = position;
             _velocity = velocity;
@@ -78,7 +78,8 @@ namespace GameFramework
 
             _state = BalloonState.Alive;
 
-            _animationPlayer.SetAnimation(_moveAnimation, _positionUL);
+            _animationPlayer.SetAnimation(_staticAnimation);
+            _animationPlayer.SetPosition(_positionUL);
 
             _initialized = true;
             _isAvailable = false;
@@ -156,7 +157,8 @@ namespace GameFramework
 
             Vector2 explosionCoordinate = new Vector2((centerX - width), (centerY - height));
 
-            _animationPlayer.SetAnimation(_popAnimation, _positionUL);
+            _animationPlayer.SetAnimation(_popAnimation);
+            _animationPlayer.SetPosition(_positionUL);
         }
 
         public void Freeze(int time)
@@ -199,7 +201,7 @@ namespace GameFramework
 
             UpdatePosition();
 
-            _animationPlayer.UpdateAnimationPosition(_positionUL);
+            _animationPlayer.SetPosition(_positionUL);
         }
 
         private void UpdateDying()

@@ -94,6 +94,7 @@ namespace GameCore
         public float Scale
         {
             get { return _scale; }
+            set { _scale = value; }
         }
 
         /// <summary>

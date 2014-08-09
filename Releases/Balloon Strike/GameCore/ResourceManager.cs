@@ -155,6 +155,12 @@ namespace GameCore
             Texture2D greenBalloon = _content.Load<Texture2D>("Textures/Balloons/green200");
             Texture2D blackBalloon = _content.Load<Texture2D>("Textures/Balloons/black200");
 
+            Texture2D sunCrying = _content.Load<Texture2D>("Textures/Sun/crying");
+            Texture2D sunSad = _content.Load<Texture2D>("Textures/Sun/sad");
+            Texture2D sunOk = _content.Load<Texture2D>("Textures/Sun/ok");
+            Texture2D sunHappy = _content.Load<Texture2D>("Textures/Sun/happy");
+            Texture2D sunSuperHappy = _content.Load<Texture2D>("Textures/Sun/superhappy");
+
             Texture2D popTexture = _content.Load<Texture2D>("Textures/Effects/explosion");
             Texture2D freezeTexture = _content.Load<Texture2D>("Textures/Powerups/snowflake_med");
             Texture2D shellTexture = _content.Load<Texture2D>("Textures/Powerups/shell_200");
@@ -219,6 +225,11 @@ namespace GameCore
             _animations.Add("missilemove", new Animation(missileTexture, true, missileTexture.Width, missileTexture.Height, 0, 0.5f));
             _animations.Add("cloud_small_move", new Animation(cloudSmall, true, cloudSmall.Width, cloudSmall.Height, 0, 1f));
             _animations.Add("cloud_medium_move", new Animation(cloudMedium, true, cloudMedium.Width, cloudMedium.Height, 0, 1f));
+            _animations.Add("sun_crying", new Animation(sunCrying, true, sunCrying.Width, sunCrying.Height, 0, 1));
+            _animations.Add("sun_sad", new Animation(sunSad, true, sunSad.Width, sunSad.Height, 0, 1));
+            _animations.Add("sun_ok", new Animation(sunOk, true, sunOk.Width, sunOk.Height, 0, 1));
+            _animations.Add("sun_happy", new Animation(sunHappy, true, sunHappy.Width, sunHappy.Height, 0, 1));
+            _animations.Add("sun_superhappy", new Animation(sunSuperHappy, true, sunSuperHappy.Width, sunSuperHappy.Height, 0, 1));
         }
     }
 }

@@ -57,7 +57,7 @@ namespace GameFramework
 
         public void Initialize(Animation moveAnimation, Animation pickupAnimation, SoundEffect pickedUp, Vector2 position, Vector2 velocity, short yLimit)
         {
-            _moveAnimation = moveAnimation;
+            _staticAnimation = moveAnimation;
             _pickupAnimation = pickupAnimation;
             _pickedUpSound = pickedUp;
             _positionUL = position;
@@ -71,7 +71,8 @@ namespace GameFramework
 
             _state = PowerupState.Descending;
 
-            _animationPlayer.SetAnimation(moveAnimation, _positionUL);
+            _animationPlayer.SetAnimation(moveAnimation);
+            _animationPlayer.SetPosition(_positionUL);
 
             _initialized = true;
             _isAvailable = false;
@@ -132,7 +133,8 @@ namespace GameFramework
             _state = PowerupState.PickingUp;
             _pickedUpSound.Play();
 
-            _animationPlayer.SetAnimation(_pickupAnimation, _positionUL);
+            _animationPlayer.SetAnimation(_pickupAnimation);
+            _animationPlayer.SetPosition(_positionUL);
         }
 
         private void UpdateDescending()
@@ -144,7 +146,7 @@ namespace GameFramework
 
             UpdatePosition();
 
-            _animationPlayer.UpdateAnimationPosition(_positionUL);
+            _animationPlayer.SetPosition(_positionUL);
         }
 
         private void UpdatePickingUp()

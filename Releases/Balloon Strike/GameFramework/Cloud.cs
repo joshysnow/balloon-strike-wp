@@ -59,7 +59,8 @@ namespace GameFramework
 
             State = CloudState.OnScreen;
 
-            _animationPlayer.SetAnimation(move, positionUL);       
+            _animationPlayer.SetAnimation(move);
+            _animationPlayer.SetPosition(positionUL);
         }
 
         public override void Update(GameTime gameTime)
@@ -80,7 +81,7 @@ namespace GameFramework
             }
 
             UpdatePosition();
-            _animationPlayer.UpdateAnimationPosition(_positionUL);
+            _animationPlayer.SetPosition(_positionUL);
         }
     }
 }

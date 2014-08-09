@@ -49,3 +49,8 @@ Content\Fonts\small.xnb
 Content\Fonts\popup_text.xnb
 Content\Audio\Sounds\snowball_impact.xnb
 Content\Audio\Sounds\snowball_car_impact1.xnb
+Content\Textures\Sun\happy.xnb
+Content\Textures\Sun\ok.xnb
+Content\Textures\Sun\sad.xnb
+Content\Textures\Sun\superhappy.xnb
+Content\Textures\Sun\crying.xnb

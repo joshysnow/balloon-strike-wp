@@ -21,7 +21,7 @@ namespace GameFramework
     public abstract class Character : ICharacter
     {
         protected AnimationPlayer _animationPlayer;
-        protected Animation _moveAnimation;
+        protected Animation _staticAnimation;
         protected Vector2 _positionUL;
         protected Vector2 _positionLR;
         protected Vector2 _velocity;
