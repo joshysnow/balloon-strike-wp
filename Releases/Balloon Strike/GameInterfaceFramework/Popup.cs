@@ -33,7 +33,7 @@ namespace GameInterfaceFramework
         public Popup()
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
-            Transition.TransitionOffTime = TimeSpan.FromSeconds(5);
+            Transition.TransitionOffTime = TimeSpan.FromSeconds(1);
             IsPopup = true;
             _clickable = false;
 
@@ -102,7 +102,9 @@ namespace GameInterfaceFramework
 
             if (Transition.State == TransitionState.TransitionOff)
             {
-                float end = (Vector2.Zero - (position + size)).Y;
+                int height = ViewManager.GraphicsDevice.Viewport.Height;
+
+                float end = (0 - (height - position.Y));
                 float distance = end - position.Y;
                 distance *= -1;
 

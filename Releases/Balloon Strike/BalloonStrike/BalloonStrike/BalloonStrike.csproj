@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PhoneProperties.cs" />
     <Compile Include="Views\AchievementsView.cs" />
     <Compile Include="Views\InfoView.cs" />
     <Compile Include="Views\BackgroundView.cs" />
