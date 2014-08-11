@@ -28,12 +28,14 @@ namespace GameInterfaceFramework
 
         private Texture2D _foreground;
         private Texture2D _background;
+        private bool _clickable;
 
         public Popup()
         {
-            Transition.TransitionOnTime = TimeSpan.FromSeconds(3);
-            Transition.TransitionOffTime = TimeSpan.FromSeconds(3);
+            Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
+            Transition.TransitionOffTime = TimeSpan.FromSeconds(5);
             IsPopup = true;
+            _clickable = false;
 
             EnabledGestures = GestureType.Tap;
         }
@@ -51,6 +53,22 @@ namespace GameInterfaceFramework
                 ForegroundPosition = new Vector2(((graphics.Viewport.Width - _foreground.Width) / 2), (graphics.Viewport.Height - _foreground.Height) / 2);
                 ForegroundSize = new Vector2(_foreground.Width, _foreground.Height);
             }
+        }
+
+        public override void HandlePlayerInput(ControlsState controls)
+        {
+            if(_clickable)
+                base.HandlePlayerInput(controls);
+        }
+
+        public override void Update(GameTime gameTime, bool covered)
+        {
+            if (Transition.State == TransitionState.Active)
+                _clickable = true;
+            else
+                _clickable = false;
+
+            base.Update(gameTime, covered);
         }
 
         public override void Draw(GameTime gameTime)
