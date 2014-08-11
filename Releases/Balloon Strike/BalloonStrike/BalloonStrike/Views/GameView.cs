@@ -64,7 +64,7 @@ namespace BalloonStrike.Views
             if (controls.BackButtonPressed())
             {
                 // Load pause screen.
-                
+                ViewManager.AddView(new InputPopup("Quit?"));
             }
             else
             {

@@ -61,6 +61,11 @@ namespace GameInterfaceFramework
                 base.HandlePlayerInput(controls);
         }
 
+        protected override void HandleBackButtonPressed()
+        {
+            Exit();
+        }
+
         public override void Update(GameTime gameTime, bool covered)
         {
             if (Transition.State == TransitionState.Active)

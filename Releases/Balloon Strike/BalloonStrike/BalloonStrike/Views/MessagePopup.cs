@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,11 +32,6 @@ namespace BalloonStrike.Views
             }
         }
 
-        private void OkTappedHandler(Button button)
-        {
-            Exit();
-        }
-
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
@@ -61,6 +55,11 @@ namespace BalloonStrike.Views
             spriteBatch.DrawString(Font, _message, messagePosition, Color.White);
             okButton.Draw(this);
             spriteBatch.End();
+        }
+
+        private void OkTappedHandler(Button button)
+        {
+            Exit();
         }
     }
 }
