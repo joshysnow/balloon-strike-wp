@@ -37,17 +37,17 @@ namespace BalloonStrike.Views
                 int x = (graphics.Viewport.Width - playUnselected.Width) / 2;
                 int y = graphics.Viewport.Height - ((playUnselected.Height * 3) + (BUTTON_SPACING * 3));
 
-                Button play = new Button(playUnselected, playSelected) { Origin = new Vector2(x, y) };
+                Button play = new Button(playUnselected, playSelected) { Position = new Vector2(x, y) };
                 play.Tapped += PlayTappedHandler;
                 _menuButtons.Add(play);
                 y += BUTTON_SPACING + playUnselected.Height;
 
-                Button achievements = new Button(achieveUnselected, achieveSelected) { Origin = new Vector2(x, y) };
+                Button achievements = new Button(achieveUnselected, achieveSelected) { Position = new Vector2(x, y) };
                 achievements.Tapped += AchievementsTappedHandler;
                 _menuButtons.Add(achievements);
                 y += BUTTON_SPACING + playUnselected.Height;
 
-                Button infoButton = new Button(infoUnselected, infoSelected) { Origin = new Vector2(x, y) };
+                Button infoButton = new Button(infoUnselected, infoSelected) { Position = new Vector2(x, y) };
                 infoButton.Tapped += InfoTappedHandler;
                 _menuButtons.Add(infoButton);
 

@@ -9,13 +9,7 @@ namespace BalloonStrike.Views
 {
     public class MessagePopup : Popup
     {
-        private string _message;
-
-        public MessagePopup(string message)
-            : base()
-        {
-            _message = message;
-        }
+        public MessagePopup(string message) : base(message) { }
 
         public override void Activate(bool instancePreserved)
         {
@@ -39,20 +33,13 @@ namespace BalloonStrike.Views
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
             SpriteBatch spriteBatch = ViewManager.SpriteBatch;
 
-            Vector2 messageSize = Font.MeasureString(_message);
-            Vector2 messagePosition = new Vector2((graphics.Viewport.Width - messageSize.X) / 2, (graphics.Viewport.Height - messageSize.Y) / 2);
-            TransitionPosition(ref messageSize, ref messagePosition);
-
-            const byte SPACING = 20;
             Button okButton = _menuButtons.First();
             Vector2 buttonSize = okButton.Size;
-            Vector2 buttonPositon = new Vector2((graphics.Viewport.Width - buttonSize.X) / 2,
-                    (ForegroundPosition + ForegroundSize).Y - SPACING - buttonSize.Y);
+            Vector2 buttonPositon = new Vector2((graphics.Viewport.Width - buttonSize.X) / 2, ((ForegroundPosition + ForegroundSize).Y - BUTTON_VERTICAL_SPACING) - buttonSize.Y);
             TransitionPosition(ref buttonSize, ref buttonPositon);
-            okButton.Origin = buttonPositon;
+            okButton.Position = buttonPositon;
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(Font, _message, messagePosition, Color.White);
             okButton.Draw(this);
             spriteBatch.End();
         }

@@ -8,6 +8,8 @@ namespace GameInterfaceFramework
 {
     public class Popup : MenuView
     {
+        protected const int BUTTON_VERTICAL_SPACING = 20; // Pixels.
+
         protected SpriteFont Font
         {
             get;
@@ -28,9 +30,10 @@ namespace GameInterfaceFramework
 
         private Texture2D _foreground;
         private Texture2D _background;
+        private string _message;
         private bool _clickable;
 
-        public Popup()
+        public Popup(string message)
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(1);
@@ -38,6 +41,8 @@ namespace GameInterfaceFramework
             _clickable = false;
 
             EnabledGestures = GestureType.Tap;
+
+            _message = message;
         }
 
         public override void Activate(bool instancePreserved)
@@ -81,13 +86,18 @@ namespace GameInterfaceFramework
             SpriteBatch spriteBatch = ViewManager.SpriteBatch;
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
 
-            Vector2 tempPosition = new Vector2(ForegroundPosition.X, ForegroundPosition.Y);
+            Vector2 messageSize = Font.MeasureString(_message);
+            Vector2 messagePosition = new Vector2((graphics.Viewport.Width - messageSize.X) / 2, (graphics.Viewport.Height - messageSize.Y) / 2);
+            TransitionPosition(ref messageSize, ref messagePosition);
+
+            Vector2 forePosition = new Vector2(ForegroundPosition.X, ForegroundPosition.Y);
             Vector2 size = ForegroundSize;
-            TransitionPosition(ref size, ref tempPosition);
+            TransitionPosition(ref size, ref forePosition);
 
             spriteBatch.Begin();
             spriteBatch.Draw(_background, graphics.Viewport.Bounds, Color.Black * (TransitionAlpha / 1.5f));
-            spriteBatch.Draw(_foreground, tempPosition, Color.White);
+            spriteBatch.Draw(_foreground, forePosition, Color.White);
+            spriteBatch.DrawString(Font, _message, messagePosition, Color.White);
             spriteBatch.End();
         }
 
@@ -97,7 +107,7 @@ namespace GameInterfaceFramework
 
             if (Transition.State == TransitionState.TransitionOn)
             {
-                // Mirror copy position on the Y axis.
+                // Mirror flip copy position on the Y axis.
                 float start = (Vector2.Zero - (position + size)).X;
                 float distance = start - position.X;
                 distance *= -1;

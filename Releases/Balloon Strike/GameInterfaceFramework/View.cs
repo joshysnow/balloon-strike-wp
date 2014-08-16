@@ -5,6 +5,8 @@ using GameCore;
 
 namespace GameInterfaceFramework
 {
+    public delegate void ViewExitHandler(View view);
+
     public class View
     {
         public TransitionState State
@@ -57,19 +59,18 @@ namespace GameInterfaceFramework
             }
         }
 
+        public event ViewExitHandler ViewExiting;
+
         private Transition _transition = new Transition() { Invoked = true };
         private bool _isExiting = false;
 
         public void Exit()
         {
-            //if (_transitionOffTime == TimeSpan.Zero)
-            //{
-            //    _state = ViewState.Hidden;
-            //}
-
             _transition.State = TransitionState.TransitionOff;
-
             _isExiting = true;
+
+            if (ViewExiting != null)
+                ViewExiting(this);
         }
 
         public virtual void Activate(bool instancePreserved) { }

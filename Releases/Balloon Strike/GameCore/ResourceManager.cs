@@ -182,6 +182,7 @@ namespace GameCore
             Texture2D buttonMenuUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_menu");
             Texture2D buttonTickUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_tick");
             Texture2D buttonCancelUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_cancel");
+
             Texture2D buttonPlaySelected = _content.Load<Texture2D>("Textures/Buttons/hex_play_pressed");
             Texture2D buttonAchieveSelected = _content.Load<Texture2D>("Textures/Buttons/hex_achievements_pressed");
             Texture2D buttonInfoSelected = _content.Load<Texture2D>("Textures/Buttons/hex_info_pressed");
@@ -202,18 +203,20 @@ namespace GameCore
             _textures.Add("xhair_bazooka", xHairBazookaTexture);
             _textures.Add("splash", splashTexture);
             _textures.Add("popup_foreground", popupforeground);
+
             _textures.Add("button_unselected_play", buttonPlayUnselected);
             _textures.Add("button_unselected_achievements", buttonAchieveUnselected);
             _textures.Add("button_unselected_info", buttonInfoUnselected);
             _textures.Add("button_unselected_menu", buttonMenuUnselected);
             _textures.Add("button_unselected_tick", buttonTickUnselected);
-            _textures.Add("button_unselected_cancel", buttonTickUnselected);
+            _textures.Add("button_unselected_cancel", buttonCancelUnselected);
+
             _textures.Add("button_selected_play", buttonPlaySelected);
             _textures.Add("button_selected_achievements", buttonAchieveSelected);
             _textures.Add("button_selected_info", buttonInfoSelected);
             _textures.Add("button_selected_menu", buttonMenuSelected);
             _textures.Add("button_selected_tick", buttonTickSelected);
-            _textures.Add("button_selected_cancel", buttonTickSelected);
+            _textures.Add("button_selected_cancel", buttonCancelSelected);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redBalloon, true, redBalloon.Width, redBalloon.Height, 0, 0.5f));

@@ -10,7 +10,7 @@ namespace GameInterfaceFramework
     {
         public event ButtonTappedHandler Tapped;
 
-        public Vector2 Origin
+        public Vector2 Position
         {
             get { return _origin; }
             set
@@ -26,7 +26,7 @@ namespace GameInterfaceFramework
         {
             get
             {
-                return new Vector2(_lowerRight.X - Origin.X, _lowerRight.Y - Origin.Y);
+                return new Vector2(_lowerRight.X - Position.X, _lowerRight.Y - Position.Y);
             }
         }
 

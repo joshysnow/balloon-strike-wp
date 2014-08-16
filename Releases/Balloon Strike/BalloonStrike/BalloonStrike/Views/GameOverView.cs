@@ -63,11 +63,11 @@ namespace BalloonStrike.Views
                 int y = (height - (height / 4)) - (playUnselected.Height / 2);
                 int spacing = 7;
 
-                Button playAgain = new Button(playUnselected, playSelected) { Origin = new Vector2(((width / 2) - spacing) - playUnselected.Width, y) };
+                Button playAgain = new Button(playUnselected, playSelected) { Position = new Vector2(((width / 2) - spacing) - playUnselected.Width, y) };
                 playAgain.Tapped += PlayTappedHandler;
                 _menuButtons.Add(playAgain);
 
-                Button mainMenu = new Button(menuUnselected, menuSelected) { Origin = new Vector2((width / 2) + spacing, y) };
+                Button mainMenu = new Button(menuUnselected, menuSelected) { Position = new Vector2((width / 2) + spacing, y) };
                 mainMenu.Tapped += MenuTappedHandler;
                 _menuButtons.Add(mainMenu);
             }

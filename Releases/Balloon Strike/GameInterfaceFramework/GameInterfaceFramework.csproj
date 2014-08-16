@@ -51,6 +51,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Actions\IActionHandler.cs" />
+    <Compile Include="Actions\LoadViewAction.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ControlsState.cs" />
     <Compile Include="Credit.cs" />

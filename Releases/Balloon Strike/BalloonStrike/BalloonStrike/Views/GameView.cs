@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using GameCore.Triggers;
 using GameFramework;
 using GameInterfaceFramework;
+using GameInterfaceFramework.Actions;
 
 namespace BalloonStrike.Views
 {
@@ -13,7 +14,8 @@ namespace BalloonStrike.Views
         private enum GameState : byte
         {
             Playing     = 0x01,
-            GameOver    = 0x02
+            GameOver    = 0x02,
+            Paused      = 0x04
         }
 
         private TriggerManager _triggerManager;
@@ -64,7 +66,11 @@ namespace BalloonStrike.Views
             if (controls.BackButtonPressed())
             {
                 // Load pause screen.
-                ViewManager.AddView(new InputPopup("Quit?"));
+                View pauseView = new InputPopup("Quit?", new LoadViewAction(2, this, new MainMenuView()));
+                pauseView.ViewExiting += PauseViewExitingHandler;
+                ViewManager.AddView(pauseView);
+
+                _gameState = GameState.Paused;
             }
             else
             {
@@ -93,6 +99,7 @@ namespace BalloonStrike.Views
                     case GameState.GameOver:
                         UpdateGameOverState(gameTime);
                         break;
+                    case GameState.Paused:
                     default:
                         break;
                 }
@@ -133,6 +140,11 @@ namespace BalloonStrike.Views
 
                 LoadView.Load(ViewManager, 1, new GameOverView());
             }
+        }
+
+        private void PauseViewExitingHandler(View view)
+        {
+            _gameState = GameState.Playing;
         }
 
         private void BalloonEscapedHandler(Balloon balloon)
