@@ -154,6 +154,7 @@ namespace GameCore
             Texture2D blueBalloon = _content.Load<Texture2D>("Textures/Balloons/blue200");
             Texture2D greenBalloon = _content.Load<Texture2D>("Textures/Balloons/green200");
             Texture2D blackBalloon = _content.Load<Texture2D>("Textures/Balloons/black200");
+            Texture2D hitBalloon = _content.Load<Texture2D>("Textures/Balloons/white200");
 
             Texture2D sunCrying = _content.Load<Texture2D>("Textures/Sun/crying");
             Texture2D sunSad = _content.Load<Texture2D>("Textures/Sun/sad");
@@ -224,6 +225,7 @@ namespace GameCore
             _animations.Add("bluemove", new Animation(blueBalloon, true, blueBalloon.Width, blueBalloon.Height, 0, 0.5f));
             _animations.Add("blackmove", new Animation(blackBalloon, true, blackBalloon.Width, blackBalloon.Height, 0, 0.5f));
             _animations.Add("freezemove", new Animation(freezeTexture, true, freezeTexture.Width, freezeTexture.Height, 0, 0.25f));
+            _animations.Add("hitmove", new Animation(hitBalloon, false, hitBalloon.Width, hitBalloon.Height, 100, 0.5f));
             _animations.Add("shellmove", new Animation(shellTexture, true, shellTexture.Width, shellTexture.Height, 0, 0.5f));
             _animations.Add("missilemove", new Animation(missileTexture, true, missileTexture.Width, missileTexture.Height, 0, 0.5f));
             _animations.Add("cloud_small_move", new Animation(cloudSmall, true, cloudSmall.Width, cloudSmall.Height, 0, 1f));

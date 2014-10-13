@@ -335,6 +335,15 @@
       <Time>2014-08-09T19:56:53.2079104+01:00</Time>
     </Item>
     <Item>
+      <Source>Textures\Balloons\white200.png</Source>
+      <Name>Textures\Balloons\white200</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Balloons\white200.xnb</Output>
+      <Time>2014-10-13T20:51:12.9978983+01:00</Time>
+    </Item>
+    <Item>
       <Source>DebugText.spritefont</Source>
       <Name>DebugText</Name>
       <Importer>FontDescriptionImporter</Importer>

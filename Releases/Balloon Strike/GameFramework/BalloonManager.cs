@@ -32,6 +32,7 @@ namespace GameFramework
         private Animation _redMoveAnimation;
         private Animation _blueMoveAnimation;
         private Animation _popAnimation;
+        private Animation _hitAnimation;
         private SoundEffect _popSoundEffect;
         private BalloonManagerState _managerState;
         private SimpleTimer _managerFreezeTimer;
@@ -63,7 +64,7 @@ namespace GameFramework
                     balloon = (Balloon)Characters[index];
 
                     // Check to ensure that the same balloon isn't used if there are more than one gestures).
-                    if ((balloon.State == BalloonState.Alive || balloon.State == BalloonState.Frozen) && balloon.Intersects(circle))
+                    if ((balloon.State == BalloonState.Alive || balloon.State == BalloonState.Frozen || balloon.State == BalloonState.Hit) && balloon.Intersects(circle))
                     {
                         balloon.Attack(damage);
 
@@ -113,6 +114,7 @@ namespace GameFramework
                 switch (balloon.State)
                 {
                     case BalloonState.Alive:
+                    case BalloonState.Hit:
                     case BalloonState.Frozen:
                     case BalloonState.Dying:
                         {
@@ -206,6 +208,8 @@ namespace GameFramework
             _blueMoveAnimation = manager.GetAnimation("bluemove");
 
             _popAnimation = manager.GetAnimation("popmove");
+            _hitAnimation = manager.GetAnimation("hitmove");
+
             _popSoundEffect = manager.GetSoundEffect("pop");
         }
 
@@ -299,7 +303,7 @@ namespace GameFramework
             }
 
             int x = _randomPosition.Next(ScreenWidth - (int)(moveAnimation.AnimationTexture.Width * moveAnimation.Scale));
-            spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, new Vector2(x, ScreenHeight), velocity, health);
+            spawn.Initialize(moveAnimation, _hitAnimation, _popAnimation, _popSoundEffect, new Vector2(x, ScreenHeight), velocity, health);
             Characters.Add(spawn);
         }
 

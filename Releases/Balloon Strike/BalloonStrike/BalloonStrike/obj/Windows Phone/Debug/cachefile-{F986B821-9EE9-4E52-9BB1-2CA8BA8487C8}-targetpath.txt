@@ -35,6 +35,7 @@ Content\Textures\Sun\ok.xnb
 Content\Textures\Sun\sad.xnb
 Content\Textures\Sun\superhappy.xnb
 Content\Textures\Sun\crying.xnb
+Content\Textures\Balloons\white200.xnb
 Content\DebugText.xnb
 Content\Fonts\score0.xnb
 Content\Fonts\score1.xnb

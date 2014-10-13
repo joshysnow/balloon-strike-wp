@@ -21,7 +21,8 @@ namespace GameFramework
         Popped  = 0x04,
         Escaped = 0x08,
         Dying   = 0x0F,
-        Frozen  = 0x10
+        Frozen  = 0x10,
+        Hit     = 0x20
     }
 
     public class Balloon : Character
@@ -50,9 +51,11 @@ namespace GameFramework
 
         private Animation _popAnimation;
         //private Animation _freezeAnimation;
+        private Animation _hitAnimation;
         private SoundEffect _popSound;
         private SimpleTimer _frozenTimer;
         private BalloonState _state;
+        private BalloonState _previousState;
         private bool _initialized;
         private bool _isAvailable;
 
@@ -62,9 +65,11 @@ namespace GameFramework
             _isAvailable = true;
         }
 
-        public void Initialize(Animation moveAnimation, Animation popAnimation, SoundEffect popSound, Vector2 position, Vector2 velocity, float health)
+        public void Initialize(Animation moveAnimation, Animation hitAnimation, Animation popAnimation, SoundEffect popSound, Vector2 position, Vector2 velocity, float health)
         {
             _popAnimation = popAnimation;
+            _hitAnimation = hitAnimation;
+#warning REMOVE OR RENAME STATIC ANIMATION
             _staticAnimation = moveAnimation;
             _popSound = popSound;
             _positionUL = position;
@@ -77,6 +82,7 @@ namespace GameFramework
             _rectangle = new GameCore.Physics.Shapes.Rectangle(_positionUL, _positionLR);
 
             _state = BalloonState.Alive;
+            _previousState = BalloonState.Alive;
 
             _animationPlayer.SetAnimation(_staticAnimation);
             _animationPlayer.SetPosition(_positionUL);
@@ -102,14 +108,19 @@ namespace GameFramework
                             UpdateAlive();
                         }
                         break;
+                    case BalloonState.Hit:
+                        {
+                            UpdateHit(gameTime);
+                        }
+                        break;
                     case BalloonState.Popped:
                         {
-                            _state = BalloonState.Dying;
+                            ChangeState(BalloonState.Dying);
                         }
                         break;
                     case BalloonState.Escaped:
                         {
-                            _state = BalloonState.Dead;
+                            ChangeState(BalloonState.Dead);
                         }
                         break;
                     case BalloonState.Dying:
@@ -139,28 +150,6 @@ namespace GameFramework
             }
         }
 
-        public void Pop()
-        {
-            if (!_initialized)
-            {
-                return;
-            }
-
-            _state = BalloonState.Popped;
-            _popSound.Play();
-
-            float centerX = (_positionUL.X + _positionLR.X) / 2;
-            float centerY = (_positionUL.Y + _positionLR.Y) / 2;
-
-            float width = (_popAnimation.FrameWidth * _popAnimation.Scale) / 2;
-            float height = (_popAnimation.FrameHeight * _popAnimation.Scale) / 2;
-
-            Vector2 explosionCoordinate = new Vector2((centerX - width), (centerY - height));
-
-            _animationPlayer.SetAnimation(_popAnimation);
-            _animationPlayer.SetPosition(_positionUL);
-        }
-
         public void Freeze(int time)
         {
             if (!_initialized)
@@ -169,10 +158,8 @@ namespace GameFramework
             }
 
             _frozenTimer = new SimpleTimer(time);
-
             //_animationPlayer.SetAnimation(_freezeAnimation, _positionUL);
-
-            _state = BalloonState.Frozen;
+            ChangeState(BalloonState.Frozen);
         }
 
         public void Attack(float damage)
@@ -190,13 +177,40 @@ namespace GameFramework
             {
                 Pop();
             }
+            else
+            {
+                ChangeState(BalloonState.Hit);
+                _animationPlayer.SetAnimation(_hitAnimation);
+            }
+        }
+
+        private void Pop()
+        {
+            if (!_initialized)
+            {
+                return;
+            }
+
+            ChangeState(BalloonState.Popped);
+            _popSound.Play();
+
+            float centerX = (_positionUL.X + _positionLR.X) / 2;
+            float centerY = (_positionUL.Y + _positionLR.Y) / 2;
+
+            float width = (_popAnimation.FrameWidth * _popAnimation.Scale) / 2;
+            float height = (_popAnimation.FrameHeight * _popAnimation.Scale) / 2;
+
+            Vector2 explosionCoordinate = new Vector2((centerX - width), (centerY - height));
+
+            _animationPlayer.SetAnimation(_popAnimation);
+            _animationPlayer.SetPosition(_positionUL);
         }
 
         private void UpdateAlive()
         {
             if (_positionLR.Y <= 0)
             {
-                _state = BalloonState.Escaped;
+                ChangeState(BalloonState.Escaped);
             }
 
             UpdatePosition();
@@ -204,11 +218,39 @@ namespace GameFramework
             _animationPlayer.SetPosition(_positionUL);
         }
 
+        private void UpdateHit(GameTime gameTime)
+        {
+            if (_animationPlayer.Finished)
+            {
+                ChangeState(_previousState);
+                _animationPlayer.SetAnimation(_staticAnimation);
+            }
+
+#warning What if frozen timer finishes before hit animation has ended?
+            switch (_previousState)
+            {
+                case BalloonState.Hit:
+                case BalloonState.Alive:
+                    UpdateAlive();
+                    break;
+                case BalloonState.Frozen:
+                    UpdateFrozen(gameTime);
+                    break;
+                case BalloonState.Dead:
+                case BalloonState.Popped:
+                case BalloonState.Escaped:
+                case BalloonState.Dying:
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void UpdateDying()
         {
             if (_animationPlayer.Finished)
             {
-                _state = BalloonState.Dead;
+                ChangeState(BalloonState.Dead);
             }
         }
 
@@ -223,8 +265,14 @@ namespace GameFramework
             {
                 _frozenTimer = null;
                 //_animationPlayer.SetAnimation(_moveAnimation, _positionUL);
-                _state = BalloonState.Alive;
+                ChangeState(BalloonState.Alive);
             }
+        }
+
+        private void ChangeState(BalloonState state)
+        {
+            _previousState = _state;
+            _state = state;
         }
     }
 }
