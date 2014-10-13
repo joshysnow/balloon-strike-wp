@@ -290,6 +290,51 @@
       <Time>2014-07-29T20:30:53.0214206+01:00</Time>
     </Item>
     <Item>
+      <Source>Textures\Sun\happy.png</Source>
+      <Name>Textures\Sun\happy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Sun\happy.xnb</Output>
+      <Time>2014-08-09T19:56:53.1610124+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Sun\ok.png</Source>
+      <Name>Textures\Sun\ok</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Sun\ok.xnb</Output>
+      <Time>2014-08-09T19:56:53.1766816+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Sun\sad.png</Source>
+      <Name>Textures\Sun\sad</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Sun\sad.xnb</Output>
+      <Time>2014-08-09T19:56:53.1922589+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Sun\superhappy.png</Source>
+      <Name>Textures\Sun\superhappy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Sun\superhappy.xnb</Output>
+      <Time>2014-08-09T19:56:53.1922589+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Sun\crying.png</Source>
+      <Name>Textures\Sun\crying</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Sun\crying.xnb</Output>
+      <Time>2014-08-09T19:56:53.2079104+01:00</Time>
+    </Item>
+    <Item>
       <Source>DebugText.spritefont</Source>
       <Name>DebugText</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -459,51 +504,6 @@
       <Options>None</Options>
       <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Audio\Sounds\snowball_car_impact1.xnb</Output>
       <Time>2014-06-11T14:50:06.0677158+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Sun\happy.png</Source>
-      <Name>Textures\Sun\happy</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Sun\happy.xnb</Output>
-      <Time>2014-08-09T19:56:53.1610124+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Sun\ok.png</Source>
-      <Name>Textures\Sun\ok</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Sun\ok.xnb</Output>
-      <Time>2014-08-09T19:56:53.1766816+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Sun\sad.png</Source>
-      <Name>Textures\Sun\sad</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Sun\sad.xnb</Output>
-      <Time>2014-08-09T19:56:53.1922589+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Sun\superhappy.png</Source>
-      <Name>Textures\Sun\superhappy</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Sun\superhappy.xnb</Output>
-      <Time>2014-08-09T19:56:53.1922589+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Sun\crying.png</Source>
-      <Name>Textures\Sun\crying</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Game Projects\Balloon Strike\Releases\Balloon Strike\BalloonStrike\BalloonStrike\bin\Windows Phone\Debug\Content\Textures\Sun\crying.xnb</Output>
-      <Time>2014-08-09T19:56:53.2079104+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

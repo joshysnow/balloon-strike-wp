@@ -93,15 +93,6 @@ namespace GameFramework
 
         public void Update(GameTime gameTime)
         {
-            if ((gameTime.TotalGameTime.Milliseconds % 500) == 0)
-            {
-                _currentAnimation.Scale = 1.5f;
-            }
-            else
-            {
-                _currentAnimation.Scale = 1;
-            }
-
             if (Mood == SunMood.Crying && _currentLives == 0)
             {
                 RaiseDead();

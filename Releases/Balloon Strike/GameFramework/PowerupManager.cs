@@ -108,15 +108,15 @@ namespace GameFramework
         {
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
-            Trigger freezeTrigger = new ScoreTrigger(100);
+            Trigger freezeTrigger = new ScoreTrigger(60);
             freezeTrigger.Triggered += FreezeTriggerHandler;
             AddTrigger(freezeTrigger);
 
-            Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(15));
+            Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(45));
             shellTrigger.Triggered += ShellTriggerHandler;
             AddTrigger(shellTrigger);
 
-            Trigger missileTrigger = new ScoreTrigger(50);
+            Trigger missileTrigger = new ScoreTrigger(90);
             missileTrigger.Triggered += MissileTriggerHandler;
             AddTrigger(missileTrigger);
 
@@ -135,21 +135,21 @@ namespace GameFramework
 
         private void FreezeTriggerHandler(Trigger trigger)
         {
-            SimpleTimer freezeTimer = new SimpleTimer(45000);
+            SimpleTimer freezeTimer = new SimpleTimer(20000);
             freezeTimer.Elapsed += FreezeTimerElapsed;
             Timers.Add(freezeTimer);
         }
 
         private void ShellTriggerHandler(Trigger trigger)
         {
-            SimpleTimer shellTimer = new SimpleTimer(15000);
+            SimpleTimer shellTimer = new SimpleTimer(5000);
             shellTimer.Elapsed += ShellTimerElapsed;
             Timers.Add(shellTimer);
         }
 
         private void MissileTriggerHandler(Trigger trigger)
         {
-            SimpleTimer missileTimer = new SimpleTimer(20000);
+            SimpleTimer missileTimer = new SimpleTimer(10000);
             missileTimer.Elapsed += MissileTimerElapsed;
             Timers.Add(missileTimer);
         }

@@ -15,7 +15,7 @@ namespace GameCore.Timers
         /// <summary>
         /// Initialize a repeating timer.
         /// </summary>
-        /// <param name="elapseTime">Time to tick over.</param>
+        /// <param name="elapseTime">Time to tick over in ms.</param>
         public SimpleTimer(float elapseTime)
         {
             _timePassed = 0f;

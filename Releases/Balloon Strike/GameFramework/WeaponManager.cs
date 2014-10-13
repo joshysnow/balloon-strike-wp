@@ -12,25 +12,28 @@ namespace GameFramework
         {
             get
             {
-                return _currentWeapons.First.Value;
+                return _weaponsInventory.First.Value;
             }
         }
 
-        private LinkedList<Weapon> _currentWeapons;
+        private LinkedList<Weapon> _weaponsInventory;
         private List<Crosshair> _garbageReticles;
+        private WeaponDisplay _display;
 
         public WeaponManager()
         {
-            _currentWeapons = new LinkedList<Weapon>();
-            _currentWeapons.AddFirst(WeaponFactory.CreateDefault());
-
+            _weaponsInventory = new LinkedList<Weapon>();
+            _weaponsInventory.AddFirst(WeaponFactory.CreateDefault());
             _garbageReticles = new List<Crosshair>();
+
+            _display = new WeaponDisplay(CurrentWeapon.Type.ToString());
         }
 
+#warning NOT CALLED
         public void Reset()
         {
-            _currentWeapons.Clear();
-            _currentWeapons.AddFirst(WeaponFactory.CreateDefault());
+            _weaponsInventory.Clear();
+            _weaponsInventory.AddFirst(WeaponFactory.CreateDefault());
         }
 
         public void ApplyPowerup(PowerupType powerupType)
@@ -59,8 +62,9 @@ namespace GameFramework
 
                 if ((currentWeapon.Type != WeaponType.Finger) && (currentWeapon.HasAmmo == false))
                 {
-                    _currentWeapons.Remove(_currentWeapons.First);
+                    _weaponsInventory.Remove(_weaponsInventory.First);
                     _garbageReticles.Add(currentWeapon.Crosshair);
+                    _display.WeaponChange(CurrentWeapon.Type.ToString());
                 }
             }
         }
@@ -80,39 +84,48 @@ namespace GameFramework
                 reticle.Draw(spriteBatch);
             }
 
-            SpriteFont debugFont = ResourceManager.Resources.GetFont("debug");
+            _display.Draw(spriteBatch);
+
+            /*SpriteFont debugFont = ResourceManager.Resources.GetFont("debug");
             Vector2 position = new Vector2(0, (800 - debugFont.LineSpacing));
             Weapon current = CurrentWeapon;
-            string text = "Total: " + _currentWeapons.Count + " Current: " + current.Type + " Ammo: " + current.Ammo;
-            spriteBatch.DrawString(debugFont, text, position, Color.Purple);
+            string text = "Total: " + _weaponsInventory.Count + " Current: " + current.Type + " Ammo: " + current.Ammo;
+            spriteBatch.DrawString(debugFont, text, position, Color.Purple); **/
         }
 
         private void AddWeapon(WeaponType newWeaponType)
         {
             bool inserted = false;
-            LinkedListNode<Weapon> currentNode = _currentWeapons.First;
+            LinkedListNode<Weapon> currentNode = _weaponsInventory.First;
             Weapon newWeapon = WeaponFactory.CreateFromType(newWeaponType);
+
+#warning Needs improvement, new weapon is best scenario
+            byte count = 0;
 
             do
             {
                 if (currentNode.Value.IsBetterThan(newWeaponType) == false)
                 {
-                    _currentWeapons.AddBefore(currentNode, newWeapon);
+                    _weaponsInventory.AddBefore(currentNode, newWeapon);
 
                     // Put copy of current weapon into garbage? Need to still show the current crosshair fading out.
                     _garbageReticles.Add(currentNode.Value.Crosshair);
 
                     inserted = true;
+
+                    if(count == 0)
+                        _display.WeaponChange(CurrentWeapon.Type.ToString());
                 }
 
                 currentNode = currentNode.Next;
+                count++;
             }
             while (!inserted && currentNode != null);
         }
 
         private void UpdateWeapons(GameTime gameTime)
         {
-            LinkedListNode<Weapon> currentNode = _currentWeapons.First;
+            LinkedListNode<Weapon> currentNode = _weaponsInventory.First;
             Weapon currentWeapon;
 
             do
@@ -121,8 +134,9 @@ namespace GameFramework
 
                 if ((currentWeapon.Type != WeaponType.Finger) && (currentWeapon.HasAmmo == false))
                 {
-                    _currentWeapons.Remove(currentNode);
+                    _weaponsInventory.Remove(currentNode);
                     _garbageReticles.Add(currentWeapon.Crosshair);
+                    _display.WeaponChange(CurrentWeapon.Type.ToString());
                 }
                 else
                 {

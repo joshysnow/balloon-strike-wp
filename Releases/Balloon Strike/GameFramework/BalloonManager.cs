@@ -63,7 +63,7 @@ namespace GameFramework
                     balloon = (Balloon)Characters[index];
 
                     // Check to ensure that the same balloon isn't used if there are more than one gestures).
-                    if ((balloon.State == BalloonState.Alive) && balloon.Intersects(circle))
+                    if ((balloon.State == BalloonState.Alive || balloon.State == BalloonState.Frozen) && balloon.Intersects(circle))
                     {
                         balloon.Attack(damage);
 
@@ -172,25 +172,32 @@ namespace GameFramework
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
             // Add two triggers for when to begin spawning the other balloons.
-            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(15));
+            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(20));
             blueSpawnStart.Triggered += BlueSpawnStartTriggerHandler;
             AddTrigger(blueSpawnStart);
 
-            Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(30));
+            Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(45));
             redSpawnStart.Triggered += RedSpawnStartTriggerHandler;
             AddTrigger(redSpawnStart);
 
-            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(60));
+            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
             velocityChange.Triggered += VelocityChangeTriggerHandler;
+            AddTrigger(velocityChange);
 
             // Start green balloon immediately.
-            VariableTimer _greenTimer = new VariableTimer(2000, 0.99f, 750);
+            VariableTimer _greenTimer = new VariableTimer(5000, 0.9f, 750);
             _greenTimer.Elapsed += GreenTimerElapsed;
             Timers.Add(_greenTimer);
 
-            _redVelocity = new Vector2(0, -9.2f);
-            _greenVelocity = new Vector2(0, -5.1f);
-            _blueVelocity = new Vector2(0, -7.15f);
+#warning EXPERIMENTAL START
+            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
+            massAttackTimer.Triggered += MassAttackTimerTriggered;
+            AddTrigger(massAttackTimer);
+#warning EXPERIMENTAL END
+
+            _redVelocity = new Vector2(0, -8f);
+            _greenVelocity = new Vector2(0, -5f);
+            _blueVelocity = new Vector2(0, -6.5f);
 
             ResourceManager manager = ResourceManager.Resources;
 
@@ -204,14 +211,14 @@ namespace GameFramework
 
         private void BlueSpawnStartTriggerHandler(Trigger trigger)
         {
-            VariableTimer blueTimer = new VariableTimer(5000, 0.95f, 750);
+            VariableTimer blueTimer = new VariableTimer(7500, 0.9f, 1000);
             blueTimer.Elapsed += BlueTimerElapsed;
             Timers.Add(blueTimer);
         }
 
         private void RedSpawnStartTriggerHandler(Trigger trigger)
         {
-            VariableTimer redTimer = new VariableTimer(5000, 0.95f, 750);
+            VariableTimer redTimer = new VariableTimer(7500, 0.9f, 1000);
             redTimer.Elapsed += RedTimerElapsed;
             Timers.Add(redTimer);
         }
@@ -222,6 +229,19 @@ namespace GameFramework
             _blueVelocity.Y = -11f;
             _redVelocity.Y = -13f;
 #warning TODO: Could call a function to reuse a trigger to perhaps add more timers? Prevents it from being deleted after this function ends.
+        }
+
+        private void MassAttackTimerTriggered(Trigger trigger)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                SpawnBalloon(BalloonColor.Red);
+            }
+
+            // Add itself back again
+            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
+            massAttackTimer.Triggered += MassAttackTimerTriggered;
+            AddTrigger(massAttackTimer);
         }
 
         private void GreenTimerElapsed(SimpleTimer timer)

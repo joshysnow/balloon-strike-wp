@@ -30,6 +30,11 @@ Content\Textures\Buttons\hex_menu.xnb
 Content\Textures\Buttons\hex_menu_pressed.xnb
 Content\Textures\Clouds\cloud_medium.xnb
 Content\Textures\Clouds\cloud_small.xnb
+Content\Textures\Sun\happy.xnb
+Content\Textures\Sun\ok.xnb
+Content\Textures\Sun\sad.xnb
+Content\Textures\Sun\superhappy.xnb
+Content\Textures\Sun\crying.xnb
 Content\DebugText.xnb
 Content\Fonts\score0.xnb
 Content\Fonts\score1.xnb
@@ -49,8 +54,3 @@ Content\Fonts\small.xnb
 Content\Fonts\popup_text.xnb
 Content\Audio\Sounds\snowball_impact.xnb
 Content\Audio\Sounds\snowball_car_impact1.xnb
-Content\Textures\Sun\happy.xnb
-Content\Textures\Sun\ok.xnb
-Content\Textures\Sun\sad.xnb
-Content\Textures\Sun\superhappy.xnb
-Content\Textures\Sun\crying.xnb

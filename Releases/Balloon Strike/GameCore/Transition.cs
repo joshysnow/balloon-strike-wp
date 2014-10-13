@@ -48,7 +48,7 @@ namespace GameCore
         }
 
         /// <summary>
-        /// Will wait to perform active transition if true.
+        /// Will wait to transition off if true.
         /// </summary>
         public bool Invoked
         {

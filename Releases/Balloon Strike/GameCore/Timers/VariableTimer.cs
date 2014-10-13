@@ -29,7 +29,7 @@ namespace GameCore.Timers
             {
                 if (_elapseTime > _bounds)
                 {
-                    if (_elapseTime * _modifier >= _bounds)
+                    if (_elapseTime * _modifier <= _bounds)
                     {
                         _elapseTime = _bounds;
                     }

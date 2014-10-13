@@ -66,6 +66,7 @@
     <Compile Include="ScoreManager.cs" />
     <Compile Include="Sun.cs" />
     <Compile Include="Weapon.cs" />
+    <Compile Include="WeaponDisplay.cs" />
     <Compile Include="WeaponFactory.cs" />
     <Compile Include="WeaponManager.cs" />
   </ItemGroup>
