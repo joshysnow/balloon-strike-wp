@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{edc8e2ef-9983-45e5-a116-b20dccfa5adc}" Title="BalloonStrike" RuntimeType="XNA" Version="1.0.0.0" Genre="Apps.Normal" Author="" Description="" Publisher="">
+  <App xmlns="" ProductID="{edc8e2ef-9983-45e5-a116-b20dccfa5adc}" Title="Balloon Strike" RuntimeType="XNA" Version="1.0.0.0" Genre="Apps.Normal" Author="" Description="" Publisher="">
     <IconPath IsRelative="true" IsResource="false">PhoneGameThumb.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />

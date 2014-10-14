@@ -187,7 +187,7 @@ namespace GameFramework
             AddTrigger(velocityChange);
 
             // Start green balloon immediately.
-            VariableTimer _greenTimer = new VariableTimer(5000, 0.9f, 750);
+            VariableTimer _greenTimer = new VariableTimer(4000, 0.9f, 750);
             _greenTimer.Elapsed += GreenTimerElapsed;
             Timers.Add(_greenTimer);
 
@@ -215,14 +215,14 @@ namespace GameFramework
 
         private void BlueSpawnStartTriggerHandler(Trigger trigger)
         {
-            VariableTimer blueTimer = new VariableTimer(7500, 0.9f, 1000);
+            VariableTimer blueTimer = new VariableTimer(7500, 0.9f, 1000, true);
             blueTimer.Elapsed += BlueTimerElapsed;
             Timers.Add(blueTimer);
         }
 
         private void RedSpawnStartTriggerHandler(Trigger trigger)
         {
-            VariableTimer redTimer = new VariableTimer(7500, 0.9f, 1000);
+            VariableTimer redTimer = new VariableTimer(7500, 0.9f, 1000, true);
             redTimer.Elapsed += RedTimerElapsed;
             Timers.Add(redTimer);
         }
@@ -237,15 +237,9 @@ namespace GameFramework
 
         private void MassAttackTimerTriggered(Trigger trigger)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                SpawnBalloon(BalloonColor.Red);
-            }
-
-            // Add itself back again
-            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
-            massAttackTimer.Triggered += MassAttackTimerTriggered;
-            AddTrigger(massAttackTimer);
+            SimpleTimer attackTimer = new SimpleTimer(TimeSpan.FromSeconds(30).Milliseconds);
+            attackTimer.Elapsed += AttackTimerElapsed;
+            Timers.Add(attackTimer);
         }
 
         private void GreenTimerElapsed(SimpleTimer timer)
@@ -261,6 +255,14 @@ namespace GameFramework
         private void RedTimerElapsed(SimpleTimer timer)
         {
             SpawnBalloon(BalloonColor.Red);
+        }
+
+        private void AttackTimerElapsed(SimpleTimer timer)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                SpawnBalloon(BalloonColor.Red);
+            }
         }
 
         private void SpawnBalloon(BalloonColor colour)

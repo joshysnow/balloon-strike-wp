@@ -11,11 +11,26 @@ namespace GameCore.Timers
         /// <summary>
         /// Takes a percentage modifier that manipulates the next time to spawn up to the bounds.
         /// </summary>
-        /// <param name="elapseTime"></param>
+        /// <param name="elapseTime">Time to elapse in ms.</param>
         /// <param name="modifier">Percentage to apply to elapse time for every elapse.</param>
-        /// <param name="bounds"></param>
+        /// <param name="bounds">Minimum time to spawn.</param>
         public VariableTimer(float elapseTime, float modifier, float bounds)
             : base(elapseTime)
+        {
+            _modifier = modifier;
+            _bounds = bounds;
+        }
+
+        /// <summary>
+        /// Takes a percentage modifier that manipulates the next time to spawn up to the bounds,
+        /// can also fire off immediately by setting elapse to true.
+        /// </summary>
+        /// <param name="elapseTime">Time to elapse in ms.</param>
+        /// <param name="modifier">Percentage to apply to elapse time for every elapse.</param>
+        /// <param name="bounds">Minimum time to spawn in ms.</param>
+        /// <param name="elapse">If true, timer will fire immediately.</param>
+        public VariableTimer(float elapseTime, float modifier, float bounds, bool elapse)
+            : base(elapseTime, elapse)
         {
             _modifier = modifier;
             _bounds = bounds;

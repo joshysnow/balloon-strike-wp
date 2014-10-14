@@ -6,7 +6,7 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BalloonStrike")]
+[assembly: AssemblyTitle("Balloon Strike")]
 [assembly: AssemblyProduct("BalloonStrike")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]
@@ -32,5 +32,5 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.1.18")]
+[assembly: AssemblyVersion("1.0.1.19")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

@@ -22,6 +22,18 @@ namespace GameCore.Timers
             _elapseTime = elapseTime;
         }
 
+        /// <summary>
+        /// Initialize a repeating timer with the option to elapse on first update.
+        /// </summary>
+        /// <param name="elapseTime">Time to tick over in ms.</param>
+        public SimpleTimer(float elapseTime, bool elapse) : this(elapseTime)
+        {
+            if (elapse)
+            {
+                _timePassed = elapseTime;
+            }
+        }
+
         public virtual bool Update(GameTime gameTime) 
         {
             _timePassed += gameTime.ElapsedGameTime.Milliseconds;
