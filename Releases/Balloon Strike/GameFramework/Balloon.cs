@@ -265,7 +265,14 @@ namespace GameFramework
             {
                 _frozenTimer = null;
                 //_animationPlayer.SetAnimation(_moveAnimation, _positionUL);
-                ChangeState(BalloonState.Alive);
+                if (_state == BalloonState.Hit)
+                {
+                    _previousState = BalloonState.Alive;
+                }
+                else
+                {
+                    ChangeState(BalloonState.Alive);
+                }                
             }
         }
 
