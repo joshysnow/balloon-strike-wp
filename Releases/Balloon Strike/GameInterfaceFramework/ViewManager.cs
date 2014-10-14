@@ -15,6 +15,12 @@ namespace GameInterfaceFramework
             get { return _spriteBatch; }
         }
 
+        public GestureType EnabledGestures
+        {
+            get { return TouchPanel.EnabledGestures; }
+            set { TouchPanel.EnabledGestures = value; }
+        }
+
         private SpriteBatch _spriteBatch;
         private List<View> _views;
         private List<View> _tempViews;
@@ -26,7 +32,7 @@ namespace GameInterfaceFramework
             _tempViews = new List<View>();
             _controls = new ControlsState();
 
-            TouchPanel.EnabledGestures = GestureType.None;
+            EnabledGestures = GestureType.None;
         }
 
         public void AddView(View newView)
@@ -35,14 +41,14 @@ namespace GameInterfaceFramework
             newView.Activate(false);
             _views.Add(newView);
 
-            TouchPanel.EnabledGestures = newView.EnabledGestures;
+            EnabledGestures = newView.ViewGestures;
         }
 
         public void RemoveView(View view)
         {
             _views.Remove(view);
 
-            TouchPanel.EnabledGestures = _views.Last().EnabledGestures;
+            EnabledGestures = _views.Last().ViewGestures;
         }
 
         public View[] Views()

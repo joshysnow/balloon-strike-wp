@@ -37,7 +37,7 @@ namespace BalloonStrike.Views
             Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
-            EnabledGestures = GestureType.Tap;
+            ViewGestures = GestureType.Tap;
         }
 
         public override void Activate(bool instancePreserved)

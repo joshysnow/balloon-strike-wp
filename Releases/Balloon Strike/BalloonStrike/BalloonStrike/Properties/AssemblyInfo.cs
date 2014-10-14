@@ -7,9 +7,9 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Balloon Strike")]
-[assembly: AssemblyProduct("BalloonStrike")]
+[assembly: AssemblyProduct("Balloon Strike")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("FoxCode")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.1.19")]
+[assembly: AssemblyVersion("1.0.1.20")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

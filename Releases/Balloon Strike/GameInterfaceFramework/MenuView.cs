@@ -16,7 +16,7 @@ namespace GameInterfaceFramework
             Transition.TransitionOnTime = TimeSpan.FromSeconds(1.5);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
-            EnabledGestures = GestureType.Tap;
+            ViewGestures = GestureType.Tap;
         }
 
         public override void HandlePlayerInput(ControlsState controls)

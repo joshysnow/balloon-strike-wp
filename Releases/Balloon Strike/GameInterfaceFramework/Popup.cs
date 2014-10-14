@@ -40,7 +40,7 @@ namespace GameInterfaceFramework
             IsPopup = true;
             _clickable = false;
 
-            EnabledGestures = GestureType.Tap;
+            ViewGestures = GestureType.Tap;
 
             _message = message;
         }

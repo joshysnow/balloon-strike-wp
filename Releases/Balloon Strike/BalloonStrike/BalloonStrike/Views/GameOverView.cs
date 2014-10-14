@@ -17,19 +17,22 @@ namespace BalloonStrike.Views
         private Vector2 _scorePosition;
         private float _increment;
         private float _score;
+        private bool _finishedCounting;
 
         public GameOverView()
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
-            EnabledGestures = GestureType.Tap;
+            ViewGestures = GestureType.None;
         }
 
         public override void Activate(bool instancePreserved)
         {
             if (!instancePreserved)
             {
+                _finishedCounting = false;
+
                 GraphicsDevice graphics = ViewManager.GraphicsDevice;
                 int width = graphics.Viewport.Width;
                 int height = graphics.Viewport.Height;
@@ -47,7 +50,6 @@ namespace BalloonStrike.Views
                 Player p = Player.Instance;
                 Vector2 scoreSize = _scoreFont.MeasureString(p.CurrentScore.ToString());
                 _scorePosition = new Vector2((width - scoreSize.X) / 2, (height / 2));
-
 
                 // Calculate the amount to increment for large scores.
                 _increment = (33.3f / 500) * p.CurrentScore; // Finish in 1/2 a second. (FPS / time to finish) * score.
@@ -75,7 +77,7 @@ namespace BalloonStrike.Views
 
         public override void Update(GameTime gameTime, bool covered)
         {
-            if (State == TransitionState.Active)
+            if (State == TransitionState.Active && !_finishedCounting)
             {
                 Player p = Player.Instance;
                 if (_score < p.CurrentScore)
@@ -83,6 +85,9 @@ namespace BalloonStrike.Views
                     if ((_score + _increment) >= p.CurrentScore)
                     {
                         _score = p.CurrentScore;
+                        _finishedCounting = true;
+                        ViewGestures = GestureType.Tap;
+                        ViewManager.EnabledGestures = ViewGestures;
                     }
                     else
                     {

@@ -23,7 +23,7 @@ namespace GameInterfaceFramework
             internal set;
         }
 
-        public GestureType EnabledGestures
+        public GestureType ViewGestures
         {
             get;
             protected set;
