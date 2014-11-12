@@ -1,3 +1,4 @@
+#define Pulse
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -56,6 +57,10 @@ namespace GameFramework
         private float _totalLives;
         private float _currentLives;
 
+#if Pulse
+        private Pulse _pulse;
+#endif
+
         public Sun()
         {
             _animationPlayer = new AnimationPlayer();
@@ -68,6 +73,10 @@ namespace GameFramework
             _totalLives = 10;
             _currentLives = 10;
             _position = new Vector2(10, 10);
+
+#if Pulse
+            _pulse = new Pulse(TimeSpan.FromSeconds(5));
+#endif
 
             ResourceManager resources = ResourceManager.Resources;
             _superHappyAnimation = resources.GetAnimation("sun_superhappy");
@@ -97,10 +106,17 @@ namespace GameFramework
             {
                 RaiseDead();
             }
+
+#if Pulse
+            _pulse.Update(gameTime);
+#endif
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+#if Pulse
+            _currentAnimation.Scale = MathHelper.Lerp(1, 1.5f, _pulse.Position);
+#endif
             _animationPlayer.Draw(spriteBatch);
         }
 
