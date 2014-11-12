@@ -31,8 +31,6 @@ namespace BalloonStrike.Views
         {
             if (!instancePreserved)
             {
-                _finishedCounting = false;
-
                 GraphicsDevice graphics = ViewManager.GraphicsDevice;
                 int width = graphics.Viewport.Width;
                 int height = graphics.Viewport.Height;
@@ -51,11 +49,18 @@ namespace BalloonStrike.Views
                 Vector2 scoreSize = _scoreFont.MeasureString(p.CurrentScore.ToString());
                 _scorePosition = new Vector2((width - scoreSize.X) / 2, (height / 2));
 
-                // Calculate the amount to increment for large scores.
-                _increment = (33.3f / 500) * p.CurrentScore; // Finish in 1/2 a second. (FPS / time to finish) * score.
+                // If the player scored 0, then we have already finished counting.
+                _finishedCounting = p.CurrentScore == 0;
+
                 // TODO: Ensure that if the score would take longer than usual then limit to 1/2 a second. In other words,
                 // if the score would take more than 1/2 a second to increment by one, then calculate the above to ensure
                 // it takes no longer than 1/2 a second.
+
+                // Calculate the amount to increment for large scores.
+                if (_finishedCounting == false)
+                    _increment = (33.3f / 500) * p.CurrentScore; // Finish in 1/2 a second. (FPS / time to finish) * score.
+                else
+                    EnableViewGestures();
 
                 Texture2D playUnselected = resources.GetTexture("button_unselected_play");
                 Texture2D menuUnselected = resources.GetTexture("button_unselected_menu");
@@ -86,8 +91,7 @@ namespace BalloonStrike.Views
                     {
                         _score = p.CurrentScore;
                         _finishedCounting = true;
-                        ViewGestures = GestureType.Tap;
-                        ViewManager.EnabledGestures = ViewGestures;
+                        EnableViewGestures();
                     }
                     else
                     {
@@ -125,6 +129,12 @@ namespace BalloonStrike.Views
         private void MenuTappedHandler(Button button)
         {
             LoadView.Load(ViewManager, 1, new MainMenuView());
+        }
+
+        private void EnableViewGestures()
+        {
+            ViewGestures = GestureType.Tap;
+            ViewManager.EnabledGestures = ViewGestures;
         }
     }
 }
