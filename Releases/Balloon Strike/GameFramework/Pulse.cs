@@ -23,13 +23,17 @@ namespace GameFramework
         private float _duration;
         private float _frequency;
 
-        public Pulse(TimeSpan duration)
+        public Pulse()
         {
             Position = 0;
-            _duration = (float)duration.TotalMilliseconds / 2f;
             _frequency = 0;
             _increase = true;
             _state = PulseState.Wait;
+        }
+
+        public Pulse(TimeSpan duration) : this()
+        {
+            _duration = (float)duration.TotalMilliseconds / 2f;
         }
 
         public Pulse(TimeSpan duration, TimeSpan frequency) : this(duration)
@@ -52,13 +56,27 @@ namespace GameFramework
             }
         }
 
+        public void ChangeRhythm(TimeSpan duration, TimeSpan frequency, bool reset = false)
+        {
+            _duration = (float)duration.TotalMilliseconds;
+            _frequency = (float)frequency.TotalMilliseconds;
+
+            if (reset || _duration == 0f)
+            {
+                Position = 0;
+                _state = PulseState.Wait;
+                _time = 0;
+                _increase = true;
+            }
+        }
+
         private void UpdateWaitState(GameTime gameTime)
         {
             _time -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
             _time = MathHelper.Clamp(_time, 0, _frequency);
 
-            if (_time == 0)
+            if (_time == 0 && _duration > 0f)
             {
                 _state = PulseState.Transition;
             }
@@ -75,6 +93,11 @@ namespace GameFramework
 
             Position = _time / _duration;
 
+            if (_time == _duration)
+            {
+                _increase = false;
+            }
+
             if (_time == 0f)
             {
                 _increase = true;
@@ -84,11 +107,6 @@ namespace GameFramework
                     _state = PulseState.Wait;
                     _time = _frequency;
                 }
-            }
-
-            if (_time == _duration)
-            {
-                _increase = false;
             }
         }
     }

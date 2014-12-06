@@ -1,4 +1,3 @@
-#define Pulse
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -41,6 +40,18 @@ namespace GameFramework
             }
         }
 
+        private static TimeSpan DURATION_SUPER_HAPPY    = TimeSpan.FromSeconds(2);
+        private static TimeSpan DURATION_HAPPY          = TimeSpan.FromSeconds(0.5f);
+        private static TimeSpan DURATION_OK             = TimeSpan.FromSeconds(0.5f);
+        private static TimeSpan DURATION_SAD            = TimeSpan.FromSeconds(0.5f);
+        private static TimeSpan DURATION_CRYING         = TimeSpan.FromSeconds(0.25f);
+
+        private static TimeSpan FREQUENCY_SUPER_HAPPY   = TimeSpan.FromSeconds(0);
+        private static TimeSpan FREQUENCY_HAPPY         = TimeSpan.FromSeconds(1);
+        private static TimeSpan FREQUENCY_OK            = TimeSpan.FromSeconds(3);
+        private static TimeSpan FREQUENCY_SAD           = TimeSpan.FromSeconds(0.5f);
+        private static TimeSpan FREQUENCY_CRYING        = TimeSpan.FromSeconds(0.25f);
+
         private const float THRESHOLD_CRYING        = 0.1f;
         private const float THRESHOLD_SAD           = 0.4f;
         private const float THRESHOLD_HAPPY         = 0.7f;
@@ -53,13 +64,10 @@ namespace GameFramework
         private Animation _sadAnimation;
         private Animation _cryingAnimation;
         private Animation _currentAnimation;
+        private Pulse _pulse;
         private Vector2 _position;
         private float _totalLives;
         private float _currentLives;
-
-#if Pulse
-        private Pulse _pulse;
-#endif
 
         public Sun()
         {
@@ -74,10 +82,6 @@ namespace GameFramework
             _currentLives = 10;
             _position = new Vector2(10, 10);
 
-#if Pulse
-            _pulse = new Pulse(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(1));
-#endif
-
             ResourceManager resources = ResourceManager.Resources;
             _superHappyAnimation = resources.GetAnimation("sun_superhappy");
             _happyAnimation = resources.GetAnimation("sun_happy");
@@ -85,9 +89,9 @@ namespace GameFramework
             _sadAnimation = resources.GetAnimation("sun_sad");
             _cryingAnimation = resources.GetAnimation("sun_crying");
 
-            _currentAnimation = _superHappyAnimation;
-            _animationPlayer.SetAnimation(_currentAnimation);
-            _animationPlayer.SetPosition(_position);
+            _pulse = new Pulse();
+            _animationPlayer.SetPosition(new Vector2(10, 10));
+            UpdateMood();
         }
 
         public void LoseALife()
@@ -107,16 +111,12 @@ namespace GameFramework
                 RaiseDead();
             }
 
-#if Pulse
             _pulse.Update(gameTime);
-#endif
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-#if Pulse
-            _currentAnimation.Scale = MathHelper.Lerp(1, 1.5f, _pulse.Position);
-#endif
+            _currentAnimation.Scale = MathHelper.Lerp(1, 1.25f, _pulse.Position);
             _animationPlayer.Draw(spriteBatch);
         }
 
@@ -128,26 +128,31 @@ namespace GameFramework
             {
                 Mood = SunMood.Crying;
                 _currentAnimation = _cryingAnimation;
+                _pulse.ChangeRhythm(DURATION_CRYING, FREQUENCY_CRYING);
             }
             else if (moodPercentage <= THRESHOLD_SAD)
             {
                 Mood = SunMood.Sad;
                 _currentAnimation = _sadAnimation;
+                _pulse.ChangeRhythm(DURATION_SAD, FREQUENCY_SAD);
             }
             else if((moodPercentage > THRESHOLD_SAD) && (moodPercentage < THRESHOLD_HAPPY))
             {
                 Mood = SunMood.Ok;
                 _currentAnimation = _okAnimation;
+                _pulse.ChangeRhythm(DURATION_OK, FREQUENCY_OK);
             }
             else if ((moodPercentage >= THRESHOLD_HAPPY) && (moodPercentage < THRESHOLD_SUPER_HAPPY))
             {
                 Mood = SunMood.Happy;
                 _currentAnimation = _happyAnimation;
+                _pulse.ChangeRhythm(DURATION_HAPPY, FREQUENCY_HAPPY);
             }
             else
             {
                 Mood = SunMood.SuperHappy;
                 _currentAnimation = _superHappyAnimation;
+                _pulse.ChangeRhythm(DURATION_SUPER_HAPPY, FREQUENCY_SUPER_HAPPY);
             }
 
             _animationPlayer.SetAnimation(_currentAnimation);

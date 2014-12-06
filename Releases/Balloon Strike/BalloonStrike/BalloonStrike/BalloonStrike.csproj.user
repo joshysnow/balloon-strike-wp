@@ -5,10 +5,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Windows Phone'">
     <CurrentDeployCmdId>256</CurrentDeployCmdId>
-    <CurrentDeployID>52AA5703-81E6-4437-B8C3-950899332CA6</CurrentDeployID>
+    <CurrentDeployID>30F105C9-681E-420b-A277-7C086EAD8A4E</CurrentDeployID>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Windows Phone'">
     <CurrentDeployCmdId>256</CurrentDeployCmdId>
-    <CurrentDeployID>52AA5703-81E6-4437-B8C3-950899332CA6</CurrentDeployID>
+    <CurrentDeployID>30F105C9-681E-420b-A277-7C086EAD8A4E</CurrentDeployID>
   </PropertyGroup>
 </Project>
