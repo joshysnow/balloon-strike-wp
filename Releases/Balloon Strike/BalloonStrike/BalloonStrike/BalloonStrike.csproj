@@ -21,12 +21,12 @@
     <XapFilename>$(AssemblyName).xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <XnaWindowsPhoneManifestTemplate>Properties\WMAppManifest.xml</XnaWindowsPhoneManifestTemplate>
-    <TileImage>Background.png</TileImage>
+    <TileImage>Tile_Image.png</TileImage>
     <TileTitle>Balloon Strike</TileTitle>
     <SupportedCultures>
     </SupportedCultures>
     <ApplicationIcon>Game.ico</ApplicationIcon>
-    <Thumbnail>PhoneGameThumb.png</Thumbnail>
+    <Thumbnail>Thumbnail.png</Thumbnail>
     <GameStartupType>BalloonStrike.Game</GameStartupType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Windows Phone' ">
@@ -97,6 +97,8 @@
     <Content Include="Background.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
+    <Content Include="Thumbnail.png" />
+    <Content Include="Tile_Image.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\GameCore\GameCore.csproj">
