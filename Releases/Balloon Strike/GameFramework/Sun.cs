@@ -75,7 +75,7 @@ namespace GameFramework
             _position = new Vector2(10, 10);
 
 #if Pulse
-            _pulse = new Pulse(TimeSpan.FromSeconds(5));
+            _pulse = new Pulse(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(1));
 #endif
 
             ResourceManager resources = ResourceManager.Resources;
