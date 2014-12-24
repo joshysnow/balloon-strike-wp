@@ -196,6 +196,10 @@ namespace GameCore
             Texture2D buttonAbout       = _content.Load<Texture2D>("Textures/Buttons/about_400px");
             Texture2D buttonExit        = _content.Load<Texture2D>("Textures/Buttons/exit_400px");
 
+            Texture2D title = _content.Load<Texture2D>("Textures/game_title");
+
+            _textures.Add("title", title);
+
             _textures.Add("button_play", buttonPlay);
             _textures.Add("button_highscores", buttonHighscores);
             _textures.Add("button_about", buttonAbout);

@@ -9,6 +9,8 @@ namespace BalloonStrike.Views
 {
     public class MainMenuView : MenuView
     {
+        private Texture2D _titleTexture;
+        private Vector2 _titlePosition;
         private SpriteFont _versionFont;
         private Vector2 _versionPosition;
         private string _versionText;
@@ -31,7 +33,7 @@ namespace BalloonStrike.Views
                 Texture2D aboutTexture = resources.GetTexture("button_about");
                 Texture2D exitTexture = resources.GetTexture("button_exit");
 
-                const int BUTTON_SPACING = 10;
+                const int BUTTON_SPACING = 30;
                 const int NUM_BUTTONS = 4;
                 const int BOTTOM_SPACING = 50;  // Bottom of the screen space between buttons
 
@@ -57,6 +59,7 @@ namespace BalloonStrike.Views
                 exit.Tapped += ExitTappedHandler;
                 _menuButtons.Add(exit);
 
+                SetupTitle();
                 SetupVersion();
             }
         }
@@ -65,10 +68,22 @@ namespace BalloonStrike.Views
         {
             SpriteBatch spriteBatch = ViewManager.SpriteBatch;
             spriteBatch.Begin();
+            spriteBatch.Draw(_titleTexture, _titlePosition, null, Color.White * TransitionAlpha);
             spriteBatch.DrawString(_versionFont, _versionText, _versionPosition, Color.Black * TransitionAlpha);
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void SetupTitle()
+        {
+            GraphicsDevice graphics = ViewManager.GraphicsDevice;
+            ResourceManager resources = ResourceManager.Resources;
+
+            _titleTexture = resources.GetTexture("title");
+            int x = (graphics.Viewport.Width - _titleTexture.Width) / 2;
+            int y = ((graphics.Viewport.Height / 2) - _titleTexture.Height) / 2;
+            _titlePosition = new Vector2(x, y);
         }
 
         private void SetupVersion()
