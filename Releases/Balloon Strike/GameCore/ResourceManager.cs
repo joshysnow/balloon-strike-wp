@@ -177,19 +177,29 @@ namespace GameCore
             Texture2D cloudSmall = _content.Load<Texture2D>("Textures/Clouds/cloud_small");
             Texture2D cloudMedium = _content.Load<Texture2D>("Textures/Clouds/cloud_medium");
 
-            Texture2D buttonPlayUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_play");
-            Texture2D buttonAchieveUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_achievements");
-            Texture2D buttonInfoUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_info");
-            Texture2D buttonMenuUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_menu");
-            Texture2D buttonTickUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_tick");
-            Texture2D buttonCancelUnselected = _content.Load<Texture2D>("Textures/Buttons/hex_cancel");
+            Texture2D buttonPlayUnselected      = _content.Load<Texture2D>("Textures/Buttons/hex_play");
+            Texture2D buttonAchieveUnselected   = _content.Load<Texture2D>("Textures/Buttons/hex_achievements");
+            Texture2D buttonInfoUnselected      = _content.Load<Texture2D>("Textures/Buttons/hex_info");
+            Texture2D buttonMenuUnselected      = _content.Load<Texture2D>("Textures/Buttons/hex_menu");
+            Texture2D buttonTickUnselected      = _content.Load<Texture2D>("Textures/Buttons/hex_tick");
+            Texture2D buttonCancelUnselected    = _content.Load<Texture2D>("Textures/Buttons/hex_cancel");
 
-            Texture2D buttonPlaySelected = _content.Load<Texture2D>("Textures/Buttons/hex_play_pressed");
+            Texture2D buttonPlaySelected    = _content.Load<Texture2D>("Textures/Buttons/hex_play_pressed");
             Texture2D buttonAchieveSelected = _content.Load<Texture2D>("Textures/Buttons/hex_achievements_pressed");
-            Texture2D buttonInfoSelected = _content.Load<Texture2D>("Textures/Buttons/hex_info_pressed");
-            Texture2D buttonMenuSelected = _content.Load<Texture2D>("Textures/Buttons/hex_menu_pressed");
-            Texture2D buttonTickSelected = _content.Load<Texture2D>("Textures/Buttons/hex_tick_pressed");
-            Texture2D buttonCancelSelected = _content.Load<Texture2D>("Textures/Buttons/hex_cancel_pressed");
+            Texture2D buttonInfoSelected    = _content.Load<Texture2D>("Textures/Buttons/hex_info_pressed");
+            Texture2D buttonMenuSelected    = _content.Load<Texture2D>("Textures/Buttons/hex_menu_pressed");
+            Texture2D buttonTickSelected    = _content.Load<Texture2D>("Textures/Buttons/hex_tick_pressed");
+            Texture2D buttonCancelSelected  = _content.Load<Texture2D>("Textures/Buttons/hex_cancel_pressed");
+
+            Texture2D buttonPlay        = _content.Load<Texture2D>("Textures/Buttons/play_400px");
+            Texture2D buttonHighscores  = _content.Load<Texture2D>("Textures/Buttons/highscores_400px");
+            Texture2D buttonAbout       = _content.Load<Texture2D>("Textures/Buttons/about_400px");
+            Texture2D buttonExit        = _content.Load<Texture2D>("Textures/Buttons/exit_400px");
+
+            _textures.Add("button_play", buttonPlay);
+            _textures.Add("button_highscores", buttonHighscores);
+            _textures.Add("button_about", buttonAbout);
+            _textures.Add("button_exit", buttonExit);
 
             _textures.Add("blank", blankTexture);
             _textures.Add("red", redBalloon);

@@ -26,35 +26,42 @@ namespace BalloonStrike.Views
                 GraphicsDevice graphics = ViewManager.GraphicsDevice;
                 ResourceManager resources = ResourceManager.Resources;
 
-                Texture2D playUnselected = resources.GetTexture("button_unselected_play");
-                Texture2D achieveUnselected = resources.GetTexture("button_unselected_achievements");
-                Texture2D infoUnselected = resources.GetTexture("button_unselected_info");
-                Texture2D playSelected = resources.GetTexture("button_selected_play");
-                Texture2D achieveSelected = resources.GetTexture("button_selected_achievements");
-                Texture2D infoSelected = resources.GetTexture("button_selected_info");
+                Texture2D playTexture = resources.GetTexture("button_play");
+                Texture2D highscoresTexture = resources.GetTexture("button_highscores");
+                Texture2D aboutTexture = resources.GetTexture("button_about");
+                Texture2D exitTexture = resources.GetTexture("button_exit");
 
                 const int BUTTON_SPACING = 10;
-                int x = (graphics.Viewport.Width - playUnselected.Width) / 2;
-                int y = graphics.Viewport.Height - ((playUnselected.Height * 3) + (BUTTON_SPACING * 3));
+                const int NUM_BUTTONS = 4;
+                const int BOTTOM_SPACING = 50;  // Bottom of the screen space between buttons
 
-                Button play = new Button(playUnselected, playSelected) { Position = new Vector2(x, y) };
+                int x = (graphics.Viewport.Width - playTexture.Width) / 2;
+                int y = graphics.Viewport.Height - ((playTexture.Height * NUM_BUTTONS) + (BUTTON_SPACING * NUM_BUTTONS) + BOTTOM_SPACING);
+
+                Button play = new Button(playTexture, playTexture) { Position = new Vector2(x, y) };
                 play.Tapped += PlayTappedHandler;
                 _menuButtons.Add(play);
-                y += BUTTON_SPACING + playUnselected.Height;
+                y += BUTTON_SPACING + playTexture.Height;
 
-                Button achievements = new Button(achieveUnselected, achieveSelected) { Position = new Vector2(x, y) };
-                achievements.Tapped += AchievementsTappedHandler;
-                _menuButtons.Add(achievements);
-                y += BUTTON_SPACING + playUnselected.Height;
+                Button highscores = new Button(highscoresTexture, highscoresTexture) { Position = new Vector2(x, y) };
+                highscores.Tapped += HighscoresTappedHandler;
+                _menuButtons.Add(highscores);
+                y += BUTTON_SPACING + highscoresTexture.Height;
 
-                Button infoButton = new Button(infoUnselected, infoSelected) { Position = new Vector2(x, y) };
-                infoButton.Tapped += InfoTappedHandler;
-                _menuButtons.Add(infoButton);
+                Button about = new Button(aboutTexture, aboutTexture) { Position = new Vector2(x, y) };
+                about.Tapped += InfoTappedHandler;
+                _menuButtons.Add(about);
+                y += BUTTON_SPACING + aboutTexture.Height;
+
+                Button exit = new Button(exitTexture, exitTexture) { Position = new Vector2(x, y) };
+                exit.Tapped += ExitTappedHandler;
+                _menuButtons.Add(exit);
 
                 // Show the version in the corner of the screen.
                 _versionFont = resources.GetFont("small");
                 const byte VERSION = 1;
                 const byte SPACING = 10;
+
                 string[] info = Assembly.GetExecutingAssembly().FullName.Split(',');
                 _versionText = "v" + info[VERSION].Trim().Split('=')[VERSION];
                 Vector2 versionSize = _versionFont.MeasureString(_versionText);
@@ -77,7 +84,7 @@ namespace BalloonStrike.Views
             LoadView.Load(ViewManager, 1, new GameView());
         }
 
-        private void AchievementsTappedHandler(Button button)
+        private void HighscoresTappedHandler(Button button)
         {
             LoadView.Load(ViewManager, 1, new AchievementsView());
         }
@@ -85,6 +92,11 @@ namespace BalloonStrike.Views
         private void InfoTappedHandler(Button button)
         {
             LoadView.Load(ViewManager, 1, new InfoView());
+        }
+
+        private void ExitTappedHandler(Button button)
+        {
+            ViewManager.Game.Exit();
         }
     }
 }
