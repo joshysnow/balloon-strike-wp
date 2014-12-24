@@ -57,15 +57,7 @@ namespace BalloonStrike.Views
                 exit.Tapped += ExitTappedHandler;
                 _menuButtons.Add(exit);
 
-                // Show the version in the corner of the screen.
-                _versionFont = resources.GetFont("small");
-                const byte VERSION = 1;
-                const byte SPACING = 10;
-
-                string[] info = Assembly.GetExecutingAssembly().FullName.Split(',');
-                _versionText = "v" + info[VERSION].Trim().Split('=')[VERSION];
-                Vector2 versionSize = _versionFont.MeasureString(_versionText);
-                _versionPosition = new Vector2(graphics.Viewport.Width - versionSize.X - SPACING, graphics.Viewport.Height - versionSize.Y);
+                SetupVersion();
             }
         }
 
@@ -77,6 +69,22 @@ namespace BalloonStrike.Views
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void SetupVersion()
+        {
+            GraphicsDevice graphics = ViewManager.GraphicsDevice;
+            ResourceManager resources = ResourceManager.Resources;
+
+            // Show the version in the corner of the screen.
+            _versionFont = resources.GetFont("small");
+            const byte VERSION_INDEX = 1;
+            const byte SPACING = 10;
+
+            string[] info = Assembly.GetExecutingAssembly().FullName.Split(',');
+            _versionText = "v" + info[VERSION_INDEX].Trim().Split('=')[VERSION_INDEX];
+            Vector2 versionSize = _versionFont.MeasureString(_versionText);
+            _versionPosition = new Vector2(graphics.Viewport.Width - versionSize.X - SPACING, graphics.Viewport.Height - versionSize.Y);
         }
 
         private void PlayTappedHandler(Button button)
