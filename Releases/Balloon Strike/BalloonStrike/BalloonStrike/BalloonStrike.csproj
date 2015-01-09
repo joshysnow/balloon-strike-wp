@@ -90,6 +90,8 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bs_thumb1.png" />
+    <Compile Include="bs_tile1.png" />
     <Content Include="Game.ico" />
     <Content Include="PhoneGameThumb.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
