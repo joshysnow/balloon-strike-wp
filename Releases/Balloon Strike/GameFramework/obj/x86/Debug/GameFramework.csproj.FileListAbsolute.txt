@@ -10,3 +10,10 @@ D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameFramework\bin\x86\De
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameFramework\obj\x86\Debug\GameFramework.csprojResolveAssemblyReference.cache
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameFramework\obj\x86\Debug\GameFramework.dll
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameFramework\obj\x86\Debug\GameFramework.pdb
+D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameFramework\bin\x86\Debug\GameFramework.dll
+D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameFramework\bin\x86\Debug\GameFramework.pdb
+D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameFramework\bin\x86\Debug\GameCore.dll
+D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameFramework\bin\x86\Debug\GameCore.pdb
+D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameFramework\obj\x86\Debug\GameFramework.csprojResolveAssemblyReference.cache
+D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameFramework\obj\x86\Debug\GameFramework.dll
+D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameFramework\obj\x86\Debug\GameFramework.pdb

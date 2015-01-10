@@ -26,6 +26,14 @@ namespace BalloonStrike.Views
             }
         }
 
+        public override void HandlePlayerInput(ControlsState controls)
+        {
+            if (controls.BackButtonPressed())
+            {
+                ViewManager.Game.Exit();
+            }
+        }
+
         public override void Update(GameTime gameTime, bool covered)
         {
             if (!IsExiting && State == TransitionState.TransitionOff)

@@ -21,8 +21,8 @@
     <XapFilename>$(AssemblyName).xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <XnaWindowsPhoneManifestTemplate>Properties\WMAppManifest.xml</XnaWindowsPhoneManifestTemplate>
-    <TileImage>Tile_Image.png</TileImage>
-    <TileTitle>Balloon Strike</TileTitle>
+    <TileImage>Tile.png</TileImage>
+    <TileTitle>Ballon Strike</TileTitle>
     <SupportedCultures>
     </SupportedCultures>
     <ApplicationIcon>Game.ico</ApplicationIcon>
@@ -90,6 +90,8 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Thumbnail.png" />
+    <Content Include="Tile.png" />
     <Content Include="Game.ico" />
     <Content Include="PhoneGameThumb.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
@@ -97,8 +99,6 @@
     <Content Include="Background.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
-    <Content Include="Thumbnail.png" />
-    <Content Include="Tile_Image.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\GameCore\GameCore.csproj">
