@@ -8,7 +8,7 @@ namespace BalloonStrike.Views
 {
     public class SplashView : View
     {
-        private Texture2D _splashTexture;   
+        private Texture2D _splashTexture;
 
         public SplashView()
         {

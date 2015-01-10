@@ -21,6 +21,8 @@ namespace GameCore
         private static ContentManager _content;
         private static bool _loaded = false;
 
+        private const string EXCEPTION_NOT_INITIALIZED = "Resource Managed has not been initialized";
+
         private Dictionary<string, Texture2D> _textures;
         private Dictionary<string, SoundEffect> _sounds;
         private Dictionary<string, SpriteFont> _fonts;
@@ -54,7 +56,7 @@ namespace GameCore
         {
             if (!_loaded)
             {
-                throw new Exception("Resource Managed has not been initialized");
+                throw new Exception(EXCEPTION_NOT_INITIALIZED);
             }
 
             if (!_textures.ContainsKey(key))
@@ -69,7 +71,7 @@ namespace GameCore
         {
             if (!_loaded)
             {
-                throw new Exception("Resource Managed has not been initialized");
+                throw new Exception(EXCEPTION_NOT_INITIALIZED);
             }
 
             if (!_sounds.ContainsKey(key))
@@ -84,7 +86,7 @@ namespace GameCore
         {
             if (!_loaded)
             {
-                throw new Exception("Resource Managed has not been initialized");
+                throw new Exception(EXCEPTION_NOT_INITIALIZED);
             }
 
             if (!_fonts.ContainsKey(key))
@@ -99,7 +101,7 @@ namespace GameCore
         {
             if (!_loaded)
             {
-                throw new Exception("Resource Managed has not been initialized");
+                throw new Exception(EXCEPTION_NOT_INITIALIZED);
             }
 
             if (!_animations.ContainsKey(key))
@@ -114,7 +116,7 @@ namespace GameCore
         {
             if (!_loaded)
             {
-                throw new Exception("Resource Managed has not been initialized");
+                throw new Exception(EXCEPTION_NOT_INITIALIZED);
             }
 
             if (!_music.ContainsKey(key))

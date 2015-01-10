@@ -52,7 +52,7 @@ namespace BalloonStrike.Views
                 // If the player scored 0, then we have already finished counting.
                 _finishedCounting = p.CurrentScore == 0;
 
-                // TODO: Ensure that if the score would take longer than usual then limit to 1/2 a second. In other words,
+                // Ensure that if the score would take longer than usual then limit to 1/2 a second. In other words,
                 // if the score would take more than 1/2 a second to increment by one, then calculate the above to ensure
                 // it takes no longer than 1/2 a second.
 

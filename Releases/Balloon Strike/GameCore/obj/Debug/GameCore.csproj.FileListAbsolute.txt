@@ -8,14 +8,3 @@ D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameCore\bin\Debug\Micro
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameCore\bin\Debug\Microsoft.Xna.Framework.Graphics.xml
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameCore\obj\Debug\GameCore.dll
 D:\Game Projects\Balloon Strike\Releases\Balloon Strike\GameCore\obj\Debug\GameCore.pdb
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\bin\Debug\GameCore.dll
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\bin\Debug\GameCore.pdb
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\bin\Debug\Microsoft.Xna.Framework.dll
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\bin\Debug\Microsoft.Xna.Framework.Game.dll
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\bin\Debug\Microsoft.Xna.Framework.Graphics.dll
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\bin\Debug\Microsoft.Xna.Framework.xml
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\bin\Debug\Microsoft.Xna.Framework.Game.xml
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\bin\Debug\Microsoft.Xna.Framework.Graphics.xml
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\obj\Debug\GameCore.csprojResolveAssemblyReference.cache
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\obj\Debug\GameCore.dll
-D:\Projects\Games\Balloon Strike\Releases\Balloon Strike\GameCore\obj\Debug\GameCore.pdb
