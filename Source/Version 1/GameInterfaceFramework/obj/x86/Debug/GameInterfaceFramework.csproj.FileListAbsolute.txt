@@ -1,0 +1,7 @@
+D:\Projects\Balloon Strike\Source\Version 1\GameInterfaceFramework\bin\x86\Debug\GameInterfaceFramework.dll
+D:\Projects\Balloon Strike\Source\Version 1\GameInterfaceFramework\bin\x86\Debug\GameInterfaceFramework.pdb
+D:\Projects\Balloon Strike\Source\Version 1\GameInterfaceFramework\bin\x86\Debug\GameCore.dll
+D:\Projects\Balloon Strike\Source\Version 1\GameInterfaceFramework\bin\x86\Debug\GameCore.pdb
+D:\Projects\Balloon Strike\Source\Version 1\GameInterfaceFramework\obj\x86\Debug\GameInterfaceFramework.csprojResolveAssemblyReference.cache
+D:\Projects\Balloon Strike\Source\Version 1\GameInterfaceFramework\obj\x86\Debug\GameInterfaceFramework.dll
+D:\Projects\Balloon Strike\Source\Version 1\GameInterfaceFramework\obj\x86\Debug\GameInterfaceFramework.pdb

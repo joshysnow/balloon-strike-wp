@@ -1,0 +1,11 @@
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\bin\Debug\GameCore.dll
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\bin\Debug\GameCore.pdb
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\bin\Debug\Microsoft.Xna.Framework.dll
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\bin\Debug\Microsoft.Xna.Framework.Game.dll
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\bin\Debug\Microsoft.Xna.Framework.Graphics.dll
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\bin\Debug\Microsoft.Xna.Framework.xml
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\bin\Debug\Microsoft.Xna.Framework.Game.xml
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\bin\Debug\Microsoft.Xna.Framework.Graphics.xml
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\obj\Debug\GameCore.csprojResolveAssemblyReference.cache
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\obj\Debug\GameCore.dll
+D:\Projects\Balloon Strike\Source\Version 1\GameCore\obj\Debug\GameCore.pdb

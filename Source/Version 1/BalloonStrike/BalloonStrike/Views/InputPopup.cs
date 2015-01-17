@@ -61,7 +61,7 @@ namespace BalloonStrike.Views
 
             Vector2 buttonSize = acceptButton.Size;
             float buttonX = (graphics.Viewport.Width / 4) - (buttonSize.X / 2);
-            float buttonY = ((ForegroundPosition + ForegroundSize).Y - BUTTON_VERTICAL_SPACING) - buttonSize.Y;
+            float buttonY = (ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING;
             Vector2 acceptPosition = new Vector2(buttonX, buttonY);
             TransitionPosition(ref buttonSize, ref acceptPosition);
             acceptButton.Position = acceptPosition;

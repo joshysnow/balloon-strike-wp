@@ -18,30 +18,52 @@ namespace BalloonStrike.Views
             if (!instancePreserved)
             {
                 ResourceManager resources = ResourceManager.Resources;
-                Texture2D okUnselected = resources.GetTexture("button_unselected_tick");
-                Texture2D okSelected = resources.GetTexture("button_selected_tick");
-                Button okButton = new Button(okUnselected, okSelected);
+                //Texture2D okUnselected = resources.GetTexture("button_unselected_tick");
+                //Texture2D okSelected = resources.GetTexture("button_selected_tick");
+                Texture2D okTexture = resources.GetTexture("button_oklong");
+
+                Button okButton = new Button(okTexture);
                 okButton.Tapped += OkTappedHandler;
                 _menuButtons.Add(okButton);
             }
+        }
+
+        public override void Update(GameTime gameTime, bool covered)
+        {
+            UpdateButton();
+
+            base.Update(gameTime, covered);
         }
 
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
 
-            GraphicsDevice graphics = ViewManager.GraphicsDevice;
             SpriteBatch spriteBatch = ViewManager.SpriteBatch;
+
+            spriteBatch.Begin();
+
+            Button okButton = _menuButtons.First();
+            okButton.Draw(this);
+
+            spriteBatch.End();
+        }
+
+        /// <summary>
+        /// Updates the buttons position as it transitions across the screen.
+        /// </summary>
+        private void UpdateButton()
+        {
+            GraphicsDevice graphics = ViewManager.GraphicsDevice;
 
             Button okButton = _menuButtons.First();
             Vector2 buttonSize = okButton.Size;
-            Vector2 buttonPositon = new Vector2((graphics.Viewport.Width - buttonSize.X) / 2, ((ForegroundPosition + ForegroundSize).Y - BUTTON_VERTICAL_SPACING) - buttonSize.Y);
+            Vector2 buttonPositon = new Vector2(
+                (graphics.Viewport.Width - buttonSize.X) / 2,
+                (ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING);
+
             TransitionPosition(ref buttonSize, ref buttonPositon);
             okButton.Position = buttonPositon;
-
-            spriteBatch.Begin();
-            okButton.Draw(this);
-            spriteBatch.End();
         }
 
         private void OkTappedHandler(Button button)
