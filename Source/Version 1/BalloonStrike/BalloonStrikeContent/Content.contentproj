@@ -386,6 +386,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Textures\game_title.png">
+      <Name>game_title</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Textures\Buttons\about_400px.png">
       <Name>about_400px</Name>
       <Importer>TextureImporter</Importer>
@@ -408,15 +415,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\game_title.png">
-      <Name>game_title</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Textures\Buttons\ok_long.png">
-      <Name>ok_long</Name>
+    <Compile Include="Textures\Buttons\ok_long_400px.png">
+      <Name>ok_long_400px</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

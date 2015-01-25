@@ -47,13 +47,13 @@ namespace GameInterfaceFramework
         private Vector2 _origin;
         private Vector2 _lowerRight;
 
-        public Button(Texture2D texture) : base()
+        public Button(Texture2D texture) : this()
         {
             _unselectedTexture = texture;
             _selectedTexture = texture;
         }
 
-        public Button(Texture2D unselected, Texture2D selected) : base()
+        public Button(Texture2D unselected, Texture2D selected) : this()
         {
             _unselectedTexture = unselected;
             _selectedTexture = selected;
