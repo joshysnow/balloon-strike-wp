@@ -33,9 +33,9 @@ namespace BalloonStrike.Views
                 Texture2D aboutTexture = resources.GetTexture("button_about");
                 Texture2D exitTexture = resources.GetTexture("button_exit");
 
-                const int BUTTON_SPACING = 20;
-                const int NUM_BUTTONS = 4;
-                const int BOTTOM_SPACING = 60;  // Bottom of the screen space between buttons
+                const int BUTTON_SPACING    = 20;
+                const int NUM_BUTTONS       = 4;
+                const int BOTTOM_SPACING    = 60;  // Bottom of the screen space between buttons (pixels).
 
                 int x = (graphics.Viewport.Width - playTexture.Width) / 2;
                 int y = graphics.Viewport.Height - ((playTexture.Height * NUM_BUTTONS) + (BUTTON_SPACING * NUM_BUTTONS) + BOTTOM_SPACING);

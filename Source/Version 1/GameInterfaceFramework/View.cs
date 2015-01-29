@@ -87,13 +87,6 @@ namespace GameInterfaceFramework
                 {
                     ViewManager.RemoveView(this);
                 }
-
-                //_state = ViewState.TransitionOff;
-
-                //if (!UpdateTransition(gameTime, _transitionOffTime, 1))
-                //{
-                //    ViewManager.RemoveView(this);
-                //}
             }
             
             if (covered)
@@ -102,55 +95,11 @@ namespace GameInterfaceFramework
                 {
                     _transition.State = TransitionState.TransitionOff;
                 }
-
-                //if (UpdateTransition(gameTime, _transitionOffTime, 1))
-                //{
-                //    _state = ViewState.TransitionOff;
-                //}
-                //else
-                //{
-                //    _state = ViewState.Hidden;
-                //}
             }
-            //else
-            //{
-            //    if (UpdateTransition(gameTime, _transitionOnTime, -1))
-            //    {
-            //        _state = ViewState.TransitionOn;
-            //    }
-            //    else
-            //    {
-            //        _state = ViewState.Active;
-            //    }
-            //}
 
             _transition.Update(gameTime);
         }
 
         public virtual void Draw(GameTime gameTime) { }
-
-        //private bool UpdateTransition(GameTime gameTime, TimeSpan time, int direction)
-        //{
-        //    float delta;
-
-        //    if (time == TimeSpan.Zero)
-        //    {
-        //        delta = 1;
-        //    }
-        //    else
-        //    {
-        //        delta = (float)(gameTime.ElapsedGameTime.TotalMilliseconds / time.TotalMilliseconds);
-        //    }
-
-        //    _transitionPosition += delta * direction;
-
-        //    if ((direction < 0 && _transitionPosition <= 0) || (direction > 0 && _transitionPosition >= 1))
-        //    {
-        //        _transitionPosition = MathHelper.Clamp(_transitionPosition, 0, 1);
-        //        return false;
-        //    }
-
-        //    return true;
-        //}
     }
 }

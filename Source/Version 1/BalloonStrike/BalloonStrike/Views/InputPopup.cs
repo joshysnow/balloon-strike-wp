@@ -28,8 +28,6 @@ namespace BalloonStrike.Views
 
         public override void Activate(bool instancePreserved)
         {
-            base.Activate(instancePreserved);
-
             if (!instancePreserved)
             {
                 ResourceManager resources = ResourceManager.Resources;
@@ -47,6 +45,8 @@ namespace BalloonStrike.Views
                 cancelButton.Tapped += CancelButtonTappedHandler;
                 _menuButtons.Add(cancelButton);
             }
+
+            base.Activate(instancePreserved);
         }
 
         public override void Draw(GameTime gameTime)

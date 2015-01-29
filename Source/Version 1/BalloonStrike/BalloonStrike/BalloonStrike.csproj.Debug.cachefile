@@ -37,11 +37,12 @@ Content\Textures\Sun\superhappy.xnb
 Content\Textures\Sun\crying.xnb
 Content\Textures\Balloons\white200.xnb
 Content\Textures\game_title.xnb
-Content\Textures\Buttons\ok_long_400px.xnb
 Content\Textures\Buttons\about_400px.xnb
 Content\Textures\Buttons\exit_400px.xnb
 Content\Textures\Buttons\highscores_400px.xnb
 Content\Textures\Buttons\play_400px.xnb
+Content\Textures\Buttons\ok_long_400px.xnb
+Content\Textures\button_300_80.xnb
 Content\DebugText.xnb
 Content\Fonts\score0.xnb
 Content\Fonts\score1.xnb
@@ -61,3 +62,4 @@ Content\Fonts\small.xnb
 Content\Fonts\popup_text.xnb
 Content\Audio\Sounds\snowball_impact.xnb
 Content\Audio\Sounds\snowball_car_impact1.xnb
+Content\Textures\bg_350_200.xnb

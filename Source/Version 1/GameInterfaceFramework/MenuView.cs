@@ -50,10 +50,12 @@ namespace GameInterfaceFramework
         public override void Draw(GameTime gameTime)
         {
             ViewManager.SpriteBatch.Begin();
+
             foreach (Button button in _menuButtons)
             {
                 button.Draw(this);
             }
+
             ViewManager.SpriteBatch.End();
         }
 
