@@ -31,15 +31,15 @@ namespace BalloonStrike.Views
 
         public override void Draw(GameTime gameTime)
         {
-            UpdateButton();
+            SetButtonPosition();
 
             base.Draw(gameTime);
         }
 
         /// <summary>
-        /// Updates the buttons position as it transitions across the screen.
+        /// Updates the button position as it transitions across the screen.
         /// </summary>
-        private void UpdateButton()
+        private void SetButtonPosition()
         {
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
             Button okButton         = _menuButtons.First();
@@ -48,19 +48,7 @@ namespace BalloonStrike.Views
                 ((ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING)
             );
 
-            if (Transition.State == TransitionState.TransitionOn)
-            {
-                float newValue;
-                GetHorizontalTransitionPosition(buttonPositon, out newValue);
-                buttonPositon.X = newValue;
-            }
-            else
-            {
-                Vector2 buttonSize = okButton.Size;
-                TransitionPosition(ref buttonSize, ref buttonPositon);
-            }
-
-            okButton.Position = buttonPositon;
+            okButton.Position = GetTransitionPosition(buttonPositon, okButton.Size);
         }
 
         private void OkTappedHandler(Button button)

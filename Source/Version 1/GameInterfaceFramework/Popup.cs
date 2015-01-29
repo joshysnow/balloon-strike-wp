@@ -40,7 +40,7 @@ namespace GameInterfaceFramework
         public Popup(string message)
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
-            Transition.TransitionOffTime = TimeSpan.FromSeconds(5);
+            Transition.TransitionOffTime = TimeSpan.FromSeconds(1);
             IsPopup = true;
             _clickable = false;
 
@@ -139,7 +139,25 @@ namespace GameInterfaceFramework
             }
         }
 
-        protected void GetHorizontalTransitionPosition(Vector2 position, out float transPosition)
+        protected Vector2 GetTransitionPosition(Vector2 endPosition, Vector2 size)
+        {
+            Vector2 transPosition = endPosition; // Copy end values.
+
+            if (Transition.State == TransitionState.TransitionOn)
+            {
+                float newValue;
+                GetHorizontalTransitionPosition(transPosition, out newValue);
+                transPosition.X = newValue;
+            }
+            else
+            {
+                TransitionPosition(ref size, ref transPosition);
+            }
+
+            return transPosition;
+        }
+
+        private void GetHorizontalTransitionPosition(Vector2 position, out float transPosition)
         {
             // Calculate horizontal difference for foreground.
             int foregroundDiff = (int)(ForegroundSize.X + ForegroundPosition.X);
@@ -152,39 +170,12 @@ namespace GameInterfaceFramework
 
         private Vector2 GetMessagePositon()
         {
-            Vector2 messagePosition = _messagePosition;
-
-            if (Transition.State == TransitionState.TransitionOn)
-            {
-                float newValue;
-                GetHorizontalTransitionPosition(messagePosition, out newValue);
-                messagePosition.X = newValue;
-            }
-            else
-            {
-                TransitionPosition(ref _messageSize, ref messagePosition);
-            }
-
-            return messagePosition;
+            return GetTransitionPosition(_messagePosition, _messageSize);
         }
 
         private Vector2 GetForegroundPosition()
         {
-            Vector2 foregroundPosition = ForegroundPosition;
-
-            if (Transition.State == TransitionState.TransitionOn)
-            {
-                float newValue;
-                GetHorizontalTransitionPosition(foregroundPosition, out newValue);
-                foregroundPosition.X = newValue;
-            }
-            else
-            {
-                Vector2 size = ForegroundSize;
-                TransitionPosition(ref size, ref foregroundPosition);
-            }
-
-            return foregroundPosition;
+            return GetTransitionPosition(ForegroundPosition, ForegroundSize);
         }
     }
 }
