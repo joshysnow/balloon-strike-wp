@@ -139,43 +139,60 @@ namespace GameInterfaceFramework
             }
         }
 
-        protected Vector2 GetTransitionPosition(Vector2 endPosition, Vector2 size)
+        protected Vector2 GetTransitionPosition(Vector2 endPosition)
         {
-            Vector2 transPosition = endPosition; // Copy end values.
+            Vector2 newPosition = endPosition; // Copy end values.
+            float newValue;
 
             if (Transition.State == TransitionState.TransitionOn)
             {
-                float newValue;
-                GetHorizontalTransitionPosition(transPosition, out newValue);
-                transPosition.X = newValue;
-            }
-            else
-            {
-                TransitionPosition(ref size, ref transPosition);
+
+                GetHorizontalTransitionPosition(newPosition, out newValue);
+                newPosition.X = newValue;
             }
 
-            return transPosition;
+            if (Transition.State == TransitionState.TransitionOff)
+            {
+                GetVerticalTransitionPosition(newPosition, out newValue);
+                newPosition.Y = newValue;
+            }
+
+            return newPosition;
         }
 
-        private void GetHorizontalTransitionPosition(Vector2 position, out float transPosition)
+        private void GetHorizontalTransitionPosition(Vector2 position, out float positionX)
         {
-            // Calculate horizontal difference for foreground.
-            int foregroundDiff = (int)(ForegroundSize.X + ForegroundPosition.X);
-            float distanceToTravel = foregroundDiff * TransitionAlpha;
+            float offset = (float)Math.Pow(TransitionAlpha, 2);
 
-            // Calculate where the position is on the screen.
-            int startPosition = (int)(position.X - foregroundDiff);
-            transPosition = startPosition + distanceToTravel;
+            // Calculate horizontal difference for foreground.
+            int totalWidth = (int)(ForegroundPosition.X + ForegroundSize.X);
+            float distanceToTravel = totalWidth * offset;
+
+            // Calculate the position should be.
+            int startPosition = (int)(position.X - totalWidth);
+            positionX = startPosition + distanceToTravel;
+        }
+
+        private void GetVerticalTransitionPosition(Vector2 position, out float positionY)
+        {
+            float offset = (float)Math.Pow(TransitionAlpha, 2);
+
+            // Any position negated the total length doesn't alter the relative positions of all components.
+            int totalHeight = (int)(ForegroundPosition.Y + ForegroundSize.Y + BUTTON_VERTICAL_SPACING + _buttonHeight);
+            float distanceToTravel = totalHeight * offset;
+
+            int endPosition = (int)(position.Y - totalHeight);
+            positionY = endPosition + distanceToTravel;
         }
 
         private Vector2 GetMessagePositon()
         {
-            return GetTransitionPosition(_messagePosition, _messageSize);
+            return GetTransitionPosition(_messagePosition);
         }
 
         private Vector2 GetForegroundPosition()
         {
-            return GetTransitionPosition(ForegroundPosition, ForegroundSize);
+            return GetTransitionPosition(ForegroundPosition);
         }
     }
 }

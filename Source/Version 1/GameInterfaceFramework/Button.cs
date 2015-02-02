@@ -26,7 +26,7 @@ namespace GameInterfaceFramework
         {
             get
             {
-                return new Vector2(_lowerRight.X - Position.X, _lowerRight.Y - Position.Y);
+                return new Vector2(_selectedTexture.Width, _selectedTexture.Height);
             }
         }
 

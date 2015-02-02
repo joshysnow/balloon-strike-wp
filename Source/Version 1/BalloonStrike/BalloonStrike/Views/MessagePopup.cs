@@ -48,7 +48,7 @@ namespace BalloonStrike.Views
                 ((ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING)
             );
 
-            okButton.Position = GetTransitionPosition(buttonPositon, okButton.Size);
+            okButton.Position = GetTransitionPosition(buttonPositon);
         }
 
         private void OkTappedHandler(Button button)
