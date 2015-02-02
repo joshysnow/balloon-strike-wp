@@ -51,31 +51,34 @@ namespace BalloonStrike.Views
 
         public override void Draw(GameTime gameTime)
         {
+            SetAcceptButtonPosition();
+            SetCancelButtonPosition();
+
             base.Draw(gameTime);
+        }
 
+        private void SetAcceptButtonPosition()
+        {
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
-            SpriteBatch spriteBatch = ViewManager.SpriteBatch;
-
             Button acceptButton = _menuButtons.First();
+
+            float buttonX = (graphics.Viewport.Width / 4) - (acceptButton.Size.X / 2);
+            float buttonY = (ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING;
+
+            Vector2 buttonPositon = new Vector2(buttonX, buttonY);
+            acceptButton.Position = GetTransitionPosition(buttonPositon);
+        }
+
+        private void SetCancelButtonPosition()
+        {
+            GraphicsDevice graphics = ViewManager.GraphicsDevice;
             Button cancelButton = _menuButtons.Last();
 
-            Vector2 buttonSize = acceptButton.Size;
-            float buttonX = (graphics.Viewport.Width / 4) - (buttonSize.X / 2);
+            float buttonX = graphics.Viewport.Width - (graphics.Viewport.Width / 4) - (cancelButton.Size.X / 2);
             float buttonY = (ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING;
-            Vector2 acceptPosition = new Vector2(buttonX, buttonY);
-            TransitionPosition(ref buttonSize, ref acceptPosition);
-            acceptButton.Position = acceptPosition;
 
-            buttonSize = cancelButton.Size;
-            buttonX = graphics.Viewport.Width - (graphics.Viewport.Width / 4) - (buttonSize.X / 2);
-            Vector2 cancelPosition = new Vector2(buttonX, buttonY);
-            TransitionPosition(ref buttonSize, ref cancelPosition);
-            cancelButton.Position = cancelPosition;
-
-            spriteBatch.Begin();
-            acceptButton.Draw(this);
-            cancelButton.Draw(this);
-            spriteBatch.End();
+            Vector2 buttonPositon = new Vector2(buttonX, buttonY);
+            cancelButton.Position = GetTransitionPosition(buttonPositon);
         }
 
         private void AcceptButtonTappedHandler(Button button)

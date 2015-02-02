@@ -113,32 +113,6 @@ namespace GameInterfaceFramework
             base.Draw(gameTime);
         }
 
-        protected virtual void TransitionPosition(ref Vector2 size, ref Vector2 position)
-        {
-            float offset = (float)Math.Pow(TransitionAlpha, 2);
-
-            if (Transition.State == TransitionState.TransitionOn)
-            {
-                // Mirror flip copy position on the Y axis.
-                float start = (Vector2.Zero - (position + size)).X;
-                float distance = start - position.X;
-                distance *= -1;
-
-                position.X = start + (distance * offset);
-            }
-
-            if (Transition.State == TransitionState.TransitionOff)
-            {
-                int height = ViewManager.GraphicsDevice.Viewport.Height;
-
-                float end = (0 - (height - position.Y));
-                float distance = end - position.Y;
-                distance *= -1;
-
-                position.Y = end + (distance * offset);
-            }
-        }
-
         protected Vector2 GetTransitionPosition(Vector2 endPosition)
         {
             Vector2 newPosition = endPosition; // Copy end values.

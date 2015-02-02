@@ -42,12 +42,12 @@ namespace BalloonStrike.Views
         private void SetButtonPosition()
         {
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
-            Button okButton         = _menuButtons.First();
-            Vector2 buttonPositon   = new Vector2(
-                ((graphics.Viewport.Width - okButton.Size.X) / 2),
-                ((ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING)
-            );
+            Button okButton = _menuButtons.First();
 
+            float buttonX = (graphics.Viewport.Width - okButton.Size.X) / 2;
+            float buttonY = (ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING;
+
+            Vector2 buttonPositon = new Vector2(buttonX, buttonY);
             okButton.Position = GetTransitionPosition(buttonPositon);
         }
 
