@@ -15,9 +15,8 @@ namespace BalloonStrike.Views
             "Project Lead", "Joshua Hirst", 
             "Producer", "Govinda Singh",
             "Programmer", "Joshua Hirst",
-            "Artist", "Abigail Royle",
+            "Artist (Sun)", "Abigail Royle",
             "Artist", "Mark Hallinan",
-            "Music", "Abigail Royle",
             "Sound", "William Voce"
         };
 
