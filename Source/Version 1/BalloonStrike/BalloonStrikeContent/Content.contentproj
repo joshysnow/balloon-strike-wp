@@ -267,43 +267,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Buttons\hex_tick.png">
-      <Name>hex_tick</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Textures\Buttons\hex_achievements.png">
-      <Name>hex_achievements</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\Buttons\hex_achievements_pressed.png">
-      <Name>hex_achievements_pressed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\Buttons\hex_cancel.png">
-      <Name>hex_cancel</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\Buttons\hex_cancel_pressed.png">
-      <Name>hex_cancel_pressed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\Buttons\hex_info.png">
-      <Name>hex_info</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\Buttons\hex_info_pressed.png">
-      <Name>hex_info_pressed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Textures\Buttons\hex_play.png">
       <Name>hex_play</Name>
       <Importer>TextureImporter</Importer>
@@ -311,11 +274,6 @@
     </Compile>
     <Compile Include="Textures\Buttons\hex_play_pressed.png">
       <Name>hex_play_pressed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\Buttons\hex_tick_pressed.png">
-      <Name>hex_tick_pressed</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -424,6 +382,18 @@
   <ItemGroup>
     <Compile Include="Textures\Buttons\ok_300_80.png">
       <Name>ok_300_80</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Buttons\no_300_80.png">
+      <Name>no_300_80</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Buttons\yes1_300_80.png">
+      <Name>yes1_300_80</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

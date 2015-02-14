@@ -180,24 +180,18 @@ namespace GameCore
             Texture2D cloudMedium = _content.Load<Texture2D>("Textures/Clouds/cloud_medium");
 
             Texture2D buttonPlayUnselected      = _content.Load<Texture2D>("Textures/Buttons/hex_play");
-            Texture2D buttonAchieveUnselected   = _content.Load<Texture2D>("Textures/Buttons/hex_achievements");
-            Texture2D buttonInfoUnselected      = _content.Load<Texture2D>("Textures/Buttons/hex_info");
             Texture2D buttonMenuUnselected      = _content.Load<Texture2D>("Textures/Buttons/hex_menu");
-            Texture2D buttonTickUnselected      = _content.Load<Texture2D>("Textures/Buttons/hex_tick");
-            Texture2D buttonCancelUnselected    = _content.Load<Texture2D>("Textures/Buttons/hex_cancel");
 
             Texture2D buttonPlaySelected    = _content.Load<Texture2D>("Textures/Buttons/hex_play_pressed");
-            Texture2D buttonAchieveSelected = _content.Load<Texture2D>("Textures/Buttons/hex_achievements_pressed");
-            Texture2D buttonInfoSelected    = _content.Load<Texture2D>("Textures/Buttons/hex_info_pressed");
             Texture2D buttonMenuSelected    = _content.Load<Texture2D>("Textures/Buttons/hex_menu_pressed");
-            Texture2D buttonTickSelected    = _content.Load<Texture2D>("Textures/Buttons/hex_tick_pressed");
-            Texture2D buttonCancelSelected  = _content.Load<Texture2D>("Textures/Buttons/hex_cancel_pressed");
 
             Texture2D buttonPlay        = _content.Load<Texture2D>("Textures/Buttons/play_400px");
             Texture2D buttonHighscores  = _content.Load<Texture2D>("Textures/Buttons/highscores_400px");
             Texture2D buttonAbout       = _content.Load<Texture2D>("Textures/Buttons/about_400px");
             Texture2D buttonExit        = _content.Load<Texture2D>("Textures/Buttons/exit_400px");
-            Texture2D buttonOkLong      = _content.Load<Texture2D>("Textures/Buttons/ok_300_80");
+            Texture2D buttonOk          = _content.Load<Texture2D>("Textures/Buttons/ok_300_80");
+            Texture2D buttonYes         = _content.Load<Texture2D>("Textures/Buttons/yes1_300_80");
+            Texture2D buttonNo          = _content.Load<Texture2D>("Textures/Buttons/no_300_80");
 
             Texture2D title = _content.Load<Texture2D>("Textures/game_title");
 
@@ -207,7 +201,9 @@ namespace GameCore
             _textures.Add("button_highscores", buttonHighscores);
             _textures.Add("button_about", buttonAbout);
             _textures.Add("button_exit", buttonExit);
-            _textures.Add("button_oklong", buttonOkLong);
+            _textures.Add("button_ok", buttonOk);
+            _textures.Add("button_yes", buttonYes);
+            _textures.Add("button_no", buttonNo);
 
             _textures.Add("blank", blankTexture);
             _textures.Add("red", redBalloon);
@@ -224,18 +220,10 @@ namespace GameCore
             _textures.Add("popup_foreground", popupforeground);
 
             _textures.Add("button_unselected_play", buttonPlayUnselected);
-            _textures.Add("button_unselected_achievements", buttonAchieveUnselected);
-            _textures.Add("button_unselected_info", buttonInfoUnselected);
             _textures.Add("button_unselected_menu", buttonMenuUnselected);
-            _textures.Add("button_unselected_tick", buttonTickUnselected);
-            _textures.Add("button_unselected_cancel", buttonCancelUnselected);
 
             _textures.Add("button_selected_play", buttonPlaySelected);
-            _textures.Add("button_selected_achievements", buttonAchieveSelected);
-            _textures.Add("button_selected_info", buttonInfoSelected);
             _textures.Add("button_selected_menu", buttonMenuSelected);
-            _textures.Add("button_selected_tick", buttonTickSelected);
-            _textures.Add("button_selected_cancel", buttonCancelSelected);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redBalloon, true, redBalloon.Width, redBalloon.Height, 0, 0.5f));

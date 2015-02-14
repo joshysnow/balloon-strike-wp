@@ -15,16 +15,8 @@ Content\Textures\Crosshairs\bazooka.xnb
 Content\Textures\Crosshairs\shotgun.xnb
 Content\Textures\Backgrounds\fox_480_800.xnb
 Content\Textures\white.xnb
-Content\Textures\Buttons\hex_tick.xnb
-Content\Textures\Buttons\hex_achievements.xnb
-Content\Textures\Buttons\hex_achievements_pressed.xnb
-Content\Textures\Buttons\hex_cancel.xnb
-Content\Textures\Buttons\hex_cancel_pressed.xnb
-Content\Textures\Buttons\hex_info.xnb
-Content\Textures\Buttons\hex_info_pressed.xnb
 Content\Textures\Buttons\hex_play.xnb
 Content\Textures\Buttons\hex_play_pressed.xnb
-Content\Textures\Buttons\hex_tick_pressed.xnb
 Content\Textures\Buttons\hex_menu.xnb
 Content\Textures\Buttons\hex_menu_pressed.xnb
 Content\Textures\Clouds\cloud_medium.xnb
@@ -40,6 +32,11 @@ Content\Textures\Buttons\about_400px.xnb
 Content\Textures\Buttons\exit_400px.xnb
 Content\Textures\Buttons\highscores_400px.xnb
 Content\Textures\Buttons\play_400px.xnb
+Content\Textures\Buttons\button_300_80.xnb
+Content\Textures\Backgrounds\popup3_350_200.xnb
+Content\Textures\Buttons\ok_300_80.xnb
+Content\Textures\Buttons\no_300_80.xnb
+Content\Textures\Buttons\yes1_300_80.xnb
 Content\DebugText.xnb
 Content\Fonts\score0.xnb
 Content\Fonts\score1.xnb
@@ -59,6 +56,3 @@ Content\Fonts\small.xnb
 Content\Fonts\popup_text.xnb
 Content\Audio\Sounds\snowball_impact.xnb
 Content\Audio\Sounds\snowball_car_impact1.xnb
-Content\Textures\Backgrounds\popup3_350_200.xnb
-Content\Textures\Buttons\button_300_80.xnb
-Content\Textures\Buttons\ok_300_80.xnb

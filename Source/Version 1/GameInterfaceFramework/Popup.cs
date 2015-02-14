@@ -27,7 +27,8 @@ namespace GameInterfaceFramework
             private set;
         }
 
-        protected const int BUTTON_VERTICAL_SPACING = 20; // Pixels.
+        protected const int BUTTON_VERTICAL_SPACING = 20;   // Pixels.
+        protected const int BUTTON_HORIZONTAL_SPACING = 20; // Pixels.
 
         private Texture2D _foreground;
         private Texture2D _background;

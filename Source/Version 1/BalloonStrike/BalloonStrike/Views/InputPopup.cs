@@ -10,20 +10,20 @@ namespace BalloonStrike.Views
 {
     public class InputPopup : Popup
     {
-        private IActionHandler _acceptAction;
-        private IActionHandler _cancelAction;
+        private IActionHandler _yesAction;
+        private IActionHandler _noAction;
 
         public InputPopup(string message, IActionHandler acceptAction)
             : base(message)
         {
-            _acceptAction = acceptAction;
+            _yesAction = acceptAction;
         }
 
         public InputPopup(string message, IActionHandler acceptAction, IActionHandler cancelAction) 
             : base(message) 
         {
-            _acceptAction = acceptAction;
-            _cancelAction = cancelAction;
+            _yesAction = acceptAction;
+            _noAction = cancelAction;
         }
 
         public override void Activate(bool instancePreserved)
@@ -31,19 +31,16 @@ namespace BalloonStrike.Views
             if (!instancePreserved)
             {
                 ResourceManager resources = ResourceManager.Resources;
-                Texture2D acceptUnselected = resources.GetTexture("button_unselected_tick");
-                Texture2D acceptSelected = resources.GetTexture("button_selected_tick");
+                Texture2D yesTexture = resources.GetTexture("button_yes");
+                Texture2D noTexture = resources.GetTexture("button_no");
 
-                Texture2D cancelUnselected = resources.GetTexture("button_unselected_cancel");
-                Texture2D cancelSelected = resources.GetTexture("button_selected_cancel");
+                Button yesButton = new Button(yesTexture);
+                yesButton.Tapped += YesButtonTappedHandler;
+                _menuButtons.Add(yesButton);
 
-                Button acceptButton = new Button(acceptUnselected, acceptSelected);
-                acceptButton.Tapped += AcceptButtonTappedHandler;
-                _menuButtons.Add(acceptButton);
-
-                Button cancelButton = new Button(cancelUnselected, cancelSelected);
-                cancelButton.Tapped += CancelButtonTappedHandler;
-                _menuButtons.Add(cancelButton);
+                Button noButton = new Button(noTexture);
+                noButton.Tapped += NoButtonTappedHandler;
+                _menuButtons.Add(noButton);
             }
 
             base.Activate(instancePreserved);
@@ -51,48 +48,48 @@ namespace BalloonStrike.Views
 
         public override void Draw(GameTime gameTime)
         {
-            SetAcceptButtonPosition();
-            SetCancelButtonPosition();
+            SetYesButtonPosition();
+            SetNoButtonPosition();
 
             base.Draw(gameTime);
         }
 
-        private void SetAcceptButtonPosition()
+        private void SetYesButtonPosition()
         {
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
-            Button acceptButton = _menuButtons.First();
+            Button yesButton = _menuButtons.First();
 
-            float buttonX = (graphics.Viewport.Width / 4) - (acceptButton.Size.X / 2);
+            float buttonX = (graphics.Viewport.Width / 2) - (BUTTON_HORIZONTAL_SPACING / 2) - yesButton.Size.X;
             float buttonY = (ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING;
 
             Vector2 buttonPositon = new Vector2(buttonX, buttonY);
-            acceptButton.Position = GetTransitionPosition(buttonPositon);
+            yesButton.Position = GetTransitionPosition(buttonPositon);
         }
 
-        private void SetCancelButtonPosition()
+        private void SetNoButtonPosition()
         {
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
-            Button cancelButton = _menuButtons.Last();
+            Button noButton = _menuButtons.Last();
 
-            float buttonX = graphics.Viewport.Width - (graphics.Viewport.Width / 4) - (cancelButton.Size.X / 2);
+            float buttonX = (graphics.Viewport.Width / 2) + (BUTTON_HORIZONTAL_SPACING / 2);
             float buttonY = (ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING;
 
             Vector2 buttonPositon = new Vector2(buttonX, buttonY);
-            cancelButton.Position = GetTransitionPosition(buttonPositon);
+            noButton.Position = GetTransitionPosition(buttonPositon);
         }
 
-        private void AcceptButtonTappedHandler(Button button)
+        private void YesButtonTappedHandler(Button button)
         {
-            _acceptAction.Execute();
+            _yesAction.Execute();
 
             if(!IsExiting)
                 Exit();
         }
 
-        private void CancelButtonTappedHandler(Button button)
+        private void NoButtonTappedHandler(Button button)
         {
-            if (_cancelAction != null)
-                _cancelAction.Execute();
+            if (_noAction != null)
+                _noAction.Execute();
 
             if (!IsExiting)
                 Exit();
