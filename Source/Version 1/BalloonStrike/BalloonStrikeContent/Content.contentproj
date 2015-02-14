@@ -267,13 +267,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Backgrounds\popup440.png">
-      <Name>popup440</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\Buttons\hex_tick.png">
       <Name>hex_tick</Name>
       <Importer>TextureImporter</Importer>
@@ -415,22 +408,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Buttons\ok_long_400px.png">
-      <Name>ok_long_400px</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Textures\button_300_80.png">
+    <Compile Include="Textures\Buttons\button_300_80.png">
       <Name>button_300_80</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\bg_350_200.png">
-      <Name>bg_350_200</Name>
+    <Compile Include="Textures\Backgrounds\popup3_350_200.png">
+      <Name>popup3_350_200</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Buttons\ok_300_80.png">
+      <Name>ok_300_80</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -57,8 +57,7 @@ namespace GameInterfaceFramework
                 ResourceManager resources = ResourceManager.Resources;
 
                 Font = resources.GetFont("popup_text");
-                //_foreground = resources.GetTexture("popup_foreground");
-                _foreground = resources.GetTexture("bg_test");
+                _foreground = resources.GetTexture("popup_foreground");
                 _background = resources.GetTexture("blank");
 
                 _buttonHeight = (int)_menuButtons.First().Size.Y;

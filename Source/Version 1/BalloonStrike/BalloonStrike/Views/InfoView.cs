@@ -10,12 +10,12 @@ namespace BalloonStrike.Views
 {
     public class InfoView : View
     {
-        private string[] CREDITS = new string[14] 
+        private string[] CREDITS = new string[12] 
         { 
             "Project Lead", "Joshua Hirst", 
             "Producer", "Govinda Singh",
             "Programmer", "Joshua Hirst",
-            "Artist (Sun)", "Abigail Royle",
+            "Artist", "Abigail Royle",
             "Artist", "Mark Hallinan",
             "Sound", "William Voce"
         };
