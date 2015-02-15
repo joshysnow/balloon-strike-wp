@@ -40,8 +40,8 @@ namespace GameInterfaceFramework
 
         public Popup(string message)
         {
-            Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
-            Transition.TransitionOffTime = TimeSpan.FromSeconds(1);
+            Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
+            Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
             IsPopup = true;
             _clickable = false;
 
