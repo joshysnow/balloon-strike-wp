@@ -32,22 +32,23 @@ namespace BalloonStrike.Views
             if (!instancePreserved)
             {
                 GraphicsDevice graphics = ViewManager.GraphicsDevice;
-                int width = graphics.Viewport.Width;
-                int height = graphics.Viewport.Height;
+                int screenWidth = graphics.Viewport.Width;
+                int screenHeight = graphics.Viewport.Height;
 
                 ResourceManager resources = ResourceManager.Resources;
                 _score = 0;
                 _scoreFont = resources.GetFont("score");
 
-                // TODO: Calculate the central position for the final score using the score manager. This is so the score
-                // won't move from right to left as the digits increase from tens, to hundreds etc.
+#warning TODO: Calculate the central position for the final score using the score manager. 
+#warning This is so the score won't move from right to left as the digits increase from tens, to hundreds etc. (regarding positioning)
+
                 _titleFont = ResourceManager.Resources.GetFont("your_score");
                 Vector2 titleSize = _titleFont.MeasureString(YOUR_SCORE);
-                _titlePosition = new Vector2((width - titleSize.X) / 2, (height / 2) - titleSize.Y);
+                _titlePosition = new Vector2((screenWidth - titleSize.X) / 2, (screenHeight / 2) - titleSize.Y);
 
                 Player p = Player.Instance;
                 Vector2 scoreSize = _scoreFont.MeasureString(p.CurrentScore.ToString());
-                _scorePosition = new Vector2((width - scoreSize.X) / 2, (height / 2));
+                _scorePosition = new Vector2((screenWidth - scoreSize.X) / 2, (screenHeight / 2));
 
                 // If the player scored 0, then we have already finished counting.
                 _finishedCounting = (p.CurrentScore == 0);
@@ -65,18 +66,22 @@ namespace BalloonStrike.Views
                 Texture2D playTexture = resources.GetTexture("button_playagain");
                 Texture2D mainMenuTexture = resources.GetTexture("button_mainmenu");
 
-                const int BUTTON_HORIZONTAL_SPACING = 20;
-                int y = (height - (height / 4)) - (playTexture.Height / 2);
+                const int BUTTON_HORIZONTAL_SPACING = 10;
+
+                int y = (screenHeight - (screenHeight / 4)) - (playTexture.Height / 2);
+                int x = (screenWidth / 2) - BUTTON_HORIZONTAL_SPACING - playTexture.Width;
 
                 Button playAgain = new Button(playTexture) { 
-                    Position = new Vector2(((width / 2) - BUTTON_HORIZONTAL_SPACING) - playTexture.Width, y) 
+                    Position = new Vector2(x, y) 
                 };
 
                 playAgain.Tapped += PlayTappedHandler;
                 _menuButtons.Add(playAgain);
 
+                x = (screenWidth / 2) + BUTTON_HORIZONTAL_SPACING;
+
                 Button mainMenu = new Button(mainMenuTexture) { 
-                    Position = new Vector2((width / 2) + BUTTON_HORIZONTAL_SPACING, y) 
+                    Position = new Vector2(x, y) 
                 };
 
                 mainMenu.Tapped += MenuTappedHandler;
