@@ -179,12 +179,6 @@ namespace GameCore
             Texture2D cloudSmall = _content.Load<Texture2D>("Textures/Clouds/cloud_small");
             Texture2D cloudMedium = _content.Load<Texture2D>("Textures/Clouds/cloud_medium");
 
-            Texture2D buttonPlayUnselected      = _content.Load<Texture2D>("Textures/Buttons/hex_play");
-            Texture2D buttonMenuUnselected      = _content.Load<Texture2D>("Textures/Buttons/hex_menu");
-
-            Texture2D buttonPlaySelected    = _content.Load<Texture2D>("Textures/Buttons/hex_play_pressed");
-            Texture2D buttonMenuSelected    = _content.Load<Texture2D>("Textures/Buttons/hex_menu_pressed");
-
             Texture2D buttonPlay        = _content.Load<Texture2D>("Textures/Buttons/play_400px");
             Texture2D buttonHighscores  = _content.Load<Texture2D>("Textures/Buttons/highscores_400px");
             Texture2D buttonAbout       = _content.Load<Texture2D>("Textures/Buttons/about_400px");
@@ -192,6 +186,8 @@ namespace GameCore
             Texture2D buttonOk          = _content.Load<Texture2D>("Textures/Buttons/ok_300_80");
             Texture2D buttonYes         = _content.Load<Texture2D>("Textures/Buttons/yes1_300_80");
             Texture2D buttonNo          = _content.Load<Texture2D>("Textures/Buttons/no_300_80");
+            Texture2D buttonPlayAgain   = _content.Load<Texture2D>("Textures/Buttons/play_again_190_120");
+            Texture2D buttonMainMenu    = _content.Load<Texture2D>("Textures/Buttons/main_menu_190_120");
 
             Texture2D title = _content.Load<Texture2D>("Textures/game_title");
 
@@ -204,6 +200,8 @@ namespace GameCore
             _textures.Add("button_ok", buttonOk);
             _textures.Add("button_yes", buttonYes);
             _textures.Add("button_no", buttonNo);
+            _textures.Add("button_playagain", buttonPlayAgain);
+            _textures.Add("button_mainmenu", buttonMainMenu);
 
             _textures.Add("blank", blankTexture);
             _textures.Add("red", redBalloon);
@@ -218,12 +216,6 @@ namespace GameCore
             _textures.Add("xhair_bazooka", xHairBazookaTexture);
             _textures.Add("splash", splashTexture);
             _textures.Add("popup_foreground", popupforeground);
-
-            _textures.Add("button_unselected_play", buttonPlayUnselected);
-            _textures.Add("button_unselected_menu", buttonMenuUnselected);
-
-            _textures.Add("button_selected_play", buttonPlaySelected);
-            _textures.Add("button_selected_menu", buttonMenuSelected);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redBalloon, true, redBalloon.Width, redBalloon.Height, 0, 0.5f));

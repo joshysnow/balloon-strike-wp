@@ -50,7 +50,7 @@ namespace BalloonStrike.Views
                 _scorePosition = new Vector2((width - scoreSize.X) / 2, (height / 2));
 
                 // If the player scored 0, then we have already finished counting.
-                _finishedCounting = p.CurrentScore == 0;
+                _finishedCounting = (p.CurrentScore == 0);
 
                 // Ensure that if the score would take longer than usual then limit to 1/2 a second. In other words,
                 // if the score would take more than 1/2 a second to increment by one, then calculate the above to ensure
@@ -62,19 +62,23 @@ namespace BalloonStrike.Views
                 else
                     EnableViewGestures();
 
-                Texture2D playUnselected = resources.GetTexture("button_unselected_play");
-                Texture2D menuUnselected = resources.GetTexture("button_unselected_menu");
-                Texture2D playSelected = resources.GetTexture("button_selected_play");
-                Texture2D menuSelected = resources.GetTexture("button_selected_menu");
+                Texture2D playTexture = resources.GetTexture("button_playagain");
+                Texture2D mainMenuTexture = resources.GetTexture("button_mainmenu");
 
-                int y = (height - (height / 4)) - (playUnselected.Height / 2);
-                int spacing = 7;
+                const int BUTTON_HORIZONTAL_SPACING = 20;
+                int y = (height - (height / 4)) - (playTexture.Height / 2);
 
-                Button playAgain = new Button(playUnselected, playSelected) { Position = new Vector2(((width / 2) - spacing) - playUnselected.Width, y) };
+                Button playAgain = new Button(playTexture) { 
+                    Position = new Vector2(((width / 2) - BUTTON_HORIZONTAL_SPACING) - playTexture.Width, y) 
+                };
+
                 playAgain.Tapped += PlayTappedHandler;
                 _menuButtons.Add(playAgain);
 
-                Button mainMenu = new Button(menuUnselected, menuSelected) { Position = new Vector2((width / 2) + spacing, y) };
+                Button mainMenu = new Button(mainMenuTexture) { 
+                    Position = new Vector2((width / 2) + BUTTON_HORIZONTAL_SPACING, y) 
+                };
+
                 mainMenu.Tapped += MenuTappedHandler;
                 _menuButtons.Add(mainMenu);
             }
