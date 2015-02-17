@@ -43,7 +43,7 @@ namespace BalloonStrike.Views
             Button okButton = _menuButtons.First();
 
             float buttonX = (graphics.Viewport.Width - okButton.Size.X) / 2;
-            float buttonY = (ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING;
+            float buttonY = (ForegroundPosition + ForegroundSize).Y + GUI_SPACING;
 
             Vector2 buttonPositon = new Vector2(buttonX, buttonY);
             okButton.Position = GetTransitionPosition(buttonPositon);

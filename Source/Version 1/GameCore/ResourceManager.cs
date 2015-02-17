@@ -152,32 +152,33 @@ namespace GameCore
 
             Texture2D blankTexture = _content.Load<Texture2D>("Textures/white");
 
-            Texture2D redBalloon = _content.Load<Texture2D>("Textures/Balloons/red200");
-            Texture2D blueBalloon = _content.Load<Texture2D>("Textures/Balloons/blue200");
-            Texture2D greenBalloon = _content.Load<Texture2D>("Textures/Balloons/green200");
-            Texture2D blackBalloon = _content.Load<Texture2D>("Textures/Balloons/black200");
-            Texture2D hitBalloon = _content.Load<Texture2D>("Textures/Balloons/white200");
+            Texture2D redBalloon    = _content.Load<Texture2D>("Textures/Balloons/red200");
+            Texture2D blueBalloon   = _content.Load<Texture2D>("Textures/Balloons/blue200");
+            Texture2D greenBalloon  = _content.Load<Texture2D>("Textures/Balloons/green200");
+            Texture2D blackBalloon  = _content.Load<Texture2D>("Textures/Balloons/black200");
+            Texture2D hitBalloon    = _content.Load<Texture2D>("Textures/Balloons/white200");
 
-            Texture2D sunCrying = _content.Load<Texture2D>("Textures/Sun/crying");
-            Texture2D sunSad = _content.Load<Texture2D>("Textures/Sun/sad");
-            Texture2D sunOk = _content.Load<Texture2D>("Textures/Sun/ok");
-            Texture2D sunHappy = _content.Load<Texture2D>("Textures/Sun/happy");
+            Texture2D sunCrying     = _content.Load<Texture2D>("Textures/Sun/crying");
+            Texture2D sunSad        = _content.Load<Texture2D>("Textures/Sun/sad");
+            Texture2D sunOk         = _content.Load<Texture2D>("Textures/Sun/ok");
+            Texture2D sunHappy      = _content.Load<Texture2D>("Textures/Sun/happy");
             Texture2D sunSuperHappy = _content.Load<Texture2D>("Textures/Sun/superhappy");
 
-            Texture2D popTexture = _content.Load<Texture2D>("Textures/Effects/explosion");
-            Texture2D freezeTexture = _content.Load<Texture2D>("Textures/Powerups/snowflake_med");
-            Texture2D shellTexture = _content.Load<Texture2D>("Textures/Powerups/shell_200");
-            Texture2D missileTexture = _content.Load<Texture2D>("Textures/Powerups/missile_200");
+            Texture2D popTexture        = _content.Load<Texture2D>("Textures/Effects/explosion");
+            Texture2D freezeTexture     = _content.Load<Texture2D>("Textures/Powerups/snowflake_med");
+            Texture2D shellTexture      = _content.Load<Texture2D>("Textures/Powerups/shell_200");
+            Texture2D missileTexture    = _content.Load<Texture2D>("Textures/Powerups/missile_200");
 
-            Texture2D xHairFingerTexture = _content.Load<Texture2D>("Textures/Crosshairs/finger");
-            Texture2D xHairShotgunTexture = _content.Load<Texture2D>("Textures/Crosshairs/shotgun");
-            Texture2D xHairBazookaTexture = _content.Load<Texture2D>("Textures/Crosshairs/bazooka");
+            Texture2D xHairFingerTexture    = _content.Load<Texture2D>("Textures/Crosshairs/finger");
+            Texture2D xHairShotgunTexture   = _content.Load<Texture2D>("Textures/Crosshairs/shotgun");
+            Texture2D xHairBazookaTexture   = _content.Load<Texture2D>("Textures/Crosshairs/bazooka");
 
-            Texture2D splashTexture = _content.Load<Texture2D>("Textures/Backgrounds/fox_480_800");
-            Texture2D popupforeground = _content.Load<Texture2D>("Textures/Backgrounds/popup3_350_200");
+            Texture2D splashTexture         = _content.Load<Texture2D>("Textures/Backgrounds/fox_480_800");
+            Texture2D popupForeground       = _content.Load<Texture2D>("Textures/Backgrounds/popup3_350_200");
+            Texture2D popupTitleForeground  = _content.Load<Texture2D>("Textures/Backgrounds/popup1_title_350_100");
 
-            Texture2D cloudSmall = _content.Load<Texture2D>("Textures/Clouds/cloud_small");
-            Texture2D cloudMedium = _content.Load<Texture2D>("Textures/Clouds/cloud_medium");
+            Texture2D cloudSmall        = _content.Load<Texture2D>("Textures/Clouds/cloud_small");
+            Texture2D cloudMedium       = _content.Load<Texture2D>("Textures/Clouds/cloud_medium");
 
             Texture2D buttonPlay        = _content.Load<Texture2D>("Textures/Buttons/play_400px");
             Texture2D buttonHighscores  = _content.Load<Texture2D>("Textures/Buttons/highscores_400px");
@@ -215,7 +216,8 @@ namespace GameCore
             _textures.Add("xhair_shotgun", xHairShotgunTexture);
             _textures.Add("xhair_bazooka", xHairBazookaTexture);
             _textures.Add("splash", splashTexture);
-            _textures.Add("popup_foreground", popupforeground);
+            _textures.Add("popup_foreground", popupForeground);
+            _textures.Add("popup_title_foreground", popupTitleForeground);
 
             _animations.Add("popmove", new Animation(popTexture, false, popTexture.Width, popTexture.Height, 125, 0.25f));
             _animations.Add("redmove", new Animation(redBalloon, true, redBalloon.Width, redBalloon.Height, 0, 0.5f));

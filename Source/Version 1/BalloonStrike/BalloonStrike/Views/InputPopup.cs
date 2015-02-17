@@ -60,7 +60,7 @@ namespace BalloonStrike.Views
             Button yesButton = _menuButtons.First();
 
             float buttonX = (graphics.Viewport.Width / 2) - (BUTTON_HORIZONTAL_SPACING / 2) - yesButton.Size.X;
-            float buttonY = (ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING;
+            float buttonY = (ForegroundPosition + ForegroundSize).Y + GUI_SPACING;
 
             Vector2 buttonPositon = new Vector2(buttonX, buttonY);
             yesButton.Position = GetTransitionPosition(buttonPositon);
@@ -72,7 +72,7 @@ namespace BalloonStrike.Views
             Button noButton = _menuButtons.Last();
 
             float buttonX = (graphics.Viewport.Width / 2) + (BUTTON_HORIZONTAL_SPACING / 2);
-            float buttonY = (ForegroundPosition + ForegroundSize).Y + BUTTON_VERTICAL_SPACING;
+            float buttonY = (ForegroundPosition + ForegroundSize).Y + GUI_SPACING;
 
             Vector2 buttonPositon = new Vector2(buttonX, buttonY);
             noButton.Position = GetTransitionPosition(buttonPositon);

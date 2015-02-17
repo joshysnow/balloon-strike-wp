@@ -27,9 +27,10 @@ namespace GameInterfaceFramework
             private set;
         }
 
-        protected const int BUTTON_VERTICAL_SPACING     = 20; // Pixels.
+        protected const int GUI_SPACING                 = 20; // Pixels.
         protected const int BUTTON_HORIZONTAL_SPACING   = 20; // Pixels.
 
+        private Texture2D _titleForeground;
         private Texture2D _foreground;
         private Texture2D _background;
         private Vector2 _messagePosition;
@@ -58,11 +59,12 @@ namespace GameInterfaceFramework
                 ResourceManager resources = ResourceManager.Resources;
 
                 Font = resources.GetFont("popup_text");
+                _titleForeground = resources.GetTexture("popup_title_foreground");
                 _foreground = resources.GetTexture("popup_foreground");
                 _background = resources.GetTexture("blank");
 
                 _buttonHeight = (int)_menuButtons.First().Size.Y;
-                int totalHeight = _foreground.Height + BUTTON_VERTICAL_SPACING + _buttonHeight;
+                int totalHeight = _foreground.Height + GUI_SPACING + _buttonHeight;
 
                 ForegroundPosition = new Vector2(((graphics.Viewport.Width - _foreground.Width) / 2), (graphics.Viewport.Height - totalHeight) / 2);
                 ForegroundSize = new Vector2(_foreground.Width, _foreground.Height);
@@ -70,7 +72,7 @@ namespace GameInterfaceFramework
                 _messageSize = Font.MeasureString(_message);
                 _messagePosition = new Vector2(
                     ((graphics.Viewport.Width - _messageSize.X) / 2),
-                    ((graphics.Viewport.Height - BUTTON_VERTICAL_SPACING - _buttonHeight - _messageSize.Y) / 2)
+                    ((graphics.Viewport.Height - GUI_SPACING - _buttonHeight - _messageSize.Y) / 2)
                 );
             }
         }
@@ -152,7 +154,7 @@ namespace GameInterfaceFramework
             float offset = (float)Math.Pow(TransitionAlpha, 2);
 
             // Any position negated the total length doesn't alter the relative positions of all components.
-            int totalHeight = (int)(ForegroundPosition.Y + ForegroundSize.Y + BUTTON_VERTICAL_SPACING + _buttonHeight);
+            int totalHeight = (int)(ForegroundPosition.Y + ForegroundSize.Y + GUI_SPACING + _buttonHeight);
             float distanceToTravel = totalHeight * offset;
 
             int endPosition = (int)(position.Y - totalHeight);
