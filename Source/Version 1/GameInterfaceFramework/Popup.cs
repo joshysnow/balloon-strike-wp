@@ -15,6 +15,18 @@ namespace GameInterfaceFramework
             private set;
         }
 
+        protected Vector2 ForegroundTitlePosition
+        {
+            get;
+            private set;
+        }
+
+        protected Vector2 ForegroundTitleSize
+        {
+            get;
+            private set;
+        }
+
         protected Vector2 ForegroundPosition
         {
             get;
@@ -30,7 +42,7 @@ namespace GameInterfaceFramework
         protected const int GUI_SPACING                 = 20; // Pixels.
         protected const int BUTTON_HORIZONTAL_SPACING   = 20; // Pixels.
 
-        private Texture2D _titleForeground;
+        private Texture2D _foregroundTitle;
         private Texture2D _foreground;
         private Texture2D _background;
         private Vector2 _messagePosition;
@@ -59,20 +71,24 @@ namespace GameInterfaceFramework
                 ResourceManager resources = ResourceManager.Resources;
 
                 Font = resources.GetFont("popup_text");
-                _titleForeground = resources.GetTexture("popup_title_foreground");
+                _foregroundTitle = resources.GetTexture("popup_title_foreground");
                 _foreground = resources.GetTexture("popup_foreground");
                 _background = resources.GetTexture("blank");
 
                 _buttonHeight = (int)_menuButtons.First().Size.Y;
-                int totalHeight = _foreground.Height + GUI_SPACING + _buttonHeight;
+                int totalHeight = _foregroundTitle.Height + GUI_SPACING + _foreground.Height + GUI_SPACING + _buttonHeight;
 
-                ForegroundPosition = new Vector2(((graphics.Viewport.Width - _foreground.Width) / 2), (graphics.Viewport.Height - totalHeight) / 2);
+                ForegroundTitlePosition = new Vector2(((graphics.Viewport.Width - _foreground.Width) / 2), (graphics.Viewport.Height - totalHeight) / 2);
+                ForegroundTitleSize = new Vector2(_foregroundTitle.Width, _foregroundTitle.Height);
+
+                ForegroundPosition = new Vector2(((graphics.Viewport.Width - _foreground.Width) / 2),
+                    (ForegroundTitlePosition.Y + _foregroundTitle.Height + GUI_SPACING));
                 ForegroundSize = new Vector2(_foreground.Width, _foreground.Height);
 
                 _messageSize = Font.MeasureString(_message);
                 _messagePosition = new Vector2(
-                    ((graphics.Viewport.Width - _messageSize.X) / 2),
-                    ((graphics.Viewport.Height - GUI_SPACING - _buttonHeight - _messageSize.Y) / 2)
+                    ((graphics.Viewport.Width - _messageSize.X) / 2),                       // X.
+                    (ForegroundPosition.Y + (ForegroundSize.Y / 2)) - (_messageSize.Y / 2)  // Y.
                 );
             }
         }
@@ -103,11 +119,13 @@ namespace GameInterfaceFramework
             SpriteBatch spriteBatch = ViewManager.SpriteBatch;
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
 
-            Vector2 messagePosition = GetMessagePositon();
+            Vector2 foreTitlePosition = GetForegroundTitlePosition();
             Vector2 forePosition = GetForegroundPosition();
+            Vector2 messagePosition = GetMessagePositon();
 
             spriteBatch.Begin();
             spriteBatch.Draw(_background, graphics.Viewport.Bounds, Color.Black * (TransitionAlpha / 1.25f));
+            spriteBatch.Draw(_foregroundTitle, foreTitlePosition, Color.White * TransitionAlpha);
             spriteBatch.Draw(_foreground, forePosition, Color.White * TransitionAlpha);
             spriteBatch.DrawString(Font, _message, messagePosition, Color.White * TransitionAlpha);
             spriteBatch.End();
@@ -161,14 +179,19 @@ namespace GameInterfaceFramework
             positionY = endPosition + distanceToTravel;
         }
 
-        private Vector2 GetMessagePositon()
+        private Vector2 GetForegroundTitlePosition()
         {
-            return GetTransitionPosition(_messagePosition);
+            return GetTransitionPosition(ForegroundTitlePosition);
         }
 
         private Vector2 GetForegroundPosition()
         {
             return GetTransitionPosition(ForegroundPosition);
+        }
+
+        private Vector2 GetMessagePositon()
+        {
+            return GetTransitionPosition(_messagePosition);
         }
     }
 }
