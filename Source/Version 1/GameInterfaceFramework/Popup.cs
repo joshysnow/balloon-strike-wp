@@ -50,7 +50,7 @@ namespace GameInterfaceFramework
         private int _buttonHeight;
         private bool _clickable;
 
-        public Popup(string message)
+        public Popup(string title, string message)
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -59,7 +59,7 @@ namespace GameInterfaceFramework
 
             ViewGestures = GestureType.Tap;
 
-            _title = "Title";
+            _title = title;
             _message = message;
         }
 

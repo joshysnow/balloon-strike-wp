@@ -9,7 +9,7 @@ namespace BalloonStrike.Views
 {
     public class MessagePopup : Popup
     {
-        public MessagePopup(string message) : base(message) { }
+        public MessagePopup(string title, string message) : base(title, message) { }
 
         public override void Activate(bool instancePreserved)
         {

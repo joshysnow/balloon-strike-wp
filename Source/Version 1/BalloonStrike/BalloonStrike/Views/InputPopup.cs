@@ -13,14 +13,14 @@ namespace BalloonStrike.Views
         private IActionHandler _yesAction;
         private IActionHandler _noAction;
 
-        public InputPopup(string message, IActionHandler acceptAction)
-            : base(message)
+        public InputPopup(string title, string message, IActionHandler acceptAction)
+            : base(title, message)
         {
             _yesAction = acceptAction;
         }
 
-        public InputPopup(string message, IActionHandler acceptAction, IActionHandler cancelAction) 
-            : base(message) 
+        public InputPopup(string title, string message, IActionHandler acceptAction, IActionHandler cancelAction) 
+            : base(title, message) 
         {
             _yesAction = acceptAction;
             _noAction = cancelAction;
