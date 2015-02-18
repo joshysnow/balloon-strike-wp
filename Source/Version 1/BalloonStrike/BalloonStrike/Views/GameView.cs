@@ -66,7 +66,7 @@ namespace BalloonStrike.Views
             if (controls.BackButtonPressed())
             {
                 // Load pause screen.
-                View pauseView = new InputPopup("PAUSED", "Save and quit?", new LoadViewAction(2, this, new MainMenuView()));
+                View pauseView = new InputPopup("Paused", "Save and quit?", new LoadViewAction(2, this, new MainMenuView()));
                 pauseView.ViewExiting += PauseViewExitingHandler;
                 ViewManager.AddView(pauseView);
 

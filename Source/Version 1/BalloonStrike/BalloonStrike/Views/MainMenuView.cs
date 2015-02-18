@@ -97,7 +97,9 @@ namespace BalloonStrike.Views
             const byte SPACING = 10;
 
             string[] info = Assembly.GetExecutingAssembly().FullName.Split(',');
-            _versionText = "v" + info[VERSION_INDEX].Trim().Split('=')[VERSION_INDEX];
+            string[] versionInfo = info[VERSION_INDEX].Trim().Split('=')[VERSION_INDEX].Split('.');
+            _versionText = 'v' + versionInfo[0] + '.' + versionInfo[1];
+
             Vector2 versionSize = _versionFont.MeasureString(_versionText);
             _versionPosition = new Vector2(graphics.Viewport.Width - versionSize.X - SPACING, graphics.Viewport.Height - versionSize.Y);
         }
