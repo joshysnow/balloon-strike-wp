@@ -42,22 +42,7 @@ namespace GameFramework
                 {
                     // Reuse cloud by changing its position
                     // instead of instantiating a new object.
-
-                    CloudModel model;
-                    Vector2 position = new Vector2(ScreenWidth, 0);
-                    bool up = (_randomYGen.Next(2) > 0);
-
-                    if (up)
-                        position.Y = (int)(cloud.OriginalPosition.Y + _randomYGen.Next(MOVABILITY));
-                    else
-                        position.Y = (int)(cloud.OriginalPosition.Y - _randomYGen.Next(MOVABILITY));
-
-                    if (cloud.Type == CloudType.Small)
-                        model = _smallModel;
-                    else
-                        model = _mediumModel;
-
-                    cloud.Initialize(model, position, ScreenWidth);
+                    RecycleCloud(cloud);
                 }
                 else
                 {
@@ -92,6 +77,44 @@ namespace GameFramework
                 cloud.Initialize(model, position, ScreenWidth);
                 Characters.Add(cloud);
             }
+        }
+
+        private void RecycleCloud(Cloud cloud)
+        {
+            CloudModel model = GetCloudModel(cloud.Type);
+            Vector2 position = AdjustCloudPosition(cloud);
+
+            cloud.Initialize(model, position, ScreenWidth);
+        }
+
+        private CloudModel GetCloudModel(CloudType type)
+        {
+            CloudModel model;
+
+            if (type == CloudType.Small)
+                model = _smallModel;
+            else
+                model = _mediumModel;
+
+            return model;
+        }
+
+        private Vector2 AdjustCloudPosition(Cloud cloud)
+        {
+            // Use the screen width so the cloud starts
+            // off, off the right hand side of the screen.
+            Vector2 position = new Vector2(ScreenWidth, 0);
+
+            // Decide whether to adjust the position
+            // further up or down the screen.
+            bool up = (_randomYGen.Next(2) > 0);
+
+            if (up)
+                position.Y = (int)(cloud.OriginalPosition.Y + _randomYGen.Next(MOVABILITY));
+            else
+                position.Y = (int)(cloud.OriginalPosition.Y - _randomYGen.Next(MOVABILITY));
+
+            return position;
         }
 
         private Vector2[] GetInitialSmallCloudPositions()
