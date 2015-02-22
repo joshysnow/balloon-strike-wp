@@ -7,7 +7,7 @@ namespace GameInterfaceFramework
 {
     public delegate void ViewExitHandler(View view);
 
-    public class View
+    public abstract class View
     {
         public TransitionState State
         {
@@ -29,14 +29,6 @@ namespace GameInterfaceFramework
             protected set;
         }
 
-        public float TransitionAlpha
-        {
-            get
-            {
-                return _transition.TransitionAlpha;
-            }
-        }
-
         public Transition Transition
         {
             get
@@ -45,10 +37,18 @@ namespace GameInterfaceFramework
             }
         }
 
+        public float TransitionAlpha
+        {
+            get
+            {
+                return _transition.TransitionAlpha;
+            }
+        }
+
         public bool IsPopup
         {
             get;
-            set;
+            protected set;
         }
 
         public bool IsExiting
@@ -57,6 +57,12 @@ namespace GameInterfaceFramework
             {
                 return _isExiting;
             }
+        }
+
+        public bool IsSerializable
+        {
+            get;
+            protected set;
         }
 
         public event ViewExitHandler ViewExiting;

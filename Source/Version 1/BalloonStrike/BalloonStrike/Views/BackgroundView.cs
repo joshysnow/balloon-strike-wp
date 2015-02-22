@@ -11,7 +11,6 @@ namespace BalloonStrike.Views
 {
     public class BackgroundView : View
     {
-        //private Texture2D _backgroundTexture;
         //private Song _music;
 
         private CloudManager _clouds;
@@ -24,7 +23,6 @@ namespace BalloonStrike.Views
 
         public override void Activate(bool instancePreserved)
         {
-            //_backgroundTexture = ResourceManager.Manager.GetTexture("splash");
             if (!instancePreserved)
             {
                 //_music = ResourceManager.Manager.GetSong("test");
