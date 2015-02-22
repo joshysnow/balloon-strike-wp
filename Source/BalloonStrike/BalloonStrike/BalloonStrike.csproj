@@ -40,6 +40,7 @@
     <NoStdLib>true</NoStdLib>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <XnaCompressContent>false</XnaCompressContent>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Windows Phone' ">
     <DebugType>pdbonly</DebugType>
@@ -100,7 +101,7 @@
       <Name>GameCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\GameFramework\GameFramework.csproj">
-      <Project>{FFB1262B-2F0C-434D-A31E-EFA73EA5815C}</Project>
+      <Project>{BB7448E0-97EB-41AD-9C96-DE44D28829A4}</Project>
       <Name>GameFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\GameInterfaceFramework\GameInterfaceFramework.csproj">
