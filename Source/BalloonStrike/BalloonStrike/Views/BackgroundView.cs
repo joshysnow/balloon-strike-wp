@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
-using GameCore.Triggers;
 using GameFramework;
+using GameFramework.Triggers;
 using GameInterfaceFramework;
 
 namespace BalloonStrike.Views
@@ -28,7 +28,7 @@ namespace BalloonStrike.Views
             if (!instancePreserved)
             {
                 //_music = ResourceManager.Manager.GetSong("test");
-                _clouds = new CloudManager(ViewManager.GraphicsDevice, new TriggerManager());
+                _clouds = new CloudManager(ViewManager.GraphicsDevice);
             }
         }
 

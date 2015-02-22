@@ -5,49 +5,33 @@ using GameCore;
 
 namespace GameFramework
 {
-    public class ScoreManager
+    public class ScoreAnimationManager
     {
-        public int Score
-        {
-            get
-            {
-                return _score;
-            }
-        }
-
         private SpriteFont[] _fonts;
         private TimeSpan _transitionTime;
         private float _position;
         private int _direction;
-        private int _score;
         private bool _transition;
 
-        public ScoreManager()
+        public ScoreAnimationManager()
         {
-            LoadFonts();
-
             _transitionTime = TimeSpan.FromSeconds(0.33f);
             _position = 0;
             _direction = 1;
-            _score = 0;
             _transition = false;
+        }
+
+        public void Initialize()
+        {
+            LoadFonts();
+
+            Player.Instance.ScoreUpdated += PlayerScoreUpdatedHandler;
         }
 
         public void Reset()
         {
             _position = 0;
             _direction = 1;
-            _score = 0;
-        }
-
-        public void IncreaseScore(int amount)
-        {
-            _score += amount;
-
-            // Reset animation.
-            _position = 0;
-            _direction = 1;
-            _transition = true;
         }
 
         public void Update(GameTime gameTime)
@@ -77,11 +61,13 @@ namespace GameFramework
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            int score = Player.Instance.CurrentScore;
             SpriteFont font = _fonts[(int)(_position * 9)];
-            Vector2 scoreLength = font.MeasureString(_score.ToString());
+
+            Vector2 scoreLength = font.MeasureString(score.ToString());
             Vector2 position = new Vector2(480 - scoreLength.X - 10, 0); // Screen width - horizontal length of text - spacing from the side, top margin.
 
-            spriteBatch.DrawString(font, _score.ToString(), position, Color.Yellow);
+            spriteBatch.DrawString(font, score.ToString(), position, Color.Yellow);
         }
 
         private void LoadFonts()
@@ -94,6 +80,19 @@ namespace GameFramework
             {
                 _fonts[i] = manager.GetFont("font_score" + i);
             }
+        }
+
+        private void ResetAnimation()
+        {
+            // Reset animation.
+            _position = 0;
+            _direction = 1;
+            _transition = true;
+        }
+
+        private void PlayerScoreUpdatedHandler(int newScore)
+        {
+            ResetAnimation();
         }
     }
 }

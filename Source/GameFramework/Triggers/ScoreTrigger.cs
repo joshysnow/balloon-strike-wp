@@ -1,4 +1,4 @@
-﻿namespace GameCore.Triggers
+﻿namespace GameFramework.Triggers
 {
     public class ScoreTrigger : Trigger
     {

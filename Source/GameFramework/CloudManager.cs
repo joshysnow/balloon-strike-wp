@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameCore;
-using GameCore.Triggers;
+using GameFramework.Triggers;
 
 namespace GameFramework
 {
@@ -15,7 +15,7 @@ namespace GameFramework
         private CloudModel _mediumModel;
         private Random _randomYGen;
 
-        public CloudManager(GraphicsDevice graphics, TriggerManager triggers) : base(graphics, triggers) { }
+        public CloudManager(GraphicsDevice graphics) : base(graphics) { }
 
         protected override void Initialize()
         {

@@ -93,12 +93,12 @@ namespace BalloonStrike.Views
         {
             if (State == TransitionState.Active && !_finishedCounting)
             {
-                Player p = Player.Instance;
-                if (_score < p.CurrentScore)
+                Player player = Player.Instance;
+                if (_score < player.CurrentScore)
                 {
-                    if ((_score + _increment) >= p.CurrentScore)
+                    if ((_score + _increment) >= player.CurrentScore)
                     {
-                        _score = p.CurrentScore;
+                        _score = player.CurrentScore;
                         _finishedCounting = true;
                         EnableViewGestures();
                     }
@@ -127,16 +127,19 @@ namespace BalloonStrike.Views
 
         protected override void HandleBackButtonPressed()
         {
+            ResetPlayerScore();
             LoadView.Load(ViewManager, 1, new MainMenuView());
         }
 
         private void PlayTappedHandler(Button button)
         {
+            ResetPlayerScore();
             LoadView.Load(ViewManager, 1, new GameView());
         }
 
         private void MenuTappedHandler(Button button)
         {
+            ResetPlayerScore();
             LoadView.Load(ViewManager, 1, new MainMenuView());
         }
 
@@ -144,6 +147,15 @@ namespace BalloonStrike.Views
         {
             ViewGestures = GestureType.Tap;
             ViewManager.EnabledGestures = ViewGestures;
+        }
+
+        /// <summary>
+        /// Clear the players current score when exiting.
+        /// </summary>
+        private void ResetPlayerScore()
+        {
+#warning Too many calls to this function. Reduce by knowing how the view is exiting i.e. being serilized or not.
+            Player.Instance.Reset();
         }
     }
 }

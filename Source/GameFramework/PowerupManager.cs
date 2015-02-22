@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using GameCore;
 using GameCore.Timers;
-using GameCore.Triggers;
+using GameFramework.Triggers;
 
 namespace GameFramework
 {
@@ -26,7 +26,7 @@ namespace GameFramework
         private SoundEffect _popSoundEffect;
         private Random _randomPosition;
 
-        public PowerupManager(GraphicsDevice graphics, TriggerManager triggers) : base(graphics, triggers) { }
+        public PowerupManager(GraphicsDevice graphics) : base(graphics) { }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
         {

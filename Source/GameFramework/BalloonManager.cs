@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using GameCore;
 using GameCore.Memory;
 using GameCore.Timers;
-using GameCore.Triggers;
+using GameFramework.Triggers;
 
 namespace GameFramework
 {
@@ -38,7 +38,7 @@ namespace GameFramework
         private SimpleTimer _managerFreezeTimer;
         private Random _randomPosition;
 
-        public BalloonManager(GraphicsDevice graphics, TriggerManager triggers) : base(graphics, triggers) { }
+        public BalloonManager(GraphicsDevice graphics) : base(graphics) { }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
         {
@@ -191,11 +191,11 @@ namespace GameFramework
             _greenTimer.Elapsed += GreenTimerElapsed;
             Timers.Add(_greenTimer);
 
-#warning EXPERIMENTAL START
+#warning EXPERIMENT START
             TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
             massAttackTimer.Triggered += MassAttackTimerTriggered;
             AddTrigger(massAttackTimer);
-#warning EXPERIMENTAL END
+#warning EXPERIMENT END
 
             _redVelocity = new Vector2(0, -8f);
             _greenVelocity = new Vector2(0, -5f);
@@ -232,7 +232,6 @@ namespace GameFramework
             _greenVelocity.Y = -9f;
             _blueVelocity.Y = -11f;
             _redVelocity.Y = -13f;
-#warning TODO: Could call a function to reuse a trigger to perhaps add more timers? Prevents it from being deleted after this function ends.
         }
 
         private void MassAttackTimerTriggered(Trigger trigger)

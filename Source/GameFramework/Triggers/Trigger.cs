@@ -1,29 +1,30 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace GameCore.Triggers
+namespace GameFramework.Triggers
 {
     public delegate void TriggerHandler(Trigger trigger);
 
     public abstract class Trigger
     {
-        public event TriggerHandler Triggered;
-        protected float _triggerPoint;
-        private bool _triggered = false;
-
         public bool HasTriggered
         {
-            get { return _triggered; }
+            get;
+            private set;
         }
+
+        public event TriggerHandler Triggered;
+
+        protected float _triggerPoint;
 
         protected void RaiseTriggered()
         {
-            if(_triggered)
+            if (HasTriggered)
             {
                 return;
             }
 
-            _triggered = true;
+            HasTriggered = true;
 
             if (Triggered != null)
             {

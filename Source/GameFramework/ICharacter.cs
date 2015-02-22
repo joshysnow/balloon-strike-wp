@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using GameCore;
 using GameCore.Timers;
 using GameCore.Physics;
-using GameCore.Triggers;
+using GameFramework.Triggers;
 
 namespace GameFramework
 {
@@ -87,9 +87,9 @@ namespace GameFramework
             private set;
         }
 
-        private TriggerManager _triggers;
+        private TriggerManager _triggerManager;
 
-        public CharacterManager(GraphicsDevice graphics, TriggerManager triggers)
+        public CharacterManager(GraphicsDevice graphics)
         {
             Characters = new List<Character>();
             Timers = new List<SimpleTimer>(5);
@@ -97,7 +97,7 @@ namespace GameFramework
             ScreenWidth = graphics.Viewport.Width;
             ScreenHeight = graphics.Viewport.Height;
 
-            _triggers = triggers;
+            _triggerManager = new TriggerManager();
 
             Initialize();
         }
@@ -106,6 +106,7 @@ namespace GameFramework
         {
             UpdateCharacters(gameTime);
             UpdateSpawners(gameTime);
+            UpdateTriggers(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -119,7 +120,7 @@ namespace GameFramework
 
         protected void AddTrigger(Trigger newTrigger)
         {
-            _triggers.AddTrigger(newTrigger);
+            _triggerManager.AddTrigger(newTrigger);
         }
 
         public virtual void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
@@ -137,6 +138,11 @@ namespace GameFramework
             {
                 timer.Update(gameTime);
             }
+        }
+
+        protected virtual void UpdateTriggers(GameTime gameTime)
+        {
+            _triggerManager.Update(gameTime);
         }
     }
 }

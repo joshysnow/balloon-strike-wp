@@ -2,8 +2,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
-using GameCore.Triggers;
 using GameFramework;
+using GameFramework.Triggers;
 using GameInterfaceFramework;
 using GameInterfaceFramework.Actions;
 
@@ -18,11 +18,10 @@ namespace BalloonStrike.Views
             Paused      = 0x04
         }
 
-        private TriggerManager _triggerManager;
         private WeaponManager _weaponManager;
         private BalloonManager _balloonManager;
         private PowerupManager _powerupManager;
-        private ScoreManager _scoreManager;
+        private ScoreAnimationManager _scoreManager;
         private Sun _sun;
         private GameState _gameState;
 
@@ -43,21 +42,19 @@ namespace BalloonStrike.Views
             {
                 GraphicsDevice graphics = ViewManager.GraphicsDevice;
 
-                _triggerManager = new TriggerManager();
                 _weaponManager = new WeaponManager();
-                _balloonManager = new BalloonManager(graphics, _triggerManager);
-                _powerupManager = new PowerupManager(graphics, _triggerManager);
-                _scoreManager = new ScoreManager();
+                _balloonManager = new BalloonManager(graphics);
+                _powerupManager = new PowerupManager(graphics);
                 _sun = new Sun();
                 _sun.Initialize();
+
+                _scoreManager = new ScoreAnimationManager();
+                _scoreManager.Initialize();
 
                 _balloonManager.Escaped += BalloonEscapedHandler;
                 _balloonManager.Popped += BalloonPoppedHandler;
                 _powerupManager.PickedUp += PowerupPickedUpHandler;
                 _sun.Dead += SunDeadHandler;
-
-                Player player = Player.Instance;
-                player.CurrentScore = 0;
             }
         }
 
@@ -127,7 +124,6 @@ namespace BalloonStrike.Views
             _balloonManager.Update(gameTime);
             _powerupManager.Update(gameTime);
             _scoreManager.Update(gameTime);
-            _triggerManager.Update(gameTime, _scoreManager.Score);
             _sun.Update(gameTime);
         }
 
@@ -135,9 +131,6 @@ namespace BalloonStrike.Views
         {
             if (IsExiting == false)
             {
-                Player player = Player.Instance;
-                player.CurrentScore = _scoreManager.Score;
-
                 LoadView.Load(ViewManager, 1, new GameOverView());
             }
         }
@@ -154,7 +147,7 @@ namespace BalloonStrike.Views
 
         private void BalloonPoppedHandler(Balloon balloon)
         {
-            _scoreManager.IncreaseScore(1);
+            Player.Instance.CurrentScore += 1;
         }
 
         private void PowerupPickedUpHandler(Powerup powerup)
