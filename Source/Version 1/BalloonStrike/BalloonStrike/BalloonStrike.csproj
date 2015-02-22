@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{61021253-6D61-42EA-B0CA-B216D659406F}</ProjectGuid>
@@ -104,7 +104,7 @@
       <Name>GameFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\GameInterfaceFramework\GameInterfaceFramework.csproj">
-      <Project>{85F5AF50-C549-4412-9678-D9203386B20D}</Project>
+      <Project>{957AF3B8-515B-4DAB-9AAB-E48B8BDF0F18}</Project>
       <Name>GameInterfaceFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\BalloonStrikeContent\Content.contentproj">
