@@ -29,6 +29,33 @@ namespace BalloonStrike
             InitializeGameServices();
         }
 
+        protected override void LoadContent()
+        {
+            InitializeResources();
+
+            base.LoadContent();
+        }
+
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// all content.
+        /// </summary>
+        protected override void UnloadContent()
+        {
+            Content.Unload();
+        }
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.Black);
+
+            base.Draw(gameTime);
+        }
+
         private void InitializeGraphics()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -56,19 +83,33 @@ namespace BalloonStrike
             Guide.IsScreenSaverEnabled = true;
             IsFixedTimeStep = false;
 
+            ViewFactory viewFactory = new ViewFactory();
+            Services.AddService(typeof(IViewFactory), viewFactory);
+
             _viewManager = new ViewManager(this);
             Components.Add(_viewManager);
         }
 
-        private void InitializeGame()
+        private void InitializeResources()
         {
             ResourceManager.Initialize(Content);
+        }
+
+        private void InitializeGame()
+        {
             _viewManager.AddView(new SplashView());
         }
 
         private void GameActivated(object sender, ActivatedEventArgs e)
         {
-            if (_viewManager.Activate(e.IsApplicationInstancePreserved))
+            // If rehydrating, reload resources.
+            if (!e.IsApplicationInstancePreserved)
+            {
+                InitializeResources();
+            }
+
+            // If we fail to rehydrate then restart the game.
+            if (!_viewManager.Activate(e.IsApplicationInstancePreserved))
             {
                 InitializeGame();
             }
@@ -82,26 +123,6 @@ namespace BalloonStrike
         private void GameLaunching(object sender, LaunchingEventArgs e)
         {
             InitializeGame();
-        }
-
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            Content.Unload();
-        }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.Black);
-
-            base.Draw(gameTime);
         }
     }
 }

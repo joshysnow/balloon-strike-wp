@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
+using System.Xml.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +23,8 @@ namespace GameInterfaceFramework
             get { return TouchPanel.EnabledGestures; }
             set { TouchPanel.EnabledGestures = value; }
         }
+
+        private const string STORAGE_FILE_NAME = "ViewManagerState.xml";
 
         private SpriteBatch _spriteBatch;
         private List<View> _views;
@@ -51,6 +56,11 @@ namespace GameInterfaceFramework
             EnabledGestures = _views.Last().ViewGestures;
         }
 
+        /// <summary>
+        /// Get a copy of the views. Useful for
+        /// calculating how many 
+        /// </summary>
+        /// <returns>An array of all views.</returns>
         public View[] Views()
         {
             return _views.ToArray();
@@ -58,13 +68,86 @@ namespace GameInterfaceFramework
 
         public bool Activate(bool instancePreserved)
         {
-#warning TODO: Deserialize the game from disk.
-            return false;
+            if (instancePreserved)
+            {
+                // Copy the master view list in case activating a view
+                // removes or adds new views.
+                _tempViews.Clear();
+                _tempViews.AddRange(_views);
+
+                foreach (View view in _tempViews)
+                {
+                    view.Activate(instancePreserved);
+                }
+            }
+            else
+            {
+                IViewFactory viewFactory = Game.Services.GetService(typeof(IViewFactory)) as IViewFactory;
+
+                if (viewFactory == null)
+                {
+                    throw new InvalidOperationException("A IViewFactory object couldn't be found in Game.Services.");
+                }
+
+                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    if (!storage.FileExists(STORAGE_FILE_NAME))
+                        return false;
+
+                    using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                    {
+                        XDocument doc = XDocument.Load(stream);
+
+                        foreach (XElement viewElement in doc.Root.Elements("View"))
+                        {
+                            Type viewType = Type.GetType(viewElement.Attribute("Type").Value);
+                            View view = viewFactory.CreateView(viewType);
+
+                            AddView(view);
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
 
         public void Deactivate()
         {
-#warning TODO: Serialize the game to disk.
+            // Create the file in storage usable by the game.
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                XDocument doc = new XDocument();
+                XElement root = new XElement("ViewManager");
+                doc.Add(root);
+
+                // Copy the master view list incase one View
+                // deactivates another.
+                _tempViews.Clear();
+                _tempViews.AddRange(_views);
+
+                XElement viewElement;
+
+                foreach (View view in _tempViews)
+                {
+                    if (view.IsSerializable)
+                    {
+                        viewElement = new XElement(
+                            "View", 
+                            new XAttribute("Type", view.GetType().AssemblyQualifiedName)
+                            );
+
+                        root.Add(viewElement);
+                    }
+
+                    view.Deactivate();
+                }
+
+                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
+                {
+                    doc.Save(stream);
+                }
+            }
         }
 
         public override void Initialize()

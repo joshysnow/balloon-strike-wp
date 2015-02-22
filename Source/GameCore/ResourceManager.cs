@@ -19,7 +19,6 @@ namespace GameCore
 
         private static ResourceManager _manager;
         private static ContentManager _content;
-        private static bool _loaded = false;
 
         private const string EXCEPTION_NOT_INITIALIZED = "Resource Managed has not been initialized";
 
@@ -40,21 +39,17 @@ namespace GameCore
 
         public static void Initialize(ContentManager content)
         {
-            if (_loaded)
+            if (_manager == null)
             {
-                return;
+                _manager = new ResourceManager();
+                _content = content;
+                _manager.LoadResources();
             }
-
-            _manager = new ResourceManager();
-            _content = content;
-            _manager.LoadResources();
-
-            _loaded = true;
         }
 
         public Texture2D GetTexture(string key)
         {
-            if (!_loaded)
+            if (!IsInitialized())
             {
                 throw new Exception(EXCEPTION_NOT_INITIALIZED);
             }
@@ -69,7 +64,7 @@ namespace GameCore
 
         public SoundEffect GetSoundEffect(string key)
         {
-            if (!_loaded)
+            if (!IsInitialized())
             {
                 throw new Exception(EXCEPTION_NOT_INITIALIZED);
             }
@@ -84,7 +79,7 @@ namespace GameCore
 
         public SpriteFont GetFont(string key)
         {
-            if (!_loaded)
+            if (!IsInitialized())
             {
                 throw new Exception(EXCEPTION_NOT_INITIALIZED);
             }
@@ -99,7 +94,7 @@ namespace GameCore
 
         public Animation GetAnimation(string key)
         {
-            if (!_loaded)
+            if (!IsInitialized())
             {
                 throw new Exception(EXCEPTION_NOT_INITIALIZED);
             }
@@ -114,7 +109,7 @@ namespace GameCore
 
         public Song GetSong(string key)
         {
-            if (!_loaded)
+            if (!IsInitialized())
             {
                 throw new Exception(EXCEPTION_NOT_INITIALIZED);
             }
@@ -236,6 +231,11 @@ namespace GameCore
             _animations.Add("sun_ok", new Animation(sunOk, true, sunOk.Width, sunOk.Height, 0, 1));
             _animations.Add("sun_happy", new Animation(sunHappy, true, sunHappy.Width, sunHappy.Height, 0, 1));
             _animations.Add("sun_superhappy", new Animation(sunSuperHappy, true, sunSuperHappy.Width, sunSuperHappy.Height, 0, 1));
+        }
+
+        private bool IsInitialized()
+        {
+            return _manager != null;
         }
     }
 }
