@@ -9,21 +9,7 @@ namespace GameFramework
 {
     public class CloudManager : CharacterManager
     {
-        private static Vector2[] INITIAL_SMALLS = new Vector2[3] 
-        { 
-            new Vector2(50, 500), 
-            new Vector2(275, 660), 
-            new Vector2(480, 560)
-        };
-
-        private static Vector2[] INITIAL_MEDIUMS = new Vector2[3]
-        {            
-            new Vector2(100, 100),
-            new Vector2(400, 300),
-            new Vector2(500, 50)
-        };
-
-        private int MOVABILITY = 25;
+        private const int MOVABILITY = 25;
 
         private CloudModel _smallModel;
         private CloudModel _mediumModel;
@@ -35,37 +21,13 @@ namespace GameFramework
         {
             _randomYGen = new Random(DateTime.Now.Millisecond);
 
-            ResourceManager resources = ResourceManager.Resources;
-            Animation smallMove = resources.GetAnimation("cloud_small_move");
-            Animation mediumMove = resources.GetAnimation("cloud_medium_move");
+            InitializeCloudModels();
 
-            Vector2 smallVelocity = new Vector2(-1.5f, 0);
-            Vector2 mediumVelocity = new Vector2(-0.5f, 0);
+            Vector2[] smallCloudPositions = GetInitialSmallCloudPositions();
+            Vector2[] mediumCloudPositions = GetInitialMediumCloudPositions();
 
-            _smallModel = new CloudModel() { Velocity = smallVelocity, MoveAnimation = smallMove, Type = CloudType.Small };
-            _mediumModel = new CloudModel() { Velocity = mediumVelocity, MoveAnimation = mediumMove, Type = CloudType.Medium };
-
-            Cloud cloud;
-            Vector2 position;
-            byte index = 0;
-
-            while (index < INITIAL_SMALLS.Length)
-            {
-                position = INITIAL_SMALLS[index++];
-                cloud = new Cloud() { OriginalPosition = position };
-                cloud.Initialize(_smallModel, position, ScreenWidth);
-                Characters.Add(cloud);
-            }
-
-            index = 0;
-
-            while (index < INITIAL_MEDIUMS.Length)
-            {
-                position = INITIAL_MEDIUMS[index++];
-                cloud = new Cloud() { OriginalPosition = position };
-                cloud.Initialize(_mediumModel, position, ScreenWidth);
-                Characters.Add(cloud);
-            }
+            InitializeClouds(smallCloudPositions, _smallModel);
+            InitializeClouds(mediumCloudPositions, _mediumModel);
         }
 
         protected override void UpdateCharacters(GameTime gameTime)
@@ -78,7 +40,9 @@ namespace GameFramework
 
                 if (cloud.State == CloudState.OffScreen)
                 {
-                    // Reuse.
+                    // Reuse cloud by changing its position
+                    // instead of instantiating a new object.
+
                     CloudModel model;
                     Vector2 position = new Vector2(ScreenWidth, 0);
                     bool up = (_randomYGen.Next(2) > 0);
@@ -100,6 +64,54 @@ namespace GameFramework
                     cloud.Update(gameTime);
                 }
             }
+        }
+
+        private void InitializeCloudModels()
+        {
+            ResourceManager resources = ResourceManager.Resources;
+            Animation smallMove = resources.GetAnimation("cloud_small_move");
+            Animation mediumMove = resources.GetAnimation("cloud_medium_move");
+
+            Vector2 smallVelocity = new Vector2(-1.5f, 0);
+            Vector2 mediumVelocity = new Vector2(-0.5f, 0);
+
+            _smallModel = new CloudModel() { Velocity = smallVelocity, MoveAnimation = smallMove, Type = CloudType.Small };
+            _mediumModel = new CloudModel() { Velocity = mediumVelocity, MoveAnimation = mediumMove, Type = CloudType.Medium };
+        }
+
+        private void InitializeClouds(Vector2[] initialPositions, CloudModel model)
+        {
+            Cloud cloud;
+            Vector2 position;
+            byte index = 0;
+
+            while (index < initialPositions.Length)
+            {
+                position = initialPositions[index++];
+                cloud = new Cloud() { OriginalPosition = position };
+                cloud.Initialize(model, position, ScreenWidth);
+                Characters.Add(cloud);
+            }
+        }
+
+        private Vector2[] GetInitialSmallCloudPositions()
+        {
+            return new Vector2[3]
+            { 
+                new Vector2(50, 500), 
+                new Vector2(275, 660), 
+                new Vector2(480, 560)
+            };
+        }
+
+        private Vector2[] GetInitialMediumCloudPositions()
+        {
+            return new Vector2[3]
+            { 
+                new Vector2(100, 100),
+                new Vector2(400, 300),
+                new Vector2(500, 50)
+            };
         }
     }
 }
