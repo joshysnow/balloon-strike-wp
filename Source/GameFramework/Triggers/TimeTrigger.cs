@@ -1,28 +1,34 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using GameCore.Triggers;
 
 namespace GameFramework.Triggers
 {
     public class TimeTrigger : Trigger
     {
+        private float _triggerTime;
         private float _timePassed;
 
         public TimeTrigger(TimeSpan triggerTime)
         {
-            _triggerPoint = (float)triggerTime.TotalMilliseconds;
+            _triggerTime = (float)triggerTime.TotalMilliseconds;
             _timePassed = 0;
         }
 
-        public void Update(GameTime gameTime)
+        protected override bool CanTrigger(GameTime gameTime)
         {
-            if (_timePassed >= _triggerPoint)
+            bool trigger = false;
+
+            if (_timePassed >= _triggerTime)
             {
-                RaiseTriggered();
+                trigger = true;
             }
             else
             {
                 _timePassed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
+
+            return trigger;
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using GameCore;
 using GameCore.Timers;
+using GameCore.Triggers;
 using GameFramework.Triggers;
 
 namespace GameFramework

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using GameCore;
 using GameCore.Memory;
 using GameCore.Timers;
+using GameCore.Triggers;
 using GameFramework.Triggers;
 
 namespace GameFramework
@@ -35,7 +36,7 @@ namespace GameFramework
         private Animation _hitAnimation;
         private SoundEffect _popSoundEffect;
         private BalloonManagerState _managerState;
-        private SimpleTimer _managerFreezeTimer;
+        private SimpleTimer _freezeTimer;
         private Random _randomPosition;
 
         public BalloonManager(GraphicsDevice graphics) : base(graphics) { }
@@ -94,12 +95,24 @@ namespace GameFramework
                         }
 
                         _managerState = BalloonManagerState.Frozen;
-                        _managerFreezeTimer = new SimpleTimer(2000);
+                        _freezeTimer = new SimpleTimer(2000);
                     }
                     break;
                 case PowerupType.Nuke:
                 default:
                     break;
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if (_managerState == BalloonManagerState.Frozen)
+            {
+                UpdateFrozenState(gameTime);
+            }
+            else
+            {
+                base.Update(gameTime);
             }
         }
 
@@ -145,22 +158,6 @@ namespace GameFramework
                         break;
                     default:
                         break;
-                }
-            }
-        }
-
-        protected override void UpdateSpawners(GameTime gameTime)
-        {
-            if (_managerState == BalloonManagerState.Normal)
-            {
-                base.UpdateSpawners(gameTime);
-            }
-            else
-            {
-                if(_managerFreezeTimer.Update(gameTime))
-                {
-                    _managerFreezeTimer = null;
-                    _managerState = BalloonManagerState.Normal;
                 }
             }
         }
@@ -211,6 +208,18 @@ namespace GameFramework
             _hitAnimation = manager.GetAnimation("hitmove");
 
             _popSoundEffect = manager.GetSoundEffect("pop");
+        }
+
+        private void UpdateFrozenState(GameTime gameTime)
+        {
+            // Still want to update characters.
+            UpdateCharacters(gameTime);
+
+            if (_freezeTimer.Update(gameTime))
+            {
+                _freezeTimer = null;
+                _managerState = BalloonManagerState.Normal;
+            }
         }
 
         private void BlueSpawnStartTriggerHandler(Trigger trigger)

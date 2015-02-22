@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 
-namespace GameFramework.Triggers
+namespace GameCore.Triggers
 {
     public delegate void TriggerHandler(Trigger trigger);
 
@@ -15,7 +15,13 @@ namespace GameFramework.Triggers
 
         public event TriggerHandler Triggered;
 
-        protected float _triggerPoint;
+        public void Update(GameTime gameTime)
+        {
+            if (CanTrigger(gameTime))
+                RaiseTriggered();
+        }
+
+        protected abstract bool CanTrigger(GameTime gameTime);
 
         protected void RaiseTriggered()
         {

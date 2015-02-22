@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace GameFramework.Triggers
+namespace GameCore.Triggers
 {
     public class TriggerManager
     {
@@ -41,16 +41,7 @@ namespace GameFramework.Triggers
             while (index < _triggers.Count)
             {
                 trigger = _triggers[index];
-
-                if (trigger is ScoreTrigger)
-                {
-                    ((ScoreTrigger)trigger).Update(Player.Instance.CurrentScore);
-                }
-
-                if (trigger is TimeTrigger)
-                {
-                    ((TimeTrigger)trigger).Update(gameTime);
-                }
+                trigger.Update(gameTime);
 
                 if (trigger.HasTriggered)
                 {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameCore;
-using GameFramework.Triggers;
 
 namespace GameFramework
 {

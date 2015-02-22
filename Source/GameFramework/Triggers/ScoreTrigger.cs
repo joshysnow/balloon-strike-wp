@@ -1,18 +1,20 @@
-﻿namespace GameFramework.Triggers
+﻿using Microsoft.Xna.Framework;
+using GameCore.Triggers;
+
+namespace GameFramework.Triggers
 {
     public class ScoreTrigger : Trigger
     {
+        private int _scoreToTrigger;
+
         public ScoreTrigger(int scoreToTriggerAt)
         {
-            _triggerPoint = scoreToTriggerAt;
+            _scoreToTrigger = scoreToTriggerAt;
         }
 
-        public void Update(int currentScore)
+        protected override bool CanTrigger(GameTime gameTime)
         {
-            if (currentScore >= _triggerPoint)
-            {
-                RaiseTriggered();
-            }
+            return Player.Instance.CurrentScore >= _scoreToTrigger;
         }
     }
 }

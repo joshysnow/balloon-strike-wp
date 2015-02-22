@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using GameCore;
 using GameCore.Timers;
 using GameCore.Physics;
-using GameFramework.Triggers;
+using GameCore.Triggers;
 
 namespace GameFramework
 {
@@ -102,7 +102,7 @@ namespace GameFramework
             Initialize();
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             UpdateCharacters(gameTime);
             UpdateSpawners(gameTime);
@@ -132,7 +132,7 @@ namespace GameFramework
 
         protected abstract void UpdateCharacters(GameTime gameTime);
 
-        protected virtual void UpdateSpawners(GameTime gameTime)
+        private void UpdateSpawners(GameTime gameTime)
         {
             foreach (SimpleTimer timer in Timers)
             {
@@ -140,7 +140,7 @@ namespace GameFramework
             }
         }
 
-        protected virtual void UpdateTriggers(GameTime gameTime)
+        private void UpdateTriggers(GameTime gameTime)
         {
             _triggerManager.Update(gameTime);
         }
