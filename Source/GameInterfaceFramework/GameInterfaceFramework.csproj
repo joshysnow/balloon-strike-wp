@@ -45,7 +45,6 @@
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Game" />
     <Reference Include="Microsoft.Xna.Framework.Graphics" />
-    <Reference Include="Microsoft.Xna.Framework.GamerServices" />
     <Reference Include="Microsoft.Xna.Framework.Input.Touch" />
     <Reference Include="System" />
   </ItemGroup>
@@ -66,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameCore\GameCore.csproj">
-      <Project>{6A96CC58-43DE-4687-9FEE-17F52F4B1F39}</Project>
+      <Project>{9732CB11-7260-4A6A-94F1-A6DAEC3FC771}</Project>
       <Name>GameCore</Name>
     </ProjectReference>
   </ItemGroup>
