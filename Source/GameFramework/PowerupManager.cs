@@ -29,6 +29,16 @@ namespace GameFramework
 
         public PowerupManager(GraphicsDevice graphics) : base(graphics) { }
 
+        public override bool Activate(bool instancePreserved)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Deactivate()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
         {
             int index;

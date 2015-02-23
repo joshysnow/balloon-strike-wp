@@ -61,7 +61,7 @@ namespace GameFramework
         }
     }
 
-    public abstract class CharacterManager
+    public abstract class CharacterManager : Serializable
     {
         protected List<SimpleTimer> Timers
         {
@@ -101,6 +101,10 @@ namespace GameFramework
 
             Initialize();
         }
+
+        public abstract bool Activate(bool instancePreserved);
+
+        public abstract void Deactivate();
 
         public virtual void Update(GameTime gameTime)
         {

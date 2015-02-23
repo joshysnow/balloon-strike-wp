@@ -16,6 +16,16 @@ namespace GameFramework
 
         public CloudManager(GraphicsDevice graphics) : base(graphics) { }
 
+        public override bool Activate(bool instancePreserved)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Deactivate()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void Initialize()
         {
             _randomYGen = new Random(DateTime.Now.Millisecond);
