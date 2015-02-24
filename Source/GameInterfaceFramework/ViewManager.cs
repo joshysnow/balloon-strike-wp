@@ -100,7 +100,7 @@ namespace GameInterfaceFramework
 
                         foreach (XElement viewElement in doc.Root.Elements("View"))
                         {
-                            Type viewType = Type.GetType(viewElement.Attribute("Type").Value);
+                            Type viewType = Type.GetType(viewElement.Attribute("ObjectType").Value);
                             View view = viewFactory.CreateView(viewType);
 
                             AddView(view);
@@ -134,7 +134,7 @@ namespace GameInterfaceFramework
                     {
                         viewElement = new XElement(
                             "View", 
-                            new XAttribute("Type", view.GetType().AssemblyQualifiedName)
+                            new XAttribute("ObjectType", view.GetType().AssemblyQualifiedName)
                             );
 
                         root.Add(viewElement);

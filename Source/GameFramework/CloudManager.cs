@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Xml.Linq;
+using System.IO.IsolatedStorage;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -44,7 +46,32 @@ namespace GameFramework
 
         public override void Deactivate()
         {
-            // TODO: Store clouds to disk.
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                XDocument doc = new XDocument();
+                XElement root = new XElement("CloudManager");
+                doc.Add(root);
+
+                XElement cloudElement;
+
+                foreach (Cloud cloud in Characters)
+                {
+                    cloudElement = new XElement(
+                        "View",
+                        new XAttribute("ObjectType", cloud.GetType().AssemblyQualifiedName),
+                        new XAttribute("CloudType", cloud.Type)
+                        //new XAttribute("X", cloud.),
+                        //new XAttribute("Y", cloud.)
+                        );
+
+                    root.Add(cloudElement);
+                }
+
+                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
+                {
+                    doc.Save(stream);
+                }
+            }
         }
 
         protected override void UpdateCharacters(GameTime gameTime)
