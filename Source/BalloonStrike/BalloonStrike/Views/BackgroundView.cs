@@ -25,11 +25,20 @@ namespace BalloonStrike.Views
 
         public override void Activate(bool instancePreserved)
         {
-            if (!instancePreserved)
-            {
-                //_music = ResourceManager.Manager.GetSong("test");
-                _clouds = new CloudManager(ViewManager.GraphicsDevice);
-            }
+            // Instantiate for the first time or rehydrate.
+            _clouds = new CloudManager(ViewManager.GraphicsDevice);
+            _clouds.Activate(instancePreserved);
+            //_music = ResourceManager.Manager.GetSong("test");
+
+            base.Activate(instancePreserved);
+        }
+
+        public override void Deactivate()
+        {
+            // Sierialize the cloud manager.
+            _clouds.Deactivate();
+
+            base.Deactivate();
         }
 
         public override void Update(GameTime gameTime, bool covered)

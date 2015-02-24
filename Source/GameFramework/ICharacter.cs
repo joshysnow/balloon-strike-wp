@@ -98,11 +98,11 @@ namespace GameFramework
             ScreenHeight = graphics.Viewport.Height;
 
             _triggerManager = new TriggerManager();
-
-            Initialize();
         }
 
-        public abstract bool Activate(bool instancePreserved);
+        public abstract void Initialize();
+
+        public abstract void Activate(bool instancePreserved);
 
         public abstract void Deactivate();
 
@@ -131,8 +131,6 @@ namespace GameFramework
         {
             remainingGestures = gestures;
         }
-
-        protected abstract void Initialize();
 
         protected abstract void UpdateCharacters(GameTime gameTime);
 

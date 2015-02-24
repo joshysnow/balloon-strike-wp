@@ -41,14 +41,62 @@ namespace GameFramework
 
         public BalloonManager(GraphicsDevice graphics) : base(graphics) { }
 
-        public override bool Activate(bool instancePreserved)
+        public override void Initialize()
         {
-            throw new NotImplementedException();
+            _pool = new BalloonPool(50);
+            _pool.Fill();
+
+            _managerState = BalloonManagerState.Normal;
+            _randomPosition = new Random(DateTime.Now.Millisecond);
+
+            // Add two triggers for when to begin spawning the other balloons.
+            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(20));
+            blueSpawnStart.Triggered += BlueSpawnStartTriggerHandler;
+            AddTrigger(blueSpawnStart);
+
+            Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(45));
+            redSpawnStart.Triggered += RedSpawnStartTriggerHandler;
+            AddTrigger(redSpawnStart);
+
+            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
+            velocityChange.Triggered += VelocityChangeTriggerHandler;
+            AddTrigger(velocityChange);
+
+            // Start green balloon immediately.
+            VariableTimer _greenTimer = new VariableTimer(4000, 0.9f, 750);
+            _greenTimer.Elapsed += GreenTimerElapsed;
+            Timers.Add(_greenTimer);
+
+#warning EXPERIMENT START
+            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
+            massAttackTimer.Triggered += MassAttackTimerTriggered;
+            AddTrigger(massAttackTimer);
+#warning EXPERIMENT END
+
+            _redVelocity = new Vector2(0, -8f);
+            _greenVelocity = new Vector2(0, -5f);
+            _blueVelocity = new Vector2(0, -6.5f);
+
+            ResourceManager manager = ResourceManager.Resources;
+
+            _greenMoveAnimation = manager.GetAnimation("greenmove");
+            _redMoveAnimation = manager.GetAnimation("redmove");
+            _blueMoveAnimation = manager.GetAnimation("bluemove");
+
+            _popAnimation = manager.GetAnimation("popmove");
+            _hitAnimation = manager.GetAnimation("hitmove");
+
+            _popSoundEffect = manager.GetSoundEffect("pop");
+        }
+
+        public override void Activate(bool instancePreserved)
+        {
+            
         }
 
         public override void Deactivate()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
@@ -170,54 +218,6 @@ namespace GameFramework
                         break;
                 }
             }
-        }
-
-        protected override void Initialize()
-        {
-            _pool = new BalloonPool(50);
-            _pool.Fill();
-
-            _managerState = BalloonManagerState.Normal;
-            _randomPosition = new Random(DateTime.Now.Millisecond);
-
-            // Add two triggers for when to begin spawning the other balloons.
-            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(20));
-            blueSpawnStart.Triggered += BlueSpawnStartTriggerHandler;
-            AddTrigger(blueSpawnStart);
-
-            Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(45));
-            redSpawnStart.Triggered += RedSpawnStartTriggerHandler;
-            AddTrigger(redSpawnStart);
-
-            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
-            velocityChange.Triggered += VelocityChangeTriggerHandler;
-            AddTrigger(velocityChange);
-
-            // Start green balloon immediately.
-            VariableTimer _greenTimer = new VariableTimer(4000, 0.9f, 750);
-            _greenTimer.Elapsed += GreenTimerElapsed;
-            Timers.Add(_greenTimer);
-
-#warning EXPERIMENT START
-            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
-            massAttackTimer.Triggered += MassAttackTimerTriggered;
-            AddTrigger(massAttackTimer);
-#warning EXPERIMENT END
-
-            _redVelocity = new Vector2(0, -8f);
-            _greenVelocity = new Vector2(0, -5f);
-            _blueVelocity = new Vector2(0, -6.5f);
-
-            ResourceManager manager = ResourceManager.Resources;
-
-            _greenMoveAnimation = manager.GetAnimation("greenmove");
-            _redMoveAnimation = manager.GetAnimation("redmove");
-            _blueMoveAnimation = manager.GetAnimation("bluemove");
-
-            _popAnimation = manager.GetAnimation("popmove");
-            _hitAnimation = manager.GetAnimation("hitmove");
-
-            _popSoundEffect = manager.GetSoundEffect("pop");
         }
 
         private void UpdateFrozenState(GameTime gameTime)

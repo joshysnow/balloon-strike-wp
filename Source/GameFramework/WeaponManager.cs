@@ -6,7 +6,7 @@ using GameCore;
 
 namespace GameFramework
 {
-    public class WeaponManager
+    public class WeaponManager : Serializable
     {
         public Weapon CurrentWeapon
         {
@@ -23,13 +23,25 @@ namespace GameFramework
         public WeaponManager()
         {
             _weaponsInventory = new LinkedList<Weapon>();
-            _weaponsInventory.AddFirst(WeaponFactory.CreateDefault());
             _garbageReticles = new List<Crosshair>();
+        }
 
+        public void Initialize()
+        {
+            _weaponsInventory.AddFirst(WeaponFactory.CreateDefault());
             _display = new WeaponDisplay(CurrentWeapon.Type.ToString());
         }
 
-#warning NOT CALLED
+        public void Activate(bool instancePreserved)
+        {
+            
+        }
+
+        public void Deactivate()
+        {
+            
+        }
+
         public void Reset()
         {
             _weaponsInventory.Clear();

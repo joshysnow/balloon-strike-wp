@@ -16,7 +16,7 @@ namespace GameFramework
 
     public delegate void SunDeadHandler();
 
-    public class Sun
+    public class Sun : Serializable
     {
         public event SunDeadHandler Dead;
 
@@ -92,6 +92,16 @@ namespace GameFramework
             _pulse = new Pulse();
             _animationPlayer.SetPosition(new Vector2(10, 10));
             UpdateMood();
+        }
+
+        public void Activate(bool instancePreserved)
+        {
+
+        }
+
+        public void Deactivate()
+        {
+
         }
 
         public void LoseALife()

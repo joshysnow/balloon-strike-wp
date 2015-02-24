@@ -46,6 +46,11 @@ namespace BalloonStrike.Views
                 _balloonManager = new BalloonManager(graphics);
                 _powerupManager = new PowerupManager(graphics);
                 _sun = new Sun();
+
+                // TODO: Need to call activate instead. Objects should decide to initialize or use old values.
+                _weaponManager.Initialize();
+                _balloonManager.Initialize();
+                _powerupManager.Initialize();
                 _sun.Initialize();
 
                 _scoreManager = new ScoreAnimationManager();

@@ -29,14 +29,43 @@ namespace GameFramework
 
         public PowerupManager(GraphicsDevice graphics) : base(graphics) { }
 
-        public override bool Activate(bool instancePreserved)
+        public override void Initialize()
         {
-            throw new NotImplementedException();
+            _randomPosition = new Random(DateTime.Now.Millisecond);
+
+            Trigger freezeTrigger = new ScoreTrigger(60);
+            freezeTrigger.Triggered += FreezeTriggerHandler;
+            AddTrigger(freezeTrigger);
+
+            Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(45));
+            shellTrigger.Triggered += ShellTriggerHandler;
+            AddTrigger(shellTrigger);
+
+            Trigger missileTrigger = new ScoreTrigger(90);
+            missileTrigger.Triggered += MissileTriggerHandler;
+            AddTrigger(missileTrigger);
+
+            _freezeVelocity = new Vector2(0, 4.2f);
+            _shellVelocity = new Vector2(0, 6f);
+            _missileVelocity = new Vector2(0, 7f);
+
+            ResourceManager manager = ResourceManager.Resources;
+
+            _freezeMoveAnimation = manager.GetAnimation("freezemove");
+            _shellMoveAnimation = manager.GetAnimation("shellmove");
+            _missileMoveAnimation = manager.GetAnimation("missilemove");
+            _popAnimation = manager.GetAnimation("popmove");
+            _popSoundEffect = manager.GetSoundEffect("pop");
+        }
+
+        public override void Activate(bool instancePreserved)
+        {
+            
         }
 
         public override void Deactivate()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
@@ -113,35 +142,6 @@ namespace GameFramework
                         break;
                 }
             }
-        }
-
-        protected override void Initialize()
-        {
-            _randomPosition = new Random(DateTime.Now.Millisecond);
-
-            Trigger freezeTrigger = new ScoreTrigger(60);
-            freezeTrigger.Triggered += FreezeTriggerHandler;
-            AddTrigger(freezeTrigger);
-
-            Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(45));
-            shellTrigger.Triggered += ShellTriggerHandler;
-            AddTrigger(shellTrigger);
-
-            Trigger missileTrigger = new ScoreTrigger(90);
-            missileTrigger.Triggered += MissileTriggerHandler;
-            AddTrigger(missileTrigger);
-
-            _freezeVelocity = new Vector2(0, 4.2f);
-            _shellVelocity = new Vector2(0, 6f);
-            _missileVelocity = new Vector2(0, 7f);
-
-            ResourceManager manager = ResourceManager.Resources;
-
-            _freezeMoveAnimation = manager.GetAnimation("freezemove");
-            _shellMoveAnimation = manager.GetAnimation("shellmove");
-            _missileMoveAnimation = manager.GetAnimation("missilemove");
-            _popAnimation = manager.GetAnimation("popmove");
-            _popSoundEffect = manager.GetSoundEffect("pop");
         }
 
         private void FreezeTriggerHandler(Trigger trigger)

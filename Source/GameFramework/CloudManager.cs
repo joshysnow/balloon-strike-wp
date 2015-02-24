@@ -8,6 +8,7 @@ namespace GameFramework
 {
     public class CloudManager : CharacterManager
     {
+        private const string STORAGE_FILE_NAME = "CLOUD_MANAGER.xml";
         private const int MOVABILITY = 25;
 
         private CloudModel _smallModel;
@@ -16,17 +17,7 @@ namespace GameFramework
 
         public CloudManager(GraphicsDevice graphics) : base(graphics) { }
 
-        public override bool Activate(bool instancePreserved)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Deactivate()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void Initialize()
+        public override void Initialize()
         {
             _randomYGen = new Random(DateTime.Now.Millisecond);
 
@@ -37,6 +28,23 @@ namespace GameFramework
 
             InitializeClouds(smallCloudPositions, _smallModel);
             InitializeClouds(mediumCloudPositions, _mediumModel);
+        }
+
+        public override void Activate(bool instancePreserved)
+        {
+            if (!instancePreserved)
+            {
+                Initialize();
+            }
+            else
+            {
+                // TODO: Load from disk.
+            }
+        }
+
+        public override void Deactivate()
+        {
+            // TODO: Store clouds to disk.
         }
 
         protected override void UpdateCharacters(GameTime gameTime)
