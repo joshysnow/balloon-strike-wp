@@ -40,10 +40,10 @@ namespace GameInterfaceFramework
             EnabledGestures = GestureType.None;
         }
 
-        public void AddView(View newView)
+        public void AddView(View newView, bool rehydrate = false)
         {
             newView.ViewManager = this;
-            newView.Activate(false);
+            newView.Activate(rehydrate);
             _views.Add(newView);
 
             EnabledGestures = newView.ViewGestures;
@@ -100,10 +100,10 @@ namespace GameInterfaceFramework
 
                         foreach (XElement viewElement in doc.Root.Elements("View"))
                         {
-                            Type viewType = Type.GetType(viewElement.Attribute("ObjectType").Value);
+                            Type viewType = Type.GetType(viewElement.Attribute("Type").Value);
                             View view = viewFactory.CreateView(viewType);
 
-                            AddView(view);
+                            AddView(view, true);
                         }
                     }
                 }
@@ -134,7 +134,7 @@ namespace GameInterfaceFramework
                     {
                         viewElement = new XElement(
                             "View", 
-                            new XAttribute("ObjectType", view.GetType().AssemblyQualifiedName)
+                            new XAttribute("Type", view.GetType().AssemblyQualifiedName)
                             );
 
                         root.Add(viewElement);

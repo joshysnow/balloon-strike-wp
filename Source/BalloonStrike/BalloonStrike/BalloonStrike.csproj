@@ -17,7 +17,7 @@
     <XnaCrossPlatformGroupID>c5d97ed1-b38a-4298-bf5f-b8353a6d2694</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <XnaRefreshLevel>1</XnaRefreshLevel>
-    <WPTombstoneEnabled>False</WPTombstoneEnabled>
+    <WPTombstoneEnabled>True</WPTombstoneEnabled>
     <XapFilename>$(AssemblyName).xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <XnaWindowsPhoneManifestTemplate>Properties\WMAppManifest.xml</XnaWindowsPhoneManifestTemplate>

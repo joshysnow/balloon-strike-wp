@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Xml.Linq;
+using System.IO;
 using System.IO.IsolatedStorage;
+using System.Xml.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,12 +18,13 @@ namespace GameFramework
         private CloudModel _mediumModel;
         private Random _randomYGen;
 
-        public CloudManager(GraphicsDevice graphics) : base(graphics) { }
+        public CloudManager(GraphicsDevice graphics) : base(graphics) 
+        { 
+            _randomYGen = new Random(DateTime.Now.Millisecond);
+        }
 
         public override void Initialize()
         {
-            _randomYGen = new Random(DateTime.Now.Millisecond);
-
             InitializeCloudModels();
 
             Vector2[] smallCloudPositions = GetInitialSmallCloudPositions();
@@ -40,7 +42,50 @@ namespace GameFramework
             }
             else
             {
-                // TODO: Load from disk.
+                // Initialize previously held data.
+                InitializeCloudModels();
+
+                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    if (storage.FileExists(STORAGE_FILE_NAME))
+                    {
+                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                        {
+                            XDocument doc = XDocument.Load(stream);
+
+                            Cloud cloud;
+                            CloudModel model;
+                            Vector2 upperLeft;
+                            Vector2 originalPosition;
+
+                            CloudType cloudType = CloudType.Small;
+                            Type objType = cloudType.GetType();
+
+                            foreach (XElement cloudElement in doc.Root.Elements("Cloud"))
+                            {
+                                cloudType = (CloudType)Enum.Parse(objType, cloudElement.Attribute("Type").Value, false);
+
+                                model = GetCloudModel(cloudType);
+
+                                float x = float.Parse(cloudElement.Attribute("X").Value);
+                                float y = float.Parse(cloudElement.Attribute("Y").Value);
+
+                                upperLeft = new Vector2(x, y);
+
+                                x = float.Parse(cloudElement.Attribute("Orig-X").Value);
+                                y = float.Parse(cloudElement.Attribute("Orig-Y").Value);
+
+                                originalPosition = new Vector2(x, y);
+
+                                cloud = new Cloud();
+                                cloud.Initialize(model, upperLeft, ScreenWidth);
+                                cloud.OriginalPosition = originalPosition;
+
+                                Characters.Add(cloud);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -58,12 +103,11 @@ namespace GameFramework
                 {
                     cloudElement = new XElement(
                         "Cloud",
-                        new XAttribute("ObjectType", cloud.GetType().AssemblyQualifiedName),
-                        new XAttribute("CloudType", cloud.Type),
-                        new XAttribute("UL-X", cloud.PositionUL.X),
-                        new XAttribute("UL-Y", cloud.PositionUL.Y),
-                        new XAttribute("LR-X", cloud.PositionLR.X),
-                        new XAttribute("LR-Y", cloud.PositionLR.Y)
+                        new XAttribute("Type", cloud.Type),
+                        new XAttribute("X", cloud.PositionUL.X),
+                        new XAttribute("Y", cloud.PositionUL.Y),
+                        new XAttribute("Orig-X", cloud.PositionUL.X),
+                        new XAttribute("Orig-Y", cloud.PositionUL.Y)
                         );
 
                     root.Add(cloudElement);
