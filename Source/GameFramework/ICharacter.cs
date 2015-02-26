@@ -20,6 +20,16 @@ namespace GameFramework
 
     public abstract class Character : ICharacter
     {
+        public Vector2 PositionUL
+        {
+            get { return _positionUL; }
+        }
+
+        public Vector2 PositionLR
+        {
+            get { return _positionLR; }
+        }
+
         protected AnimationPlayer _animationPlayer;
         protected Animation _staticAnimation;
         protected Vector2 _positionUL;

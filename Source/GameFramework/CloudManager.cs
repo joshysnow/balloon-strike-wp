@@ -57,11 +57,13 @@ namespace GameFramework
                 foreach (Cloud cloud in Characters)
                 {
                     cloudElement = new XElement(
-                        "View",
+                        "Cloud",
                         new XAttribute("ObjectType", cloud.GetType().AssemblyQualifiedName),
-                        new XAttribute("CloudType", cloud.Type)
-                        //new XAttribute("X", cloud.),
-                        //new XAttribute("Y", cloud.)
+                        new XAttribute("CloudType", cloud.Type),
+                        new XAttribute("UL-X", cloud.PositionUL.X),
+                        new XAttribute("UL-Y", cloud.PositionUL.Y),
+                        new XAttribute("LR-X", cloud.PositionLR.X),
+                        new XAttribute("LR-Y", cloud.PositionLR.Y)
                         );
 
                     root.Add(cloudElement);
