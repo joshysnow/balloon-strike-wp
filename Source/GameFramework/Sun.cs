@@ -57,6 +57,8 @@ namespace GameFramework
         private const float THRESHOLD_HAPPY         = 0.7f;
         private const float THRESHOLD_SUPER_HAPPY   = 1f;
 
+        private const string STORAGE_FILE_NAME = "SUN.xml";
+
         private AnimationPlayer _animationPlayer;
         private Animation _superHappyAnimation;
         private Animation _happyAnimation;
@@ -96,7 +98,14 @@ namespace GameFramework
 
         public void Activate(bool instancePreserved)
         {
+            if (!instancePreserved)
+            {
+                Initialize();
+            }
+            else
+            {
 
+            }
         }
 
         public void Deactivate()
