@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using System.IO.IsolatedStorage;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameCore;
@@ -36,7 +39,7 @@ namespace GameFramework
         {
             get
             {
-                return _currentLives / _totalLives;
+                return ((float)_currentLives) / _totalLives;
             }
         }
 
@@ -67,9 +70,8 @@ namespace GameFramework
         private Animation _cryingAnimation;
         private Animation _currentAnimation;
         private Pulse _pulse;
-        private Vector2 _position;
-        private float _totalLives;
-        private float _currentLives;
+        private byte _totalLives;
+        private byte _currentLives;
 
         public Sun()
         {
@@ -82,18 +84,22 @@ namespace GameFramework
             Mood = SunMood.SuperHappy;
             _totalLives = 10;
             _currentLives = 10;
-            _position = new Vector2(10, 10);
 
+            _pulse = new Pulse();
+            _animationPlayer.SetPosition(new Vector2(10, 10));
+
+            LoadResources();
+            UpdateMood();
+        }
+
+        private void LoadResources()
+        {
             ResourceManager resources = ResourceManager.Resources;
             _superHappyAnimation = resources.GetAnimation("sun_superhappy");
             _happyAnimation = resources.GetAnimation("sun_happy");
             _okAnimation = resources.GetAnimation("sun_ok");
             _sadAnimation = resources.GetAnimation("sun_sad");
             _cryingAnimation = resources.GetAnimation("sun_crying");
-
-            _pulse = new Pulse();
-            _animationPlayer.SetPosition(new Vector2(10, 10));
-            UpdateMood();
         }
 
         public void Activate(bool instancePreserved)
@@ -104,13 +110,39 @@ namespace GameFramework
             }
             else
             {
+                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    if (storage.FileExists(STORAGE_FILE_NAME))
+                    {
+                        LoadResources();
 
+
+                    }
+                    else
+                    {
+                        Initialize();
+                    }
+                }
             }
         }
 
         public void Deactivate()
         {
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                XDocument doc = new XDocument();
+                XElement root = new XElement("Sun");
+                doc.Add(root);
 
+                XElement sunLives = new XElement("Lives");
+                sunLives.Value = _currentLives.ToString();
+                root.Add(sunLives);
+
+                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
+                {
+                    doc.Save(stream);
+                }
+            }
         }
 
         public void LoseALife()

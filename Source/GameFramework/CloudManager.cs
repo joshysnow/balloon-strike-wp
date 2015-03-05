@@ -42,13 +42,13 @@ namespace GameFramework
             }
             else
             {
-                // Initialize previously held data.
-                InitializeCloudModels();
-
                 using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
                 {
                     if (storage.FileExists(STORAGE_FILE_NAME))
                     {
+                        // Initialize previously held data.
+                        InitializeCloudModels();
+
                         using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
                         {
                             XDocument doc = XDocument.Load(stream);
@@ -84,6 +84,10 @@ namespace GameFramework
                                 Characters.Add(cloud);
                             }
                         }
+                    }
+                    else
+                    {
+                        Initialize();
                     }
                 }
             }
