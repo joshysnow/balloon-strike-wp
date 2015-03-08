@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Linq;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -75,18 +76,18 @@ namespace GameFramework
 
         public Sun()
         {
+            _totalLives = 10;
+
+            _pulse = new Pulse();
             _animationPlayer = new AnimationPlayer();
+            _animationPlayer.SetPosition(new Vector2(10, 10));
         }
 
         public void Initialize()
         {
             Alive = true;
             Mood = SunMood.SuperHappy;
-            _totalLives = 10;
             _currentLives = 10;
-
-            _pulse = new Pulse();
-            _animationPlayer.SetPosition(new Vector2(10, 10));
 
             LoadResources();
             UpdateMood();
@@ -116,7 +117,15 @@ namespace GameFramework
                     {
                         LoadResources();
 
+                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                        {
+                            XDocument doc = XDocument.Load(stream);
 
+                            XElement root = doc.Root;
+                            _currentLives = byte.Parse(root.Attribute("Lives").Value);
+                        }
+
+                        UpdateMood();
                     }
                     else
                     {
@@ -132,11 +141,8 @@ namespace GameFramework
             {
                 XDocument doc = new XDocument();
                 XElement root = new XElement("Sun");
+                root.Add(new XAttribute("Lives", _currentLives));
                 doc.Add(root);
-
-                XElement sunLives = new XElement("Lives");
-                sunLives.Value = _currentLives.ToString();
-                root.Add(sunLives);
 
                 using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
                 {
