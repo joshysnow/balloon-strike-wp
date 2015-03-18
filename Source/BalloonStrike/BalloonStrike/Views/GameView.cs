@@ -37,23 +37,26 @@ namespace BalloonStrike.Views
 
         public override void Activate(bool instancePreserved)
         {
-#warning TODO: Need to retrieve previous state from storage.
-            _gameState = GameState.Playing;
+            GraphicsDevice graphics = ViewManager.GraphicsDevice;
+
+            _sun = new Sun();
+            _sun.Activate(instancePreserved);
+
+            // TODO:
+            // - Save game state
+            // - Save managers
 
             if (!instancePreserved)
             {
-                GraphicsDevice graphics = ViewManager.GraphicsDevice;
+                _gameState = GameState.Playing;
 
                 _weaponManager = new WeaponManager();
                 _balloonManager = new BalloonManager(graphics);
                 _powerupManager = new PowerupManager(graphics);
-                _sun = new Sun();
 
-                // TODO: Need to call activate instead. Objects should decide to initialize or use old values.
                 _weaponManager.Initialize();
                 _balloonManager.Initialize();
                 _powerupManager.Initialize();
-                _sun.Initialize();
 
                 _scoreManager = new ScoreAnimationManager();
                 _scoreManager.Initialize();
@@ -65,12 +68,22 @@ namespace BalloonStrike.Views
             }
         }
 
+        private void Initialize()
+        {
+
+        }
+
+        public override void Deactivate()
+        {
+            _sun.Deactivate();
+        }
+
         public override void HandlePlayerInput(ControlsState controls)
         {
             if (controls.BackButtonPressed())
             {
                 // Load pause screen.
-                View pauseView = new InputPopup("Paused", "Save and quit?", new LoadViewAction(2, this, new MainMenuView()));
+                View pauseView = new InputPopup("Paused", "Are you sure?", new LoadViewAction(2, this, new MainMenuView()));
                 pauseView.ViewExiting += PauseViewExitingHandler;
                 ViewManager.AddView(pauseView);
 

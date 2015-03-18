@@ -40,10 +40,10 @@ namespace GameInterfaceFramework
             EnabledGestures = GestureType.None;
         }
 
-        public void AddView(View newView, bool rehydrate = false)
+        public void AddView(View newView)
         {
             newView.ViewManager = this;
-            newView.Activate(rehydrate);
+            newView.Activate(false);
             _views.Add(newView);
 
             EnabledGestures = newView.ViewGestures;
@@ -103,7 +103,7 @@ namespace GameInterfaceFramework
                             Type viewType = Type.GetType(viewElement.Attribute("Type").Value);
                             View view = viewFactory.CreateView(viewType);
 
-                            AddView(view, true);
+                            AddView(view);
                         }
                     }
                 }

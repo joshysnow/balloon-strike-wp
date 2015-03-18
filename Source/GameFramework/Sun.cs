@@ -105,7 +105,7 @@ namespace GameFramework
 
         public void Activate(bool instancePreserved)
         {
-            if (!instancePreserved)
+            if (instancePreserved)
             {
                 Initialize();
             }
