@@ -107,7 +107,8 @@ namespace GameFramework
         {
             if (instancePreserved)
             {
-                Initialize();
+                // Nothing to do here, if we haven't been tombstoned then do/set nothing special
+                //Initialize();
             }
             else
             {
@@ -129,6 +130,7 @@ namespace GameFramework
                     }
                     else
                     {
+                        // May not have been tombstoned or failed to save in time
                         Initialize();
                     }
                 }

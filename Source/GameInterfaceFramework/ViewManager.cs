@@ -58,7 +58,7 @@ namespace GameInterfaceFramework
 
         /// <summary>
         /// Get a copy of the views. Useful for
-        /// calculating how many 
+        /// calculating how many views there are.
         /// </summary>
         /// <returns>An array of all views.</returns>
         public View[] Views()
@@ -68,6 +68,7 @@ namespace GameInterfaceFramework
 
         public bool Activate(bool instancePreserved)
         {
+            // Instance preserved is intended to be true if application is still in memory, false if it has been tombstoned (or new)
             if (instancePreserved)
             {
                 // Copy the master view list in case activating a view
