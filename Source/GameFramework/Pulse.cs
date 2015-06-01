@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework;
 
 namespace GameFramework
 {
+    public enum PulseState : byte
+    {
+        Wait = 0x01,
+        Transition = 0x02
+    }
+
     public class Pulse
     {
-        private enum PulseState : byte
-        {
-            Wait        = 0x01,
-            Transition  = 0x02
-        }
-
         public PulseState State
         {
             get;
@@ -51,7 +51,12 @@ namespace GameFramework
             _frequency = (float)frequency.TotalMilliseconds;
         }
 
-        // Activate function to set last position and state
+        public void Activate(PulseState state, float position, bool increasing)
+        {
+            State       = state;
+            Position    = position;
+            Increasing  = increasing;
+        }
 
         public void Update(GameTime gameTime)
         {

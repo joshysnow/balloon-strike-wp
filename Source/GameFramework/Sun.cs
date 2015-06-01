@@ -124,6 +124,13 @@ namespace GameFramework
 
                             XElement root = doc.Root;
                             _currentLives = byte.Parse(root.Attribute("Lives").Value);
+
+                            XElement pulse = root.Element("Pulse");
+                            PulseState state = (PulseState)Enum.Parse(_pulse.State.GetType(), pulse.Attribute("State").Value, false);
+                            float position = float.Parse(pulse.Attribute("Position").Value);
+                            bool increasing = bool.Parse(pulse.Attribute("Increasing").Value);
+
+                            _pulse.Activate(state, position, increasing);
                         }
 
                         UpdateMood();
@@ -142,9 +149,17 @@ namespace GameFramework
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 XDocument doc = new XDocument();
+
                 XElement root = new XElement("Sun");
                 root.Add(new XAttribute("Lives", _currentLives));
-                doc.Add(root);
+
+                XElement pulse = new XElement("Pulse");
+                pulse.Add(new XAttribute("State", _pulse.State));
+                pulse.Add(new XAttribute("Position", _pulse.Position));
+                pulse.Add(new XAttribute("Increasing", _pulse.Increasing));
+
+                root.Add(pulse);
+                doc.Add(root);                
 
                 using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
                 {
