@@ -183,6 +183,12 @@ namespace GameFramework
         {
             float moodPercentage = MoodPosition;
 
+            // Split into separate functions
+            // UpdateMood()             Calls below functions
+            // 1) UpdateState()         Change state
+            // 2) UpdateAnimation()     Change animation
+            // 3) UpdatePulse()         Change rhythm
+
             if (moodPercentage <= THRESHOLD_CRYING)
             {
                 Mood = SunMood.Crying;

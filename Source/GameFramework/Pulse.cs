@@ -11,14 +11,24 @@ namespace GameFramework
             Transition  = 0x02
         }
 
+        public PulseState State
+        {
+            get;
+            private set;
+        }
+
         public float Position
         {
             get;
             private set;
         }
 
-        private PulseState _state;
-        private bool _increase;
+        public bool Increasing
+        {
+            get;
+            private set;
+        }
+
         private float _time;
         private float _duration;
         private float _frequency;
@@ -27,8 +37,8 @@ namespace GameFramework
         {
             Position = 0;
             _frequency = 0;
-            _increase = true;
-            _state = PulseState.Wait;
+            Increasing = true;
+            State = PulseState.Wait;
         }
 
         public Pulse(TimeSpan duration) : this()
@@ -41,9 +51,11 @@ namespace GameFramework
             _frequency = (float)frequency.TotalMilliseconds;
         }
 
+        // Activate function to set last position and state
+
         public void Update(GameTime gameTime)
         {
-            switch (_state)
+            switch (State)
             {
                 case PulseState.Wait:
                     UpdateWaitState(gameTime);
@@ -64,9 +76,9 @@ namespace GameFramework
             if (reset || _duration == 0f)
             {
                 Position = 0;
-                _state = PulseState.Wait;
+                State = PulseState.Wait;
                 _time = 0;
-                _increase = true;
+                Increasing = true;
             }
         }
 
@@ -78,13 +90,13 @@ namespace GameFramework
 
             if (_time == 0 && _duration > 0f)
             {
-                _state = PulseState.Transition;
+                State = PulseState.Transition;
             }
         }
 
         private void UpdateTransitionState(GameTime gameTime)
         {
-            if (_increase)
+            if (Increasing)
                 _time += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             else
                 _time -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -95,16 +107,16 @@ namespace GameFramework
 
             if (_time == _duration)
             {
-                _increase = false;
+                Increasing = false;
             }
 
             if (_time == 0f)
             {
-                _increase = true;
+                Increasing = true;
 
                 if (_frequency > 0)
                 {
-                    _state = PulseState.Wait;
+                    State = PulseState.Wait;
                     _time = _frequency;
                 }
             }
