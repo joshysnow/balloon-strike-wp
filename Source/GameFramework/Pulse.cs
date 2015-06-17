@@ -23,13 +23,18 @@ namespace GameFramework
             private set;
         }
 
+        public float Time
+        {
+            get;
+            private set;
+        }
+
         public bool Increasing
         {
             get;
             private set;
         }
 
-        private float _time;
         private float _duration;
         private float _frequency;
 
@@ -51,10 +56,11 @@ namespace GameFramework
             _frequency = (float)frequency.TotalMilliseconds;
         }
 
-        public void Activate(PulseState state, float position, bool increasing)
+        public void Activate(PulseState state, float position, float time, bool increasing)
         {
             State       = state;
             Position    = position;
+            Time        = time;
             Increasing  = increasing;
         }
 
@@ -82,18 +88,18 @@ namespace GameFramework
             {
                 Position = 0;
                 State = PulseState.Wait;
-                _time = 0;
+                Time = 0;
                 Increasing = true;
             }
         }
 
         private void UpdateWaitState(GameTime gameTime)
         {
-            _time -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            Time -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            _time = MathHelper.Clamp(_time, 0, _frequency);
+            Time = MathHelper.Clamp(Time, 0, _frequency);
 
-            if (_time == 0 && _duration > 0f)
+            if (Time == 0 && _duration > 0f)
             {
                 State = PulseState.Transition;
             }
@@ -102,27 +108,27 @@ namespace GameFramework
         private void UpdateTransitionState(GameTime gameTime)
         {
             if (Increasing)
-                _time += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                Time += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             else
-                _time -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                Time -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            _time = MathHelper.Clamp(_time, 0, _duration);
+            Time = MathHelper.Clamp(Time, 0, _duration);
 
-            Position = _time / _duration;
+            Position = Time / _duration;
 
-            if (_time == _duration)
+            if (Time == _duration)
             {
                 Increasing = false;
             }
 
-            if (_time == 0f)
+            if (Time == 0)
             {
                 Increasing = true;
 
                 if (_frequency > 0)
                 {
                     State = PulseState.Wait;
-                    _time = _frequency;
+                    Time = _frequency;
                 }
             }
         }

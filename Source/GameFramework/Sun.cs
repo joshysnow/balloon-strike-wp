@@ -128,16 +128,20 @@ namespace GameFramework
                             XElement pulse = root.Element("Pulse");
                             PulseState state = (PulseState)Enum.Parse(_pulse.State.GetType(), pulse.Attribute("State").Value, false);
                             float position = float.Parse(pulse.Attribute("Position").Value);
+                            float time = float.Parse(pulse.Attribute("Time").Value);
                             bool increasing = bool.Parse(pulse.Attribute("Increasing").Value);
 
-                            _pulse.Activate(state, position, increasing);
+                            _pulse.Activate(state, position, time, increasing);
                         }
 
                         UpdateMood();
+
+#warning Need to delete all stored files after they've been loaded
+                        storage.DeleteFile(STORAGE_FILE_NAME);
                     }
                     else
                     {
-                        // May not have been tombstoned or failed to save in time
+                        // May not have been tombstoned or failed to save in time, initialize new game
                         Initialize();
                     }
                 }
@@ -156,6 +160,7 @@ namespace GameFramework
                 XElement pulse = new XElement("Pulse");
                 pulse.Add(new XAttribute("State", _pulse.State));
                 pulse.Add(new XAttribute("Position", _pulse.Position));
+                pulse.Add(new XAttribute("Time", _pulse.Time));
                 pulse.Add(new XAttribute("Increasing", _pulse.Increasing));
 
                 root.Add(pulse);
