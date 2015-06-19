@@ -84,6 +84,9 @@ namespace GameFramework
                                 Characters.Add(cloud);
                             }
                         }
+
+                        // Delete file so it cannot be resued
+                        storage.DeleteFile(STORAGE_FILE_NAME);
                     }
                     else
                     {

@@ -135,8 +135,8 @@ namespace GameFramework
                         }
 
                         UpdateMood();
-
-#warning Need to delete all stored files after they've been loaded
+                        
+                        // Delete file so it cannot be resued
                         storage.DeleteFile(STORAGE_FILE_NAME);
                     }
                     else

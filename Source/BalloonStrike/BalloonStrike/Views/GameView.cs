@@ -68,11 +68,6 @@ namespace BalloonStrike.Views
             }
         }
 
-        private void Initialize()
-        {
-
-        }
-
         public override void Deactivate()
         {
             _sun.Deactivate();
