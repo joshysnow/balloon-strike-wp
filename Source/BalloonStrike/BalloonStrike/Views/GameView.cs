@@ -46,21 +46,22 @@ namespace BalloonStrike.Views
             // - Save game state
             // - Save managers
 
+            _gameState = GameState.Playing;
+
+            _weaponManager = new WeaponManager();
+            _balloonManager = new BalloonManager(graphics);
+            _powerupManager = new PowerupManager(graphics);
+
+            _weaponManager.Initialize();
+            _balloonManager.Initialize();
+            _powerupManager.Initialize();
+
+            _scoreManager = new ScoreAnimationManager();
+            _scoreManager.Initialize();
+
+            // Register events if rehydrating
             if (!instancePreserved)
             {
-                _gameState = GameState.Playing;
-
-                _weaponManager = new WeaponManager();
-                _balloonManager = new BalloonManager(graphics);
-                _powerupManager = new PowerupManager(graphics);
-
-                _weaponManager.Initialize();
-                _balloonManager.Initialize();
-                _powerupManager.Initialize();
-
-                _scoreManager = new ScoreAnimationManager();
-                _scoreManager.Initialize();
-
                 _balloonManager.Escaped += BalloonEscapedHandler;
                 _balloonManager.Popped += BalloonPoppedHandler;
                 _powerupManager.PickedUp += PowerupPickedUpHandler;
