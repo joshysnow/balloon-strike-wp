@@ -169,7 +169,7 @@ namespace GameCore
             Texture2D xHairShotgunTexture   = _content.Load<Texture2D>("Textures/Crosshairs/shotgun");
             Texture2D xHairBazookaTexture   = _content.Load<Texture2D>("Textures/Crosshairs/bazooka");
 
-            Texture2D splashTexture         = _content.Load<Texture2D>("Textures/Backgrounds/fox_480_800");
+            Texture2D splashTexture         = _content.Load<Texture2D>("Textures/Backgrounds/fox15_480_800");
             Texture2D popupForeground       = _content.Load<Texture2D>("Textures/Backgrounds/popup3_350_200");
             Texture2D popupTitleForeground  = _content.Load<Texture2D>("Textures/Backgrounds/popup1_title_350_100");
 
