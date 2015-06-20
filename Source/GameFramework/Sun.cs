@@ -108,7 +108,6 @@ namespace GameFramework
             if (instancePreserved)
             {
                 // Nothing to do here, if we haven't been tombstoned then do/set nothing special
-                //Initialize();
             }
             else
             {

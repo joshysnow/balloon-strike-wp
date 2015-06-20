@@ -36,9 +36,9 @@ namespace GameFramework
 
         public override void Activate(bool instancePreserved)
         {
-            if (!instancePreserved)
+            if (instancePreserved)
             {
-                Initialize();
+                // Nothing to do here, if we haven't been tombstoned then do/set nothing special
             }
             else
             {
