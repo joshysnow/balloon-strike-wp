@@ -139,7 +139,7 @@ namespace GameCore
                 _fonts.Add("font_score" + i, _content.Load<SpriteFont>("Fonts/score" + i));
             }
 
-            SoundEffect pop = _content.Load<SoundEffect>("Audio/Sounds/snowball_car_impact1");
+            SoundEffect pop = _content.Load<SoundEffect>("Audio/Sounds/pop_bubble");
             pop.Play(0, 0, 0);
             _sounds.Add("pop", pop);
 
