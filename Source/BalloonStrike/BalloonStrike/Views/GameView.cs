@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using System.IO.IsolatedStorage;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -17,6 +20,8 @@ namespace BalloonStrike.Views
             GameOver    = 0x02,
             Paused      = 0x04
         }
+
+        private const string STORAGE_FILE_NAME = "GAMEVIEW.xml";
 
         private WeaponManager _weaponManager;
         private BalloonManager _balloonManager;
@@ -44,9 +49,7 @@ namespace BalloonStrike.Views
 
             // TODO:
             // - Save game state
-            // - Save managers
-
-            _gameState = GameState.Playing;
+            // - Save managers            
 
             _weaponManager = new WeaponManager();
             _balloonManager = new BalloonManager(graphics);
@@ -59,9 +62,30 @@ namespace BalloonStrike.Views
             _scoreManager = new ScoreAnimationManager();
             _scoreManager.Initialize();
 
-            // Register events if rehydrating
+            // Rehyrate the game view
             if (!instancePreserved)
             {
+                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    if (storage.FileExists(STORAGE_FILE_NAME))
+                    {
+                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                        {
+                            XDocument doc = XDocument.Load(stream);
+                            XElement root = doc.Root;
+
+                            _gameState = (GameState)Enum.Parse(_gameState.GetType(), root.Attribute("State").Value, false);
+                        }
+
+                        storage.DeleteFile(STORAGE_FILE_NAME);
+                    }
+                    else
+                    {
+                        // Must've failed to dehydrate the game, setup as new
+                        _gameState = GameState.Playing;
+                    }
+                }
+
                 _balloonManager.Escaped += BalloonEscapedHandler;
                 _balloonManager.Popped += BalloonPoppedHandler;
                 _powerupManager.PickedUp += PowerupPickedUpHandler;
@@ -72,6 +96,20 @@ namespace BalloonStrike.Views
         public override void Deactivate()
         {
             _sun.Deactivate();
+
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                XElement root = new XElement("View");
+                root.Add(new XAttribute("State", _gameState));
+
+                XDocument doc = new XDocument();
+                doc.Add(root);
+
+                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
+                {
+                    doc.Save(stream);
+                }
+            }
         }
 
         public override void HandlePlayerInput(ControlsState controls)
