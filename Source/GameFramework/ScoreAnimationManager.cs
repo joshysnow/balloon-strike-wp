@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using System.IO.IsolatedStorage;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameCore;
@@ -25,6 +28,7 @@ namespace GameFramework
         {
             LoadFonts();
 
+            // Be notified when the players score is increased.
             Player.Instance.ScoreUpdated += PlayerScoreUpdatedHandler;
         }
 
@@ -32,6 +36,23 @@ namespace GameFramework
         {
             _position = 0;
             _direction = 1;
+        }
+
+        public void Activate(bool instancePreserved)
+        {
+            if (instancePreserved)
+            {
+                // Nothing to do here, instance is preserved after all.
+            }
+            else
+            {
+
+            }
+        }
+
+        public void Deactivate()
+        {
+
         }
 
         public void Update(GameTime gameTime)
@@ -45,11 +66,13 @@ namespace GameFramework
                 _position += delta * _direction;
                 _position = MathHelper.Clamp(_position, 0, 1);
 
+                // Achieved 50% of the overall transition, time to decrease the size to complete the animation!
                 if ((_direction == 1) && (_position == 1))
                 {
                     _direction = -1;
                 }
 
+                // If the animation is complete (decreasing and finished at normal size), stop animating!
                 if ((_direction == -1) && (_position <= (1 / 8192)))
                 {
                     _position = 0;
