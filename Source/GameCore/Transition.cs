@@ -48,7 +48,7 @@ namespace GameCore
         }
 
         /// <summary>
-        /// Will wait to transition off if true.
+        /// Will wait to transition off if true. Default is false.
         /// </summary>
         public bool Invoked
         {
@@ -72,29 +72,35 @@ namespace GameCore
 
         public void Update(GameTime gameTime)
         {
-            if (State == TransitionState.TransitionOn)
+            do 
             {
-                if (UpdateTransition(gameTime, TransitionOnTime, -1) == false)
+                if (State == TransitionState.TransitionOn)
                 {
-                    State = TransitionState.Active;
+                    if (UpdateTransition(gameTime, TransitionOnTime, -1) == false)
+                    {
+                        State = TransitionState.Active;
+                    }
+                    break;
                 }
-            }
 
-            if (State == TransitionState.Active && (Invoked == false))
-            {
-                if (!UpdateActiveTransition(gameTime))
+                if (State == TransitionState.Active && (Invoked == false))
                 {
-                    State = TransitionState.TransitionOff;
+                    if (UpdateActiveTransition(gameTime) == false)
+                    {
+                        State = TransitionState.TransitionOff;
+                    }
+                    break;
                 }
-            }
 
-            if (State == TransitionState.TransitionOff)
-            {
-                if (UpdateTransition(gameTime, TransitionOffTime, 1) == false)
+                if (State == TransitionState.TransitionOff)
                 {
-                    State = TransitionState.Hidden;
+                    if (UpdateTransition(gameTime, TransitionOffTime, 1) == false)
+                    {
+                        State = TransitionState.Hidden;
+                    }
+                    break;
                 }
-            }
+            } while (false);
         }
 
         private bool UpdateTransition(GameTime gameTime, TimeSpan time, int direction)

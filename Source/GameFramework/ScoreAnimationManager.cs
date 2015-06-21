@@ -10,6 +10,8 @@ namespace GameFramework
 {
     public class ScoreAnimationManager
     {
+        private const string STORAGE_FILE_NAME = "SCORE_MANAGER.xml";
+
         private SpriteFont[] _fonts;
         private TimeSpan _transitionTime;
         private float _position;
@@ -18,24 +20,10 @@ namespace GameFramework
 
         public ScoreAnimationManager()
         {
-            _transitionTime = TimeSpan.FromSeconds(0.33f);
+            _transitionTime = TimeSpan.FromSeconds(0.33f); // 330ms
             _position = 0;
             _direction = 1;
             _transition = false;
-        }
-
-        public void Initialize()
-        {
-            LoadFonts();
-
-            // Be notified when the players score is increased.
-            Player.Instance.ScoreUpdated += PlayerScoreUpdatedHandler;
-        }
-
-        public void Reset()
-        {
-            _position = 0;
-            _direction = 1;
         }
 
         public void Activate(bool instancePreserved)
@@ -46,13 +34,49 @@ namespace GameFramework
             }
             else
             {
+                // Load resources and subscribe to events.
+                Initialize();
 
+                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    if (storage.FileExists(STORAGE_FILE_NAME))
+                    {
+                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                        {
+                            XDocument doc = XDocument.Load(stream);
+                            XElement root = doc.Root;
+
+                            _position = float.Parse(root.Attribute("Position").Value);
+                            _direction = int.Parse(root.Attribute("Direction").Value);
+                            _transition = bool.Parse(root.Attribute("Transition").Value);
+                        }
+
+                        // Delete the hydration file to avoid confusion.
+                        storage.DeleteFile(STORAGE_FILE_NAME);
+                    }
+                }
             }
         }
 
         public void Deactivate()
         {
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {                
+                XElement root = new XElement(
+                    "ScoreManager",
+                    new XAttribute("Position", _position),
+                    new XAttribute("Direction", _direction),
+                    new XAttribute("Transition", _transition)
+                    );
 
+                XDocument doc = new XDocument();
+                doc.Add(root);
+
+                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
+                {
+                    doc.Save(stream);
+                }
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -91,6 +115,14 @@ namespace GameFramework
             Vector2 position = new Vector2(480 - scoreLength.X - 10, 0); // Screen width - horizontal length of text - spacing from the side, top margin.
 
             spriteBatch.DrawString(font, score.ToString(), position, Color.Yellow);
+        }
+
+        private void Initialize()
+        {
+            LoadFonts();
+
+            // Be notified when the players score is increased.
+            Player.Instance.ScoreUpdated += PlayerScoreUpdatedHandler;
         }
 
         private void LoadFonts()

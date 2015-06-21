@@ -45,7 +45,10 @@ namespace BalloonStrike.Views
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
 
             _sun = new Sun();
+            _scoreManager = new ScoreAnimationManager();
+
             _sun.Activate(instancePreserved);
+            _scoreManager.Activate(instancePreserved);
 
             // TODO:
             // - Save game state
@@ -58,9 +61,6 @@ namespace BalloonStrike.Views
             _weaponManager.Initialize();
             _balloonManager.Initialize();
             _powerupManager.Initialize();
-
-            _scoreManager = new ScoreAnimationManager();
-            _scoreManager.Initialize();
 
             // Rehyrate the game view
             if (!instancePreserved)
@@ -96,6 +96,7 @@ namespace BalloonStrike.Views
         public override void Deactivate()
         {
             _sun.Deactivate();
+            _scoreManager.Deactivate();
 
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
