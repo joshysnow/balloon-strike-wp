@@ -16,9 +16,9 @@ namespace GameFramework
             }
         }
 
-        private LinkedList<Weapon> _weaponsInventory;
-        private List<Crosshair> _garbageReticles;
-        private WeaponDisplay _display;
+        private LinkedList<Weapon> _weaponsInventory;   // Stores picked up weapons.
+        private List<Crosshair> _garbageReticles;       // Holds all cross-hairs to display until unvisible.
+        private WeaponDisplay _display;                 // Used to display weapon text.
 
         public WeaponManager()
         {
@@ -42,12 +42,6 @@ namespace GameFramework
             
         }
 
-        public void Reset()
-        {
-            _weaponsInventory.Clear();
-            _weaponsInventory.AddFirst(WeaponFactory.CreateDefault());
-        }
-
         public void ApplyPowerup(PowerupType powerupType)
         {
             switch (powerupType)
@@ -59,7 +53,7 @@ namespace GameFramework
                     AddWeapon(WeaponType.Bazooka);
                     break;
                 default:
-                    return;
+                    break;
             }            
         }
 
@@ -72,10 +66,13 @@ namespace GameFramework
                 currentWeapon = CurrentWeapon;
                 currentWeapon.UpdateInput(gesture.Position);
 
+                // If the current weapon has run out of ammo, change it, as long as it isn't the default.
                 if ((currentWeapon.Type != WeaponType.Finger) && (currentWeapon.HasAmmo == false))
                 {
                     _weaponsInventory.Remove(_weaponsInventory.First);
                     _garbageReticles.Add(currentWeapon.Crosshair);
+
+                    // Change to display the new current weapon (new head on the list)
                     _display.WeaponChange(CurrentWeapon.Type.ToString());
                 }
             }
@@ -97,42 +94,37 @@ namespace GameFramework
             }
 
             _display.Draw(spriteBatch);
-
-            /*SpriteFont debugFont = ResourceManager.Resources.GetFont("debug");
-            Vector2 position = new Vector2(0, (800 - debugFont.LineSpacing));
-            Weapon current = CurrentWeapon;
-            string text = "Total: " + _weaponsInventory.Count + " Current: " + current.Type + " Ammo: " + current.Ammo;
-            spriteBatch.DrawString(debugFont, text, position, Color.Purple); **/
         }
 
         private void AddWeapon(WeaponType newWeaponType)
-        {
-            bool inserted = false;
-            LinkedListNode<Weapon> currentNode = _weaponsInventory.First;
+        {            
+            LinkedListNode<Weapon> weapon = _weaponsInventory.First;
             Weapon newWeapon = WeaponFactory.CreateFromType(newWeaponType);
 
-#warning Needs improvement, new weapon is best scenario
-            byte count = 0;
+            bool topWeapon = true;
 
             do
             {
-                if (currentNode.Value.IsBetterThan(newWeaponType) == false)
+                // When a weapon in the inventory is no longer better than the weapon to add.
+                if (weapon.Value.IsBetterThan(newWeaponType) == false)
                 {
-                    _weaponsInventory.AddBefore(currentNode, newWeapon);
+                    // Add weapon above 
+                    _weaponsInventory.AddBefore(weapon, newWeapon);
 
                     // Put copy of current weapon into garbage? Need to still show the current crosshair fading out.
-                    _garbageReticles.Add(currentNode.Value.Crosshair);
+                    _garbageReticles.Add(weapon.Value.Crosshair);
 
-                    inserted = true;
-
-                    if(count == 0)
+                    // If weapon is better than currently used weapon, change to this weapon!
+                    if (topWeapon)
                         _display.WeaponChange(CurrentWeapon.Type.ToString());
+
+                    break;
                 }
 
-                currentNode = currentNode.Next;
-                count++;
+                topWeapon = false;
+                weapon = weapon.Next;
             }
-            while (!inserted && currentNode != null);
+            while (weapon != null);
         }
 
         private void UpdateWeapons(GameTime gameTime)
@@ -143,18 +135,7 @@ namespace GameFramework
             do
             {
                 currentWeapon = currentNode.Value;
-
-                if ((currentWeapon.Type != WeaponType.Finger) && (currentWeapon.HasAmmo == false))
-                {
-                    _weaponsInventory.Remove(currentNode);
-                    _garbageReticles.Add(currentWeapon.Crosshair);
-                    _display.WeaponChange(CurrentWeapon.Type.ToString());
-                }
-                else
-                {
-                    currentWeapon.Update(gameTime);
-                }
-
+                currentWeapon.Update(gameTime);
                 currentNode = currentNode.Next;
             }
             while (currentNode != null);
@@ -169,6 +150,7 @@ namespace GameFramework
             {
                 currentReticle = _garbageReticles[i];
 
+                // If the cross-hair is no longer visible on the screen.
                 if (currentReticle.Visible == false)
                 {
                     _garbageReticles.RemoveAt(i);
