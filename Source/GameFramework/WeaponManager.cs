@@ -18,7 +18,7 @@ namespace GameFramework
 
         private LinkedList<Weapon> _weaponsInventory;   // Stores picked up weapons.
         private List<Crosshair> _garbageReticles;       // Holds all cross-hairs to display until unvisible.
-        private WeaponDisplay _display;                 // Used to display weapon text.
+        private WeaponDisplay _display;                 // Used to display current weapon type on screen.
 
         public WeaponManager()
         {
@@ -108,7 +108,7 @@ namespace GameFramework
                 // When a weapon in the inventory is no longer better than the weapon to add.
                 if (weapon.Value.IsBetterThan(newWeaponType) == false)
                 {
-                    // Add weapon above 
+                    // Add new weapon ahead of one that it is better than
                     _weaponsInventory.AddBefore(weapon, newWeapon);
 
                     // Put copy of current weapon into garbage? Need to still show the current crosshair fading out.
@@ -132,13 +132,13 @@ namespace GameFramework
             LinkedListNode<Weapon> currentNode = _weaponsInventory.First;
             Weapon currentWeapon;
 
-            do
+            while (currentNode != null)
             {
                 currentWeapon = currentNode.Value;
                 currentWeapon.Update(gameTime);
+
                 currentNode = currentNode.Next;
             }
-            while (currentNode != null);
         }
 
         private void UpdateGarbage(GameTime gameTime)
