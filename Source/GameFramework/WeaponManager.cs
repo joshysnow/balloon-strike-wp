@@ -1,3 +1,6 @@
+using System.IO;
+using System.IO.IsolatedStorage;
+using System.Xml.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,6 +11,8 @@ namespace GameFramework
 {
     public class WeaponManager : Serializable
     {
+        private const string STORAGE_FILE_NAME = "WEAPON_MANAGER.xml";
+
         public Weapon CurrentWeapon
         {
             get
@@ -39,7 +44,24 @@ namespace GameFramework
 
         public void Deactivate()
         {
-            
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                XDocument doc = new XDocument();
+                XElement root = new XElement("WeaponManager");
+
+                XElement weaponsRoot = new XElement("Weapons");
+
+                XElement crosshairsRoot = new XElement("CrossHairs");
+
+                root.Add(weaponsRoot);
+                root.Add(crosshairsRoot);
+                doc.Add(root);
+
+                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
+                {
+                    doc.Save(stream);
+                }
+            }
         }
 
         public void ApplyPowerup(PowerupType powerupType)

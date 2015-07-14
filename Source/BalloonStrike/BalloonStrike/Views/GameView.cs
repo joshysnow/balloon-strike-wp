@@ -21,7 +21,7 @@ namespace BalloonStrike.Views
             Paused      = 0x04
         }
 
-        private const string STORAGE_FILE_NAME = "GAMEVIEW.xml";
+        private const string STORAGE_FILE_NAME = "GAME_VIEW.xml";
 
         private WeaponManager _weaponManager;
         private BalloonManager _balloonManager;
