@@ -14,6 +14,12 @@ namespace GameFramework
 
     public class Weapon 
     {
+        public Crosshair Crosshair
+        {
+            get;
+            private set;
+        }
+
         public WeaponType Type
         {
             get;
@@ -21,12 +27,6 @@ namespace GameFramework
         }
 
         public byte Damage
-        {
-            get;
-            private set;
-        }
-
-        public Crosshair Crosshair
         {
             get;
             private set;
@@ -49,12 +49,18 @@ namespace GameFramework
         }
 
         private byte _ammo;
-        private byte _maxAmmo;
 
         public Weapon(WeaponType type)
         {
             Type = type;
             TimeSpan fadeTime = TimeSpan.FromSeconds(1.5);
+
+            // TODO: Need to change this into a Flyweight and Factory pattern set of objects
+            // Flyweight to be able to store an instance of the weapon types but not store any position information
+            // just use it as a reference.
+            // Factory pattern to be able to construct and return these models which is useful when rehydrating, as
+            // it would only need to store the type and ammo to rebuild the object as damage would be set by the
+            // model (flyweight).
 
             switch (type)
             {
@@ -62,7 +68,6 @@ namespace GameFramework
                 case WeaponType.Finger:
                     {
                         _ammo = 0;
-                        _maxAmmo = 0;
                         Damage = 1;
                         Crosshair = new Crosshair(fadeTime, ResourceManager.Resources.GetTexture("xhair_finger"));
                     }
@@ -70,7 +75,6 @@ namespace GameFramework
                 case WeaponType.Shotgun:
                     {
                         _ammo = 6;
-                        _maxAmmo = 6;
                         Damage = 2;
                         Crosshair = new Crosshair(fadeTime, ResourceManager.Resources.GetTexture("xhair_shotgun"));
                     }
@@ -78,7 +82,6 @@ namespace GameFramework
                 case WeaponType.Bazooka:
                     {
                         _ammo = 2;
-                        _maxAmmo = 2;
                         Damage = 3;
                         Crosshair = new Crosshair(fadeTime, ResourceManager.Resources.GetTexture("xhair_bazooka"));
                     }
@@ -94,11 +97,6 @@ namespace GameFramework
         public static bool IsBetterThan(Weapon left, Weapon right)
         {
             return (byte)left.Type > (byte)right.Type;
-        }
-
-        public void Resupply()
-        {
-            _ammo = _maxAmmo;
         }
 
         public void UpdateInput(Vector2 position)

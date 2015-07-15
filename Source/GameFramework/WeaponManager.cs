@@ -50,6 +50,32 @@ namespace GameFramework
                 XElement root = new XElement("WeaponManager");
 
                 XElement weaponsRoot = new XElement("Weapons");
+                XElement weaponXML;
+                XElement crosshairXML;
+                Weapon currentWeapon;
+                Crosshair currentCrosshair;
+                LinkedListNode<Weapon> weaponNode = _weaponsInventory.Last;
+
+                // Store in reverse order so when the game rehydrates, the weapons are added
+                // to the head of the list for a small performance increase
+                while (weaponNode != null)
+                {
+                    currentWeapon = weaponNode.Value;
+                    currentCrosshair = currentWeapon.Crosshair;
+
+                    weaponXML = new XElement("Weapon",
+                        new XAttribute("Type", currentWeapon.Type),
+                        new XAttribute("Damage", currentWeapon.Damage),
+                        new XAttribute("Ammo", currentWeapon.Ammo)
+                        );
+
+                    crosshairXML = new XElement("Crosshair");
+
+                    weaponXML.Add(crosshairXML);
+                    weaponsRoot.Add(weaponXML);
+
+                    weaponNode = weaponNode.Previous;
+                }
 
                 XElement crosshairsRoot = new XElement("CrossHairs");
 

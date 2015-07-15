@@ -6,26 +6,25 @@ namespace GameFramework
 {
     public class Crosshair
     {
-        public bool Visible
-        {
-            get
-            {
-                return _delta < 1;
-            }
-        }
-
-        public int Radius
-        {
-            get
-            {
-                return _crosshairTexture.Width / 2;
-            }
-        }
-
         public GameCore.Physics.Shapes.Circle Circle
         {
             get;
             private set;
+        }
+
+        public float Delta
+        {
+            get { return _delta; }
+        }
+
+        public int Radius
+        {
+            get { return _crosshairTexture.Width / 2; }
+        }
+
+        public bool Visible
+        {
+            get { return _delta < 1; }
         }
 
         private Texture2D _crosshairTexture;
