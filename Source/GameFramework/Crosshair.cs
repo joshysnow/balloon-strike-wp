@@ -38,8 +38,8 @@ namespace GameFramework
             Circle.Center.X = newPosition.X;
             Circle.Center.Y = newPosition.Y;
 
-            _origin.X = newPosition.X - (_model.Texture.Width / 2);
-            _origin.Y = newPosition.Y - (_model.Texture.Height / 2);
+            _origin.X = (newPosition.X - _model.Circle.Radius);
+            _origin.Y = (newPosition.Y - _model.Circle.Radius);
 
             _delta = 0;
         }
