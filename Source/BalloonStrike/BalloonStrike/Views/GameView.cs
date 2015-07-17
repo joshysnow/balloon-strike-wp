@@ -45,20 +45,21 @@ namespace BalloonStrike.Views
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
 
             _sun = new Sun();
-            _scoreManager = new ScoreAnimationManager();
-
             _sun.Activate(instancePreserved);
+
+            _scoreManager = new ScoreAnimationManager();
             _scoreManager.Activate(instancePreserved);
+
+            _weaponManager = new WeaponManager();
+            _weaponManager.Activate(instancePreserved);
 
             // TODO:
             // - Save game state
             // - Save managers            
 
-            _weaponManager = new WeaponManager();
             _balloonManager = new BalloonManager(graphics);
             _powerupManager = new PowerupManager(graphics);
-
-            _weaponManager.Initialize();
+            
             _balloonManager.Initialize();
             _powerupManager.Initialize();
 

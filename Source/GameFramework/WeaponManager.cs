@@ -24,22 +24,47 @@ namespace GameFramework
         private LinkedList<Weapon> _weaponsInventory;   // Stores picked up weapons.
         private List<Crosshair> _garbageReticles;       // Holds all cross-hairs to display until unvisible.
         private WeaponDisplay _display;                 // Used to display current weapon type on screen.
+        private WeaponFactory _weaponFactory;           // Constructs weapons efficiently for us.
 
         public WeaponManager()
         {
             _weaponsInventory = new LinkedList<Weapon>();
             _garbageReticles = new List<Crosshair>();
-        }
-
-        public void Initialize()
-        {
-            _weaponsInventory.AddFirst(WeaponFactory.CreateDefault());
-            _display = new WeaponDisplay(CurrentWeapon.Type.ToString());
+            _weaponFactory = new WeaponFactory();
         }
 
         public void Activate(bool instancePreserved)
         {
-            
+            if (instancePreserved)
+            {
+                // Do nothing, everything is still in memory.
+            }
+            else
+            {
+                // Load weapon resources
+                _weaponFactory.Initialize();
+
+                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    if (storage.FileExists(STORAGE_FILE_NAME))
+                    {
+                        // TODO: Rehydrate the game
+                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                        {
+                            XDocument doc = XDocument.Load(stream);
+                        }
+
+                        storage.DeleteFile(STORAGE_FILE_NAME);
+                    }
+                    else
+                    {
+                        // Add the default weapon (act like this is a new game scenario)
+                        Initialize();
+                    }
+                }
+
+                _display = new WeaponDisplay(CurrentWeapon.Type.ToString());
+            }
         }
 
         public void Deactivate()
@@ -83,10 +108,10 @@ namespace GameFramework
                 root.Add(crosshairsRoot);
                 doc.Add(root);
 
-                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
-                {
-                    doc.Save(stream);
-                }
+                //using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
+                //{
+                //    doc.Save(stream);
+                //}
             }
         }
 
@@ -144,10 +169,16 @@ namespace GameFramework
             _display.Draw(spriteBatch);
         }
 
+        private void Initialize()
+        {
+            Weapon defaultWeapon = _weaponFactory.MakeWeapon(WeaponType.Finger);
+            _weaponsInventory.AddFirst(defaultWeapon);
+        }
+
         private void AddWeapon(WeaponType newWeaponType)
         {            
             LinkedListNode<Weapon> weapon = _weaponsInventory.First;
-            Weapon newWeapon = WeaponFactory.CreateFromType(newWeaponType);
+            Weapon newWeapon = _weaponFactory.MakeWeapon(newWeaponType);
 
             bool topWeapon = true;
 

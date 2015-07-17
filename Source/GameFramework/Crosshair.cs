@@ -8,8 +8,7 @@ namespace GameFramework
     {
         public GameCore.Physics.Shapes.Circle Circle
         {
-            get;
-            private set;
+            get { return _model.Circle; }
         }
 
         public float Delta
@@ -17,31 +16,21 @@ namespace GameFramework
             get { return _delta; }
         }
 
-        public int Radius
-        {
-            get { return _crosshairTexture.Width / 2; }
-        }
-
         public bool Visible
         {
             get { return _delta < 1; }
         }
 
-        private Texture2D _crosshairTexture;
+        private CrosshairModel _model;
         private Vector2 _origin;
         private TimeSpan _fadeTime;
         private float _delta;
 
-        public Crosshair(TimeSpan fadeTime, Texture2D crosshair)
+        public Crosshair(CrosshairModel model, ref TimeSpan fadeTime)
         {
-            _fadeTime = fadeTime;
-            _crosshairTexture = crosshair;
             _delta = 1;
-
-            Circle = new GameCore.Physics.Shapes.Circle()
-            {
-                Radius = (crosshair.Width / 2)
-            };
+            _model = model;
+            _fadeTime = fadeTime;
         }
 
         public void UpdatePosition(Vector2 newPosition)
@@ -49,8 +38,8 @@ namespace GameFramework
             Circle.Center.X = newPosition.X;
             Circle.Center.Y = newPosition.Y;
 
-            _origin.X = newPosition.X - (_crosshairTexture.Width / 2);
-            _origin.Y = newPosition.Y - (_crosshairTexture.Height / 2);
+            _origin.X = newPosition.X - (_model.Texture.Width / 2);
+            _origin.Y = newPosition.Y - (_model.Texture.Height / 2);
 
             _delta = 0;
         }
@@ -69,7 +58,7 @@ namespace GameFramework
             if (Visible)
             {
                 float alpha = (1 - _delta);
-                spriteBatch.Draw(_crosshairTexture, _origin, Color.White * alpha);
+                spriteBatch.Draw(_model.Texture, _origin, Color.White * alpha);
             }
         }
     }

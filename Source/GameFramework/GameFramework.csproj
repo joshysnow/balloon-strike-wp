@@ -58,6 +58,7 @@
     <Compile Include="CloudManager.cs" />
     <Compile Include="CloudModel.cs" />
     <Compile Include="Crosshair.cs" />
+    <Compile Include="CrosshairModel.cs" />
     <Compile Include="ICharacter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Powerup.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="WeaponDisplay.cs" />
     <Compile Include="WeaponFactory.cs" />
     <Compile Include="WeaponManager.cs" />
+    <Compile Include="WeaponModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameCore\GameCore.csproj">
