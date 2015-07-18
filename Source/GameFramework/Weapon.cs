@@ -32,6 +32,7 @@ namespace GameFramework
         public byte Ammo
         {
             get { return _ammo; }
+            set { _ammo = value; }
         }
 
         public bool HasAmmo

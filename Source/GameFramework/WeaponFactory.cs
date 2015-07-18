@@ -89,6 +89,7 @@ namespace GameFramework
         private Weapon MakeShotgun()
         {
             Weapon shotgun = new Weapon(_shotgunWeaponModel, new Crosshair(_shotgunXHairModel, ref FADE_TIME));
+            shotgun.Ammo = 6;
 
             return shotgun;
         }
@@ -96,6 +97,7 @@ namespace GameFramework
         private Weapon MakeBazooka()
         {
             Weapon bazooka = new Weapon(_bazookaWeaponModel, new Crosshair(_bazookaXHairModel, ref FADE_TIME));
+            bazooka.Ammo = 2;
 
             return bazooka;
         }
