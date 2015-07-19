@@ -57,8 +57,6 @@
     <Compile Include="Cloud.cs" />
     <Compile Include="CloudManager.cs" />
     <Compile Include="CloudModel.cs" />
-    <Compile Include="Crosshair.cs" />
-    <Compile Include="CrosshairModel.cs" />
     <Compile Include="ICharacter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Powerup.cs" />

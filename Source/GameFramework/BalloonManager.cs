@@ -104,7 +104,7 @@ namespace GameFramework
             int index;
             Balloon balloon;
             float damage = currentWeapon.Damage;
-            GameCore.Physics.Shapes.Circle circle = currentWeapon.Crosshair.Circle;
+            GameCore.Physics.Shapes.Circle circle = currentWeapon.Circle;
             WeaponType weaponType = currentWeapon.Type;
 
             List<GestureSample> temp = new List<GestureSample>(gestures);

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Xml.Linq;
@@ -17,19 +18,19 @@ namespace GameFramework
         {
             get
             {
-                return _weaponsInventory.First.Value;
+                return _inventory.First.Value;
             }
         }
 
-        private LinkedList<Weapon> _weaponsInventory;   // Stores picked up weapons.
-        private List<Crosshair> _garbageReticles;       // Holds all cross-hairs to display until unvisible.
-        private WeaponDisplay _display;                 // Used to display current weapon type on screen.
-        private WeaponFactory _weaponFactory;           // Constructs weapons efficiently for us.
+        private LinkedList<Weapon> _inventory;      // Stores picked up weapons.
+        private List<Weapon> _graveyard;            // Holds all weapons that have expended to display their crosshair until unvisible.
+        private WeaponDisplay _display;             // Used to display current weapon type on screen.
+        private WeaponFactory _weaponFactory;       // Constructs weapons efficiently for us.
 
         public WeaponManager()
         {
-            _weaponsInventory = new LinkedList<Weapon>();
-            _garbageReticles = new List<Crosshair>();
+            _inventory = new LinkedList<Weapon>();
+            _graveyard = new List<Weapon>();
             _weaponFactory = new WeaponFactory();
         }
 
@@ -48,10 +49,35 @@ namespace GameFramework
                 {
                     if (storage.FileExists(STORAGE_FILE_NAME))
                     {
-                        // TODO: Rehydrate the game
+                        // Rehydrate the weapons
                         using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
                         {
                             XDocument doc = XDocument.Load(stream);
+                            XElement root = doc.Root;
+
+                            // Use this to get the type when parsing WeaponType attribute from saved data
+                            WeaponType temp = WeaponType.Finger;
+
+                            foreach (XElement weaponXML in root.Element("Weapons").Elements())
+                            {
+                                // Extract saved data on weapon
+                                WeaponType weaponType = (WeaponType)Enum.Parse(temp.GetType(), weaponXML.Attribute("Type").Value, false);
+                                float delta = float.Parse(weaponXML.Attribute("Delta").Value);
+                                byte ammo = Byte.Parse(weaponXML.Attribute("Ammo").Value);
+
+                                // Rehydrate weapon
+                                Weapon weapon = _weaponFactory.MakeWeapon(weaponType);
+                                weapon.Ammo = ammo;
+                                weapon.Delta = delta;
+
+                                // Add to the head of weapons list
+                                _inventory.AddFirst(new LinkedListNode<Weapon>(weapon));
+                            }
+
+                            foreach (XElement weaponXML in root.Element("Graveyard").Elements())
+                            {
+
+                            }
                         }
 
                         storage.DeleteFile(STORAGE_FILE_NAME);
@@ -76,42 +102,47 @@ namespace GameFramework
 
                 XElement weaponsRoot = new XElement("Weapons");
                 XElement weaponXML;
-                XElement crosshairXML;
                 Weapon currentWeapon;
-                Crosshair currentCrosshair;
-                LinkedListNode<Weapon> weaponNode = _weaponsInventory.Last;
+
+                LinkedListNode<Weapon> weaponNode = _inventory.Last;
 
                 // Store in reverse order so when the game rehydrates, the weapons are added
                 // to the head of the list for a small performance increase
                 while (weaponNode != null)
                 {
                     currentWeapon = weaponNode.Value;
-                    currentCrosshair = currentWeapon.Crosshair;
 
                     weaponXML = new XElement("Weapon",
                         new XAttribute("Type", currentWeapon.Type),
-                        new XAttribute("Damage", currentWeapon.Damage),
-                        new XAttribute("Ammo", currentWeapon.Ammo)
+                        new XAttribute("Ammo", currentWeapon.Ammo),
+                        new XAttribute("Delta", currentWeapon.Delta)
                         );
 
-                    crosshairXML = new XElement("Crosshair");
-
-                    weaponXML.Add(crosshairXML);
                     weaponsRoot.Add(weaponXML);
-
+                    
                     weaponNode = weaponNode.Previous;
                 }
 
-                XElement crosshairsRoot = new XElement("CrossHairs");
+                XElement graveyardRoot = new XElement("Graveyard");
+
+                foreach (Weapon weapon in _graveyard)
+                {
+                    weaponXML = new XElement("Weapon",
+                        new XAttribute("Type", weapon.Type),
+                        new XAttribute("Delta", weapon.Delta)
+                        );
+
+                    graveyardRoot.Add(weaponXML);
+                }
 
                 root.Add(weaponsRoot);
-                root.Add(crosshairsRoot);
+                root.Add(graveyardRoot);
                 doc.Add(root);
 
-                //using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
-                //{
-                //    doc.Save(stream);
-                //}
+                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
+                {
+                    doc.Save(stream);
+                }
             }
         }
 
@@ -142,8 +173,8 @@ namespace GameFramework
                 // If the current weapon has run out of ammo, change it, as long as it isn't the default.
                 if ((currentWeapon.Type != WeaponType.Finger) && (currentWeapon.HasAmmo == false))
                 {
-                    _weaponsInventory.Remove(_weaponsInventory.First);
-                    _garbageReticles.Add(currentWeapon.Crosshair);
+                    _inventory.Remove(_inventory.First);
+                    _graveyard.Add(currentWeapon);
 
                     // Change to display the new current weapon (new head on the list)
                     _display.WeaponChange(CurrentWeapon.Type.ToString());
@@ -154,16 +185,16 @@ namespace GameFramework
         public void Update(GameTime gameTime)
         {
             UpdateWeapons(gameTime);
-            UpdateGarbage(gameTime);
+            UpdateGraveyard(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             CurrentWeapon.Draw(spriteBatch);
 
-            foreach (Crosshair reticle in _garbageReticles)
+            foreach (Weapon weapon in _graveyard)
             {
-                reticle.Draw(spriteBatch);
+                weapon.Draw(spriteBatch);
             }
 
             _display.Draw(spriteBatch);
@@ -172,12 +203,12 @@ namespace GameFramework
         private void Initialize()
         {
             Weapon defaultWeapon = _weaponFactory.MakeWeapon(WeaponType.Finger);
-            _weaponsInventory.AddFirst(defaultWeapon);
+            _inventory.AddFirst(defaultWeapon);
         }
 
         private void AddWeapon(WeaponType newWeaponType)
         {            
-            LinkedListNode<Weapon> weapon = _weaponsInventory.First;
+            LinkedListNode<Weapon> weapon = _inventory.First;
             Weapon newWeapon = _weaponFactory.MakeWeapon(newWeaponType);
 
             bool topWeapon = true;
@@ -188,10 +219,10 @@ namespace GameFramework
                 if (weapon.Value.IsBetterThan(newWeaponType) == false)
                 {
                     // Add new weapon ahead of one that it is better than
-                    _weaponsInventory.AddBefore(weapon, newWeapon);
+                    _inventory.AddBefore(weapon, newWeapon);
 
-                    // Put copy of current weapon into garbage? Need to still show the current crosshair fading out.
-                    _garbageReticles.Add(weapon.Value.Crosshair);
+                    // Put copy of current weapon into garbage. Need to still show the current crosshair fading out.
+                    _graveyard.Add(weapon.Value);
 
                     // If weapon is better than currently used weapon, change to this weapon!
                     if (topWeapon)
@@ -208,7 +239,7 @@ namespace GameFramework
 
         private void UpdateWeapons(GameTime gameTime)
         {
-            LinkedListNode<Weapon> currentNode = _weaponsInventory.First;
+            LinkedListNode<Weapon> currentNode = _inventory.First;
             Weapon currentWeapon;
 
             while (currentNode != null)
@@ -220,23 +251,23 @@ namespace GameFramework
             }
         }
 
-        private void UpdateGarbage(GameTime gameTime)
+        private void UpdateGraveyard(GameTime gameTime)
         {
-            Crosshair currentReticle;
+            Weapon currentWeapon;
             int i = 0;
 
-            while(i < _garbageReticles.Count)
+            while(i < _graveyard.Count)
             {
-                currentReticle = _garbageReticles[i];
+                currentWeapon = _graveyard[i];
 
                 // If the cross-hair is no longer visible on the screen.
-                if (currentReticle.Visible == false)
+                if (currentWeapon.Visible == false)
                 {
-                    _garbageReticles.RemoveAt(i);
+                    _graveyard.RemoveAt(i);
                 }
                 else
                 {
-                    currentReticle.Update(gameTime);
+                    currentWeapon.Update(gameTime);
                     i++;
                 }
             }

@@ -98,6 +98,7 @@ namespace BalloonStrike.Views
         {
             _sun.Deactivate();
             _scoreManager.Deactivate();
+            _weaponManager.Deactivate();
 
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
@@ -119,7 +120,7 @@ namespace BalloonStrike.Views
             if (controls.BackButtonPressed())
             {
                 // Load pause screen.
-                View pauseView = new InputPopup("Paused", "Are you sure?", new LoadViewAction(2, this, new MainMenuView()));
+                View pauseView = new InputPopup("Paused", "Quit?", new LoadViewAction(2, this, new MainMenuView()));
                 pauseView.ViewExiting += PauseViewExitingHandler;
                 ViewManager.AddView(pauseView);
 

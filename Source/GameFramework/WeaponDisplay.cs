@@ -7,31 +7,31 @@ namespace GameFramework
 {
     public class WeaponDisplay
     {
-        private Transition _transitionPosition;
+        private Transition _transition;
         private string _weaponName;
 
         public WeaponDisplay(string initialName)
         {
-            _transitionPosition = new Transition();
-            _transitionPosition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
-            _transitionPosition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
-            _transitionPosition.Invoked = true; // Wait for a new weapon before transitioning off.
+            _transition = new Transition();
+            _transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
+            _transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
+            _transition.Invoked = true; // Wait for a new weapon before transitioning off.
 
             _weaponName = initialName;
         }
 
         public void WeaponChange(string newWeaponName)
         {
-            _transitionPosition.State = TransitionState.TransitionOff;
+            _transition.State = TransitionState.TransitionOff;
             _weaponName = newWeaponName;
         }
 
         public void Update(GameTime gameTime)
         {
-            _transitionPosition.Update(gameTime);
+            _transition.Update(gameTime);
 
-            if (_transitionPosition.State == TransitionState.Hidden)
-                _transitionPosition.State = TransitionState.TransitionOn;
+            if (_transition.State == TransitionState.Hidden)
+                _transition.State = TransitionState.TransitionOn;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -42,7 +42,7 @@ namespace GameFramework
                 X = (240 - (size.X / 2)), 
                 Y = ((800 - size.Y) - 10) };            
 
-            spriteBatch.DrawString(font, _weaponName, position, Color.Black);
+            spriteBatch.DrawString(font, _weaponName, position, Color.Black * _transition.TransitionPosition);
         }
     }
 }
