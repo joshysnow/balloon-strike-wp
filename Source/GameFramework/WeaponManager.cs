@@ -194,6 +194,8 @@ namespace GameFramework
         {
             UpdateWeapons(gameTime);
             UpdateGraveyard(gameTime);
+
+            _display.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

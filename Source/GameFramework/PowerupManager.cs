@@ -23,8 +23,8 @@ namespace GameFramework
         private Animation _freezeMoveAnimation;
         private Animation _shellMoveAnimation;
         private Animation _missileMoveAnimation;
-        private Animation _popAnimation;
-        private SoundEffect _popSoundEffect;
+        private Animation _pickupAnimation;
+        private SoundEffect _pickupSoundEffect;
         private Random _randomPosition;
 
         public PowerupManager(GraphicsDevice graphics) : base(graphics) { }
@@ -54,8 +54,8 @@ namespace GameFramework
             _freezeMoveAnimation = manager.GetAnimation("freezemove");
             _shellMoveAnimation = manager.GetAnimation("shellmove");
             _missileMoveAnimation = manager.GetAnimation("missilemove");
-            _popAnimation = manager.GetAnimation("popmove");
-            _popSoundEffect = manager.GetSoundEffect("pop");
+            _pickupAnimation = manager.GetAnimation("popmove");
+            _pickupSoundEffect = manager.GetSoundEffect("pickup_ammo");
         }
 
         public override void Activate(bool instancePreserved)
@@ -189,7 +189,7 @@ namespace GameFramework
             int y = (0 - (int)(moveAnimation.FrameHeight * moveAnimation.Scale));
             Vector2 upperLeft = new Vector2(x, y);
 
-            spawn.Initialize(moveAnimation, _popAnimation, _popSoundEffect, upperLeft, _freezeVelocity, (short)ScreenHeight);
+            spawn.Initialize(moveAnimation, _pickupAnimation, _pickupSoundEffect, upperLeft, _freezeVelocity, (short)ScreenHeight);
             Characters.Add(spawn);
         }
 

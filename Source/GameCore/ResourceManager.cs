@@ -140,8 +140,14 @@ namespace GameCore
             }
 
             SoundEffect pop = _content.Load<SoundEffect>("Audio/Sounds/pop_bubble");
+            SoundEffect pickup = _content.Load<SoundEffect>("Audio/Sounds/pickup_ammo");
+
+            // Ensure they are all preloaded in memory
             pop.Play(0, 0, 0);
+            pickup.Play(0, 0, 0);
+
             _sounds.Add("pop", pop);
+            _sounds.Add("pickup_ammo", pickup);
 
             //Song test = _content.Load<Song>("Audio/Music/test_everythingisawesome");
             //_music.Add("test", test);

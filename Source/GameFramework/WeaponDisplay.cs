@@ -42,7 +42,7 @@ namespace GameFramework
                 X = (240 - (size.X / 2)), 
                 Y = ((800 - size.Y) - 10) };            
 
-            spriteBatch.DrawString(font, _weaponName, position, Color.Black * _transition.TransitionPosition);
+            spriteBatch.DrawString(font, _weaponName, position, Color.Black * _transition.TransitionAlpha);
         }
     }
 }
