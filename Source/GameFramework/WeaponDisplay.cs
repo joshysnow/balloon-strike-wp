@@ -13,8 +13,8 @@ namespace GameFramework
         public WeaponDisplay(string initialName)
         {
             _transition = new Transition();
-            _transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
-            _transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
+            _transition.TransitionOnTime = TimeSpan.FromSeconds(1.5);
+            _transition.TransitionOffTime = TimeSpan.FromSeconds(1.5);
             _transition.Invoked = true; // Wait for a new weapon before transitioning off.
 
             _weaponName = initialName;

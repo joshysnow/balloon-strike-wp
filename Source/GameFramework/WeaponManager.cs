@@ -76,7 +76,15 @@ namespace GameFramework
 
                             foreach (XElement weaponXML in root.Element("Graveyard").Elements())
                             {
+                                WeaponType weaponType = (WeaponType)Enum.Parse(temp.GetType(), weaponXML.Attribute("Type").Value, false);
+                                float delta = float.Parse(weaponXML.Attribute("Delta").Value);
 
+                                // Rehydrate weapon
+                                Weapon weapon = _weaponFactory.MakeWeapon(weaponType);
+                                weapon.Ammo = 0;
+                                weapon.Delta = delta;
+
+                                _graveyard.Add(weapon);
                             }
                         }
 
