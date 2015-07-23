@@ -10,9 +10,19 @@ using GameCore;
 
 namespace GameFramework
 {
+    public enum WeaponUpdateEvent : byte
+    {
+        WEAPON_CHANGE       = 0x01,
+        WEAPON_FIRED  = 0x02
+    }
+
+    public delegate void WeaponUpdate(WeaponUpdateEvent evt, object data);
+
     public class WeaponManager : Serializable
     {
         private const string STORAGE_FILE_NAME = "WEAPON_MANAGER.xml";
+
+        public event WeaponUpdate WeaponUpdate;
 
         public Weapon CurrentWeapon
         {
@@ -97,7 +107,10 @@ namespace GameFramework
                     }
                 }
 
-                _display = new WeaponDisplay(CurrentWeapon.Type.ToString());
+                Weapon mainWeapon = CurrentWeapon;
+
+                _display = new WeaponDisplay(this);
+                _display.Initialize(mainWeapon);
             }
         }
 
@@ -185,7 +198,11 @@ namespace GameFramework
                     _graveyard.Add(currentWeapon);
 
                     // Change to display the new current weapon (new head on the list)
-                    _display.WeaponChange(CurrentWeapon.Type.ToString());
+                    RaiseWeaponUpdate(WeaponUpdateEvent.WEAPON_CHANGE, CurrentWeapon);
+                }
+                else
+                {
+                    RaiseWeaponUpdate(WeaponUpdateEvent.WEAPON_FIRED, currentWeapon);
                 }
             }
         }
@@ -234,9 +251,9 @@ namespace GameFramework
                     // Put copy of current weapon into garbage. Need to still show the current crosshair fading out.
                     _graveyard.Add(weapon.Value);
 
-                    // If weapon is better than currently used weapon, change to this weapon!
+                    // If weapon is better than currently used weapon, notify top weapon has changed!
                     if (topWeapon)
-                        _display.WeaponChange(CurrentWeapon.Type.ToString());
+                        RaiseWeaponUpdate(WeaponUpdateEvent.WEAPON_CHANGE, newWeapon);
 
                     break;
                 }
@@ -249,6 +266,9 @@ namespace GameFramework
 
         private void UpdateWeapons(GameTime gameTime)
         {
+            // TODO: Is it not the top weapon that only needs updating?
+            //CurrentWeapon.Update(gameTime);
+
             LinkedListNode<Weapon> currentNode = _inventory.First;
             Weapon currentWeapon;
 
@@ -280,6 +300,14 @@ namespace GameFramework
                     currentWeapon.Update(gameTime);
                     i++;
                 }
+            }
+        }
+
+        private void RaiseWeaponUpdate(WeaponUpdateEvent evt, object data)
+        {
+            if (WeaponUpdate != null)
+            {
+                WeaponUpdate(evt, data);
             }
         }
     }
