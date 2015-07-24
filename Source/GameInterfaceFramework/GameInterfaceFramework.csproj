@@ -51,13 +51,12 @@
     <Reference Include="System.Xml.Linq, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\IActionHandler.cs" />
-    <Compile Include="Actions\LoadViewAction.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ControlsState.cs" />
     <Compile Include="Credit.cs" />
     <Compile Include="CreditModel.cs" />
     <Compile Include="CreditsPlayer.cs" />
+    <Compile Include="InputPopup.cs" />
     <Compile Include="IViewFactory.cs" />
     <Compile Include="LoadView.cs" />
     <Compile Include="MenuView.cs" />

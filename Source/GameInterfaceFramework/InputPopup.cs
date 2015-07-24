@@ -1,30 +1,23 @@
-using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameCore;
-using GameInterfaceFramework;
-using GameInterfaceFramework.Actions;
 
-namespace BalloonStrike.Views
+namespace GameInterfaceFramework
 {
+    public enum ResultState : byte
+    {
+        YES = 0x01,
+        NO = 0x02
+    }
+
+    public delegate void Selection(ResultState result);
+
     public class InputPopup : Popup
     {
-        private IActionHandler _yesAction;
-        private IActionHandler _noAction;
+        public event Selection Result;
 
-        public InputPopup(string title, string message, IActionHandler acceptAction)
-            : base(title, message)
-        {
-            _yesAction = acceptAction;
-        }
-
-        public InputPopup(string title, string message, IActionHandler acceptAction, IActionHandler cancelAction) 
-            : base(title, message) 
-        {
-            _yesAction = acceptAction;
-            _noAction = cancelAction;
-        }
+        public InputPopup(string title, string message) : base(title, message) { }
 
         public override void Activate(bool instancePreserved)
         {
@@ -78,9 +71,15 @@ namespace BalloonStrike.Views
             noButton.Position = GetTransitionPosition(buttonPositon);
         }
 
+        private void RaiseSelection(ResultState res)
+        {
+            if (Result != null)
+                Result(res);
+        }
+
         private void YesButtonTappedHandler(Button button)
         {
-            _yesAction.Execute();
+            RaiseSelection(ResultState.YES);
 
             if(!IsExiting)
                 Exit();
@@ -88,8 +87,7 @@ namespace BalloonStrike.Views
 
         private void NoButtonTappedHandler(Button button)
         {
-            if (_noAction != null)
-                _noAction.Execute();
+            RaiseSelection(ResultState.NO);
 
             if (!IsExiting)
                 Exit();

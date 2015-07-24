@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 using GameFramework;
 using GameFramework.Triggers;
 using GameInterfaceFramework;
-using GameInterfaceFramework.Actions;
 
 namespace BalloonStrike.Views
 {
@@ -121,8 +120,8 @@ namespace BalloonStrike.Views
             if (controls.BackButtonPressed())
             {
                 // Load pause screen.
-                View pauseView = new InputPopup("Paused", "Quit?", new LoadViewAction(2, this, new MainMenuView()));
-                pauseView.ViewExiting += PauseViewExitingHandler;
+                InputPopup pauseView = new InputPopup("Paused", "Quit?");
+                pauseView.Result += PauseViewResultHandler;
                 ViewManager.AddView(pauseView);
 
                 _gameState = GameState.Paused;
@@ -193,9 +192,12 @@ namespace BalloonStrike.Views
             }
         }
 
-        private void PauseViewExitingHandler(View view)
+        private void PauseViewResultHandler(ResultState result)
         {
-            _gameState = GameState.Playing;
+            if (result == ResultState.YES)
+                LoadView.Load(ViewManager, 2, new MainMenuView());
+            else
+                _gameState = GameState.Playing;
         }
 
         private void BalloonEscapedHandler(Balloon balloon)
