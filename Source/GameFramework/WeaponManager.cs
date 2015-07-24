@@ -66,7 +66,7 @@ namespace GameFramework
                             XElement root = doc.Root;
 
                             // Use this to get the type when parsing WeaponType attribute from saved data
-                            WeaponType temp = WeaponType.Finger;
+                            WeaponType temp = WeaponType.Tap;
 
                             foreach (XElement weaponXML in root.Element("Weapons").Elements())
                             {
@@ -192,7 +192,7 @@ namespace GameFramework
                 currentWeapon.UpdateInput(gesture.Position);
 
                 // If the current weapon has run out of ammo, change it, as long as it isn't the default.
-                if ((currentWeapon.Type != WeaponType.Finger) && (currentWeapon.HasAmmo == false))
+                if ((currentWeapon.Type != WeaponType.Tap) && (currentWeapon.HasAmmo == false))
                 {
                     _inventory.Remove(_inventory.First);
                     _graveyard.Add(currentWeapon);
@@ -229,7 +229,7 @@ namespace GameFramework
 
         private void Initialize()
         {
-            Weapon defaultWeapon = _weaponFactory.MakeWeapon(WeaponType.Finger);
+            Weapon defaultWeapon = _weaponFactory.MakeWeapon(WeaponType.Tap);
             _inventory.AddFirst(defaultWeapon);
         }
 

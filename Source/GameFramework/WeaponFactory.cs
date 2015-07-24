@@ -9,7 +9,7 @@ namespace GameFramework
     {
         private static TimeSpan FADE_TIME = TimeSpan.FromSeconds(1.5);
 
-        private WeaponModel _fingerWeaponModel;
+        private WeaponModel _tapWeaponModel;
         private WeaponModel _shotgunWeaponModel;
         private WeaponModel _bazookaWeaponModel;
 
@@ -32,7 +32,7 @@ namespace GameFramework
                 case WeaponType.Bazooka:
                     newWeapon = MakeBazooka();
                     break;
-                case WeaponType.Finger:
+                case WeaponType.Tap:
                 default:
                     newWeapon = MakeDefault();
                     break;
@@ -43,24 +43,24 @@ namespace GameFramework
 
         private void InitializeWeaponModels()
         {
-            const byte fingerDamage = 1;
+            const byte tapDamage = 1;
             const byte shotgunDamage = 2;
             const byte bazookaDamage = 3;
 
-            Texture2D fXHairTexture = ResourceManager.Resources.GetTexture("xhair_finger");
+            Texture2D tXHairTexture = ResourceManager.Resources.GetTexture("xhair_tap");
             Texture2D sXHairTexture = ResourceManager.Resources.GetTexture("xhair_shotgun");
             Texture2D bXHairTexture = ResourceManager.Resources.GetTexture("xhair_bazooka");
 
-            _fingerWeaponModel = new WeaponModel(WeaponType.Finger, fingerDamage, fXHairTexture);
+            _tapWeaponModel = new WeaponModel(WeaponType.Tap, tapDamage, tXHairTexture);
             _shotgunWeaponModel = new WeaponModel(WeaponType.Shotgun, shotgunDamage, sXHairTexture);
             _bazookaWeaponModel = new WeaponModel(WeaponType.Bazooka, bazookaDamage, bXHairTexture);
         }
 
         private Weapon MakeDefault()
         {
-            Weapon finger = new Weapon(_fingerWeaponModel, ref FADE_TIME);
+            Weapon tap = new Weapon(_tapWeaponModel, ref FADE_TIME);
 
-            return finger;
+            return tap;
         }
 
         private Weapon MakeShotgun()

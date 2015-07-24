@@ -8,9 +8,9 @@ namespace GameFramework
 {
     public enum WeaponType : byte
     {
-        Finger          = 0x01,
-        Shotgun         = 0x02,
-        Bazooka         = 0x04
+        Tap     = 0x01,
+        Shotgun = 0x02,
+        Bazooka = 0x04
     }
 
     public class Weapon 

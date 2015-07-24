@@ -171,7 +171,7 @@ namespace GameCore
             Texture2D shellTexture      = _content.Load<Texture2D>("Textures/Powerups/shell_200");
             Texture2D missileTexture    = _content.Load<Texture2D>("Textures/Powerups/missile_200");
 
-            Texture2D xHairFingerTexture    = _content.Load<Texture2D>("Textures/Crosshairs/finger");
+            Texture2D xHairTapTexture    = _content.Load<Texture2D>("Textures/Crosshairs/tap");
             Texture2D xHairShotgunTexture   = _content.Load<Texture2D>("Textures/Crosshairs/shotgun");
             Texture2D xHairBazookaTexture   = _content.Load<Texture2D>("Textures/Crosshairs/bazooka");
 
@@ -214,7 +214,7 @@ namespace GameCore
             _textures.Add("freeze", freezeTexture);
             _textures.Add("shell", shellTexture);
             _textures.Add("missile", missileTexture);
-            _textures.Add("xhair_finger", xHairFingerTexture);
+            _textures.Add("xhair_tap", xHairTapTexture);
             _textures.Add("xhair_shotgun", xHairShotgunTexture);
             _textures.Add("xhair_bazooka", xHairBazookaTexture);
             _textures.Add("splash", splashTexture);

@@ -127,7 +127,7 @@ namespace GameFramework
                     {
                         balloon.Attack(damage);
 
-                        if (weaponType == WeaponType.Finger)
+                        if (weaponType == WeaponType.Tap)
                         {
                             temp.Remove(gesture);
                             break;

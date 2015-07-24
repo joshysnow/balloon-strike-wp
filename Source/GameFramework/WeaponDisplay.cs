@@ -66,7 +66,7 @@ namespace GameFramework
 
         private void SetAmmo(Weapon weapon)
         {
-            if (weapon.Type == WeaponType.Finger)
+            if (weapon.Type == WeaponType.Tap)
                 _nextAmmo = INFINITY;
             else
                 _nextAmmo = MULTIPLY + weapon.Ammo.ToString();
