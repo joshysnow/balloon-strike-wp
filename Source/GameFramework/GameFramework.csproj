@@ -63,7 +63,7 @@
     <Compile Include="PowerupManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pulse.cs" />
-    <Compile Include="ScoreAnimationManager.cs" />
+    <Compile Include="ScoreDisplay.cs" />
     <Compile Include="Sun.cs" />
     <Compile Include="Triggers\ScoreTrigger.cs" />
     <Compile Include="Triggers\TimeTrigger.cs" />

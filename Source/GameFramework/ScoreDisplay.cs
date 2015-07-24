@@ -8,9 +8,9 @@ using GameCore;
 
 namespace GameFramework
 {
-    public class ScoreAnimationManager
+    public class ScoreDisplay
     {
-        private const string STORAGE_FILE_NAME = "SCORE_MANAGER.xml";
+        private const string STORAGE_FILE_NAME = "SCORE_DISPLAY.xml";
 
         private SpriteFont[] _fonts;
         private TimeSpan _transitionTime;
@@ -18,7 +18,7 @@ namespace GameFramework
         private int _direction;
         private bool _transition;
 
-        public ScoreAnimationManager()
+        public ScoreDisplay()
         {
             _transitionTime = TimeSpan.FromSeconds(0.33f); // 330ms
             _position = 0;
@@ -63,7 +63,7 @@ namespace GameFramework
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {                
                 XElement root = new XElement(
-                    "ScoreManager",
+                    "ScoreDisplay",
                     new XAttribute("Position", _position),
                     new XAttribute("Direction", _direction),
                     new XAttribute("Transition", _transition)

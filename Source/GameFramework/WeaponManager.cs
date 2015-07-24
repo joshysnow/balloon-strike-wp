@@ -12,7 +12,7 @@ namespace GameFramework
 {
     public enum WeaponUpdateEvent : byte
     {
-        WEAPON_CHANGE       = 0x01,
+        WEAPON_CHANGE = 0x01,
         WEAPON_FIRED  = 0x02
     }
 

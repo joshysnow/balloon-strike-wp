@@ -26,7 +26,7 @@ namespace BalloonStrike.Views
         private WeaponManager _weaponManager;
         private BalloonManager _balloonManager;
         private PowerupManager _powerupManager;
-        private ScoreAnimationManager _scoreManager;
+        private ScoreDisplay _scoreDisplay;
         private Sun _sun;
         private GameState _gameState;
 
@@ -44,17 +44,18 @@ namespace BalloonStrike.Views
         {
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
 
+            Player.Instance.CurrentScore = 0;
+
             _sun = new Sun();
             _sun.Activate(instancePreserved);
 
-            _scoreManager = new ScoreAnimationManager();
-            _scoreManager.Activate(instancePreserved);
+            _scoreDisplay = new ScoreDisplay();
+            _scoreDisplay.Activate(instancePreserved);
 
             _weaponManager = new WeaponManager();
             _weaponManager.Activate(instancePreserved);
 
             // TODO:
-            // - Save game state
             // - Save managers            
 
             _balloonManager = new BalloonManager(graphics);
@@ -97,7 +98,7 @@ namespace BalloonStrike.Views
         public override void Deactivate()
         {
             _sun.Deactivate();
-            _scoreManager.Deactivate();
+            _scoreDisplay.Deactivate();
             _weaponManager.Deactivate();
 
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
@@ -170,7 +171,7 @@ namespace BalloonStrike.Views
             _balloonManager.Draw(spriteBatch);
             _powerupManager.Draw(spriteBatch);
             _weaponManager.Draw(spriteBatch);
-            _scoreManager.Draw(spriteBatch);
+            _scoreDisplay.Draw(spriteBatch);
             _sun.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -180,7 +181,7 @@ namespace BalloonStrike.Views
             _weaponManager.Update(gameTime);
             _balloonManager.Update(gameTime);
             _powerupManager.Update(gameTime);
-            _scoreManager.Update(gameTime);
+            _scoreDisplay.Update(gameTime);
             _sun.Update(gameTime);
         }
 
