@@ -189,8 +189,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Crosshairs\finger.png">
-      <Name>finger</Name>
+    <Compile Include="Textures\Crosshairs\tap.png">
+      <Name>tap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
