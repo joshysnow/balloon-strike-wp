@@ -54,10 +54,11 @@
     <Compile Include="Balloon.cs" />
     <Compile Include="BalloonManager.cs" />
     <Compile Include="BalloonPool.cs" />
+    <Compile Include="CharacterManager.cs" />
     <Compile Include="Cloud.cs" />
     <Compile Include="CloudManager.cs" />
     <Compile Include="CloudModel.cs" />
-    <Compile Include="ICharacter.cs" />
+    <Compile Include="Character.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Powerup.cs" />
     <Compile Include="PowerupManager.cs" />

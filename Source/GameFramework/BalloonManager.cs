@@ -96,7 +96,7 @@ namespace GameFramework
 
         public override void Deactivate()
         {
-            
+            // TODO: Store triggers, timers and balloon
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
