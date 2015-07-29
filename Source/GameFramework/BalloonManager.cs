@@ -52,15 +52,15 @@ namespace GameFramework
             // Add two triggers for when to begin spawning the other balloons.
             Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(20));
             blueSpawnStart.Triggered += BlueSpawnStartTriggerHandler;
-            AddTrigger(blueSpawnStart);
+            Triggers.AddTrigger(blueSpawnStart);
 
             Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(45));
             redSpawnStart.Triggered += RedSpawnStartTriggerHandler;
-            AddTrigger(redSpawnStart);
+            Triggers.AddTrigger(redSpawnStart);
 
             Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
             velocityChange.Triggered += VelocityChangeTriggerHandler;
-            AddTrigger(velocityChange);
+            Triggers.AddTrigger(velocityChange);
 
             // Start green balloon immediately.
             VariableTimer _greenTimer = new VariableTimer(4000, 0.9f, 750);
@@ -70,7 +70,7 @@ namespace GameFramework
 #warning EXPERIMENT START
             TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
             massAttackTimer.Triggered += MassAttackTimerTriggered;
-            AddTrigger(massAttackTimer);
+            Triggers.AddTrigger(massAttackTimer);
 #warning EXPERIMENT END
 
             _redVelocity = new Vector2(0, -8f);

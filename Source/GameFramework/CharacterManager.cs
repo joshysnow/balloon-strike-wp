@@ -13,14 +13,17 @@ namespace GameFramework
     {
         protected List<SimpleTimer> Timers
         {
-            get;
-            set;
+            get { return _timers; }
         }
 
         protected List<Character> Characters
         {
-            get;
-            set;
+            get { return _characters; }
+        }
+
+        protected TriggerManager Triggers
+        {
+            get { return _triggerManager; }
         }
 
         protected int ScreenWidth
@@ -36,16 +39,17 @@ namespace GameFramework
         }
 
         private TriggerManager _triggerManager;
+        private List<SimpleTimer> _timers;
+        private List<Character> _characters;
 
         public CharacterManager(GraphicsDevice graphics)
         {
-            Characters = new List<Character>();
-            Timers = new List<SimpleTimer>(5);
+            _characters = new List<Character>();
+            _timers = new List<SimpleTimer>(5);
+            _triggerManager = new TriggerManager();
 
             ScreenWidth = graphics.Viewport.Width;
             ScreenHeight = graphics.Viewport.Height;
-
-            _triggerManager = new TriggerManager();
         }
 
         public abstract void Initialize();
@@ -68,11 +72,6 @@ namespace GameFramework
             {
                 Characters[index++].Draw(spriteBatch);
             }
-        }
-
-        protected void AddTrigger(Trigger newTrigger)
-        {
-            _triggerManager.AddTrigger(newTrigger);
         }
 
         public virtual void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)

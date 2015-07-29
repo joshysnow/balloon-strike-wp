@@ -35,15 +35,15 @@ namespace GameFramework
 
             Trigger freezeTrigger = new ScoreTrigger(60);
             freezeTrigger.Triggered += FreezeTriggerHandler;
-            AddTrigger(freezeTrigger);
+            Triggers.AddTrigger(freezeTrigger);
 
             Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(45));
             shellTrigger.Triggered += ShellTriggerHandler;
-            AddTrigger(shellTrigger);
+            Triggers.AddTrigger(shellTrigger);
 
             Trigger missileTrigger = new ScoreTrigger(90);
             missileTrigger.Triggered += MissileTriggerHandler;
-            AddTrigger(missileTrigger);
+            Triggers.AddTrigger(missileTrigger);
 
             _freezeVelocity = new Vector2(0, 4.2f);
             _shellVelocity = new Vector2(0, 6f);
