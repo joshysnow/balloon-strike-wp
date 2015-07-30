@@ -6,6 +6,16 @@ namespace GameFramework.Triggers
 {
     public class TimeTrigger : Trigger
     {
+        public float TriggerTime
+        {
+            get { return _triggerTime; }
+        }
+
+        public float TimePassed
+        {
+            get { return _timePassed; }
+        }
+
         private float _triggerTime;
         private float _timePassed;
 

@@ -9,6 +9,22 @@ namespace GameCore.Timers
     {
         public event ElapsedHandler Elapsed;
 
+        /// <summary>
+        /// In milliseconds (ms).
+        /// </summary>
+        public float ElapseTime
+        {
+            get { return _elapseTime; }
+        }
+
+        /// <summary>
+        /// In miliseconds (ms).
+        /// </summary>
+        public float TimePassed
+        {
+            get { return _timePassed; }
+        }
+
         protected float _elapseTime;
         private float _timePassed;
 

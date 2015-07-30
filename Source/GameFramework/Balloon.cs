@@ -69,8 +69,7 @@ namespace GameFramework
         {
             _popAnimation = popAnimation;
             _hitAnimation = hitAnimation;
-#warning REMOVE OR RENAME STATIC ANIMATION
-            _staticAnimation = moveAnimation;
+            _moveAnimation = moveAnimation;
             _popSound = popSound;
             _positionUL = position;
             _velocity = velocity;
@@ -84,7 +83,7 @@ namespace GameFramework
             _state = BalloonState.Alive;
             _previousState = BalloonState.Alive;
 
-            _animationPlayer.SetAnimation(_staticAnimation);
+            _animationPlayer.SetAnimation(_moveAnimation);
             _animationPlayer.SetPosition(_positionUL);
 
             _initialized = true;
@@ -223,10 +222,10 @@ namespace GameFramework
             if (_animationPlayer.Finished)
             {
                 ChangeState(_previousState);
-                _animationPlayer.SetAnimation(_staticAnimation);
+                _animationPlayer.SetAnimation(_moveAnimation);
             }
 
-#warning What if frozen timer finishes before hit animation has ended?
+#warning What if frozen timer finishes before hit animation has ended? Make it sync with animation duration
             switch (_previousState)
             {
                 case BalloonState.Hit:

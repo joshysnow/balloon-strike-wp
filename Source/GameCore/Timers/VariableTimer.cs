@@ -5,6 +5,22 @@ namespace GameCore.Timers
 {
     public class VariableTimer : SimpleTimer
     {
+        /// <summary>
+        /// Between 0 and 1.
+        /// </summary>
+        public float Modifier
+        {
+            get { return _modifier; }
+        }
+
+        /// <summary>
+        /// In milliseconds (ms).
+        /// </summary>
+        public float Bounds
+        {
+            get { return _bounds; }
+        }
+
         private float _modifier;
         private float _bounds;
 

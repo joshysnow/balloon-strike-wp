@@ -5,6 +5,11 @@ namespace GameFramework.Triggers
 {
     public class ScoreTrigger : Trigger
     {
+        public int TriggerScore
+        {
+            get { return _scoreToTrigger; }
+        }
+
         private int _scoreToTrigger;
 
         public ScoreTrigger(int scoreToTriggerAt)

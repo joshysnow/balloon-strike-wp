@@ -57,7 +57,7 @@ namespace GameFramework
 
         public void Initialize(Animation moveAnimation, Animation pickupAnimation, SoundEffect pickedUp, Vector2 position, Vector2 velocity, short yLimit)
         {
-            _staticAnimation = moveAnimation;
+            _moveAnimation = moveAnimation;
             _pickupAnimation = pickupAnimation;
             _pickedUpSound = pickedUp;
             _positionUL = position;

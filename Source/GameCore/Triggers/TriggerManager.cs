@@ -6,6 +6,11 @@ namespace GameCore.Triggers
 {
     public class TriggerManager
     {
+        public Trigger[] Triggers
+        {
+            get { return _triggers.ToArray(); }
+        }
+
         private List<Trigger> _triggers;
 
         public TriggerManager()

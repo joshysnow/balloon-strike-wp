@@ -65,8 +65,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pulse.cs" />
     <Compile Include="ScoreDisplay.cs" />
-    <Compile Include="Sun.cs" />
     <Compile Include="Triggers\ScoreTrigger.cs" />
+    <Compile Include="Sun.cs" />
     <Compile Include="Triggers\TimeTrigger.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="WeaponDisplay.cs" />

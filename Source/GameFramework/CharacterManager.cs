@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,6 +7,7 @@ using GameCore;
 using GameCore.Timers;
 using GameCore.Physics;
 using GameCore.Triggers;
+using GameFramework.Triggers;
 
 namespace GameFramework
 {
@@ -61,7 +63,7 @@ namespace GameFramework
         public virtual void Update(GameTime gameTime)
         {
             UpdateCharacters(gameTime);
-            UpdateSpawners(gameTime);
+            UpdateTimers(gameTime);
             UpdateTriggers(gameTime);
         }
 
@@ -81,7 +83,71 @@ namespace GameFramework
 
         protected abstract void UpdateCharacters(GameTime gameTime);
 
-        private void UpdateSpawners(GameTime gameTime)
+        protected XElement SerializeTimers()
+        {
+            XElement root = new XElement("Timers");
+            XElement xTimer;
+
+            foreach (SimpleTimer timer in _timers)
+            {
+                xTimer = new XElement("Timer",
+                        new XAttribute("ElapseTime", timer.ElapseTime),
+                        new XAttribute("TimePassed", timer.TimePassed)
+                    );
+
+                if (timer is VariableTimer)
+                {
+                    VariableTimer vTimer = (VariableTimer)timer;
+                    xTimer.Add(
+                        new XAttribute("Type", ""),
+                        new XAttribute("Modifier", vTimer.Modifier), 
+                        new XAttribute("Bounds", vTimer.Bounds)
+                        );
+                }
+
+                root.Add(xTimer);
+            }
+
+            return root;
+        }
+
+        protected XElement SerializeTriggers()
+        {
+            XElement root = new XElement("Triggers");
+            XElement xTrigger;
+
+            foreach (Trigger trigger in _triggerManager.Triggers)
+            {
+                xTrigger = new XElement("Trigger");
+
+                if (trigger is ScoreTrigger)
+                {
+                    xTrigger.Add(
+                        new XAttribute("Type", "Score"),
+                        new XAttribute("Score", ((ScoreTrigger)trigger).TriggerScore)
+                        );
+                }
+                else if (trigger is TimeTrigger)
+                {
+                    TimeTrigger timeTrigger = (TimeTrigger)trigger;
+                    xTrigger.Add(
+                        new XAttribute("Type", "Time"),
+                        new XAttribute("TriggerTime", timeTrigger.TriggerTime),
+                        new XAttribute("TimePassed", timeTrigger.TimePassed)
+                        );
+                }
+                else
+                {
+                    xTrigger.Add(new XAttribute("Type", "Trigger"));
+                }
+
+                root.Add(xTrigger);
+            }
+
+            return root;
+        }
+
+        private void UpdateTimers(GameTime gameTime)
         {
             foreach (SimpleTimer timer in Timers)
             {
