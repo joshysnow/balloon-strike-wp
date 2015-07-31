@@ -54,6 +54,7 @@
     <Compile Include="Balloon.cs" />
     <Compile Include="BalloonFactory.cs" />
     <Compile Include="BalloonManager.cs" />
+    <Compile Include="BalloonModel.cs" />
     <Compile Include="BalloonPool.cs" />
     <Compile Include="CharacterManager.cs" />
     <Compile Include="Cloud.cs" />
