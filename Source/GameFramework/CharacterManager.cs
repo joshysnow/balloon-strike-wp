@@ -83,34 +83,6 @@ namespace GameFramework
 
         protected abstract void UpdateCharacters(GameTime gameTime);
 
-        protected XElement SerializeTimers()
-        {
-            XElement root = new XElement("Timers");
-            XElement xTimer;
-
-            foreach (SimpleTimer timer in _timers)
-            {
-                xTimer = new XElement("Timer",
-                        new XAttribute("ElapseTime", timer.ElapseTime),
-                        new XAttribute("TimePassed", timer.TimePassed)
-                    );
-
-                if (timer is VariableTimer)
-                {
-                    VariableTimer vTimer = (VariableTimer)timer;
-                    xTimer.Add(
-                        new XAttribute("Type", ""),
-                        new XAttribute("Modifier", vTimer.Modifier), 
-                        new XAttribute("Bounds", vTimer.Bounds)
-                        );
-                }
-
-                root.Add(xTimer);
-            }
-
-            return root;
-        }
-
         protected XElement SerializeTriggers()
         {
             XElement root = new XElement("Triggers");

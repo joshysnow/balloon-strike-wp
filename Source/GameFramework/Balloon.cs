@@ -50,7 +50,6 @@ namespace GameFramework
         }
 
         private Animation _popAnimation;
-        //private Animation _freezeAnimation;
         private Animation _hitAnimation;
         private SoundEffect _popSound;
         private SimpleTimer _frozenTimer;
@@ -263,7 +262,7 @@ namespace GameFramework
             if (_frozenTimer.Update(gameTime))
             {
                 _frozenTimer = null;
-                //_animationPlayer.SetAnimation(_moveAnimation, _positionUL);
+
                 if (_state == BalloonState.Hit)
                 {
                     _previousState = BalloonState.Alive;
