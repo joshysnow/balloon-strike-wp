@@ -10,11 +10,13 @@ namespace GameFramework
         public Vector2 PositionUL
         {
             get { return _positionUL; }
+            set { _positionUL = value; }
         }
 
         public Vector2 PositionLR
         {
             get { return _positionLR; }
+            set { _positionLR = value; }
         }
 
         protected AnimationPlayer _animationPlayer;
