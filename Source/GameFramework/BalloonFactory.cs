@@ -6,38 +6,32 @@ namespace GameFramework
 {
     public class BalloonFactory
     {
-        private Animation _greenMove;
-        private Animation _blueMove;
-        private Animation _redMove;
-        private Animation _popAnimation;
-        private Animation _hitAnimation;
-        private SoundEffect _popSound;
-
-        private Vector2 _greenVelocity;
-        private Vector2 _blueVelocity;
-        private Vector2 _redVelocity;
+        private BalloonModel _redModel;
+        private BalloonModel _greenModel;
+        private BalloonModel _blueModel;
 
         public BalloonFactory() { }
 
         public void Initialize()
         {
             ResourceManager manager = ResourceManager.Resources;
+            
+            Animation redMove = manager.GetAnimation("redmove");
+            Animation greenMove = manager.GetAnimation("greenmove");
+            Animation blueMove = manager.GetAnimation("bluemove");
 
-            _greenMove = manager.GetAnimation("greenmove");
-            _blueMove = manager.GetAnimation("redmove");
-            _redMove = manager.GetAnimation("bluemove");
+            Animation popAnimation = manager.GetAnimation("popmove");
+            Animation hitAnimation = manager.GetAnimation("hitmove");
 
-            _popAnimation = manager.GetAnimation("popmove");
-            _hitAnimation = manager.GetAnimation("hitmove");
+            SoundEffect popSound = manager.GetSoundEffect("pop");
 
-            _popSound = manager.GetSoundEffect("pop");
+            Vector2 redVelocity = new Vector2(0, -8f);
+            Vector2 greenVelocity = new Vector2(0, -5f);
+            Vector2 blueVelocity = new Vector2(0, -6.5f);
 
-            _redVelocity = new Vector2(0, -8f);
-            _greenVelocity = new Vector2(0, -5f);
-            _blueVelocity = new Vector2(0, -6.5f);
-
-            // TODO: Convert this information to use 3 models instead of
-            // keeping many variables in this class.
+            _redModel = new BalloonModel(redMove, popAnimation, hitAnimation, popSound, ref redVelocity, 3);
+            _greenModel = new BalloonModel(greenMove, popAnimation, hitAnimation, popSound, ref greenVelocity, 1);
+            _blueModel = new BalloonModel(blueMove, popAnimation, hitAnimation, popSound, ref blueVelocity, 2);
         }
 
         /// <summary>
@@ -64,31 +58,19 @@ namespace GameFramework
         /// <returns>Balloon made into the color desired.</returns>
         public Balloon MakeBalloon(BalloonColor color, ref Balloon make)
         {
-            Animation move;
-            Vector2 velocity;
-            float health;
-
             switch (make.Color)
             {
                 case BalloonColor.Red:
-                    health = 3;
-                    move = _redMove;
-                    velocity = _redVelocity;
+                    make.Initialize(_redModel);
                     break;
                 case BalloonColor.Blue:
-                    health = 2;
-                    move = _blueMove;
-                    velocity = _blueVelocity;
+                    make.Initialize(_blueModel);
                     break;
                 case BalloonColor.Green:
                 default:
-                    health = 1;
-                    move = _greenMove;
-                    velocity = _greenVelocity;
+                    make.Initialize(_greenModel);
                     break;
             }
-
-            make.Initialize(move, _hitAnimation, _popAnimation, _popSound, Vector2.Zero, velocity, health);
 
             return make;
         }

@@ -31,19 +31,26 @@ namespace GameFramework
             get { return _velocity; }
         }
 
+        public float StartHealth
+        {
+            get { return _health; }
+        }
+
         private Animation _moveAnimation;
         private Animation _popAnimation;
         private Animation _hitAnimation;
         private SoundEffect _popSound;
         private Vector2 _velocity;
+        private float _health;
 
-        public BalloonModel(Animation move, Animation pop, Animation hit, SoundEffect popSound, ref Vector2 velocity) 
+        public BalloonModel(Animation move, Animation pop, Animation hit, SoundEffect popSound, ref Vector2 velocity, float health) 
         {
             _moveAnimation = move;
             _popAnimation = pop;
             _hitAnimation = hit;
             _popSound = popSound;
             _velocity = velocity;
+            _health = health;
         }
     }
 }
