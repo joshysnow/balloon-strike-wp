@@ -3,7 +3,7 @@ using GameCore.Timers;
 
 namespace GameFramework
 {
-    public delegate void SpawnHandler(Character type);
+    public delegate void SpawnHandler(Spawner sender, Character prototype);
 
     public class Spawner
     {
@@ -29,6 +29,7 @@ namespace GameFramework
         /// <returns>A spawner XML element.</returns>
         public XElement Serialize()
         {
+            // TODO: Move into timer class!
             XElement root = new XElement("Spawner");
 
             XElement xTimer = new XElement("Timer",
@@ -58,7 +59,7 @@ namespace GameFramework
         private void TimerElapsedHandler(SimpleTimer timer)
         {
             if (Spawn != null)
-                Spawn(_prototype);
+                Spawn(this, _prototype);
         }
     }
 }

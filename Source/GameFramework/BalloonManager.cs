@@ -49,6 +49,38 @@ namespace GameFramework
             _managerState = BalloonManagerState.Normal;
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
+            // TODO: Use new spawner wrapper
+            //  - Get pool balloon
+            //  - Put timer and pool balloon into spawner
+            //  - Hook spawner to spawn function
+            //
+            // Note: Pointing all spawner objects to the same function won't
+            // matter as this is not a multi-threaded environment so values
+            // won't be changed by many spawners (single thread scenario).
+            //
+            // TODO: Can this be put into a function?
+
+            // Get a balloon to use as prototype.
+            Balloon prototype = _pool.Pop();
+
+            // Set color for type of balloon we want to spawn.
+            prototype.Color = BalloonColor.Green;
+
+            // Create a timer for this spawner
+            VariableTimer _greenTimer = new VariableTimer(4000, 0.9f, 750);
+
+            // Note: Left in to keep the game working while the transition to spawners is underway.
+            _greenTimer.Elapsed += GreenTimerElapsed;
+
+            // Create spawner
+            Spawner greenSpawner = new Spawner(_greenTimer, prototype);
+
+            // Listen for elapse
+            greenSpawner.Spawn += SpawnerSpawnHandler;
+            
+            // TODO: Manager this collection! Do all managers use timers? For this game yes but is it coupled?
+            Timers.Add(_greenTimer);
+
             // Add two triggers for when to begin spawning the other balloons.
             Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(20));
             blueSpawnStart.Triggered += BlueSpawnStartTriggerHandler;
@@ -61,11 +93,6 @@ namespace GameFramework
             Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
             velocityChange.Triggered += VelocityChangeTriggerHandler;
             Triggers.AddTrigger(velocityChange);
-
-            // Start green balloon immediately.
-            VariableTimer _greenTimer = new VariableTimer(4000, 0.9f, 750);
-            _greenTimer.Elapsed += GreenTimerElapsed;
-            Timers.Add(_greenTimer);
 
 #warning EXPERIMENT START
             TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
@@ -87,6 +114,21 @@ namespace GameFramework
             _hitAnimation = manager.GetAnimation("hitmove");
 
             _popSoundEffect = manager.GetSoundEffect("pop");
+        }
+
+        private void SpawnerSpawnHandler(Spawner sender, Character prototype)
+        {
+            // TODO: To spawn balloon
+            //  - Get balloon color
+            //  - Get balloon node
+            //  - Use factory to make balloon
+            //  - Add new balloon to manager
+
+            BalloonColor spawnColor = ((Balloon)prototype).Color;
+
+            Balloon make = _pool.Pop();
+
+
         }
 
         public override void Activate(bool instancePreserved)

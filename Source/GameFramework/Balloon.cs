@@ -64,6 +64,11 @@ namespace GameFramework
             _isAvailable = true;
         }
 
+        public void Initialize(BalloonModel model)
+        {
+            // TODO: Perhaps initialization of pooled nodes could be inherited? Or an object to hold the state of initialized/available.
+        }
+
         public void Initialize(Animation moveAnimation, Animation hitAnimation, Animation popAnimation, SoundEffect popSound, Vector2 position, Vector2 velocity, float health)
         {
             _popAnimation = popAnimation;

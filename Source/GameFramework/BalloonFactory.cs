@@ -35,19 +35,34 @@ namespace GameFramework
             _redVelocity = new Vector2(0, -8f);
             _greenVelocity = new Vector2(0, -5f);
             _blueVelocity = new Vector2(0, -6.5f);
+
+            // TODO: Convert this information to use 3 models instead of
+            // keeping many variables in this class.
         }
 
+        /// <summary>
+        /// This will create a new balloon on the heap! Use if
+        /// no other resource is available.
+        /// </summary>
+        /// <param name="color">Color of the balloon to make.</param>
+        /// <returns>A new balloon initialized to the type of the color parameter.</returns>
         public Balloon MakeBalloon(BalloonColor color)
         {
             Balloon make = new Balloon();
             make.Color = color;
 
-            MakeBalloon(make);
+            MakeBalloon(color, ref make);
 
             return make;
         }
 
-        public Balloon MakeBalloon(Balloon make)
+        /// <summary>
+        /// Creates a balloon using an already instantiated object.
+        /// </summary>
+        /// <param name="color">Color the balloon should be made into.</param>
+        /// <param name="make">An instantiated balloon.</param>
+        /// <returns>Balloon made into the color desired.</returns>
+        public Balloon MakeBalloon(BalloonColor color, ref Balloon make)
         {
             Animation move;
             Vector2 velocity;
