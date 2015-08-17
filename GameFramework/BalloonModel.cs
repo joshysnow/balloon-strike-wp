@@ -31,9 +31,9 @@ namespace GameFramework
             get { return _velocity; }
         }
 
-        public float StartHealth
+        public Vector2 Size
         {
-            get { return _health; }
+            get { return _size; }
         }
 
         private Animation _moveAnimation;
@@ -41,16 +41,19 @@ namespace GameFramework
         private Animation _hitAnimation;
         private SoundEffect _popSound;
         private Vector2 _velocity;
-        private float _health;
+        private Vector2 _size;
 
-        public BalloonModel(Animation move, Animation pop, Animation hit, SoundEffect popSound, ref Vector2 velocity, float health) 
+        public BalloonModel(Animation move, Animation pop, Animation hit, SoundEffect popSound, ref Vector2 velocity) 
         {
             _moveAnimation = move;
             _popAnimation = pop;
             _hitAnimation = hit;
             _popSound = popSound;
             _velocity = velocity;
-            _health = health;
+
+            _size = new Vector2(
+                _moveAnimation.FrameWidth * _moveAnimation.Scale,       // Width
+                _moveAnimation.FrameHeight * _moveAnimation.Scale);     // Height
         }
     }
 }

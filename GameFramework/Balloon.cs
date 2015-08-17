@@ -35,7 +35,7 @@ namespace GameFramework
 
         public BalloonState State
         {
-            get { return _state; }
+            get { return _currentState; }
         }
 
         public float Health
@@ -49,12 +49,10 @@ namespace GameFramework
             get { return _isAvailable; }
         }
 
-        private Animation _popAnimation;
-        private Animation _hitAnimation;
-        private SoundEffect _popSound;
         private SimpleTimer _frozenTimer;
-        private BalloonState _state;
+        private BalloonState _currentState;
         private BalloonState _previousState;
+        private BalloonModel _model;
         private bool _initialized;
         private bool _isAvailable;
 
@@ -64,31 +62,27 @@ namespace GameFramework
             _isAvailable = true;
         }
 
-        public void Initialize(BalloonModel model)
+        public void Initialize(BalloonModel model, ref Vector2 position, float health)
         {
-            // TODO: Perhaps initialization of pooled nodes could be inherited? Or an object to hold the state of initialized/available.
-        }
-
-        public void Initialize(Animation moveAnimation, Animation hitAnimation, Animation popAnimation, SoundEffect popSound, Vector2 position, Vector2 velocity, float health)
-        {
-            _popAnimation = popAnimation;
-            _hitAnimation = hitAnimation;
-            _moveAnimation = moveAnimation;
-            _popSound = popSound;
-            _positionUL = position;
-            _velocity = velocity;
+            _model = model;
             Health = health;
 
-            int width = (int)(moveAnimation.FrameWidth * moveAnimation.Scale);
-            int height = (int)(moveAnimation.FrameHeight * moveAnimation.Scale);
-            _positionLR = new Vector2(position.X + width, position.Y + height);
-            _rectangle = new GameCore.Physics.Shapes.Rectangle(_positionUL, _positionLR);
-
-            _state = BalloonState.Alive;
+            // Set default state.
+            _currentState = BalloonState.Alive;
             _previousState = BalloonState.Alive;
 
-            _animationPlayer.SetAnimation(_moveAnimation);
+            // Set positions.
+            _positionUL = position;
+            _positionLR = new Vector2(
+                (position.X + model.Size.X),    // x
+                (position.Y + model.Size.Y));   // y
+
+            // Instantiate collision shape.
+            _rectangle = new GameCore.Physics.Shapes.Rectangle(_positionUL, _positionLR);
+
+            // Initialize animation player.
             _animationPlayer.SetPosition(_positionUL);
+            _animationPlayer.SetAnimation(_moveAnimation);
 
             _initialized = true;
             _isAvailable = false;
@@ -104,7 +98,7 @@ namespace GameFramework
         {
             if (_initialized)
             {
-                switch (_state)
+                switch (_currentState)
                 {
                     case BalloonState.Alive:
                         {
@@ -161,7 +155,7 @@ namespace GameFramework
             }
 
             _frozenTimer = new SimpleTimer(time);
-            //_animationPlayer.SetAnimation(_freezeAnimation, _positionUL);
+
             ChangeState(BalloonState.Frozen);
         }
 
@@ -183,7 +177,7 @@ namespace GameFramework
             else
             {
                 ChangeState(BalloonState.Hit);
-                _animationPlayer.SetAnimation(_hitAnimation);
+                _animationPlayer.SetAnimation(_model.HitAnimation);
             }
         }
 
@@ -195,17 +189,18 @@ namespace GameFramework
             }
 
             ChangeState(BalloonState.Popped);
-            _popSound.Play();
+            _model.PopSound.Play();
 
             float centerX = (_positionUL.X + _positionLR.X) / 2;
             float centerY = (_positionUL.Y + _positionLR.Y) / 2;
 
-            float width = (_popAnimation.FrameWidth * _popAnimation.Scale) / 2;
-            float height = (_popAnimation.FrameHeight * _popAnimation.Scale) / 2;
+            float halfWidth = (_model.PopAnimation.FrameWidth * _model.PopAnimation.Scale) / 2;
+            float halfHeight = (_model.PopAnimation.FrameHeight * _model.PopAnimation.Scale) / 2;
 
-            Vector2 explosionCoordinate = new Vector2((centerX - width), (centerY - height));
+            // Essentially the coordinates should be centre - half the new textures width
+            Vector2 explosionCoordinate = new Vector2((centerX - halfWidth), (centerY - halfHeight));
 
-            _animationPlayer.SetAnimation(_popAnimation);
+            _animationPlayer.SetAnimation(_model.PopAnimation);
             _animationPlayer.SetPosition(_positionUL);
         }
 
@@ -226,7 +221,7 @@ namespace GameFramework
             if (_animationPlayer.Finished)
             {
                 ChangeState(_previousState);
-                _animationPlayer.SetAnimation(_moveAnimation);
+                _animationPlayer.SetAnimation(_model.MoveAnimation);
             }
 
 #warning What if frozen timer finishes before hit animation has ended? Make it sync with animation duration
@@ -268,7 +263,7 @@ namespace GameFramework
             {
                 _frozenTimer = null;
 
-                if (_state == BalloonState.Hit)
+                if (_currentState == BalloonState.Hit)
                 {
                     _previousState = BalloonState.Alive;
                 }
@@ -281,8 +276,8 @@ namespace GameFramework
 
         private void ChangeState(BalloonState state)
         {
-            _previousState = _state;
-            _state = state;
+            _previousState = _currentState;
+            _currentState = state;
         }
     }
 }
