@@ -26,15 +26,7 @@ namespace GameFramework
         public event BalloonEventHandler Escaped;
 
         private BalloonPool _pool;
-        private Vector2 _redVelocity;
-        private Vector2 _greenVelocity;
-        private Vector2 _blueVelocity;
-        private Animation _greenMoveAnimation;
-        private Animation _redMoveAnimation;
-        private Animation _blueMoveAnimation;
-        private Animation _popAnimation;
-        private Animation _hitAnimation;
-        private SoundEffect _popSoundEffect;
+        private BalloonFactory _factory;
         private BalloonManagerState _managerState;
         private SimpleTimer _freezeTimer;
         private Random _randomPosition;
@@ -45,6 +37,9 @@ namespace GameFramework
         {
             _pool = new BalloonPool(50);
             _pool.Fill();
+
+            _factory = new BalloonFactory();
+            _factory.Initialize();
 
             _managerState = BalloonManagerState.Normal;
             _randomPosition = new Random(DateTime.Now.Millisecond);
@@ -57,88 +52,39 @@ namespace GameFramework
             // Note: Pointing all spawner objects to the same function won't
             // matter as this is not a multi-threaded environment so values
             // won't be changed by many spawners (single thread scenario).
-            //
-            // TODO: Can this be put into a function?
-
-            // Get a balloon to use as prototype.
-            Balloon prototype = _pool.Pop();
-
-            // Set color for type of balloon we want to spawn.
-            prototype.Color = BalloonColor.Green;
 
             // Create a timer for this spawner
-            VariableTimer _greenTimer = new VariableTimer(4000, 0.9f, 750);
+            VariableTimer greenTimer = new VariableTimer(4000, 0.9f, 750);
+            CreateSpawner(BalloonColor.Green, greenTimer);
 
-            // Note: Left in to keep the game working while the transition to spawners is underway.
-            _greenTimer.Elapsed += GreenTimerElapsed;
-
-            // Create spawner
-            Spawner greenSpawner = new Spawner(_greenTimer, prototype);
-
-            // Listen for elapse
-            greenSpawner.Spawn += SpawnerSpawnHandler;
-            
-            // TODO: Manager this collection! Do all managers use timers? For this game yes but is it coupled?
-            Timers.Add(_greenTimer);
 
             // Add two triggers for when to begin spawning the other balloons.
-            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(20));
-            blueSpawnStart.Triggered += BlueSpawnStartTriggerHandler;
-            Triggers.AddTrigger(blueSpawnStart);
+//            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(20));
+//            blueSpawnStart.Triggered += BlueSpawnStartTriggerHandler;
+//            Triggers.AddTrigger(blueSpawnStart);
 
-            Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(45));
-            redSpawnStart.Triggered += RedSpawnStartTriggerHandler;
-            Triggers.AddTrigger(redSpawnStart);
+//            Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(45));
+//            redSpawnStart.Triggered += RedSpawnStartTriggerHandler;
+//            Triggers.AddTrigger(redSpawnStart);
 
-            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
-            velocityChange.Triggered += VelocityChangeTriggerHandler;
-            Triggers.AddTrigger(velocityChange);
+//            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
+//            velocityChange.Triggered += VelocityChangeTriggerHandler;
+//            Triggers.AddTrigger(velocityChange);
 
-#warning EXPERIMENT START
-            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
-            massAttackTimer.Triggered += MassAttackTimerTriggered;
-            Triggers.AddTrigger(massAttackTimer);
-#warning EXPERIMENT END
-
-            _redVelocity = new Vector2(0, -8f);
-            _greenVelocity = new Vector2(0, -5f);
-            _blueVelocity = new Vector2(0, -6.5f);
-
-            ResourceManager manager = ResourceManager.Resources;
-
-            _greenMoveAnimation = manager.GetAnimation("greenmove");
-            _redMoveAnimation = manager.GetAnimation("redmove");
-            _blueMoveAnimation = manager.GetAnimation("bluemove");
-
-            _popAnimation = manager.GetAnimation("popmove");
-            _hitAnimation = manager.GetAnimation("hitmove");
-
-            _popSoundEffect = manager.GetSoundEffect("pop");
-        }
-
-        private void SpawnerSpawnHandler(Spawner sender, Character prototype)
-        {
-            // TODO: To spawn balloon
-            //  - Get balloon color
-            //  - Get balloon node
-            //  - Use factory to make balloon
-            //  - Add new balloon to manager
-
-            BalloonColor spawnColor = ((Balloon)prototype).Color;
-
-            Balloon make = _pool.Pop();
-
-
+//#warning EXPERIMENT
+//            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
+//            massAttackTimer.Triggered += MassAttackTimerTriggered;
+//            Triggers.AddTrigger(massAttackTimer);
         }
 
         public override void Activate(bool instancePreserved)
         {
-            
+            // TODO
         }
 
         public override void Deactivate()
         {
-            // TODO: Store triggers, timers and balloon
+            // TODO
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
@@ -274,100 +220,150 @@ namespace GameFramework
             }
         }
 
-        private void BlueSpawnStartTriggerHandler(Trigger trigger)
+        private void CreateSpawner(BalloonColor color, SimpleTimer timer)
         {
-            VariableTimer blueTimer = new VariableTimer(7500, 0.9f, 1000, true);
-            blueTimer.Elapsed += BlueTimerElapsed;
-            Timers.Add(blueTimer);
+            // Get a balloon to use as prototype.
+            Balloon prototype = _pool.Pop();
+
+            // Set color for type of balloon we want to spawn.
+            prototype.Color = color;
+
+            // Make the prototype.
+            Vector2 position = Vector2.Zero;
+            _factory.MakeBalloon(color, ref position, ref prototype);
+
+            // Instantiate spawner.
+            Spawner spawner = new Spawner(timer, prototype);
+
+            // Listen for when to spawn.
+            spawner.Spawn += SpawnerSpawnHandler;
+
+            // TODO: Manager this collection! Do all managers use timers? For this game yes but is it coupled?
+            // Want to hold spawners not timers.
+            // Spawners to hold info on starting (like trigger).
+            Timers.Add(timer);
         }
 
-        private void RedSpawnStartTriggerHandler(Trigger trigger)
+        private void SpawnerSpawnHandler(Spawner sender, Character prototype)
         {
-            VariableTimer redTimer = new VariableTimer(7500, 0.9f, 1000, true);
-            redTimer.Elapsed += RedTimerElapsed;
-            Timers.Add(redTimer);
-        }
+            // TODO: To spawn balloon
+            //  - Get balloon color
+            //  - Get balloon node
+            //  - Use factory to make balloon
+            //  - Add new balloon to manager
 
-        private void VelocityChangeTriggerHandler(Trigger trigger)
-        {
-            _greenVelocity.Y = -9f;
-            _blueVelocity.Y = -11f;
-            _redVelocity.Y = -13f;
-        }
+            // Convert prototype into type of character.
+            Balloon proto = (Balloon)prototype;
 
-        private void MassAttackTimerTriggered(Trigger trigger)
-        {
-            SimpleTimer attackTimer = new SimpleTimer(TimeSpan.FromSeconds(30).Milliseconds);
-            attackTimer.Elapsed += AttackTimerElapsed;
-            Timers.Add(attackTimer);
-        }
+            // Get type of balloon to make.
+            BalloonColor spawnColor = proto.Color;
 
-        private void GreenTimerElapsed(SimpleTimer timer)
-        {
-            SpawnBalloon(BalloonColor.Green);
-        }
+            // Create a random starting coordinate.
+            int max = ScreenWidth - (int)proto.Size.X;  // Make sure the balloon cannot be spawned off screen.
+            int x = _randomPosition.Next(max);
 
-        private void BlueTimerElapsed(SimpleTimer timer)
-        {
-            SpawnBalloon(BalloonColor.Blue);
-        }
+            // Create starting coordinate.
+            Vector2 position = new Vector2(x, ScreenHeight);
 
-        private void RedTimerElapsed(SimpleTimer timer)
-        {
-            SpawnBalloon(BalloonColor.Red);
-        }
+            // Get preallocated resource.
+            Balloon make = _pool.Pop();
 
-        private void AttackTimerElapsed(SimpleTimer timer)
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                SpawnBalloon(BalloonColor.Red);
-            }
-        }
-
-        private void SpawnBalloon(BalloonColor colour)
-        {
-            Balloon spawn;
-
-            if (_pool.Size() > 0)
-            {
-                spawn = _pool.Pop();
-            }
+            // Use factory to make balloon. Check we have resource first otherwise make it.
+            if (make != null)
+                _factory.MakeBalloon(spawnColor, ref position, ref make);
             else
-            {
-                spawn = new Balloon();
-            }
-            
-            spawn.Color = colour;
+                _factory.MakeBalloon(spawnColor, ref position);
 
-            Vector2 velocity = new Vector2(0, 3.1f);
-            Animation moveAnimation;
-            float health;
-
-            switch (colour)
-            {
-                case BalloonColor.Red:
-                    health = 3;
-                    velocity = _redVelocity;
-                    moveAnimation = _redMoveAnimation;
-                    break;
-                case BalloonColor.Blue:
-                    health = 2;
-                    moveAnimation = _blueMoveAnimation;
-                    velocity = _blueVelocity;
-                    break;
-                case BalloonColor.Green:
-                default:
-                    health = 1;
-                    velocity = _greenVelocity;
-                    moveAnimation = _greenMoveAnimation;
-                    break;
-            }
-
-            int x = _randomPosition.Next(ScreenWidth - (int)(moveAnimation.AnimationTexture.Width * moveAnimation.Scale));
-            spawn.Initialize(moveAnimation, _hitAnimation, _popAnimation, _popSoundEffect, new Vector2(x, ScreenHeight), velocity, health);
-            Characters.Add(spawn);
+            Characters.Add(make);
         }
+
+        //private void BlueSpawnStartTriggerHandler(Trigger trigger)
+        //{
+        //    VariableTimer blueTimer = new VariableTimer(7500, 0.9f, 1000, true);
+        //    blueTimer.Elapsed += BlueTimerElapsed;
+        //    Timers.Add(blueTimer);
+        //}
+
+        //private void RedSpawnStartTriggerHandler(Trigger trigger)
+        //{
+        //    VariableTimer redTimer = new VariableTimer(7500, 0.9f, 1000, true);
+        //    redTimer.Elapsed += RedTimerElapsed;
+        //    Timers.Add(redTimer);
+        //}
+
+        //private void MassAttackTimerTriggered(Trigger trigger)
+        //{
+        //    SimpleTimer attackTimer = new SimpleTimer(TimeSpan.FromSeconds(30).Milliseconds);
+        //    attackTimer.Elapsed += AttackTimerElapsed;
+        //    Timers.Add(attackTimer);
+        //}
+
+        //private void GreenTimerElapsed(SimpleTimer timer)
+        //{
+        //    SpawnBalloon(BalloonColor.Green);
+        //}
+
+        //private void BlueTimerElapsed(SimpleTimer timer)
+        //{
+        //    SpawnBalloon(BalloonColor.Blue);
+        //}
+
+        //private void RedTimerElapsed(SimpleTimer timer)
+        //{
+        //    SpawnBalloon(BalloonColor.Red);
+        //}
+
+        //private void AttackTimerElapsed(SimpleTimer timer)
+        //{
+        //    for (int i = 0; i < 3; i++)
+        //    {
+        //        SpawnBalloon(BalloonColor.Red);
+        //    }
+        //}
+
+        //private void SpawnBalloon(BalloonColor colour)
+        //{
+        //    Balloon spawn;
+
+        //    if (_pool.Size() > 0)
+        //    {
+        //        spawn = _pool.Pop();
+        //    }
+        //    else
+        //    {
+        //        spawn = new Balloon();
+        //    }
+            
+        //    spawn.Color = colour;
+
+        //    Vector2 velocity = new Vector2(0, 3.1f);
+        //    Animation moveAnimation;
+        //    float health;
+
+        //    switch (colour)
+        //    {
+        //        case BalloonColor.Red:
+        //            health = 3;
+        //            velocity = _redVelocity;
+        //            moveAnimation = _redMoveAnimation;
+        //            break;
+        //        case BalloonColor.Blue:
+        //            health = 2;
+        //            moveAnimation = _blueMoveAnimation;
+        //            velocity = _blueVelocity;
+        //            break;
+        //        case BalloonColor.Green:
+        //        default:
+        //            health = 1;
+        //            velocity = _greenVelocity;
+        //            moveAnimation = _greenMoveAnimation;
+        //            break;
+        //    }
+
+        //    int x = _randomPosition.Next(ScreenWidth - (int)(moveAnimation.AnimationTexture.Width * moveAnimation.Scale));
+        //    spawn.Initialize(moveAnimation, _hitAnimation, _popAnimation, _popSoundEffect, new Vector2(x, ScreenHeight), velocity, health);
+        //    Characters.Add(spawn);
+        //}
 
         private void RaisePopped(Balloon balloon)
         {

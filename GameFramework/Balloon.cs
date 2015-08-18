@@ -38,6 +38,11 @@ namespace GameFramework
             get { return _currentState; }
         }
 
+        public Vector2 Size
+        {
+            get { return _model.Size; }
+        }
+
         public float Health
         {
             get;
