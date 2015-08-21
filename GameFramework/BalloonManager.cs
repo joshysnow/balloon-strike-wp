@@ -54,9 +54,8 @@ namespace GameFramework
             // won't be changed by many spawners (single thread scenario).
 
             // Create a timer for this spawner
-            VariableTimer greenTimer = new VariableTimer(4000, 0.9f, 750);
+            VariableTimer greenTimer = new VariableTimer(4000, 0.9f, 2000); // was 750
             CreateSpawner(BalloonColor.Green, greenTimer);
-
 
             // Add two triggers for when to begin spawning the other balloons.
 //            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(20));
@@ -71,7 +70,7 @@ namespace GameFramework
 //            velocityChange.Triggered += VelocityChangeTriggerHandler;
 //            Triggers.AddTrigger(velocityChange);
 
-//#warning EXPERIMENT
+//            // EXPERIMENT
 //            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
 //            massAttackTimer.Triggered += MassAttackTimerTriggered;
 //            Triggers.AddTrigger(massAttackTimer);

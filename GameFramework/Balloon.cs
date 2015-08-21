@@ -209,7 +209,7 @@ namespace GameFramework
             Vector2 explosionCoordinate = new Vector2((centerX - halfWidth), (centerY - halfHeight));
 
             _animationPlayer.SetAnimation(_model.PopAnimation);
-            _animationPlayer.SetPosition(_positionUL);
+            _animationPlayer.SetPosition(explosionCoordinate);
         }
 
         private void UpdateAlive()
