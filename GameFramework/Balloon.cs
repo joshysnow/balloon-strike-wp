@@ -85,9 +85,12 @@ namespace GameFramework
             // Instantiate collision shape.
             _rectangle = new GameCore.Physics.Shapes.Rectangle(_positionUL, _positionLR);
 
+            // TODO: Change inheritance hierarchy to be more component based i.e., passed in a character.
+            _velocity = _model.Velocity;
+
             // Initialize animation player.
             _animationPlayer.SetPosition(_positionUL);
-            _animationPlayer.SetAnimation(_moveAnimation);
+            _animationPlayer.SetAnimation(_model.MoveAnimation);
 
             _initialized = true;
             _isAvailable = false;
