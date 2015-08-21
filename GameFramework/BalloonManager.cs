@@ -245,8 +245,9 @@ namespace GameFramework
 
         private void SpawnerSpawnHandler(Spawner sender, Character prototype)
         {
-            // TODO: To spawn balloon
+            // To spawn balloon
             //  - Get balloon color
+            //  - Set position
             //  - Get balloon node
             //  - Use factory to make balloon
             //  - Add new balloon to manager
