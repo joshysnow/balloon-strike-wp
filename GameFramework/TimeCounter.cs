@@ -24,6 +24,11 @@ namespace GameFramework
         private float _limit;
         private bool _elapsed;
 
+        /// <summary>
+        /// Even if limit is zero it will not set elapsed until
+        /// update is called at least once.
+        /// </summary>
+        /// <param name="limit">Time to elapse.</param>
         public TimeCounter(TimeSpan limit)
         {
             _count = 0;

@@ -68,6 +68,7 @@
     <Compile Include="Pulse.cs" />
     <Compile Include="ScoreDisplay.cs" />
     <Compile Include="Spawner.cs" />
+    <Compile Include="TimeCounter.cs" />
     <Compile Include="Triggers\ScoreTrigger.cs" />
     <Compile Include="Sun.cs" />
     <Compile Include="Triggers\TimeTrigger.cs" />
