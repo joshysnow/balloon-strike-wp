@@ -44,7 +44,6 @@ namespace GameFramework
         public Balloon MakeBalloon(BalloonColor color, ref Vector2 position)
         {
             Balloon make = new Balloon();
-            make.Color = color;
 
             MakeBalloon(color, ref position, ref make);
 
@@ -60,6 +59,8 @@ namespace GameFramework
         /// <returns>Balloon made into the color desired.</returns>
         public Balloon MakeBalloon(BalloonColor color, ref Vector2 position, ref Balloon make)
         {
+            make.Color = color;
+
             switch (make.Color)
             {
                 case BalloonColor.Red:

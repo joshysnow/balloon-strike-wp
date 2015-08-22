@@ -1,4 +1,8 @@
 using System;
+using System.IO;
+using System.IO.IsolatedStorage;
+using System.Linq;
+using System.Xml.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,6 +29,9 @@ namespace GameFramework
         public event BalloonEventHandler Popped;
         public event BalloonEventHandler Escaped;
 
+        private const string STORAGE_FILE_NAME = "BALLOON_MANAGER.xml";
+
+        private List<Spawner> _spawners;
         private BalloonPool _pool;
         private BalloonFactory _factory;
         private BalloonManagerState _managerState;
@@ -35,6 +42,8 @@ namespace GameFramework
 
         public override void Initialize()
         {
+            _spawners = new List<Spawner>(5);
+
             _pool = new BalloonPool(50);
             _pool.Fill();
 
@@ -54,8 +63,19 @@ namespace GameFramework
             // won't be changed by many spawners (single thread scenario).
 
             // Create a timer for this spawner
-            VariableTimer greenTimer = new VariableTimer(4000, 0.9f, 2000); // was 750
-            CreateSpawner(BalloonColor.Green, greenTimer);
+            VariableTimer greenTimer = new VariableTimer(4000, 0.9f, 750);
+            Spawner greenSpawner = CreateSpawner(BalloonColor.Green, greenTimer);
+            _spawners.Add(greenSpawner);
+
+            VariableTimer blueTimer = new VariableTimer(7500, 0.9f, 1000, true);
+            TimeSpan startTime = TimeSpan.FromSeconds(20);
+            Spawner blueSpawner = CreateSpawner(BalloonColor.Blue, blueTimer, (float)startTime.TotalMilliseconds);
+            _spawners.Add(blueSpawner);
+
+            VariableTimer redTimer = new VariableTimer(7500, 0.9f, 1000, true);
+            startTime = TimeSpan.FromSeconds(45);
+            Spawner redSpawner = CreateSpawner(BalloonColor.Red, redTimer, (float)startTime.TotalMilliseconds);
+            _spawners.Add(redSpawner);
 
             // Add two triggers for when to begin spawning the other balloons.
 //            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(20));
@@ -78,12 +98,54 @@ namespace GameFramework
 
         public override void Activate(bool instancePreserved)
         {
-            // TODO
+            if (instancePreserved)
+            {
+                // Nothing to do here.
+            }
+            else
+            {
+                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    if (storage.FileExists(STORAGE_FILE_NAME))
+                    {
+                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                        {
+                            XDocument doc = XDocument.Load(stream);
+                        }
+                        
+                        storage.DeleteFile(STORAGE_FILE_NAME);
+                    }
+                    else
+                    {
+                        // TODO: Start a fresh
+
+                    }
+                }
+            }
         }
 
         public override void Deactivate()
         {
-            // TODO
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                XDocument doc = new XDocument();
+                XElement root = new XElement("BalloonManager", 
+                    new XAttribute("State", _managerState)
+                    );
+
+                XElement balloonsRoot = new XElement("Balloons");
+
+                // TODO: Add all balloons to the 
+                XElement balloon;
+
+                root.Add(balloonsRoot);
+                doc.Add(root);
+
+                using (IsolatedStorageFileStream stream = storage.CreateFile(""))
+                {
+                    doc.Save(stream);
+                }
+            }
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
@@ -158,6 +220,7 @@ namespace GameFramework
             else
             {
                 base.Update(gameTime);
+                UpdateSpawners(gameTime);
             }
         }
 
@@ -219,7 +282,15 @@ namespace GameFramework
             }
         }
 
-        private void CreateSpawner(BalloonColor color, SimpleTimer timer)
+        private void UpdateSpawners(GameTime gameTime)
+        {
+            foreach (Spawner spawner in _spawners)
+            {
+                spawner.Update(gameTime);
+            }
+        }
+
+        private Spawner CreateSpawner(BalloonColor color, SimpleTimer timer, float startTime = 0)
         {
             // Get a balloon to use as prototype.
             Balloon prototype = _pool.Pop();
@@ -232,7 +303,7 @@ namespace GameFramework
             _factory.MakeBalloon(color, ref position, ref prototype);
 
             // Instantiate spawner.
-            Spawner spawner = new Spawner(timer, prototype);
+            Spawner spawner = new Spawner(timer, prototype, startTime);
 
             // Listen for when to spawn.
             spawner.Spawn += SpawnerSpawnHandler;
@@ -240,14 +311,17 @@ namespace GameFramework
             // TODO: Manager this collection! Do all managers use timers? For this game yes but is it coupled?
             // Want to hold spawners not timers.
             // Spawners to hold info on starting (like trigger).
-            Timers.Add(timer);
+            //Timers.Add(timer);
+
+            return spawner;
         }
 
-        private void SpawnerSpawnHandler(Spawner sender, Character prototype)
+        private void SpawnerSpawnHandler(Spawner sender, object prototype)
         {
             // To spawn balloon
-            //  - Get balloon color
+            //  - Create random position
             //  - Set position
+            //  - Get balloon color
             //  - Get balloon node
             //  - Use factory to make balloon
             //  - Add new balloon to manager
@@ -255,15 +329,15 @@ namespace GameFramework
             // Convert prototype into type of character.
             Balloon proto = (Balloon)prototype;
 
-            // Get type of balloon to make.
-            BalloonColor spawnColor = proto.Color;
-
             // Create a random starting coordinate.
             int max = ScreenWidth - (int)proto.Size.X;  // Make sure the balloon cannot be spawned off screen.
             int x = _randomPosition.Next(max);
 
             // Create starting coordinate.
             Vector2 position = new Vector2(x, ScreenHeight);
+
+            // Get type of balloon to make.
+            BalloonColor spawnColor = proto.Color;
 
             // Get preallocated resource.
             Balloon make = _pool.Pop();
