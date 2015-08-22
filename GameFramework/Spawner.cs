@@ -14,14 +14,12 @@ namespace GameFramework
         private SimpleTimer _timer;
         private TimeCounter _counter;
         private object _prototype;
-        private bool _spawnOnStart;
         private bool _spawning = false;
 
-        public Spawner(SimpleTimer timer, object prototype, bool spawnImmediately = false, float startTime = 0)
+        public Spawner(SimpleTimer timer, object prototype, float startTime = 0)
         {
             _timer = timer;
             _prototype = prototype;
-            _spawnOnStart = spawnImmediately;
 
             // Always create the object anyways, incase it is tested later.
             _counter = new TimeCounter(TimeSpan.FromMilliseconds(startTime));
@@ -32,7 +30,8 @@ namespace GameFramework
 
         public void Update(GameTime gameTime)
         {
-            // Doing this means we can check if we need to spawn on first update too.
+            // Checked for efficency, always means if timer elapse flag is set
+            // then we will fire on this update call.
             if (_counter.Elapsed == false)
                 UpdateCounter(gameTime);
 
@@ -82,16 +81,8 @@ namespace GameFramework
             {
                 _counter.Update(gameTime);                
 
-                // Check if counter has elapsed
-                if (_counter.Elapsed)
-                {
-                    _spawning = true;
-
-                    // If set to spawn on start
-                    if (_spawnOnStart)
-                        RaiseSpawn();
-                }
-
+                // Update flag with latest value.
+                _spawning = _counter.Elapsed;
             }
         }
 
