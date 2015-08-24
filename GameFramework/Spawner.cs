@@ -94,7 +94,9 @@ namespace GameFramework
         private void RaiseSpawn()
         {
             if (Spawn != null)
+            {
                 Spawn(this, _prototype);
+            }
         }
     }
 }

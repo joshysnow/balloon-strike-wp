@@ -77,15 +77,6 @@ namespace GameFramework
             Spawner redSpawner = CreateSpawner(BalloonColor.Red, redTimer, (float)startTime.TotalMilliseconds);
             _spawners.Add(redSpawner);
 
-            // Add two triggers for when to begin spawning the other balloons.
-//            Trigger blueSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(20));
-//            blueSpawnStart.Triggered += BlueSpawnStartTriggerHandler;
-//            Triggers.AddTrigger(blueSpawnStart);
-
-//            Trigger redSpawnStart = new TimeTrigger(TimeSpan.FromSeconds(45));
-//            redSpawnStart.Triggered += RedSpawnStartTriggerHandler;
-//            Triggers.AddTrigger(redSpawnStart);
-
 //            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
 //            velocityChange.Triggered += VelocityChangeTriggerHandler;
 //            Triggers.AddTrigger(velocityChange);
@@ -350,20 +341,6 @@ namespace GameFramework
 
             Characters.Add(make);
         }
-
-        //private void BlueSpawnStartTriggerHandler(Trigger trigger)
-        //{
-        //    VariableTimer blueTimer = new VariableTimer(7500, 0.9f, 1000, true);
-        //    blueTimer.Elapsed += BlueTimerElapsed;
-        //    Timers.Add(blueTimer);
-        //}
-
-        //private void RedSpawnStartTriggerHandler(Trigger trigger)
-        //{
-        //    VariableTimer redTimer = new VariableTimer(7500, 0.9f, 1000, true);
-        //    redTimer.Elapsed += RedTimerElapsed;
-        //    Timers.Add(redTimer);
-        //}
 
         //private void MassAttackTimerTriggered(Trigger trigger)
         //{
