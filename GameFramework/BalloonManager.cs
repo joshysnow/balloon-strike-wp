@@ -126,8 +126,7 @@ namespace GameFramework
 
                 XElement balloonsRoot = new XElement("Balloons");
 
-                // TODO: Add all balloons to the 
-                XElement balloon;
+                // TODO: Add all balloons
 
                 root.Add(balloonsRoot);
                 doc.Add(root);
@@ -281,7 +280,7 @@ namespace GameFramework
             }
         }
 
-        private Spawner CreateSpawner(BalloonColor color, SimpleTimer timer, float startTime = 0)
+        private Spawner CreateSpawner(BalloonColor color, VariableTimer timer, float startTime = 0)
         {
             // Get a balloon to use as prototype.
             Balloon prototype = _pool.Pop();

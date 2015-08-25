@@ -10,26 +10,23 @@ namespace GameCore.Timers
     {
         public event ElapsedHandler Elapsed;
 
-        protected float _elapseTime;
-        private float _timePassed;
-
-        /// <summary>
-        /// Initialize a repeating timer.
-        /// </summary>
-        /// <param name="elapseTime">Time to tick over in ms.</param>
-        public SimpleTimer(float elapseTime)
+        public float ElapseTime
         {
-            _timePassed = 0f;
-            _elapseTime = elapseTime;
+            get { return _elapseTime; }
         }
+
+        private float _elapseTime;
+        private float _timePassed;
 
         /// <summary>
         /// Initialize a repeating timer with the option to elapse on first update.
         /// </summary>
         /// <param name="elapseTime">Time to tick over in ms.</param>
-        public SimpleTimer(float elapseTime, bool elapse) 
-            : this(elapseTime)
+        /// <param name="elapse">Fire on first update call or not.</param>
+        public SimpleTimer(float elapseTime, bool elapse = false)
         {
+            _elapseTime = elapseTime;
+
             if (elapse)
             {
                 _timePassed = elapseTime;

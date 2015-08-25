@@ -11,21 +11,18 @@ namespace GameFramework
     {
         public event SpawnHandler Spawn;
 
-        private SimpleTimer _timer;
+        private VariableTimer _timer;
         private TimeCounter _counter;
         private object _prototype;
         private bool _spawning = false;
 
-        public Spawner(SimpleTimer timer, object prototype, float startTime = 0)
+        public Spawner(VariableTimer timer, object prototype, float startTime = 0)
         {
             _timer = timer;
             _prototype = prototype;
 
             // Always create the object anyways, incase it is tested later.
             _counter = new TimeCounter(TimeSpan.FromMilliseconds(startTime));
-
-            // Subscriber to timers elapse event, will use this to trigger a spawn.
-            _timer.Elapsed += TimerElapsedHandler;
         }
 
         public void Update(GameTime gameTime)
@@ -36,7 +33,12 @@ namespace GameFramework
                 UpdateCounter(gameTime);
 
             if (_spawning)
-                _timer.Update(gameTime);
+            {
+                if (_timer.Update(gameTime))
+                {
+                    RaiseSpawn();
+                }
+            }
         }
 
         /// <summary>
@@ -71,11 +73,6 @@ namespace GameFramework
                 // Update flag with latest value.
                 _spawning = _counter.Elapsed;
             }
-        }
-
-        private void TimerElapsedHandler(SimpleTimer timer)
-        {
-            RaiseSpawn();
         }
 
         private void RaiseSpawn()
