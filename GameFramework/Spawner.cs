@@ -56,10 +56,11 @@ namespace GameFramework
 
             // TODO: Serialize prototype (will have to be character to override dehydrate)
 
-            // Serialize counter
+            // Serialize counter.
             xSpawner.Add(_counter.Dehydrate());
 
-            // TODO: Serialize timer
+            // Serialize timer.
+            xSpawner.Add(_timer.Dehydrate());
 
             return xSpawner;
         }
