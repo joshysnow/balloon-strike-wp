@@ -48,31 +48,18 @@ namespace GameFramework
         /// <returns>A spawner XML element.</returns>
         public XElement Serialize()
         {
-            XElement root = new XElement("Spawner");
-
-            // TODO: Move into timer class! Would eliminate the horrible if statement below
-            XElement xTimer = new XElement("Timer",
-                new XAttribute("ElapseTime", _timer.ElapseTime),
-                new XAttribute("TimePassed", _timer.TimePassed)
+            XElement xSpawner = new XElement("Spawner",
+                new XAttribute("Spawning", _spawning)
                 );
 
-            if (_timer is VariableTimer)
-            {
-                VariableTimer vTimer = (VariableTimer)_timer;
-                xTimer.Add(
-                    new XAttribute("Type", "Variable"),
-                    new XAttribute("Modifier", vTimer.Modifier),
-                    new XAttribute("Bounds", vTimer.Bounds)
-                    );
-            }
-            else
-            {
-                xTimer.Add(new XAttribute("Type", "Simple"));
-            }
+            // TODO: Serialize prototype (will have to be character to override dehydrate)
 
-            root.Add(xTimer);
+            // Serialize counter
+            xSpawner.Add(_counter.Dehydrate());
 
-            return root;
+            // TODO: Serialize timer
+
+            return xSpawner;
         }
 
         private void UpdateCounter(GameTime gameTime)

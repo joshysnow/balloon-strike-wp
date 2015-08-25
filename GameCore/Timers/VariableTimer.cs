@@ -1,26 +1,11 @@
 using System;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 
 namespace GameCore.Timers
 {
     public class VariableTimer : SimpleTimer
     {
-        /// <summary>
-        /// Between 0 and 1.
-        /// </summary>
-        public float Modifier
-        {
-            get { return _modifier; }
-        }
-
-        /// <summary>
-        /// In milliseconds (ms).
-        /// </summary>
-        public float Bounds
-        {
-            get { return _bounds; }
-        }
-
         private float _modifier;
         private float _bounds;
 
@@ -72,6 +57,20 @@ namespace GameCore.Timers
             }
 
             return elapsed;
+        }
+
+        public XElement Dehydrate()
+        {
+            XElement xVarTimer = new XElement("VariableTimer",
+                new XAttribute("Bounds", _bounds),
+                new XAttribute("Modifier", _modifier)
+                );
+
+            // Add super class as a child to this element.
+            XElement xSuper = base.Dehydrate();
+            xVarTimer.Add(xSuper);
+
+            return xVarTimer;
         }
     }
 }
