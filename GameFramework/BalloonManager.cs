@@ -102,20 +102,47 @@ namespace GameFramework
                         using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
                         {
                             XDocument doc = XDocument.Load(stream);
+                            XElement root = doc.Root;
 
-                            // Remember for spawners, get the Spawns attribute to know what balloon
-                            // prototype to build for it
+                            // Rehydrate manager state.
+                            BalloonManagerState temp = BalloonManagerState.Normal;
+                            _managerState = (BalloonManagerState)Enum.Parse(temp.GetType(), root.Attribute("State").Value, false);
+
+                            // TODO: Rehydrate freeze timer (if set)
+                            if (_managerState == BalloonManagerState.Frozen)
+                            {
+
+                            }
+
+                            // TODO: Rehydrate balloons
+
+
+                            // Rehydrate spawners
+                            XElement xSpawners = root.Element("Spawners");
+                            foreach (XElement xSpawner in xSpawners.Elements())
+                            {
+
+                            }
+
+                            // Note: Remember for spawners, get the Spawns attribute to know what balloon
+                            // prototype to build for it.
                         }
                         
                         storage.DeleteFile(STORAGE_FILE_NAME);
                     }
                     else
                     {
-                        // TODO: Start a fresh
+                        // Nothing to rehydrate from so initialize as new.
+                        Initialize();
 
                     }
                 }
             }
+        }
+
+        private void RehydrateSpawner(XElement spawnerElement)
+        {
+
         }
 
         public override void Deactivate()
@@ -127,10 +154,16 @@ namespace GameFramework
                     new XAttribute("State", _managerState)
                     );
 
+                // Dehydrate frozen timer.
+                if ((_managerState == BalloonManagerState.Frozen) && (_freezeTimer != null))
+                {
+                    root.Add(_freezeTimer.Dehydrate());
+                }
+
                 // TODO: Dehydrate balloons
                 XElement balloonsRoot = new XElement("Balloons");
 
-                // Dehydrate spawners
+                // Dehydrate spawners.
                 XElement spawnersRoot = new XElement("Spawners");
                 XElement spawnerNode;
 
