@@ -102,6 +102,9 @@ namespace GameFramework
                         using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
                         {
                             XDocument doc = XDocument.Load(stream);
+
+                            // Remember for spawners, get the Spawns attribute to know what balloon
+                            // prototype to build for it
                         }
                         
                         storage.DeleteFile(STORAGE_FILE_NAME);
@@ -128,6 +131,8 @@ namespace GameFramework
 
                 // TODO: Add all balloons
 
+                // TODO: Add spawners
+                
                 root.Add(balloonsRoot);
                 doc.Add(root);
 
@@ -306,7 +311,7 @@ namespace GameFramework
             return spawner;
         }
 
-        private void SpawnerSpawnHandler(Spawner sender, object prototype)
+        private void SpawnerSpawnHandler(Spawner sender, ISpawnable prototype)
         {
             // To spawn balloon
             //  - Create random position

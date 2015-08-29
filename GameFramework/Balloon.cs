@@ -25,8 +25,16 @@ namespace GameFramework
         Hit     = 0x20
     }
 
-    public class Balloon : Character
+    public class Balloon : Character, ISpawnable
     {
+        public string SpawnType
+        {
+            get 
+            { 
+                return "Balloon" + Color; 
+            }
+        }
+
         public BalloonColor Color
         {
             get;
