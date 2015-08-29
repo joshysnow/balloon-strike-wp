@@ -127,13 +127,21 @@ namespace GameFramework
                     new XAttribute("State", _managerState)
                     );
 
+                // TODO: Dehydrate balloons
                 XElement balloonsRoot = new XElement("Balloons");
 
-                // TODO: Add all balloons
+                // Dehydrate spawners
+                XElement spawnersRoot = new XElement("Spawners");
+                XElement spawnerNode;
 
-                // TODO: Add spawners
-                
+                foreach (Spawner spawner in _spawners)
+                {
+                    spawnerNode = spawner.Dehydrate();
+                    spawnersRoot.Add(spawnerNode);
+                }
+
                 root.Add(balloonsRoot);
+                root.Add(spawnersRoot);
                 doc.Add(root);
 
                 using (IsolatedStorageFileStream stream = storage.CreateFile(""))

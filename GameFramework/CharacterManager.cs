@@ -83,42 +83,6 @@ namespace GameFramework
 
         protected abstract void UpdateCharacters(GameTime gameTime);
 
-        protected XElement SerializeTriggers()
-        {
-            XElement root = new XElement("Triggers");
-            XElement xTrigger;
-
-            foreach (Trigger trigger in _triggerManager.Triggers)
-            {
-                xTrigger = new XElement("Trigger");
-
-                if (trigger is ScoreTrigger)
-                {
-                    xTrigger.Add(
-                        new XAttribute("Type", "Score"),
-                        new XAttribute("Score", ((ScoreTrigger)trigger).TriggerScore)
-                        );
-                }
-                else if (trigger is TimeTrigger)
-                {
-                    TimeTrigger timeTrigger = (TimeTrigger)trigger;
-                    xTrigger.Add(
-                        new XAttribute("Type", "Time"),
-                        new XAttribute("TriggerTime", timeTrigger.TriggerTime),
-                        new XAttribute("TimePassed", timeTrigger.TimePassed)
-                        );
-                }
-                else
-                {
-                    xTrigger.Add(new XAttribute("Type", "Trigger"));
-                }
-
-                root.Add(xTrigger);
-            }
-
-            return root;
-        }
-
         private void UpdateTimers(GameTime gameTime)
         {
             foreach (SimpleTimer timer in Timers)

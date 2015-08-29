@@ -56,7 +56,7 @@ namespace GameFramework
         /// element "Spawner".
         /// </summary>
         /// <returns>A spawner XML element.</returns>
-        public XElement Serialize()
+        public XElement Dehydrate()
         {
             XElement xSpawner = new XElement("Spawner",
                 new XAttribute("Spawns", _prototype.SpawnType),
