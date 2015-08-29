@@ -31,7 +31,7 @@ namespace GameFramework
         {
             get 
             { 
-                return "Balloon" + Color; 
+                return "Balloon_" + Color; 
             }
         }
 

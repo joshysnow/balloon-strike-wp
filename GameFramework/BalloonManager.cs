@@ -47,6 +47,7 @@ namespace GameFramework
             _pool = new BalloonPool(50);
             _pool.Fill();
 
+            // TODO: Perhaps pass in the pool to use on initializing the factory to build from.
             _factory = new BalloonFactory();
             _factory.Initialize();
 
@@ -115,17 +116,10 @@ namespace GameFramework
                             }
 
                             // TODO: Rehydrate balloons
-
-
+                            
                             // Rehydrate spawners
                             XElement xSpawners = root.Element("Spawners");
-                            foreach (XElement xSpawner in xSpawners.Elements())
-                            {
-
-                            }
-
-                            // Note: Remember for spawners, get the Spawns attribute to know what balloon
-                            // prototype to build for it.
+                            RehydrateSpawners(xSpawners);                            
                         }
                         
                         storage.DeleteFile(STORAGE_FILE_NAME);
@@ -134,15 +128,40 @@ namespace GameFramework
                     {
                         // Nothing to rehydrate from so initialize as new.
                         Initialize();
-
                     }
                 }
             }
         }
 
-        private void RehydrateSpawner(XElement spawnerElement)
+        private void RehydrateSpawners(XElement spawners)
         {
+            Spawner spawner;
+            Vector2 prototypePosition = Vector2.Zero;
 
+            _spawners = new List<Spawner>(5);
+
+            foreach (XElement xSpawner in spawners.Elements())
+            {
+                // Note: Remember for spawners, get the Spawns attribute to know what balloon
+                // prototype to build for it.
+
+                string spawns = xSpawner.Attribute("Spawns").Value;
+                string colorValue = "Green";
+
+                if (spawns.Contains("Balloon"))
+                {
+                    colorValue = spawns.Split('_').Last();
+                }
+
+                // TODO: Perhaps have spawns as an array to hold arguments i.e. balloon color etc as attributes
+
+                BalloonColor color = BalloonColor.Green;
+                color = (BalloonColor)Enum.Parse(color.GetType(), colorValue, false);
+
+                Balloon prototype = CreateBalloon(color, ref prototypePosition);
+                spawner = Spawner.Rehydrate(xSpawner, prototype);
+                _spawners.Add(spawner);
+            }
         }
 
         public override void Deactivate()
@@ -328,15 +347,9 @@ namespace GameFramework
 
         private Spawner CreateSpawner(BalloonColor color, VariableTimer timer, float startTime = 0)
         {
-            // Get a balloon to use as prototype.
-            Balloon prototype = _pool.Pop();
-
-            // Set color for type of balloon we want to spawn.
-            prototype.Color = color;
-
             // Make the prototype.
             Vector2 position = Vector2.Zero;
-            _factory.MakeBalloon(color, ref position, ref prototype);
+            Balloon prototype = CreateBalloon(color, ref position);
 
             // Instantiate spawner.
             Spawner spawner = new Spawner(timer, prototype, startTime);
@@ -344,25 +357,31 @@ namespace GameFramework
             // Listen for when to spawn.
             spawner.Spawn += SpawnerSpawnHandler;
 
-            // TODO: Manager this collection! Do all managers use timers? For this game yes but is it coupled?
-            // Want to hold spawners not timers.
-            // Spawners to hold info on starting (like trigger).
-            //Timers.Add(timer);
-
             return spawner;
+        }
+
+        private Balloon CreateBalloon(BalloonColor color, ref Vector2 position)
+        {
+            // Get a balloon to use as prototype.
+            Balloon balloon = _pool.Pop();
+
+            // Check if pool is empty or not.
+            if (balloon != null)
+                _factory.MakeBalloon(color, ref position, ref balloon);
+            else
+                _factory.MakeBalloon(color, ref position);
+
+            return balloon;
         }
 
         private void SpawnerSpawnHandler(Spawner sender, ISpawnable prototype)
         {
             // To spawn balloon
             //  - Create random position
-            //  - Set position
             //  - Get balloon color
-            //  - Get balloon node
             //  - Use factory to make balloon
             //  - Add new balloon to manager
 
-            // Convert prototype into type of character.
             Balloon proto = (Balloon)prototype;
 
             // Create a random starting coordinate.
@@ -375,16 +394,10 @@ namespace GameFramework
             // Get type of balloon to make.
             BalloonColor spawnColor = proto.Color;
 
-            // Get preallocated resource.
-            Balloon make = _pool.Pop();
+            // Make balloon.
+            Balloon balloon = CreateBalloon(spawnColor, ref position);
 
-            // Use factory to make balloon. Check we have resource first otherwise make it.
-            if (make != null)
-                _factory.MakeBalloon(spawnColor, ref position, ref make);
-            else
-                _factory.MakeBalloon(spawnColor, ref position);
-
-            Characters.Add(make);
+            Characters.Add(balloon);
         }
 
         //private void MassAttackTimerTriggered(Trigger trigger)
