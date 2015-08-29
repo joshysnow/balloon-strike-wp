@@ -5,7 +5,7 @@ using GameCore.Timers;
 
 namespace GameFramework
 {
-    public delegate void SpawnHandler(Spawner sender, object prototype);
+    public delegate void SpawnHandler(Spawner sender, ISpawnable prototype);
 
     public class Spawner
     {
@@ -13,16 +13,24 @@ namespace GameFramework
 
         private VariableTimer _timer;
         private TimeCounter _counter;
-        private object _prototype;
+        private ISpawnable _prototype;
         private bool _spawning = false;
 
-        public Spawner(VariableTimer timer, object prototype, float startTime = 0)
+        public Spawner(VariableTimer timer, ISpawnable prototype, float startTime = 0)
         {
             _timer = timer;
             _prototype = prototype;
 
             // Always create the object anyways, incase it is tested later.
             _counter = new TimeCounter(TimeSpan.FromMilliseconds(startTime));
+        }
+
+        private Spawner(VariableTimer timer, TimeCounter counter, ISpawnable prototype, bool spawning)
+        {
+            _timer = timer;
+            _counter = counter;
+            _prototype = prototype;
+            _spawning = spawning;
         }
 
         public void Update(GameTime gameTime)
@@ -51,10 +59,9 @@ namespace GameFramework
         public XElement Serialize()
         {
             XElement xSpawner = new XElement("Spawner",
+                new XAttribute("Spawns", _prototype.SpawnType),
                 new XAttribute("Spawning", _spawning)
                 );
-
-            // TODO: Serialize prototype (will have to be character to override dehydrate)
 
             // Serialize counter.
             xSpawner.Add(_counter.Dehydrate());
@@ -63,6 +70,22 @@ namespace GameFramework
             xSpawner.Add(_timer.Dehydrate());
 
             return xSpawner;
+        }
+
+        public static Spawner Rehydrate(XElement spawnerElement, ISpawnable prototype)
+        {
+            Spawner spawner = null;
+
+            if ((spawnerElement != null) && (spawnerElement.Name.Equals("Spawner")))
+            {
+                bool spawning = bool.Parse(spawnerElement.Attribute("Spawning").Value);
+                TimeCounter counter = TimeCounter.Rehydrate(spawnerElement.Element("TimeCounter"));
+                VariableTimer timer = VariableTimer.Rehydrate(spawnerElement.Element("VariableTimer"));
+
+                spawner = new Spawner(timer, counter, prototype, spawning);
+            }
+
+            return spawner;
         }
 
         private void UpdateCounter(GameTime gameTime)

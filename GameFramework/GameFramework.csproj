@@ -61,6 +61,7 @@
     <Compile Include="CloudManager.cs" />
     <Compile Include="CloudModel.cs" />
     <Compile Include="Character.cs" />
+    <Compile Include="ISpawnable.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Powerup.cs" />
     <Compile Include="PowerupManager.cs" />
