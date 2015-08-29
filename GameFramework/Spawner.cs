@@ -76,6 +76,12 @@ namespace GameFramework
         {
             Spawner spawner = null;
 
+            // Note: Could pass the factory here instead, so the prototype only needs
+            // a factory makable type to be able to build the required prototype.
+            // This also means the factory could manage the object pool.
+            // Would need the position to be passed in still or an object that deals
+            // with spawn positions.
+
             if ((spawnerElement != null) && (spawnerElement.Name.Equals("Spawner")))
             {
                 bool spawning = bool.Parse(spawnerElement.Attribute("Spawning").Value);
