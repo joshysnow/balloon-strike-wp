@@ -23,7 +23,7 @@ namespace GameFramework
             _randomYGen = new Random(DateTime.Now.Millisecond);
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
             InitializeCloudModels();
 

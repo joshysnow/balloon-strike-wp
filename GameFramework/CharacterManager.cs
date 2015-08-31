@@ -54,8 +54,6 @@ namespace GameFramework
             ScreenHeight = graphics.Viewport.Height;
         }
 
-        public abstract void Initialize();
-
         public abstract void Activate(bool instancePreserved);
 
         public abstract void Deactivate();

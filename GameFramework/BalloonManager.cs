@@ -40,54 +40,6 @@ namespace GameFramework
 
         public BalloonManager(GraphicsDevice graphics) : base(graphics) { }
 
-        public override void Initialize()
-        {
-            _spawners = new List<Spawner>(5);
-
-            _pool = new BalloonPool(50);
-            _pool.Fill();
-
-            // TODO: Perhaps pass in the pool to use on initializing the factory to build from.
-            _factory = new BalloonFactory();
-            _factory.Initialize();
-
-            _managerState = BalloonManagerState.Normal;
-            _randomPosition = new Random(DateTime.Now.Millisecond);
-
-            // TODO: Use new spawner wrapper
-            //  - Get pool balloon
-            //  - Put timer and pool balloon into spawner
-            //  - Hook spawner to spawn function
-            //
-            // Note: Pointing all spawner objects to the same function won't
-            // matter as this is not a multi-threaded environment so values
-            // won't be changed by many spawners (single thread scenario).
-
-            // Create a timer for this spawner
-            VariableTimer greenTimer = new VariableTimer(4000, 0.9f, 750);
-            Spawner greenSpawner = CreateSpawner(BalloonColor.Green, greenTimer);
-            _spawners.Add(greenSpawner);
-
-            VariableTimer blueTimer = new VariableTimer(7500, 0.9f, 1000, true);
-            TimeSpan startTime = TimeSpan.FromSeconds(20);
-            Spawner blueSpawner = CreateSpawner(BalloonColor.Blue, blueTimer, (float)startTime.TotalMilliseconds);
-            _spawners.Add(blueSpawner);
-
-            VariableTimer redTimer = new VariableTimer(7500, 0.9f, 1000, true);
-            startTime = TimeSpan.FromSeconds(45);
-            Spawner redSpawner = CreateSpawner(BalloonColor.Red, redTimer, (float)startTime.TotalMilliseconds);
-            _spawners.Add(redSpawner);
-
-//            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
-//            velocityChange.Triggered += VelocityChangeTriggerHandler;
-//            Triggers.AddTrigger(velocityChange);
-
-//            // EXPERIMENT
-//            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
-//            massAttackTimer.Triggered += MassAttackTimerTriggered;
-//            Triggers.AddTrigger(massAttackTimer);
-        }
-
         public override void Activate(bool instancePreserved)
         {
             if (instancePreserved)
@@ -96,6 +48,9 @@ namespace GameFramework
             }
             else
             {
+                // Setup this manager.
+                Initialize();
+
                 using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
                 {
                     if (storage.FileExists(STORAGE_FILE_NAME))
@@ -109,15 +64,22 @@ namespace GameFramework
                             BalloonManagerState temp = BalloonManagerState.Normal;
                             _managerState = (BalloonManagerState)Enum.Parse(temp.GetType(), root.Attribute("State").Value, false);
 
-                            // TODO: Rehydrate freeze timer (if set)
+                            // Rehydrate freeze timer (if set).
                             if (_managerState == BalloonManagerState.Frozen)
                             {
+                                XElement xTimer = root.Element("Timer");
 
+                                if (xTimer != null)
+                                {
+                                    _freezeTimer = SimpleTimer.Rehydrate(xTimer);
+                                }
                             }
 
-                            // TODO: Rehydrate balloons
+                            // Rehydrate balloons.
+                            XElement xBalloons = root.Element("Balloons");
+                            RehydrateBalloons(xBalloons);
                             
-                            // Rehydrate spawners
+                            // Rehydrate spawners.
                             XElement xSpawners = root.Element("Spawners");
                             RehydrateSpawners(xSpawners);                            
                         }
@@ -127,40 +89,9 @@ namespace GameFramework
                     else
                     {
                         // Nothing to rehydrate from so initialize as new.
-                        Initialize();
+                        InitializeDefault();
                     }
                 }
-            }
-        }
-
-        private void RehydrateSpawners(XElement spawners)
-        {
-            Spawner spawner;
-            Vector2 prototypePosition = Vector2.Zero;
-
-            _spawners = new List<Spawner>(5);
-
-            foreach (XElement xSpawner in spawners.Elements())
-            {
-                // Note: Remember for spawners, get the Spawns attribute to know what balloon
-                // prototype to build for it.
-
-                string spawns = xSpawner.Attribute("Spawns").Value;
-                string colorValue = "Green";
-
-                if (spawns.Contains("Balloon"))
-                {
-                    colorValue = spawns.Split('_').Last();
-                }
-
-                // TODO: Perhaps have spawns as an array to hold arguments i.e. balloon color etc as attributes
-
-                BalloonColor color = BalloonColor.Green;
-                color = (BalloonColor)Enum.Parse(color.GetType(), colorValue, false);
-
-                Balloon prototype = CreateBalloon(color, ref prototypePosition);
-                spawner = Spawner.Rehydrate(xSpawner, prototype);
-                _spawners.Add(spawner);
             }
         }
 
@@ -179,8 +110,15 @@ namespace GameFramework
                     root.Add(_freezeTimer.Dehydrate());
                 }
 
-                // TODO: Dehydrate balloons
+                // Dehydrate balloons.
                 XElement balloonsRoot = new XElement("Balloons");
+                XElement balloonNode;
+
+                foreach (Character character in Characters)
+                {
+                    balloonNode = ((Balloon)character).Dehydrate();
+                    balloonsRoot.Add(balloonNode);
+                }
 
                 // Dehydrate spawners.
                 XElement spawnersRoot = new XElement("Spawners");
@@ -244,6 +182,19 @@ namespace GameFramework
             remainingGestures = temp.ToArray();
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            if (_managerState == BalloonManagerState.Frozen)
+            {
+                UpdateFrozenState(gameTime);
+            }
+            else
+            {
+                base.Update(gameTime);
+                UpdateSpawners(gameTime);
+            }
+        }
+
         public void ApplyPowerup(PowerupType type)
         {
             switch (type)
@@ -263,19 +214,6 @@ namespace GameFramework
                 case PowerupType.Nuke:
                 default:
                     break;
-            }
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            if (_managerState == BalloonManagerState.Frozen)
-            {
-                UpdateFrozenState(gameTime);
-            }
-            else
-            {
-                base.Update(gameTime);
-                UpdateSpawners(gameTime);
             }
         }
 
@@ -322,6 +260,113 @@ namespace GameFramework
                     default:
                         break;
                 }
+            }
+        }
+
+        private void Initialize()
+        {
+            _spawners = new List<Spawner>(5);
+
+            _pool = new BalloonPool(50);
+            _pool.Fill();
+
+            // TODO: Perhaps pass in the pool to use on initializing the factory to build from.
+            _factory = new BalloonFactory();
+            _factory.Initialize();
+
+            _managerState = BalloonManagerState.Normal;
+            _randomPosition = new Random(DateTime.Now.Millisecond);
+        }
+
+        private void InitializeDefault()
+        {
+            // Use new spawner wrapper
+            //  - Get pool balloon
+            //  - Put timer and pool balloon into spawner
+            //  - Hook spawner to spawn function
+            //
+            // Note: Pointing all spawner objects to the same function won't
+            // matter as this is not a multi-threaded environment so values
+            // won't be changed by many spawners (single thread scenario).
+
+            // Create a timer for this spawner
+            VariableTimer greenTimer = new VariableTimer(4000, 0.9f, 750);
+            Spawner greenSpawner = CreateSpawner(BalloonColor.Green, greenTimer);
+            _spawners.Add(greenSpawner);
+
+            VariableTimer blueTimer = new VariableTimer(7500, 0.9f, 1000, true);
+            TimeSpan startTime = TimeSpan.FromSeconds(20);
+            Spawner blueSpawner = CreateSpawner(BalloonColor.Blue, blueTimer, (float)startTime.TotalMilliseconds);
+            _spawners.Add(blueSpawner);
+
+            VariableTimer redTimer = new VariableTimer(7500, 0.9f, 1000, true);
+            startTime = TimeSpan.FromSeconds(45);
+            Spawner redSpawner = CreateSpawner(BalloonColor.Red, redTimer, (float)startTime.TotalMilliseconds);
+            _spawners.Add(redSpawner);
+
+            //            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
+            //            velocityChange.Triggered += VelocityChangeTriggerHandler;
+            //            Triggers.AddTrigger(velocityChange);
+
+            //            // EXPERIMENT
+            //            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
+            //            massAttackTimer.Triggered += MassAttackTimerTriggered;
+            //            Triggers.AddTrigger(massAttackTimer);
+        }
+
+        private void RehydrateBalloons(XElement balloons)
+        {
+            // Balloon pre-declared members.
+            float x, y;
+            Vector2 position;
+            BalloonColor color;
+            BalloonColor tempColor = BalloonColor.Green;
+
+            Balloon balloon;
+
+            // Rehydrate all balloons.
+            foreach (XElement xBalloon in balloons.Elements())
+            {
+                // Rehydrate position.
+                x = float.Parse(xBalloon.Attribute("UL-X").Value);
+                y = float.Parse(xBalloon.Attribute("UL-Y").Value);
+                position = new Vector2(x, y);
+
+                color = (BalloonColor)Enum.Parse(tempColor.GetType(), xBalloon.Attribute("Color").Value, false);
+
+                balloon = CreateBalloon(color, ref position);
+                Characters.Add(balloon);
+            }
+        }
+
+        private void RehydrateSpawners(XElement spawners)
+        {
+            Spawner spawner;
+            Vector2 prototypePosition = Vector2.Zero;
+
+            _spawners = new List<Spawner>(5);
+
+            foreach (XElement xSpawner in spawners.Elements())
+            {
+                // Note: Remember for spawners, get the Spawns attribute to know what balloon
+                // prototype to build for it.
+
+                string spawns = xSpawner.Attribute("Spawns").Value;
+                string colorValue = "Green";
+
+                if (spawns.Contains("Balloon"))
+                {
+                    colorValue = spawns.Split('_').Last();
+                }
+
+                // TODO: Perhaps have spawns as an array to hold arguments i.e. balloon color etc as attributes
+
+                BalloonColor color = BalloonColor.Green;
+                color = (BalloonColor)Enum.Parse(color.GetType(), colorValue, false);
+
+                Balloon prototype = CreateBalloon(color, ref prototypePosition);
+                spawner = Spawner.Rehydrate(xSpawner, prototype);
+                _spawners.Add(spawner);
             }
         }
 

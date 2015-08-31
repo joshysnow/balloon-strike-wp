@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -108,6 +109,20 @@ namespace GameFramework
         {
             _initialized = false;
             _isAvailable = true;
+        }
+
+        public XElement Dehydrate()
+        {
+            XElement xBalloon = new XElement("Balloon",
+                new XAttribute("UL-X", _positionUL.X),
+                new XAttribute("UL-Y", _positionUL.Y),
+                new XAttribute("LR-X", _positionLR.X),
+                new XAttribute("LR-Y", _positionLR.Y),
+                new XAttribute("Color", Color),
+                new XAttribute("Health", Health)
+                    );
+
+            return xBalloon;
         }
 
         public override void Update(GameTime gameTime)

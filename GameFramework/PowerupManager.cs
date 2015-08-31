@@ -29,7 +29,7 @@ namespace GameFramework
 
         public PowerupManager(GraphicsDevice graphics) : base(graphics) { }
 
-        public override void Initialize()
+        public void Initialize()
         {
             _randomPosition = new Random(DateTime.Now.Millisecond);
 

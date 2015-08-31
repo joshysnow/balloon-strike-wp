@@ -54,13 +54,13 @@ namespace BalloonStrike.Views
             _weaponManager = new WeaponManager();
             _weaponManager.Activate(instancePreserved);
 
-            // TODO:
-            // - Save managers            
-
             _balloonManager = new BalloonManager(graphics);
-            _powerupManager = new PowerupManager(graphics);
+            _balloonManager.Activate(instancePreserved);
+
+            // TODO:
+            // - Save managers
             
-            _balloonManager.Initialize();
+            _powerupManager = new PowerupManager(graphics);
             _powerupManager.Initialize();
 
             // Rehyrate the game view
