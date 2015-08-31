@@ -13,6 +13,7 @@ namespace GameCore.Timers
         public float ElapseTime
         {
             get { return _elapseTime; }
+            set { _elapseTime = value; }
         }
 
         private float _elapseTime;

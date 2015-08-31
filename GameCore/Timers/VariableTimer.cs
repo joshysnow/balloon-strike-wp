@@ -47,9 +47,9 @@ namespace GameCore.Timers
 
                     // Make sure the modified limit doesn't exceed the bounds.
                     if (newTime <= _bounds)
-                        elapseTime = _bounds;
-                    else 
-                        elapseTime = newTime;
+                        _timer.ElapseTime = _bounds;
+                    else
+                        _timer.ElapseTime = newTime;
                 }
             }
 
