@@ -1,6 +1,7 @@
 using System;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
+using GameCore;
 using GameCore.Timers;
 
 namespace GameFramework
@@ -82,7 +83,7 @@ namespace GameFramework
             // Would need the position to be passed in still or an object that deals
             // with spawn positions.
 
-            if ((spawnerElement != null) && (spawnerElement.Name.Equals("Spawner")))
+            if ((spawnerElement != null) && (spawnerElement.CompareName("Spawner")))
             {
                 bool spawning = bool.Parse(spawnerElement.Attribute("Spawning").Value);
                 TimeCounter counter = TimeCounter.Rehydrate(spawnerElement.Element("TimeCounter"));

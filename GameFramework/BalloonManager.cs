@@ -134,7 +134,7 @@ namespace GameFramework
                 root.Add(spawnersRoot);
                 doc.Add(root);
 
-                using (IsolatedStorageFileStream stream = storage.CreateFile(""))
+                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
                 {
                     doc.Save(stream);
                 }
@@ -344,8 +344,6 @@ namespace GameFramework
             Spawner spawner;
             Vector2 prototypePosition = Vector2.Zero;
 
-            _spawners = new List<Spawner>(5);
-
             foreach (XElement xSpawner in spawners.Elements())
             {
                 // Note: Remember for spawners, get the Spawns attribute to know what balloon
@@ -366,6 +364,8 @@ namespace GameFramework
 
                 Balloon prototype = CreateBalloon(color, ref prototypePosition);
                 spawner = Spawner.Rehydrate(xSpawner, prototype);
+                spawner.Spawn += SpawnerSpawnHandler;
+
                 _spawners.Add(spawner);
             }
         }

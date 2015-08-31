@@ -1,6 +1,7 @@
 using System;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
+using GameCore;
 
 namespace GameFramework
 {
@@ -73,7 +74,7 @@ namespace GameFramework
         {
             TimeCounter counter = null;
 
-            if (counterElement.Name.Equals("TimeCounter"))
+            if (counterElement.CompareName("TimeCounter"))
             {
                 bool elapsed = bool.Parse(counterElement.Attribute("Elapsed").Value);
                 float count = float.Parse(counterElement.Attribute("Count").Value);

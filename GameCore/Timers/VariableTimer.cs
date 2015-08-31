@@ -73,7 +73,7 @@ namespace GameCore.Timers
         {
             VariableTimer varTimer = null;
 
-            if (timerElement.Name.Equals("VariableTimer"))
+            if (timerElement.CompareName("VariableTimer"))
             {
                 float modifier = float.Parse(timerElement.Attribute("Modifier").Value);
                 float bounds = float.Parse(timerElement.Attribute("Bounds").Value);

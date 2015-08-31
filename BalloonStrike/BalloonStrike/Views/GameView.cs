@@ -99,6 +99,7 @@ namespace BalloonStrike.Views
             _sun.Deactivate();
             _scoreDisplay.Deactivate();
             _weaponManager.Deactivate();
+            _balloonManager.Deactivate();
 
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {

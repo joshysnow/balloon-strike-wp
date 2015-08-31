@@ -68,8 +68,9 @@ namespace GameCore.Timers
         {
             SimpleTimer timer = null;
 
-            if (timerElement.Name.Equals("Timer"))
+            if (timerElement.CompareName("Timer"))
             {
+                
                 float elapseTime = float.Parse(timerElement.Attribute("ElapseTime").Value);
                 float timePassed = float.Parse(timerElement.Attribute("TimePassed").Value);
 
