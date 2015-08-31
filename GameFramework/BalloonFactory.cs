@@ -1,3 +1,5 @@
+using System;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using GameCore;
@@ -6,6 +8,10 @@ namespace GameFramework
 {
     public class BalloonFactory
     {
+        private const int START_HEALTH_RED = 3;
+        private const int START_HEALTH_GREEN = 1;
+        private const int START_HEALTH_BLUE = 2;
+
         private BalloonModel _redModel;
         private BalloonModel _greenModel;
         private BalloonModel _blueModel;
@@ -57,25 +63,55 @@ namespace GameFramework
         /// <param name="position">The position of the balloon on the screen.</param>
         /// <param name="make">An instantiated balloon.</param>
         /// <returns>Balloon made into the color desired.</returns>
-        public Balloon MakeBalloon(BalloonColor color, ref Vector2 position, ref Balloon make)
+        public void MakeBalloon(BalloonColor color, ref Vector2 position, ref Balloon make)
         {
             make.Color = color;
+            BalloonModel model = GetModel(color);
 
             switch (make.Color)
             {
                 case BalloonColor.Red:
-                    make.Initialize(_redModel, ref position, 3);
+                    make.Initialize(model, ref position, START_HEALTH_RED);
                     break;
                 case BalloonColor.Blue:
-                    make.Initialize(_blueModel, ref position, 2);
+                    make.Initialize(model, ref position, START_HEALTH_BLUE);
                     break;
                 case BalloonColor.Green:
                 default:
-                    make.Initialize(_greenModel, ref position, 1);
+                    make.Initialize(model, ref position, START_HEALTH_GREEN);
+                    break;
+            }
+        }
+
+        public void RehydrateBalloon(XElement balloonElement, ref Balloon rehydrate)
+        {
+            BalloonColor temp = BalloonColor.Green;
+            BalloonColor color = (BalloonColor)Enum.Parse(temp.GetType(), balloonElement.Attribute("Color").Value, false);
+            BalloonModel model = GetModel(color);
+
+            rehydrate.Color = color;
+            rehydrate.Rehydrate(balloonElement, model);
+        }
+
+        private BalloonModel GetModel(BalloonColor color)
+        {
+            BalloonModel model;
+
+            switch (color)
+            {
+                case BalloonColor.Red:
+                    model = _redModel;
+                    break;
+                case BalloonColor.Blue:
+                    model = _blueModel;
+                    break;
+                case BalloonColor.Green:
+                default:
+                    model = _greenModel;
                     break;
             }
 
-            return make;
+            return model;
         }
     }
 }

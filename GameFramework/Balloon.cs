@@ -119,10 +119,46 @@ namespace GameFramework
                 new XAttribute("LR-X", _positionLR.X),
                 new XAttribute("LR-Y", _positionLR.Y),
                 new XAttribute("Color", Color),
+                new XAttribute("State", _currentState),
+                new XAttribute("ExState", _previousState),
                 new XAttribute("Health", Health)
                     );
 
+            if (_currentState == BalloonState.Frozen)
+            {
+                xBalloon.Add(_frozenTimer.Dehydrate());
+            }
+
             return xBalloon;
+        }
+
+        public void Rehydrate(XElement element, BalloonModel model)
+        {
+            // TODO: Or just pass in the factory and expose the models?
+            if (element.CompareName("Balloon"))
+            {
+                float x = float.Parse(element.Attribute("UL-X").Value);
+                float y = float.Parse(element.Attribute("UL-Y").Value);
+                Vector2 position = new Vector2(x, y);
+
+                float health = float.Parse(element.Attribute("Health").Value);
+
+                // TODO: Nasty coupling here to initialize values, split out.
+                Initialize(model, ref position, health);
+
+                _currentState = (BalloonState)Enum.Parse(State.GetType(), element.Attribute("State").Value, false);
+                _previousState = (BalloonState)Enum.Parse(State.GetType(), element.Attribute("ExState").Value, false);
+
+                if (_currentState == BalloonState.Frozen)
+                {
+                    XElement xTimer = element.Element("Timer");
+
+                    if (xTimer != null)
+                    {
+                        _frozenTimer = SimpleTimer.Rehydrate(xTimer);
+                    }
+                }
+            }
         }
 
         public override void Update(GameTime gameTime)

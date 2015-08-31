@@ -316,25 +316,15 @@ namespace GameFramework
 
         private void RehydrateBalloons(XElement balloons)
         {
-            // Balloon pre-declared members.
-            float x, y;
-            Vector2 position;
-            BalloonColor color;
-            BalloonColor tempColor = BalloonColor.Green;
-
             Balloon balloon;
 
             // Rehydrate all balloons.
             foreach (XElement xBalloon in balloons.Elements())
             {
-                // Rehydrate position.
-                x = float.Parse(xBalloon.Attribute("UL-X").Value);
-                y = float.Parse(xBalloon.Attribute("UL-Y").Value);
-                position = new Vector2(x, y);
-
-                color = (BalloonColor)Enum.Parse(tempColor.GetType(), xBalloon.Attribute("Color").Value, false);
-
-                balloon = CreateBalloon(color, ref position);
+                // TODO: Now might be a good time to move pool into factory.
+                balloon = _pool.Pop();
+                _factory.RehydrateBalloon(xBalloon, ref balloon);
+                
                 Characters.Add(balloon);
             }
         }
@@ -414,7 +404,7 @@ namespace GameFramework
             if (balloon != null)
                 _factory.MakeBalloon(color, ref position, ref balloon);
             else
-                _factory.MakeBalloon(color, ref position);
+                balloon = _factory.MakeBalloon(color, ref position);
 
             return balloon;
         }
