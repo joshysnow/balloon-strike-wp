@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using System.IO.IsolatedStorage;
+using System.Xml.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -15,6 +18,8 @@ namespace GameFramework
 
     public class PowerupManager : CharacterManager
     {
+        private const string STORAGE_FILE_NAME = "POWERUP_MANAGER.xml";
+
         public event PowerupEventHandler PickedUp;
 
         private Vector2 _freezeVelocity;
@@ -29,43 +34,50 @@ namespace GameFramework
 
         public PowerupManager(GraphicsDevice graphics) : base(graphics) { }
 
-        public void Initialize()
-        {
-            _randomPosition = new Random(DateTime.Now.Millisecond);
-
-            Trigger freezeTrigger = new ScoreTrigger(60);
-            freezeTrigger.Triggered += FreezeTriggerHandler;
-            Triggers.AddTrigger(freezeTrigger);
-
-            Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(45));
-            shellTrigger.Triggered += ShellTriggerHandler;
-            Triggers.AddTrigger(shellTrigger);
-
-            Trigger missileTrigger = new ScoreTrigger(90);
-            missileTrigger.Triggered += MissileTriggerHandler;
-            Triggers.AddTrigger(missileTrigger);
-
-            _freezeVelocity = new Vector2(0, 4.2f);
-            _shellVelocity = new Vector2(0, 6f);
-            _missileVelocity = new Vector2(0, 7f);
-
-            ResourceManager manager = ResourceManager.Resources;
-
-            _freezeMoveAnimation = manager.GetAnimation("freezemove");
-            _shellMoveAnimation = manager.GetAnimation("shellmove");
-            _missileMoveAnimation = manager.GetAnimation("missilemove");
-            _pickupAnimation = manager.GetAnimation("popmove");
-            _pickupSoundEffect = manager.GetSoundEffect("pickup_ammo");
-        }
-
         public override void Activate(bool instancePreserved)
         {
-            
+            if (instancePreserved)
+            {
+                // Everything still in memory, all good!
+            }
+            else
+            {
+                // Setup manager.
+                Initialize();
+
+                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    if (storage.FileExists(STORAGE_FILE_NAME))
+                    {
+                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                        {
+                            XDocument doc = XDocument.Load(stream);
+
+                            // TODO: Rehydrate powerups
+                        }
+                    }
+                    else
+                    {
+                        InitializeDefault();
+                    }
+                }
+
+            }
         }
 
         public override void Deactivate()
         {
-            
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                XDocument doc = new XDocument();
+
+                // TODO: Dehydrate powerups
+
+                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
+                {
+                    //doc.Save(stream);
+                }
+            }
         }
 
         public override void UpdatePlayerInput(GestureSample[] gestures, Weapon currentWeapon, out GestureSample[] remainingGestures)
@@ -142,6 +154,39 @@ namespace GameFramework
                         break;
                 }
             }
+        }
+
+        private void Initialize()
+        {
+            _randomPosition = new Random(DateTime.Now.Millisecond);
+
+            _freezeVelocity = new Vector2(0, 4.2f);
+            _shellVelocity = new Vector2(0, 6f);
+            _missileVelocity = new Vector2(0, 7f);
+
+            ResourceManager manager = ResourceManager.Resources;
+
+            _freezeMoveAnimation = manager.GetAnimation("freezemove");
+            _shellMoveAnimation = manager.GetAnimation("shellmove");
+            _missileMoveAnimation = manager.GetAnimation("missilemove");
+            _pickupAnimation = manager.GetAnimation("popmove");
+            _pickupSoundEffect = manager.GetSoundEffect("pickup_ammo");
+        }
+
+        private void InitializeDefault()
+        {
+
+            Trigger freezeTrigger = new ScoreTrigger(60);
+            freezeTrigger.Triggered += FreezeTriggerHandler;
+            Triggers.AddTrigger(freezeTrigger);
+
+            Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(45));
+            shellTrigger.Triggered += ShellTriggerHandler;
+            Triggers.AddTrigger(shellTrigger);
+
+            Trigger missileTrigger = new ScoreTrigger(90);
+            missileTrigger.Triggered += MissileTriggerHandler;
+            Triggers.AddTrigger(missileTrigger);
         }
 
         private void FreezeTriggerHandler(Trigger trigger)

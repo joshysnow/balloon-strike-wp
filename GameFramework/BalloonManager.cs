@@ -9,10 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input.Touch;
 using GameCore;
-using GameCore.Memory;
 using GameCore.Timers;
-using GameCore.Triggers;
-using GameFramework.Triggers;
+using GameCore.Memory;
 
 namespace GameFramework
 {

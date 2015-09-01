@@ -57,11 +57,8 @@ namespace BalloonStrike.Views
             _balloonManager = new BalloonManager(graphics);
             _balloonManager.Activate(instancePreserved);
 
-            // TODO:
-            // - Save managers
-            
             _powerupManager = new PowerupManager(graphics);
-            _powerupManager.Initialize();
+            _powerupManager.Activate(instancePreserved);
 
             // Rehyrate the game view
             if (!instancePreserved)
@@ -100,6 +97,7 @@ namespace BalloonStrike.Views
             _scoreDisplay.Deactivate();
             _weaponManager.Deactivate();
             _balloonManager.Deactivate();
+            _powerupManager.Deactivate();
 
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
