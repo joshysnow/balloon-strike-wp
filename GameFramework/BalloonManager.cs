@@ -28,8 +28,6 @@ namespace GameFramework
         public event BalloonEventHandler Escaped;
 
         private const string STORAGE_FILE_NAME = "BALLOON_MANAGER.xml";
-
-        private List<Spawner> _spawners;
         private BalloonPool _pool;
         private BalloonFactory _factory;
         private BalloonManagerState _managerState;
@@ -122,7 +120,7 @@ namespace GameFramework
                 XElement spawnersRoot = new XElement("Spawners");
                 XElement spawnerNode;
 
-                foreach (Spawner spawner in _spawners)
+                foreach (Spawner spawner in Spawners)
                 {
                     spawnerNode = spawner.Dehydrate();
                     spawnersRoot.Add(spawnerNode);
@@ -189,7 +187,6 @@ namespace GameFramework
             else
             {
                 base.Update(gameTime);
-                UpdateSpawners(gameTime);
             }
         }
 
@@ -209,7 +206,6 @@ namespace GameFramework
                         _freezeTimer = new SimpleTimer(2000);
                     }
                     break;
-                case PowerupType.Nuke:
                 default:
                     break;
             }
@@ -263,8 +259,6 @@ namespace GameFramework
 
         private void Initialize()
         {
-            _spawners = new List<Spawner>(5);
-
             _pool = new BalloonPool(50);
             _pool.Fill();
 
@@ -290,17 +284,17 @@ namespace GameFramework
             // Create a timer for this spawner
             VariableTimer greenTimer = new VariableTimer(4000, 0.9f, 750);
             Spawner greenSpawner = CreateSpawner(BalloonColor.Green, greenTimer);
-            _spawners.Add(greenSpawner);
+            Spawners.Add(greenSpawner);
 
             VariableTimer blueTimer = new VariableTimer(7500, 0.9f, 1000, true);
             TimeSpan startTime = TimeSpan.FromSeconds(20);
             Spawner blueSpawner = CreateSpawner(BalloonColor.Blue, blueTimer, (float)startTime.TotalMilliseconds);
-            _spawners.Add(blueSpawner);
+            Spawners.Add(blueSpawner);
 
             VariableTimer redTimer = new VariableTimer(7500, 0.9f, 1000, true);
             startTime = TimeSpan.FromSeconds(45);
             Spawner redSpawner = CreateSpawner(BalloonColor.Red, redTimer, (float)startTime.TotalMilliseconds);
-            _spawners.Add(redSpawner);
+            Spawners.Add(redSpawner);
 
             //            Trigger velocityChange = new TimeTrigger(TimeSpan.FromSeconds(180)); // 3 minutes
             //            velocityChange.Triggered += VelocityChangeTriggerHandler;
@@ -354,7 +348,7 @@ namespace GameFramework
                 spawner = Spawner.Rehydrate(xSpawner, prototype);
                 spawner.Spawn += SpawnerSpawnHandler;
 
-                _spawners.Add(spawner);
+                Spawners.Add(spawner);
             }
         }
 
@@ -367,14 +361,6 @@ namespace GameFramework
             {
                 _freezeTimer = null;
                 _managerState = BalloonManagerState.Normal;
-            }
-        }
-
-        private void UpdateSpawners(GameTime gameTime)
-        {
-            foreach (Spawner spawner in _spawners)
-            {
-                spawner.Update(gameTime);
             }
         }
 

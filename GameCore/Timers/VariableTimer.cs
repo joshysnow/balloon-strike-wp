@@ -21,7 +21,11 @@ namespace GameCore.Timers
         public VariableTimer(float elapseTime, float modifier, float bounds, bool elapse = false)
         {
             _modifier = modifier;
-            _bounds = bounds;
+
+            if (bounds > 0)
+                _bounds = bounds;
+            else
+                _bounds = elapseTime;
 
             _timer = new SimpleTimer(elapseTime, elapse);
         }

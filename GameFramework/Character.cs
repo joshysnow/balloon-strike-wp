@@ -20,7 +20,6 @@ namespace GameFramework
         }
 
         protected AnimationPlayer _animationPlayer;
-        protected Animation _moveAnimation;
         protected Vector2 _positionUL;
         protected Vector2 _positionLR;
         protected Vector2 _velocity;

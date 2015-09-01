@@ -214,7 +214,6 @@ namespace BalloonStrike.Views
             switch (powerup.Type)
             {
                 case PowerupType.Freeze:
-                case PowerupType.Nuke:
                     // Pass to balloon manager.
                     _balloonManager.ApplyPowerup(powerup.Type);
                     break;

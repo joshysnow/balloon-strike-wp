@@ -8,29 +8,26 @@ namespace GameFramework
 {
     public enum PowerupType : byte
     {
-        Freeze          = 0x01,
-        Nuke            = 0x02,
-        Shell           = 0x04,
-        Rocket         = 0x08
+        Freeze  = 0x01,
+        Shell   = 0x04,
+        Rocket  = 0x08
     }
 
     public enum PowerupState : byte
     {
-        Descending  = 0x01,
+        Falling     = 0x01,
         Dead        = 0x02,
         Pickedup    = 0x03,
         Missed      = 0x04,
         PickingUp   = 0x08
     }
 
-    public class Powerup : Character
+    public class Powerup : Character, ISpawnable
     {
-        private Animation _pickupAnimation;
-        private SoundEffect _pickedUpSound;
-        private PowerupState _state;
-        private short _yLimit;
-        private bool _initialized;
-        private bool _isAvailable;
+        public string SpawnType
+        {
+            get { return "Powerup_" + Type; }
+        }
 
         public PowerupType Type
         {
@@ -43,35 +40,43 @@ namespace GameFramework
             get { return _state; }
         }
 
+        public Vector2 Size
+        {
+            get { return _model.Size; }
+        }
+
         public bool IsAvailable
         {
             get { return _isAvailable; }
         }
+
+        private PowerupModel _model;
+        private PowerupState _state;
+        private int _maxY;
+        private bool _initialized;
+        private bool _isAvailable;
 
         public Powerup(PowerupType type) : base()
         {
             Type = type;
             _initialized = false;
             _isAvailable = true;
-        }   
+        }
 
-        public void Initialize(Animation moveAnimation, Animation pickupAnimation, SoundEffect pickedUp, Vector2 position, Vector2 velocity, short yLimit)
+        public void Initialize(PowerupModel model, ref Vector2 position, int maxY)
         {
-            _moveAnimation = moveAnimation;
-            _pickupAnimation = pickupAnimation;
-            _pickedUpSound = pickedUp;
-            _positionUL = position;
-            _velocity = velocity;
-            _yLimit = yLimit;
+            _model = model;
+            _maxY = maxY;
 
-            int width = (int)(moveAnimation.FrameWidth * moveAnimation.Scale);
-            int height = (int)(moveAnimation.FrameHeight * moveAnimation.Scale);
-            _positionLR = new Vector2(position.X + width, position.Y + height);
+            _positionUL = position;
+            _positionLR = new Vector2(position.X + model.Size.X, position.Y + model.Size.Y);
             _rectangle = new GameCore.Physics.Shapes.Rectangle(_positionUL, _positionLR);
 
-            _state = PowerupState.Descending;
+            _velocity = model.Velocity;
 
-            _animationPlayer.SetAnimation(moveAnimation);
+            _state = PowerupState.Falling;
+
+            _animationPlayer.SetAnimation(_model.MoveAnimation);
             _animationPlayer.SetPosition(_positionUL);
 
             _initialized = true;
@@ -90,7 +95,7 @@ namespace GameFramework
             {
                 switch (_state)
                 {
-                    case PowerupState.Descending:
+                    case PowerupState.Falling:
                         {
                             this.UpdateDescending();
                         }
@@ -125,21 +130,21 @@ namespace GameFramework
 
         public void Pickup()
         {
-            if (!_initialized || (_state != PowerupState.Descending))
+            if (!_initialized || (_state != PowerupState.Falling))
             {
                 return;
             }
 
             _state = PowerupState.PickingUp;
-            _pickedUpSound.Play();
+            _model.PickupSound.Play();
 
-            _animationPlayer.SetAnimation(_pickupAnimation);
+            _animationPlayer.SetAnimation(_model.PickupAnimation);
             _animationPlayer.SetPosition(_positionUL);
         }
 
         private void UpdateDescending()
         {
-            if (_positionUL.Y >= _yLimit)
+            if (_positionUL.Y >= _maxY)
             {
                 _state = PowerupState.Missed;
             }

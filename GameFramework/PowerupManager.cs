@@ -22,14 +22,7 @@ namespace GameFramework
 
         public event PowerupEventHandler PickedUp;
 
-        private Vector2 _freezeVelocity;
-        private Vector2 _shellVelocity;
-        private Vector2 _missileVelocity;
-        private Animation _freezeMoveAnimation;
-        private Animation _shellMoveAnimation;
-        private Animation _missileMoveAnimation;
-        private Animation _pickupAnimation;
-        private SoundEffect _pickupSoundEffect;
+        private PowerupFactory _factory;
         private Random _randomPosition;
 
         public PowerupManager(GraphicsDevice graphics) : base(graphics) { }
@@ -124,7 +117,7 @@ namespace GameFramework
                 switch (powerup.State)
                 {
                     case PowerupState.PickingUp:
-                    case PowerupState.Descending:
+                    case PowerupState.Falling:
                         {
                             powerup.Update(gameTime);
                             index++;
@@ -160,98 +153,55 @@ namespace GameFramework
         {
             _randomPosition = new Random(DateTime.Now.Millisecond);
 
-            _freezeVelocity = new Vector2(0, 4.2f);
-            _shellVelocity = new Vector2(0, 6f);
-            _missileVelocity = new Vector2(0, 7f);
-
-            ResourceManager manager = ResourceManager.Resources;
-
-            _freezeMoveAnimation = manager.GetAnimation("freezemove");
-            _shellMoveAnimation = manager.GetAnimation("shellmove");
-            _missileMoveAnimation = manager.GetAnimation("missilemove");
-            _pickupAnimation = manager.GetAnimation("popmove");
-            _pickupSoundEffect = manager.GetSoundEffect("pickup_ammo");
+            _factory = new PowerupFactory();
+            _factory.Initialize(ScreenHeight);
         }
 
         private void InitializeDefault()
         {
+            VariableTimer freezeTimer = new VariableTimer(20000, 0, 0);
+            TimeSpan startTime = TimeSpan.FromSeconds(120);
+            Spawner freezeSpawner = CreateSpawner(PowerupType.Freeze, freezeTimer, (float)startTime.TotalMilliseconds);
+            Spawners.Add(freezeSpawner);
 
-            Trigger freezeTrigger = new ScoreTrigger(60);
-            freezeTrigger.Triggered += FreezeTriggerHandler;
-            Triggers.AddTrigger(freezeTrigger);
+            VariableTimer shellTimer = new VariableTimer(5000, 0, 0);
+            startTime = TimeSpan.FromSeconds(45);
+            Spawner shellSpawner = CreateSpawner(PowerupType.Shell, shellTimer, (float)startTime.TotalMilliseconds);
+            Spawners.Add(shellSpawner);
 
-            Trigger shellTrigger = new TimeTrigger(TimeSpan.FromSeconds(45));
-            shellTrigger.Triggered += ShellTriggerHandler;
-            Triggers.AddTrigger(shellTrigger);
-
-            Trigger missileTrigger = new ScoreTrigger(90);
-            missileTrigger.Triggered += MissileTriggerHandler;
-            Triggers.AddTrigger(missileTrigger);
+            VariableTimer missileTimer = new VariableTimer(10000, 0, 0);
+            startTime = TimeSpan.FromSeconds(90);
+            Spawner missileSpawner = CreateSpawner(PowerupType.Rocket, missileTimer, (float)startTime.TotalMilliseconds);
+            Spawners.Add(missileSpawner);
         }
 
-        private void FreezeTriggerHandler(Trigger trigger)
+        private Spawner CreateSpawner(PowerupType type, VariableTimer timer, float startTime = 0)
         {
-            SimpleTimer freezeTimer = new SimpleTimer(20000);
-            freezeTimer.Elapsed += FreezeTimerElapsed;
-            Timers.Add(freezeTimer);
+            // Make the prototype.
+            Vector2 position = Vector2.Zero;
+            Powerup prototype = _factory.MakePowerup(type, ref position);
+
+            // Instantiate spawner.
+            Spawner spawner = new Spawner(timer, prototype, startTime);
+
+            // Listen for when to spawn.
+            spawner.Spawn += SpawnerSpawnHandler;
+
+            return spawner;
         }
 
-        private void ShellTriggerHandler(Trigger trigger)
+        private void SpawnerSpawnHandler(Spawner sender, ISpawnable prototype)
         {
-            SimpleTimer shellTimer = new SimpleTimer(5000);
-            shellTimer.Elapsed += ShellTimerElapsed;
-            Timers.Add(shellTimer);
+            Powerup proto = (Powerup)prototype;
+
+            int x = _randomPosition.Next(ScreenWidth - (int)proto.Size.X);
+            int y = (int)(proto.Size.Y * -1);
+            Vector2 position = new Vector2(x, y);
+
+            Powerup newPowerup = _factory.MakePowerup(proto.Type, ref position);
+            Characters.Add(newPowerup);
         }
 
-        private void MissileTriggerHandler(Trigger trigger)
-        {
-            SimpleTimer missileTimer = new SimpleTimer(10000);
-            missileTimer.Elapsed += MissileTimerElapsed;
-            Timers.Add(missileTimer);
-        }
-
-        private void FreezeTimerElapsed(SimpleTimer timer)
-        {
-            SpawnPowerup(PowerupType.Freeze);
-        }
-
-        private void ShellTimerElapsed(SimpleTimer timer)
-        {
-            SpawnPowerup(PowerupType.Shell);
-        }
-
-        private void MissileTimerElapsed(SimpleTimer timer)
-        {
-            SpawnPowerup(PowerupType.Rocket);
-        }
-
-        private void SpawnPowerup(PowerupType type)
-        {
-            Powerup spawn = new Powerup(type);
-            Animation moveAnimation = GetAnimation(type);
-
-            int x = _randomPosition.Next(ScreenWidth - (int)(moveAnimation.FrameWidth * moveAnimation.Scale));
-            int y = (0 - (int)(moveAnimation.FrameHeight * moveAnimation.Scale));
-            Vector2 upperLeft = new Vector2(x, y);
-
-            spawn.Initialize(moveAnimation, _pickupAnimation, _pickupSoundEffect, upperLeft, _freezeVelocity, (short)ScreenHeight);
-            Characters.Add(spawn);
-        }
-
-        private Animation GetAnimation(PowerupType type)
-        {
-            switch (type)
-            {
-                case PowerupType.Shell:
-                    return _shellMoveAnimation;
-                case PowerupType.Rocket:
-                    return _missileMoveAnimation;
-                case PowerupType.Freeze:
-                case PowerupType.Nuke:
-                default:
-                    return _freezeMoveAnimation;
-            }
-        }
 
         private void RaisePickedUp(Powerup powerup)
         {

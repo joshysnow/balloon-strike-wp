@@ -1,31 +1,21 @@
-using System.Xml.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using GameCore;
-using GameCore.Timers;
-using GameCore.Physics;
-using GameCore.Triggers;
-using GameFramework.Triggers;
 
 namespace GameFramework
 {
     public abstract class CharacterManager : Serializable
     {
-        protected List<SimpleTimer> Timers
-        {
-            get { return _timers; }
-        }
-
         protected List<Character> Characters
         {
             get { return _characters; }
         }
 
-        protected TriggerManager Triggers
+        protected List<Spawner> Spawners
         {
-            get { return _triggerManager; }
+            get { return _spawners; }
         }
 
         protected int ScreenWidth
@@ -39,16 +29,14 @@ namespace GameFramework
             get;
             private set;
         }
-
-        private TriggerManager _triggerManager;
-        private List<SimpleTimer> _timers;
+        
         private List<Character> _characters;
+        private List<Spawner> _spawners;
 
         public CharacterManager(GraphicsDevice graphics)
         {
             _characters = new List<Character>();
-            _timers = new List<SimpleTimer>(5);
-            _triggerManager = new TriggerManager();
+            _spawners = new List<Spawner>(5);
 
             ScreenWidth = graphics.Viewport.Width;
             ScreenHeight = graphics.Viewport.Height;
@@ -61,8 +49,7 @@ namespace GameFramework
         public virtual void Update(GameTime gameTime)
         {
             UpdateCharacters(gameTime);
-            UpdateTimers(gameTime);
-            UpdateTriggers(gameTime);
+            UpdateSpawners(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -81,17 +68,12 @@ namespace GameFramework
 
         protected abstract void UpdateCharacters(GameTime gameTime);
 
-        private void UpdateTimers(GameTime gameTime)
+        private void UpdateSpawners(GameTime gameTime)
         {
-            foreach (SimpleTimer timer in Timers)
+            foreach (Spawner spawner in _spawners)
             {
-                timer.Update(gameTime);
+                spawner.Update(gameTime);
             }
-        }
-
-        private void UpdateTriggers(GameTime gameTime)
-        {
-            _triggerManager.Update(gameTime);
         }
     }
 }
