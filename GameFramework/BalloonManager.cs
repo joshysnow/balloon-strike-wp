@@ -117,14 +117,7 @@ namespace GameFramework
                 }
 
                 // Dehydrate spawners.
-                XElement spawnersRoot = new XElement("Spawners");
-                XElement spawnerNode;
-
-                foreach (Spawner spawner in Spawners)
-                {
-                    spawnerNode = spawner.Dehydrate();
-                    spawnersRoot.Add(spawnerNode);
-                }
+                XElement spawnersRoot = DehydrateSpawners();
 
                 root.Add(balloonsRoot);
                 root.Add(spawnersRoot);

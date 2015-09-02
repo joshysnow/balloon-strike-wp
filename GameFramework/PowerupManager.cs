@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Linq;
 using System.Xml.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -9,8 +10,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using GameCore;
 using GameCore.Timers;
-using GameCore.Triggers;
-using GameFramework.Triggers;
 
 namespace GameFramework
 {
@@ -45,9 +44,17 @@ namespace GameFramework
                         using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
                         {
                             XDocument doc = XDocument.Load(stream);
+                            XElement root = doc.Root;
 
-                            // TODO: Rehydrate powerups
+                            // Rehydrate powerups.
+                            XElement xPowerups = root.Element("Powerups");
+                            RehydratePowerups(xPowerups);
+
+                            XElement xSpawners = root.Element("Spawners");
+                            RehydrateSpawners(xSpawners);
                         }
+
+                        storage.DeleteFile(STORAGE_FILE_NAME);
                     }
                     else
                     {
@@ -63,12 +70,28 @@ namespace GameFramework
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 XDocument doc = new XDocument();
+                XElement root = new XElement("PowerupManager");
 
-                // TODO: Dehydrate powerups
+                // Dehydrate powerups.
+                XElement powerupsRoot = new XElement("Powerups");
+                XElement powerupNode;
+
+                foreach (Character character in Characters)
+                {
+                    powerupNode = ((Powerup)character).Dehydrate();
+                    powerupsRoot.Add(powerupNode);
+                }
+
+                // Dehydrate spawners.
+                XElement spawnersRoot = DehydrateSpawners();
+
+                root.Add(powerupsRoot);
+                root.Add(spawnersRoot);
+                doc.Add(root);
 
                 using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
                 {
-                    //doc.Save(stream);
+                    doc.Save(stream);
                 }
             }
         }
@@ -175,6 +198,48 @@ namespace GameFramework
             Spawners.Add(missileSpawner);
         }
 
+        private void RehydratePowerups(XElement powerups)
+        {
+            Powerup powerup;
+
+            foreach (XElement xPowerup in powerups.Elements())
+            {
+                powerup = _factory.RehydratePowerup(xPowerup);
+                Characters.Add(powerup);
+            }
+        }
+
+        private void RehydrateSpawners(XElement spawners)
+        {
+            Spawner spawner;
+            Vector2 prototypePosition = Vector2.Zero;
+
+            foreach (XElement xSpawner in spawners.Elements())
+            {
+                // Note: Remember for spawners, get the Spawns attribute to know what powerup
+                // prototype to build for it.
+
+                string spawns = xSpawner.Attribute("Spawns").Value;
+                string typeValue = "Shell";
+
+                if (spawns.Contains("Powerup"))
+                {
+                    typeValue = spawns.Split('_').Last();
+                }
+
+                PowerupType type = PowerupType.Shell;
+                type = (PowerupType)Enum.Parse(type.GetType(), typeValue, false);
+
+                Vector2 position = Vector2.Zero;
+                Powerup prototype = _factory.MakePowerup(type, ref position);
+
+                spawner = Spawner.Rehydrate(xSpawner, prototype);
+                spawner.Spawn += SpawnerSpawnHandler;
+
+                Spawners.Add(spawner);
+            }
+        }
+
         private Spawner CreateSpawner(PowerupType type, VariableTimer timer, float startTime = 0)
         {
             // Make the prototype.
@@ -201,7 +266,6 @@ namespace GameFramework
             Powerup newPowerup = _factory.MakePowerup(proto.Type, ref position);
             Characters.Add(newPowerup);
         }
-
 
         private void RaisePickedUp(Powerup powerup)
         {

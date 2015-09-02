@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using GameCore;
@@ -38,7 +39,8 @@ namespace GameFramework
 
         public Powerup MakePowerup(PowerupType type, ref Vector2 position)
         {
-            Powerup make = new Powerup(type);
+            Powerup make = new Powerup();
+            make.Type = type;
 
             switch (type)
             {
@@ -51,6 +53,31 @@ namespace GameFramework
                 case PowerupType.Shell:
                 default:
                     make.Initialize(_shotgunShellModel, ref position, _screenHeight);
+                    break;
+            }
+
+            return make;
+        }
+
+        public Powerup RehydratePowerup(XElement powerupElement)
+        {
+            Powerup make = new Powerup();
+
+            PowerupType type = PowerupType.Shell;
+            type = (PowerupType)Enum.Parse(type.GetType(), powerupElement.Attribute("Type").Value, false);
+            make.Type = type;
+
+            switch (type)
+            {
+                case PowerupType.Freeze:
+                    make.Rehydrate(powerupElement, _freezeModel);
+                    break;
+                case PowerupType.Rocket:
+                    make.Rehydrate(powerupElement, _missileModel);
+                    break;
+                case PowerupType.Shell:
+                default:
+                    make.Rehydrate(powerupElement, _shotgunShellModel);
                     break;
             }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,8 +32,8 @@ namespace GameFramework
 
         public PowerupType Type
         {
-            get; 
-            private set;
+            get;
+            set;
         }
 
         public PowerupState State
@@ -56,9 +57,8 @@ namespace GameFramework
         private bool _initialized;
         private bool _isAvailable;
 
-        public Powerup(PowerupType type) : base()
+        public Powerup() : base()
         {
-            Type = type;
             _initialized = false;
             _isAvailable = true;
         }
@@ -87,6 +87,34 @@ namespace GameFramework
         {
             _initialized = false;
             _isAvailable = true;
+        }
+
+        public XElement Dehydrate()
+        {
+            XElement xPowerup = new XElement("Powerup",
+                new XAttribute("UL-X", _positionUL.X),
+                new XAttribute("UL-Y", _positionUL.Y),
+                new XAttribute("LR-X", _positionLR.X),
+                new XAttribute("LR-Y", _positionLR.Y),
+                new XAttribute("Type", Type),
+                new XAttribute("State", State),
+                new XAttribute("MaxY", _maxY)
+                );
+
+            return xPowerup;
+        }
+
+        public void Rehydrate(XElement element, PowerupModel model)
+        {
+            float x = float.Parse(element.Attribute("UL-X").Value);
+            float y = float.Parse(element.Attribute("UL-Y").Value);
+            Vector2 position = new Vector2(x, y);
+
+            int maxY = int.Parse(element.Attribute("MaxY").Value);
+
+            Initialize(model, ref position, maxY);
+
+            _state = (PowerupState)Enum.Parse(State.GetType(), element.Attribute("State").Value, false);
         }
 
         public override void Update(GameTime gameTime)

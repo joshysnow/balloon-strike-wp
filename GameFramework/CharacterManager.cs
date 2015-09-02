@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -67,6 +68,20 @@ namespace GameFramework
         }
 
         protected abstract void UpdateCharacters(GameTime gameTime);
+
+        protected XElement DehydrateSpawners()
+        {
+            XElement spawnersRoot = new XElement("Spawners");
+            XElement spawnerNode;
+
+            foreach (Spawner spawner in _spawners)
+            {
+                spawnerNode = spawner.Dehydrate();
+                spawnersRoot.Add(spawnerNode);
+            }
+
+            return spawnersRoot;
+        }
 
         private void UpdateSpawners(GameTime gameTime)
         {
