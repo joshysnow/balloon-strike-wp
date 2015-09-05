@@ -29,7 +29,8 @@ namespace BalloonStrike.Views
         private Sun _sun;
         private GameState _gameState;
 
-        public GameView()
+        public GameView(bool rehydrated = false)
+            : base(rehydrated)
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -166,11 +167,13 @@ namespace BalloonStrike.Views
             SpriteBatch spriteBatch = ViewManager.SpriteBatch;
 
             spriteBatch.Begin();
+
             _balloonManager.Draw(spriteBatch);
             _powerupManager.Draw(spriteBatch);
             _weaponManager.Draw(spriteBatch);
             _scoreDisplay.Draw(spriteBatch);
             _sun.Draw(spriteBatch);
+
             spriteBatch.End();
         }
 

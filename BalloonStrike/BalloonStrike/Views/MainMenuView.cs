@@ -106,7 +106,8 @@ namespace BalloonStrike.Views
 
         private void PlayTappedHandler(Button button)
         {
-            LoadView.Load(ViewManager, 1, new GameView());
+            // Setup as a new game.
+            LoadView.Load(ViewManager, 1, new GameView(false));
         }
 
         private void HighscoresTappedHandler(Button button)

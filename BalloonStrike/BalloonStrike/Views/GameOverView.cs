@@ -155,7 +155,7 @@ namespace BalloonStrike.Views
         private void ResetPlayerScore()
         {
 #warning Too many calls to this function. Reduce by knowing how the view is exiting i.e. being serilized or not.
-            Player.Instance.Reset();
+            Player.Instance.ResetScore();
         }
     }
 }

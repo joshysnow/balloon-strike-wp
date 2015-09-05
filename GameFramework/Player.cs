@@ -19,8 +19,8 @@ namespace GameFramework
     {
         public int HighScore
         {
-            get;
-            set;
+            get { return _highScore; }
+            set { _highScore = value; }
         }
 
         public int CurrentScore
@@ -54,7 +54,8 @@ namespace GameFramework
         private static Player _instance;
 
         private const string STORAGE_FILE_NAME = "PLAYER.xml";
-                
+
+        private int _highScore;
         private int _currentScore;
         private bool _initialized;
 
@@ -71,15 +72,15 @@ namespace GameFramework
             }
         }
 
-        public void Deactivate(bool saveScore)
+        public void Deactivate()
         {
             // Save player data.
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 XDocument doc = new XDocument();
                 XElement root = new XElement("Player", 
-                    new XAttribute("Score", 0),
-                    new XAttribute("HighScore", HighScore)
+                    new XAttribute("Score", _currentScore),
+                    new XAttribute("HighScore", _highScore)
                     );
 
                 doc.Add(root);

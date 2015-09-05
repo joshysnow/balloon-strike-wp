@@ -102,7 +102,7 @@ namespace GameInterfaceFramework
                         foreach (XElement viewElement in doc.Root.Elements("View"))
                         {
                             Type viewType = Type.GetType(viewElement.Attribute("Type").Value);
-                            View view = viewFactory.CreateView(viewType);
+                            View view = viewFactory.CreateView(viewType, true);
 
                             AddView(view);
                         }

@@ -14,6 +14,6 @@ namespace GameInterfaceFramework
     /// </summary>
     public interface IViewFactory
     {
-        View CreateView(Type viewType);
+        View CreateView(Type viewType, bool rehydrated);
     }
 }
