@@ -44,10 +44,13 @@ namespace BalloonStrike.Views
         {
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
 
-            Player.Instance.Activate(instancePreserved);
+            bool newGame = !Rehydrated;
+
+            Player player = Player.Instance;
+            player.Activate(instancePreserved, newGame);
 
             _sun = new Sun();
-            _sun.Activate(instancePreserved);
+            _sun.Activate(instancePreserved, newGame);
 
             _scoreDisplay = new ScoreDisplay();
             _scoreDisplay.Activate(instancePreserved);
@@ -99,6 +102,8 @@ namespace BalloonStrike.Views
             _weaponManager.Deactivate();
             _balloonManager.Deactivate();
             _powerupManager.Deactivate();
+
+            Player.Instance.Deactivate();
 
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {

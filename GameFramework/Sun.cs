@@ -20,7 +20,7 @@ namespace GameFramework
 
     public delegate void SunDeadHandler();
 
-    public class Sun : Serializable
+    public class Sun
     {
         public event SunDeadHandler Dead;
 
@@ -93,56 +93,20 @@ namespace GameFramework
             UpdateMood();
         }
 
-        private void LoadResources()
+        public void Activate(bool instancePreserved, bool newGame)
         {
-            ResourceManager resources = ResourceManager.Resources;
-            _superHappyAnimation = resources.GetAnimation("sun_superhappy");
-            _happyAnimation = resources.GetAnimation("sun_happy");
-            _okAnimation = resources.GetAnimation("sun_ok");
-            _sadAnimation = resources.GetAnimation("sun_sad");
-            _cryingAnimation = resources.GetAnimation("sun_crying");
-        }
+            // If game needs loading/reloading.
+            if (!instancePreserved)
+            {
+                LoadResources();
 
-        public void Activate(bool instancePreserved)
-        {
-            if (instancePreserved)
-            {
-                // Nothing to do here, if we haven't been tombstoned then do/set nothing special
-            }
-            else
-            {
-                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                if (newGame)
                 {
-                    if (storage.FileExists(STORAGE_FILE_NAME))
-                    {
-                        LoadResources();
-
-                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
-                        {
-                            XDocument doc = XDocument.Load(stream);
-
-                            XElement root = doc.Root;
-                            _currentLives = byte.Parse(root.Attribute("Lives").Value);
-
-                            XElement pulse = root.Element("Pulse");
-                            PulseState state = (PulseState)Enum.Parse(_pulse.State.GetType(), pulse.Attribute("State").Value, false);
-                            float position = float.Parse(pulse.Attribute("Position").Value);
-                            float time = float.Parse(pulse.Attribute("Time").Value);
-                            bool increasing = bool.Parse(pulse.Attribute("Increasing").Value);
-
-                            _pulse.Activate(state, position, time, increasing);
-                        }
-
-                        UpdateMood();
-                        
-                        // Delete file so it cannot be resued
-                        storage.DeleteFile(STORAGE_FILE_NAME);
-                    }
-                    else
-                    {
-                        // May not have been tombstoned or failed to save in time, initialize new game
-                        Initialize();
-                    }
+                    Initialize();
+                }
+                else
+                {
+                    Rehydrate();
                 }
             }
         }
@@ -198,15 +162,54 @@ namespace GameFramework
             _animationPlayer.Draw(spriteBatch);
         }
 
+        private void LoadResources()
+        {
+            ResourceManager resources = ResourceManager.Resources;
+            _superHappyAnimation = resources.GetAnimation("sun_superhappy");
+            _happyAnimation = resources.GetAnimation("sun_happy");
+            _okAnimation = resources.GetAnimation("sun_ok");
+            _sadAnimation = resources.GetAnimation("sun_sad");
+            _cryingAnimation = resources.GetAnimation("sun_crying");
+        }
+
+        private void Rehydrate()
+        {
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (storage.FileExists(STORAGE_FILE_NAME))
+                {
+                    using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                    {
+                        XDocument doc = XDocument.Load(stream);
+
+                        XElement root = doc.Root;
+                        _currentLives = byte.Parse(root.Attribute("Lives").Value);
+
+                        XElement pulse = root.Element("Pulse");
+                        PulseState state = (PulseState)Enum.Parse(_pulse.State.GetType(), pulse.Attribute("State").Value, false);
+                        float position = float.Parse(pulse.Attribute("Position").Value);
+                        float time = float.Parse(pulse.Attribute("Time").Value);
+                        bool increasing = bool.Parse(pulse.Attribute("Increasing").Value);
+
+                        _pulse.Activate(state, position, time, increasing);
+                    }
+
+                    UpdateMood();
+
+                    // Delete file so it cannot be resued
+                    storage.DeleteFile(STORAGE_FILE_NAME);
+                }
+                else
+                {
+                    // May not have been tombstoned or failed to save in time, initialize new game
+                    Initialize();
+                }
+            }
+        }
+
         private void UpdateMood()
         {
             float moodPercentage = MoodPosition;
-
-            // Split into separate functions
-            // UpdateMood()             Calls below functions
-            // 1) UpdateState()         Change state
-            // 2) UpdateAnimation()     Change animation
-            // 3) UpdatePulse()         Change rhythm
 
             if (moodPercentage <= THRESHOLD_CRYING)
             {

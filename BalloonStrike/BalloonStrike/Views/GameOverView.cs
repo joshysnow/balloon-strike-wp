@@ -19,7 +19,8 @@ namespace BalloonStrike.Views
         private float _score;
         private bool _finishedCounting;
 
-        public GameOverView()
+        public GameOverView(bool rehydrated = false)
+            :base(rehydrated)
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -127,19 +128,16 @@ namespace BalloonStrike.Views
 
         protected override void HandleBackButtonPressed()
         {
-            ResetPlayerScore();
             LoadView.Load(ViewManager, 1, new MainMenuView());
         }
 
         private void PlayTappedHandler(Button button)
         {
-            ResetPlayerScore();
             LoadView.Load(ViewManager, 1, new GameView());
         }
 
         private void MenuTappedHandler(Button button)
         {
-            ResetPlayerScore();
             LoadView.Load(ViewManager, 1, new MainMenuView());
         }
 
@@ -147,15 +145,6 @@ namespace BalloonStrike.Views
         {
             ViewGestures = GestureType.Tap;
             ViewManager.EnabledGestures = ViewGestures;
-        }
-
-        /// <summary>
-        /// Clear the players current score when exiting.
-        /// </summary>
-        private void ResetPlayerScore()
-        {
-#warning Too many calls to this function. Reduce by knowing how the view is exiting i.e. being serilized or not.
-            Player.Instance.ResetScore();
         }
     }
 }

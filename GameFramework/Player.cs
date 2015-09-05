@@ -64,12 +64,35 @@ namespace GameFramework
             _initialized = false;
         }
 
-        public void Activate(bool instancePreserved)
+        public void Activate(bool instancePreserved, bool newGame)
         {
             if (!instancePreserved)
             {
-                // TODO: Load high score.
+                // Load high score.
+                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    if (storage.FileExists(STORAGE_FILE_NAME) && !newGame)
+                    {
+                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                        {
+                            XDocument doc = XDocument.Load(stream);
+                            XElement xPlayer = doc.Root;
+
+                            _highScore = int.Parse(xPlayer.Attribute("HighScore").Value);
+
+                            // Only if this is a new game do we not rehydrate the stored score.
+                            if (!newGame)
+                                _currentScore = int.Parse(xPlayer.Attribute("Score").Value);
+                        }
+
+                        // Note: The file isn't deleted in case something goes wrong we still have
+                        // the players high score stored on disk.
+                    }
+                }
             }
+
+            if (newGame)
+                _currentScore = 0;
         }
 
         public void Deactivate()
@@ -90,11 +113,6 @@ namespace GameFramework
                     doc.Save(stream);
                 }
             }
-        }
-
-        public void ResetScore()
-        {
-            _currentScore = 0;
         }
 
         private void RaiseScoreUpdated()
