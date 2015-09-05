@@ -43,7 +43,7 @@ namespace BalloonStrike.Views
         {
             GraphicsDevice graphics = ViewManager.GraphicsDevice;
 
-            Player.Instance.CurrentScore = 0;
+            Player.Instance.Activate(instancePreserved);
 
             _sun = new Sun();
             _sun.Activate(instancePreserved);
@@ -60,7 +60,7 @@ namespace BalloonStrike.Views
             _powerupManager = new PowerupManager(graphics);
             _powerupManager.Activate(instancePreserved);
 
-            // Rehyrate the game view
+            // Rehyrate the game view.
             if (!instancePreserved)
             {
                 using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())

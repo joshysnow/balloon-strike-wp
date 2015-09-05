@@ -1,4 +1,8 @@
-﻿namespace GameFramework
+﻿using System.IO;
+using System.IO.IsolatedStorage;
+using System.Xml.Linq;
+
+namespace GameFramework
 {
     public delegate void ScoreUpdated(int newScore);
 
@@ -48,20 +52,46 @@
         public event ScoreUpdated ScoreUpdated;
 
         private static Player _instance;
+
+        private const string STORAGE_FILE_NAME = "PLAYER.xml";
+                
         private int _currentScore;
+        private bool _initialized;
 
         private Player()
         {
-            _currentScore = 0;
-            HighScore = 0;
+            _initialized = false;
         }
 
-        public void Initialize()
+        public void Activate(bool instancePreserved)
         {
-#warning TODO: Get high score from disk.
+            if (!instancePreserved)
+            {
+                // TODO: Load high score.
+            }
         }
 
-        public void Reset()
+        public void Deactivate(bool saveScore)
+        {
+            // Save player data.
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                XDocument doc = new XDocument();
+                XElement root = new XElement("Player", 
+                    new XAttribute("Score", 0),
+                    new XAttribute("HighScore", HighScore)
+                    );
+
+                doc.Add(root);
+
+                using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Create))
+                {
+                    doc.Save(stream);
+                }
+            }
+        }
+
+        public void ResetScore()
         {
             _currentScore = 0;
         }
