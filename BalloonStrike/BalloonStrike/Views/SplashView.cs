@@ -10,12 +10,15 @@ namespace BalloonStrike.Views
     {
         private Texture2D _splashTexture;
 
-        public SplashView()
+        public SplashView(bool rehydrated = false)
+            :base(rehydrated)
         {
             Transition.TransitionOffTime = TimeSpan.FromSeconds(1);
             Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
             Transition.ActiveTime = TimeSpan.FromSeconds(1);
             Transition.Invoked = false;
+
+            IsSerializable = true;
         }
 
         public override void Activate(bool instancePreserved)

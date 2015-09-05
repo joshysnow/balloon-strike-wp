@@ -76,8 +76,6 @@ namespace GameInterfaceFramework
         private Transition _transition = new Transition() { Invoked = true };
         private bool _isExiting = false;
 
-        public View() { }
-
         public View(bool rehydrated = false)
         {
             Rehydrated = rehydrated;

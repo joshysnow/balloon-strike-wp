@@ -9,7 +9,8 @@ namespace GameInterfaceFramework
     {
         protected List<Button> _menuButtons;
 
-        public MenuView()
+        public MenuView(bool rehydrated = false)
+            :base(rehydrated)
         {
             _menuButtons = new List<Button>();
 

@@ -15,7 +15,8 @@ namespace BalloonStrike.Views
 
         private CloudManager _clouds;
 
-        public BackgroundView()
+        public BackgroundView(bool rehydrated = false)
+            :base(rehydrated)
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);

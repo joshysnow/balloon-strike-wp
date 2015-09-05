@@ -10,10 +10,13 @@ namespace BalloonStrike.Views
     {
         private SpriteFont _font;
 
-        public AchievementsView()
+        public AchievementsView(bool rehydrated = false)
+            :base(rehydrated)
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(1);
+
+            IsSerializable = true;
         }
 
         public override void Activate(bool instancePreserved)

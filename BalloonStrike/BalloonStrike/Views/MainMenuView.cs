@@ -15,7 +15,8 @@ namespace BalloonStrike.Views
         private Vector2 _versionPosition;
         private string _versionText;
 
-        public MainMenuView() : base()
+        public MainMenuView(bool rehydrated = false)
+            :base(rehydrated)
         {
             _versionText = "VERSION UNDETECTED";
         }
@@ -106,8 +107,8 @@ namespace BalloonStrike.Views
 
         private void PlayTappedHandler(Button button)
         {
-            // Setup as a new game.
-            LoadView.Load(ViewManager, 1, new GameView(false));
+            // Setup a new game.
+            LoadView.Load(ViewManager, 1, new GameView());
         }
 
         private void HighscoresTappedHandler(Button button)

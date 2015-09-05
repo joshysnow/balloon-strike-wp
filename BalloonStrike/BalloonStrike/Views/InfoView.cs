@@ -31,7 +31,8 @@ namespace BalloonStrike.Views
         private SpriteFont _smallPrintFont;
         private Vector2[] _indices;
 
-        public InfoView()
+        public InfoView(bool rehydrated = false)
+            :base(rehydrated)
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(0.5);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
