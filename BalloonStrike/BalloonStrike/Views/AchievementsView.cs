@@ -15,8 +15,6 @@ namespace BalloonStrike.Views
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(1);
             Transition.TransitionOffTime = TimeSpan.FromSeconds(1);
-
-            IsSerializable = true;
         }
 
         public override void Activate(bool instancePreserved)

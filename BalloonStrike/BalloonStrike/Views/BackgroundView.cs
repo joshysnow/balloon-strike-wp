@@ -27,8 +27,9 @@ namespace BalloonStrike.Views
         public override void Activate(bool instancePreserved)
         {
             // Instantiate for the first time or rehydrate.
-            _clouds = new CloudManager(ViewManager.GraphicsDevice);
-            _clouds.Activate(instancePreserved, !Rehydrated);
+            if (!instancePreserved)
+                _clouds = new CloudManager(ViewManager.GraphicsDevice);
+                _clouds.Activate(instancePreserved, !Rehydrated);
             //_music = ResourceManager.Manager.GetSong("test");
 
             base.Activate(instancePreserved);

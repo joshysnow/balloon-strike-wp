@@ -96,6 +96,10 @@ namespace GameFramework
             // Save player data.
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
+                // Delete the file so it is ready to be replaced.
+                if (storage.FileExists(STORAGE_FILE_NAME))
+                    storage.DeleteFile(STORAGE_FILE_NAME);
+
                 XDocument doc = new XDocument();
                 XElement root = new XElement("Player", 
                     new XAttribute("Score", _currentScore),

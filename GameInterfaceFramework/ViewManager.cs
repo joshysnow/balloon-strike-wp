@@ -107,6 +107,8 @@ namespace GameInterfaceFramework
                             AddView(view);
                         }
                     }
+
+                    storage.DeleteFile(STORAGE_FILE_NAME);
                 }
             }
 
@@ -182,6 +184,7 @@ namespace GameInterfaceFramework
 
         private void UpdateViews(GameTime gameTime)
         {
+            _tempViews.Clear();
             _tempViews.AddRange(_views);
             _tempViews.Reverse();
 
@@ -213,8 +216,6 @@ namespace GameInterfaceFramework
 
                 index++;
             }
-
-            _tempViews.Clear();
         }
     }
 }

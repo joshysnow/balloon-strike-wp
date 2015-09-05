@@ -110,6 +110,7 @@ namespace BalloonStrike
 
             // If we fail to rehydrate then restart the game.
             if (!_viewManager.Activate(e.IsApplicationInstancePreserved))
+            //if (!_viewManager.Activate(false))
             {
                 InitializeGame();
             }

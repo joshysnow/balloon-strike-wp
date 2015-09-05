@@ -42,31 +42,31 @@ namespace BalloonStrike.Views
 
         public override void Activate(bool instancePreserved)
         {
-            GraphicsDevice graphics = ViewManager.GraphicsDevice;
-
-            bool newGame = !Rehydrated;
-
-            Player player = Player.Instance;
-            player.Activate(instancePreserved, newGame);
-
-            _sun = new Sun();
-            _sun.Activate(instancePreserved, newGame);
-
-            _scoreDisplay = new ScoreDisplay();
-            _scoreDisplay.Activate(instancePreserved, newGame);
-
-            _weaponManager = new WeaponManager();
-            _weaponManager.Activate(instancePreserved, newGame);
-
-            _balloonManager = new BalloonManager(graphics);
-            _balloonManager.Activate(instancePreserved, newGame);
-
-            _powerupManager = new PowerupManager(graphics);
-            _powerupManager.Activate(instancePreserved, newGame);
-
             // Rehyrate the game view.
             if (!instancePreserved)
             {
+                GraphicsDevice graphics = ViewManager.GraphicsDevice;
+
+                bool newGame = !Rehydrated;
+
+                Player player = Player.Instance;
+                player.Activate(instancePreserved, newGame);
+
+                _sun = new Sun();
+                _sun.Activate(instancePreserved, newGame);
+
+                _scoreDisplay = new ScoreDisplay();
+                _scoreDisplay.Activate(instancePreserved, newGame);
+
+                _weaponManager = new WeaponManager();
+                _weaponManager.Activate(instancePreserved, newGame);
+
+                _balloonManager = new BalloonManager(graphics);
+                _balloonManager.Activate(instancePreserved, newGame);
+
+                _powerupManager = new PowerupManager(graphics);
+                _powerupManager.Activate(instancePreserved, newGame);
+
                 using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
                 {
                     if (storage.FileExists(STORAGE_FILE_NAME))

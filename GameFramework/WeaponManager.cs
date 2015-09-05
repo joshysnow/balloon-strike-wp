@@ -57,7 +57,7 @@ namespace GameFramework
 
                 if (newGame)
                 {
-                    Initialize();
+                    InitializeDefault();
                 }
                 else
                 {
@@ -184,7 +184,7 @@ namespace GameFramework
             _display.Draw(spriteBatch);
         }
 
-        private void Initialize()
+        private void InitializeDefault()
         {
             Weapon defaultWeapon = _weaponFactory.MakeWeapon(WeaponType.Tap);
             _inventory.AddFirst(defaultWeapon);
@@ -240,7 +240,7 @@ namespace GameFramework
                 else
                 {
                     // Add the default weapon (act like this is a new game scenario)
-                    Initialize();
+                    InitializeDefault();
                 }
             }
         }
