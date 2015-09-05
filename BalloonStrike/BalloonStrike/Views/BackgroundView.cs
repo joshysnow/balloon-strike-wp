@@ -28,7 +28,7 @@ namespace BalloonStrike.Views
         {
             // Instantiate for the first time or rehydrate.
             _clouds = new CloudManager(ViewManager.GraphicsDevice);
-            _clouds.Activate(instancePreserved);
+            _clouds.Activate(instancePreserved, !Rehydrated);
             //_music = ResourceManager.Manager.GetSong("test");
 
             base.Activate(instancePreserved);

@@ -18,7 +18,7 @@ namespace GameFramework
 
     public delegate void WeaponUpdate(WeaponUpdateEvent evt, object data);
 
-    public class WeaponManager : Serializable
+    public class WeaponManager
     {
         private const string STORAGE_FILE_NAME = "WEAPON_MANAGER.xml";
 
@@ -44,7 +44,7 @@ namespace GameFramework
             _weaponFactory = new WeaponFactory();
         }
 
-        public void Activate(bool instancePreserved)
+        public void Activate(bool instancePreserved, bool newGame)
         {
             if (instancePreserved)
             {
@@ -55,56 +55,13 @@ namespace GameFramework
                 // Load weapon resources
                 _weaponFactory.Initialize();
 
-                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                if (newGame)
                 {
-                    if (storage.FileExists(STORAGE_FILE_NAME))
-                    {
-                        // Rehydrate the weapons
-                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
-                        {
-                            XDocument doc = XDocument.Load(stream);
-                            XElement root = doc.Root;
-
-                            // Use this to get the type when parsing WeaponType attribute from saved data
-                            WeaponType temp = WeaponType.Tap;
-
-                            foreach (XElement weaponXML in root.Element("Weapons").Elements())
-                            {
-                                // Extract saved data on weapon
-                                WeaponType weaponType = (WeaponType)Enum.Parse(temp.GetType(), weaponXML.Attribute("Type").Value, false);
-                                float delta = float.Parse(weaponXML.Attribute("Delta").Value);
-                                byte ammo = Byte.Parse(weaponXML.Attribute("Ammo").Value);
-
-                                // Rehydrate weapon
-                                Weapon weapon = _weaponFactory.MakeWeapon(weaponType);
-                                weapon.Ammo = ammo;
-                                weapon.Delta = delta;
-
-                                // Add to the head of weapons list
-                                _inventory.AddFirst(new LinkedListNode<Weapon>(weapon));
-                            }
-
-                            foreach (XElement weaponXML in root.Element("Graveyard").Elements())
-                            {
-                                WeaponType weaponType = (WeaponType)Enum.Parse(temp.GetType(), weaponXML.Attribute("Type").Value, false);
-                                float delta = float.Parse(weaponXML.Attribute("Delta").Value);
-
-                                // Rehydrate weapon
-                                Weapon weapon = _weaponFactory.MakeWeapon(weaponType);
-                                weapon.Ammo = 0;
-                                weapon.Delta = delta;
-
-                                _graveyard.Add(weapon);
-                            }
-                        }
-
-                        storage.DeleteFile(STORAGE_FILE_NAME);
-                    }
-                    else
-                    {
-                        // Add the default weapon (act like this is a new game scenario)
-                        Initialize();
-                    }
+                    Initialize();
+                }
+                else
+                {
+                    Rehydrate();
                 }
 
                 Weapon mainWeapon = CurrentWeapon;
@@ -231,6 +188,61 @@ namespace GameFramework
         {
             Weapon defaultWeapon = _weaponFactory.MakeWeapon(WeaponType.Tap);
             _inventory.AddFirst(defaultWeapon);
+        }
+
+        private void Rehydrate()
+        {
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (storage.FileExists(STORAGE_FILE_NAME))
+                {
+                    // Rehydrate the weapons
+                    using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                    {
+                        XDocument doc = XDocument.Load(stream);
+                        XElement root = doc.Root;
+
+                        // Use this to get the type when parsing WeaponType attribute from saved data
+                        WeaponType temp = WeaponType.Tap;
+
+                        foreach (XElement weaponXML in root.Element("Weapons").Elements())
+                        {
+                            // Extract saved data on weapon
+                            WeaponType weaponType = (WeaponType)Enum.Parse(temp.GetType(), weaponXML.Attribute("Type").Value, false);
+                            float delta = float.Parse(weaponXML.Attribute("Delta").Value);
+                            byte ammo = Byte.Parse(weaponXML.Attribute("Ammo").Value);
+
+                            // Rehydrate weapon
+                            Weapon weapon = _weaponFactory.MakeWeapon(weaponType);
+                            weapon.Ammo = ammo;
+                            weapon.Delta = delta;
+
+                            // Add to the head of weapons list
+                            _inventory.AddFirst(new LinkedListNode<Weapon>(weapon));
+                        }
+
+                        foreach (XElement weaponXML in root.Element("Graveyard").Elements())
+                        {
+                            WeaponType weaponType = (WeaponType)Enum.Parse(temp.GetType(), weaponXML.Attribute("Type").Value, false);
+                            float delta = float.Parse(weaponXML.Attribute("Delta").Value);
+
+                            // Rehydrate weapon
+                            Weapon weapon = _weaponFactory.MakeWeapon(weaponType);
+                            weapon.Ammo = 0;
+                            weapon.Delta = delta;
+
+                            _graveyard.Add(weapon);
+                        }
+                    }
+
+                    storage.DeleteFile(STORAGE_FILE_NAME);
+                }
+                else
+                {
+                    // Add the default weapon (act like this is a new game scenario)
+                    Initialize();
+                }
+            }
         }
 
         private void AddWeapon(WeaponType newWeaponType)

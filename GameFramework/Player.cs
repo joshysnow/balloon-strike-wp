@@ -57,12 +57,8 @@ namespace GameFramework
 
         private int _highScore;
         private int _currentScore;
-        private bool _initialized;
 
-        private Player()
-        {
-            _initialized = false;
-        }
+        private Player() { }
 
         public void Activate(bool instancePreserved, bool newGame)
         {
@@ -108,7 +104,7 @@ namespace GameFramework
 
                 doc.Add(root);
 
-                using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Create))
+                using (IsolatedStorageFileStream stream = storage.CreateFile(STORAGE_FILE_NAME))
                 {
                     doc.Save(stream);
                 }

@@ -53,16 +53,16 @@ namespace BalloonStrike.Views
             _sun.Activate(instancePreserved, newGame);
 
             _scoreDisplay = new ScoreDisplay();
-            _scoreDisplay.Activate(instancePreserved);
+            _scoreDisplay.Activate(instancePreserved, newGame);
 
             _weaponManager = new WeaponManager();
-            _weaponManager.Activate(instancePreserved);
+            _weaponManager.Activate(instancePreserved, newGame);
 
             _balloonManager = new BalloonManager(graphics);
-            _balloonManager.Activate(instancePreserved);
+            _balloonManager.Activate(instancePreserved, newGame);
 
             _powerupManager = new PowerupManager(graphics);
-            _powerupManager.Activate(instancePreserved);
+            _powerupManager.Activate(instancePreserved, newGame);
 
             // Rehyrate the game view.
             if (!instancePreserved)

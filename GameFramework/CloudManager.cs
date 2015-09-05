@@ -23,75 +23,21 @@ namespace GameFramework
             _randomYGen = new Random(DateTime.Now.Millisecond);
         }
 
-        public void Initialize()
-        {
-            InitializeCloudModels();
-
-            Vector2[] smallCloudPositions = GetInitialSmallCloudPositions();
-            Vector2[] mediumCloudPositions = GetInitialMediumCloudPositions();
-
-            InitializeClouds(smallCloudPositions, _smallModel);
-            InitializeClouds(mediumCloudPositions, _mediumModel);
-        }
-
-        public override void Activate(bool instancePreserved)
+        public override void Activate(bool instancePreserved, bool newGame)
         {
             if (instancePreserved)
             {
-                // Nothing to do here, if we haven't been tombstoned then do/set nothing special
+                // Nothing to do here, if we haven't been tombstoned then do/set nothing special.
             }
             else
             {
-                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                if (newGame)
                 {
-                    if (storage.FileExists(STORAGE_FILE_NAME))
-                    {
-                        // Initialize previously held data.
-                        InitializeCloudModels();
-
-                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
-                        {
-                            XDocument doc = XDocument.Load(stream);
-
-                            Cloud cloud;
-                            CloudModel model;
-                            Vector2 upperLeft;
-                            Vector2 originalPosition;
-
-                            CloudType cloudType = CloudType.Small;
-                            Type objType = cloudType.GetType();
-
-                            foreach (XElement cloudElement in doc.Root.Elements("Cloud"))
-                            {
-                                cloudType = (CloudType)Enum.Parse(objType, cloudElement.Attribute("Type").Value, false);
-
-                                model = GetCloudModel(cloudType);
-
-                                float x = float.Parse(cloudElement.Attribute("X").Value);
-                                float y = float.Parse(cloudElement.Attribute("Y").Value);
-
-                                upperLeft = new Vector2(x, y);
-
-                                x = float.Parse(cloudElement.Attribute("Orig-X").Value);
-                                y = float.Parse(cloudElement.Attribute("Orig-Y").Value);
-
-                                originalPosition = new Vector2(x, y);
-
-                                cloud = new Cloud();
-                                cloud.Initialize(model, upperLeft, ScreenWidth);
-                                cloud.OriginalPosition = originalPosition;
-
-                                Characters.Add(cloud);
-                            }
-                        }
-
-                        // Delete file so it cannot be resued
-                        storage.DeleteFile(STORAGE_FILE_NAME);
-                    }
-                    else
-                    {
-                        Initialize();
-                    }
+                    InitializeDefault();
+                }
+                else
+                {
+                    Rehydrate();
                 }
             }
         }
@@ -148,6 +94,17 @@ namespace GameFramework
             }
         }
 
+        private void InitializeDefault()
+        {
+            InitializeCloudModels();
+
+            Vector2[] smallCloudPositions = GetInitialSmallCloudPositions();
+            Vector2[] mediumCloudPositions = GetInitialMediumCloudPositions();
+
+            InitializeClouds(smallCloudPositions, _smallModel);
+            InitializeClouds(mediumCloudPositions, _mediumModel);
+        }
+
         private void InitializeCloudModels()
         {
             ResourceManager resources = ResourceManager.Resources;
@@ -173,6 +130,61 @@ namespace GameFramework
                 cloud = new Cloud() { OriginalPosition = position };
                 cloud.Initialize(model, position, ScreenWidth);
                 Characters.Add(cloud);
+            }
+        }
+
+        private void Rehydrate()
+        {
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (storage.FileExists(STORAGE_FILE_NAME))
+                {
+                    // Initialize previously held data.
+                    InitializeCloudModels();
+
+                    using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                    {
+                        XDocument doc = XDocument.Load(stream);
+
+                        Cloud cloud;
+                        CloudModel model;
+                        Vector2 upperLeft;
+                        Vector2 originalPosition;
+
+                        CloudType cloudType = CloudType.Small;
+                        Type objType = cloudType.GetType();
+
+                        foreach (XElement cloudElement in doc.Root.Elements("Cloud"))
+                        {
+                            cloudType = (CloudType)Enum.Parse(objType, cloudElement.Attribute("Type").Value, false);
+
+                            model = GetCloudModel(cloudType);
+
+                            float x = float.Parse(cloudElement.Attribute("X").Value);
+                            float y = float.Parse(cloudElement.Attribute("Y").Value);
+
+                            upperLeft = new Vector2(x, y);
+
+                            x = float.Parse(cloudElement.Attribute("Orig-X").Value);
+                            y = float.Parse(cloudElement.Attribute("Orig-Y").Value);
+
+                            originalPosition = new Vector2(x, y);
+
+                            cloud = new Cloud();
+                            cloud.Initialize(model, upperLeft, ScreenWidth);
+                            cloud.OriginalPosition = originalPosition;
+
+                            Characters.Add(cloud);
+                        }
+                    }
+
+                    // Delete file so it cannot be resued
+                    storage.DeleteFile(STORAGE_FILE_NAME);
+                }
+                else
+                {
+                    InitializeDefault();
+                }
             }
         }
 

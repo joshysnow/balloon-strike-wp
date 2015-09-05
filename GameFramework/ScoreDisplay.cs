@@ -26,7 +26,7 @@ namespace GameFramework
             _transition = false;
         }
 
-        public void Activate(bool instancePreserved)
+        public void Activate(bool instancePreserved, bool newGame)
         {
             if (instancePreserved)
             {
@@ -37,23 +37,9 @@ namespace GameFramework
                 // Load resources and subscribe to events.
                 Initialize();
 
-                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                if (!newGame)
                 {
-                    if (storage.FileExists(STORAGE_FILE_NAME))
-                    {
-                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
-                        {
-                            XDocument doc = XDocument.Load(stream);
-                            XElement root = doc.Root;
-
-                            _position = float.Parse(root.Attribute("Position").Value);
-                            _direction = int.Parse(root.Attribute("Direction").Value);
-                            _transition = bool.Parse(root.Attribute("Transition").Value);
-                        }
-
-                        // Delete the hydration file to avoid confusion.
-                        storage.DeleteFile(STORAGE_FILE_NAME);
-                    }
+                    Rehydrate();
                 }
             }
         }
@@ -134,6 +120,28 @@ namespace GameFramework
             for (int i = 0; i < _fonts.Length; i++)
             {
                 _fonts[i] = manager.GetFont("font_score" + i);
+            }
+        }
+
+        private void Rehydrate()
+        {
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (storage.FileExists(STORAGE_FILE_NAME))
+                {
+                    using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                    {
+                        XDocument doc = XDocument.Load(stream);
+                        XElement root = doc.Root;
+
+                        _position = float.Parse(root.Attribute("Position").Value);
+                        _direction = int.Parse(root.Attribute("Direction").Value);
+                        _transition = bool.Parse(root.Attribute("Transition").Value);
+                    }
+
+                    // Delete the hydration file to avoid confusion.
+                    storage.DeleteFile(STORAGE_FILE_NAME);
+                }
             }
         }
 

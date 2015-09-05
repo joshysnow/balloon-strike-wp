@@ -7,7 +7,7 @@ using GameCore;
 
 namespace GameFramework
 {
-    public abstract class CharacterManager : Serializable
+    public abstract class CharacterManager
     {
         protected List<Character> Characters
         {
@@ -43,7 +43,7 @@ namespace GameFramework
             ScreenHeight = graphics.Viewport.Height;
         }
 
-        public abstract void Activate(bool instancePreserved);
+        public abstract void Activate(bool instancePreserved, bool newGame);
 
         public abstract void Deactivate();
 

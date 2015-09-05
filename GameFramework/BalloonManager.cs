@@ -36,57 +36,20 @@ namespace GameFramework
 
         public BalloonManager(GraphicsDevice graphics) : base(graphics) { }
 
-        public override void Activate(bool instancePreserved)
+        public override void Activate(bool instancePreserved, bool newGame)
         {
-            if (instancePreserved)
-            {
-                // Nothing to do here.
-            }
-            else
+            if (!instancePreserved)
             {
                 // Setup this manager.
                 Initialize();
 
-                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                if (newGame)
                 {
-                    if (storage.FileExists(STORAGE_FILE_NAME))
-                    {
-                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
-                        {
-                            XDocument doc = XDocument.Load(stream);
-                            XElement root = doc.Root;
-
-                            // Rehydrate manager state.
-                            BalloonManagerState temp = BalloonManagerState.Normal;
-                            _managerState = (BalloonManagerState)Enum.Parse(temp.GetType(), root.Attribute("State").Value, false);
-
-                            // Rehydrate freeze timer (if set).
-                            if (_managerState == BalloonManagerState.Frozen)
-                            {
-                                XElement xTimer = root.Element("Timer");
-
-                                if (xTimer != null)
-                                {
-                                    _freezeTimer = SimpleTimer.Rehydrate(xTimer);
-                                }
-                            }
-
-                            // Rehydrate balloons.
-                            XElement xBalloons = root.Element("Balloons");
-                            RehydrateBalloons(xBalloons);
-                            
-                            // Rehydrate spawners.
-                            XElement xSpawners = root.Element("Spawners");
-                            RehydrateSpawners(xSpawners);                            
-                        }
-                        
-                        storage.DeleteFile(STORAGE_FILE_NAME);
-                    }
-                    else
-                    {
-                        // Nothing to rehydrate from so initialize as new.
-                        InitializeDefault();
-                    }
+                    InitializeDefault();
+                }
+                else
+                {
+                    Rehydrate();
                 }
             }
         }
@@ -297,6 +260,51 @@ namespace GameFramework
             //            TimeTrigger massAttackTimer = new TimeTrigger(TimeSpan.FromSeconds(30));
             //            massAttackTimer.Triggered += MassAttackTimerTriggered;
             //            Triggers.AddTrigger(massAttackTimer);
+        }
+
+        private void Rehydrate()
+        {
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (storage.FileExists(STORAGE_FILE_NAME))
+                {
+                    using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                    {
+                        XDocument doc = XDocument.Load(stream);
+                        XElement root = doc.Root;
+
+                        // Rehydrate manager state.
+                        BalloonManagerState temp = BalloonManagerState.Normal;
+                        _managerState = (BalloonManagerState)Enum.Parse(temp.GetType(), root.Attribute("State").Value, false);
+
+                        // Rehydrate freeze timer (if set).
+                        if (_managerState == BalloonManagerState.Frozen)
+                        {
+                            XElement xTimer = root.Element("Timer");
+
+                            if (xTimer != null)
+                            {
+                                _freezeTimer = SimpleTimer.Rehydrate(xTimer);
+                            }
+                        }
+
+                        // Rehydrate balloons.
+                        XElement xBalloons = root.Element("Balloons");
+                        RehydrateBalloons(xBalloons);
+
+                        // Rehydrate spawners.
+                        XElement xSpawners = root.Element("Spawners");
+                        RehydrateSpawners(xSpawners);
+                    }
+
+                    storage.DeleteFile(STORAGE_FILE_NAME);
+                }
+                else
+                {
+                    // Nothing to rehydrate from so initialize as new.
+                    InitializeDefault();
+                }
+            }
         }
 
         private void RehydrateBalloons(XElement balloons)

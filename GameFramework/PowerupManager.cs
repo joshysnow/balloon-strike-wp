@@ -26,42 +26,21 @@ namespace GameFramework
 
         public PowerupManager(GraphicsDevice graphics) : base(graphics) { }
 
-        public override void Activate(bool instancePreserved)
+        public override void Activate(bool instancePreserved, bool newGame)
         {
-            if (instancePreserved)
-            {
-                // Everything still in memory, all good!
-            }
-            else
+            if (!instancePreserved)
             {
                 // Setup manager.
                 Initialize();
 
-                using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+                if (newGame)
                 {
-                    if (storage.FileExists(STORAGE_FILE_NAME))
-                    {
-                        using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
-                        {
-                            XDocument doc = XDocument.Load(stream);
-                            XElement root = doc.Root;
-
-                            // Rehydrate powerups.
-                            XElement xPowerups = root.Element("Powerups");
-                            RehydratePowerups(xPowerups);
-
-                            XElement xSpawners = root.Element("Spawners");
-                            RehydrateSpawners(xSpawners);
-                        }
-
-                        storage.DeleteFile(STORAGE_FILE_NAME);
-                    }
-                    else
-                    {
-                        InitializeDefault();
-                    }
+                    InitializeDefault();
                 }
-
+                else
+                {
+                    Rehydrate();
+                }
             }
         }
 
@@ -196,6 +175,34 @@ namespace GameFramework
             startTime = TimeSpan.FromSeconds(90);
             Spawner missileSpawner = CreateSpawner(PowerupType.Rocket, missileTimer, (float)startTime.TotalMilliseconds);
             Spawners.Add(missileSpawner);
+        }
+
+        private void Rehydrate()
+        {
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (storage.FileExists(STORAGE_FILE_NAME))
+                {
+                    using (IsolatedStorageFileStream stream = storage.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                    {
+                        XDocument doc = XDocument.Load(stream);
+                        XElement root = doc.Root;
+
+                        // Rehydrate powerups.
+                        XElement xPowerups = root.Element("Powerups");
+                        RehydratePowerups(xPowerups);
+
+                        XElement xSpawners = root.Element("Spawners");
+                        RehydrateSpawners(xSpawners);
+                    }
+
+                    storage.DeleteFile(STORAGE_FILE_NAME);
+                }
+                else
+                {
+                    InitializeDefault();
+                }
+            }
         }
 
         private void RehydratePowerups(XElement powerups)
