@@ -6,11 +6,11 @@ using GameInterfaceFramework;
 
 namespace BalloonStrike.Views
 {
-    public class AchievementsView : View
+    public class HighscoreView : View
     {
         private SpriteFont _font;
 
-        public AchievementsView(bool rehydrated = false)
+        public HighscoreView(bool rehydrated = false)
             :base(rehydrated)
         {
             Transition.TransitionOnTime = TimeSpan.FromSeconds(1);

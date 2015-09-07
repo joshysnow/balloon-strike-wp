@@ -113,7 +113,7 @@ namespace BalloonStrike.Views
 
         private void HighscoresTappedHandler(Button button)
         {
-            LoadView.Load(ViewManager, 1, new AchievementsView());
+            LoadView.Load(ViewManager, 1, new HighscoreView());
         }
 
         private void InfoTappedHandler(Button button)
