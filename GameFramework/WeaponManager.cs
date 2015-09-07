@@ -46,11 +46,7 @@ namespace GameFramework
 
         public void Activate(bool instancePreserved, bool newGame)
         {
-            if (instancePreserved)
-            {
-                // Do nothing, everything is still in memory.
-            }
-            else
+            if (!instancePreserved)
             {
                 // Load weapon resources
                 _weaponFactory.Initialize();

@@ -26,16 +26,31 @@ namespace BalloonStrike.Views
             Transition.TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
             ViewGestures = GestureType.None;
+
+            IsSerializable = true;
         }
 
         public override void Activate(bool instancePreserved)
         {
             if (!instancePreserved)
             {
+                if (Rehydrated)
+                {
+                    // Make sure the old score value are present.
+                    Player.Instance.Activate(instancePreserved, false);
+                }
+
                 LoadResources();
                 SetupButtons();
                 SetupScore();
             }
+        }
+
+        public override void Deactivate()
+        {
+            Player.Instance.Deactivate();
+
+            base.Deactivate();
         }
 
         public override void Update(GameTime gameTime, bool covered)

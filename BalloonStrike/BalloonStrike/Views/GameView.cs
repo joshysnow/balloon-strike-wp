@@ -49,8 +49,7 @@ namespace BalloonStrike.Views
 
                 bool newGame = !Rehydrated;
 
-                Player player = Player.Instance;
-                player.Activate(instancePreserved, newGame);
+                Player.Instance.Activate(instancePreserved, newGame);
 
                 _sun = new Sun();
                 _sun.Activate(instancePreserved, newGame);
