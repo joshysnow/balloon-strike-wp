@@ -74,7 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PhoneProperties.cs" />
     <Compile Include="ViewFactory.cs" />
-    <Compile Include="Views\AchievementsView.cs" />
+    <Compile Include="Views\HighscoreView.cs" />
     <Compile Include="Views\InfoView.cs" />
     <Compile Include="Views\BackgroundView.cs" />
     <Compile Include="Views\GameOverView.cs" />
